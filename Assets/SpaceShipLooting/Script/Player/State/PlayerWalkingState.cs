@@ -13,18 +13,17 @@ public class PlayerWalkingState : IPlayerState
         if (manager.IsStealthMode)
         {
             manager.SwitchState(new PlayerStealthState());
-            return;
+        }
+        
+        if (manager.IsrunningMode)
+        {
+            manager.SwitchState(new PlayerRuningState());
         }
 
         if (manager.MoveInput.magnitude <= 0.1f)
         {
             manager.SwitchState(new PlayerIdleState());
         }
-        else if (manager.IsrunningMode)
-        {
-            manager.SwitchState(new PlayerRuningState());
-        }
-
     }
 
     public void ExitState(PlayerStateManager manager)

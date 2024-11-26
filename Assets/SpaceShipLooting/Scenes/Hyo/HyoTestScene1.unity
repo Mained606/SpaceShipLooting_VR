@@ -1131,10 +1131,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 252939846077909570, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
-      propertyPath: runningButton.m_Action.m_Name
-      value: Running Button
-      objectReference: {fileID: 0}
     - target: {fileID: 1869893185652292132, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
