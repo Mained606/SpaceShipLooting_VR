@@ -13,10 +13,10 @@ public class PlayerStateManager : MonoBehaviour
     public Vector2 MoveInput => moveProvider.leftHandMoveInput.ReadValue();
 
     // 스텔스 모드 활성화 여부 (true: 스텔스 모드, false: 일반 모드)
-    public bool IsStealthMode { get; private set; } = false;
+    public bool IsStealthMode { get; set; } = false;
 
     // 뛰기 모드 활성화 여부 
-    public bool IsrunningMode { get; private set; } = false;
+    public bool IsrunningMode { get;  set; } = false;
 
     // 현재 플레이어 상태
     private IPlayerState currentState;
@@ -64,8 +64,6 @@ public class PlayerStateManager : MonoBehaviour
             playerInputHandler.OnStealthToggle.AddListener(ToggleStealthMode);
             playerInputHandler.OnRuuningToggle.AddListener(ToggleRunningMode);
             // 다른 기능 추가시 다른 이벤트 리스너 추가 가능...
-
-
         }
     }
 
@@ -78,7 +76,6 @@ public class PlayerStateManager : MonoBehaviour
             playerInputHandler.OnStealthToggle.RemoveListener(ToggleStealthMode);
             playerInputHandler.OnRuuningToggle.RemoveListener(ToggleRunningMode);
         }
-        
     }
 
     private void Update()
@@ -131,9 +128,5 @@ public class PlayerStateManager : MonoBehaviour
         {
             SwitchState(new PlayerIdleState());
         }
-
-
-
     }
-
 }

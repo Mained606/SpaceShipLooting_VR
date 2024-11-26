@@ -13,18 +13,18 @@ public class PlayerStealthState : IPlayerState
 
         moveProvider = manager.moveProvider;
 
-        moveProvider.GetComponent<DynamicMoveProvider>();
-
         beforePlayerSpeed = moveProvider.moveSpeed;
         moveProvider.moveSpeed = StealthSpeed;
     }
 
     public void UpdateState(PlayerStateManager manager)
     {
-       /* if (manager.MoveInput.magnitude <= 0.1f)
+        if (manager.IsrunningMode)
         {
-            manager.SwitchState(new PlayerIdleState());
-        }*/
+            manager.SwitchState(new PlayerRuningState());
+            return;
+        }
+        // 스텔스 모드 해제되면 Idle 상태로 전환
         if (!manager.IsStealthMode)
         {
             manager.SwitchState(new PlayerIdleState());
@@ -33,8 +33,9 @@ public class PlayerStealthState : IPlayerState
 
     public void ExitState(PlayerStateManager manager)
     {
-        // 스텔스 해제 
-        Debug.Log("Exiting Stealth State");
+        manager.IsStealthMode = false;
+
         moveProvider.moveSpeed = beforePlayerSpeed;
+        Debug.Log("Exiting Stealth State");
     }
 }

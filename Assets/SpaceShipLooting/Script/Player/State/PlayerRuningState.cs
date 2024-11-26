@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -11,8 +12,6 @@ public class PlayerRuningState : IPlayerState
     {
         moveProvider = manager.moveProvider;
 
-        moveProvider.GetComponent<DynamicMoveProvider>();
-
         beforePlayerSpeed = moveProvider.moveSpeed;
         moveProvider.moveSpeed = runningSpeed;
 
@@ -25,14 +24,9 @@ public class PlayerRuningState : IPlayerState
         if (manager.IsStealthMode)
         {
             manager.SwitchState(new PlayerStealthState());
-            return;
         }
 
-       /* if (manager.MoveInput.magnitude <= 0.1f)
-        {
-            manager.SwitchState(new PlayerIdleState());
-        }*/
-        else if (!manager.IsrunningMode)
+        if (!manager.IsrunningMode)
         {
             manager.SwitchState(new PlayerIdleState());
         }
@@ -40,10 +34,8 @@ public class PlayerRuningState : IPlayerState
 
     public void ExitState(PlayerStateManager manager)
     {
-        // isrunning 해제
-        Debug.Log("Exiting Runing State");
+        manager.IsrunningMode = false;
         moveProvider.moveSpeed = beforePlayerSpeed;
+        Debug.Log("Exiting Runing State");
     }
-
-   
 }
