@@ -2394,6 +2394,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Stealth Button",
+                    "type": "Button",
+                    "id": "4a197a16-efd5-42b4-9c50-c194e8c6e069",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -2460,6 +2469,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Snap Turn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5603e50-d41a-4606-bf53-6024a5cb5ab1",
+                    "path": "<XRController>{RightHand}/{Primary2DAxisClick}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stealth Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

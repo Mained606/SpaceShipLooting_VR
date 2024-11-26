@@ -8,9 +8,9 @@ public class PlayerIdleState : IPlayerState
     }
     public void UpdateState(PlayerStateManager manager)
     {
-        if (manager.MoveInput.magnitude > 0.1f)
+        if (manager.MoveInput.magnitude >= 0.1f)
         {
-            manager.SwitchState(manager.IsStealthMode ? new PlayerStealthState() : new PlayerWalkingState());
+            manager.SwitchState(new PlayerWalkingState());
         }
     }
     public void ExitState(PlayerStateManager manager)

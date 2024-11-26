@@ -13,10 +13,6 @@ public class PlayerWalkingState : IPlayerState
         {
             manager.SwitchState(new PlayerIdleState());
         }
-        else if (manager.IsStealthMode)
-        {
-            manager.SwitchState(new PlayerStealthState());
-        }
     }
 
     public void ExitState(PlayerStateManager manager)
