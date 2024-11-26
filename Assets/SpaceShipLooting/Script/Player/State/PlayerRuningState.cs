@@ -1,31 +1,38 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
-public class PlayerStealthState : IPlayerState
+public class PlayerRuningState : IPlayerState
 {
-    [SerializeField] private DynamicMoveProvider moveProvider;
-    [SerializeField] float beforePlayerSpeed;
-    [SerializeField] float StealthSpeed = 0.5f;
+    [SerializeField]private DynamicMoveProvider moveProvider;
+    [SerializeField]float beforePlayerSpeed;
+    [SerializeField]float runningSpeed = 5f;
 
     public void EnterState(PlayerStateManager manager)
     {
-        Debug.Log("Entering Stealth State");
-
         moveProvider = manager.moveProvider;
 
         moveProvider.GetComponent<DynamicMoveProvider>();
 
         beforePlayerSpeed = moveProvider.moveSpeed;
-        moveProvider.moveSpeed = StealthSpeed;
+        moveProvider.moveSpeed = runningSpeed;
+
+        Debug.Log("Entering Runing State");
     }
 
     public void UpdateState(PlayerStateManager manager)
     {
+        // 스텔스 모드 활성화 시 바로 스텔스 상태로 전환
+        if (manager.IsStealthMode)
+        {
+            manager.SwitchState(new PlayerStealthState());
+            return;
+        }
+
        /* if (manager.MoveInput.magnitude <= 0.1f)
         {
             manager.SwitchState(new PlayerIdleState());
         }*/
-        if (!manager.IsStealthMode)
+        else if (!manager.IsrunningMode)
         {
             manager.SwitchState(new PlayerIdleState());
         }
@@ -33,8 +40,10 @@ public class PlayerStealthState : IPlayerState
 
     public void ExitState(PlayerStateManager manager)
     {
-        // 스텔스 해제 
-        Debug.Log("Exiting Stealth State");
+        // isrunning 해제
+        Debug.Log("Exiting Runing State");
         moveProvider.moveSpeed = beforePlayerSpeed;
     }
+
+   
 }

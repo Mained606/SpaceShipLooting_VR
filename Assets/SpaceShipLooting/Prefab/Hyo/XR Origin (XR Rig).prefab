@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e4e21ae346dff4eb3d722e34d052c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveProvider: {fileID: 0}
   OnStealthStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -551,7 +552,22 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -130058986136663599, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  runningButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Running Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: e54b83fb-2c25-414d-a6df-1632fdf1a2f6
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 9020136649835616265, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   OnStealthToggle:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRuuningToggle:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2079627424222388289
@@ -2768,7 +2784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
