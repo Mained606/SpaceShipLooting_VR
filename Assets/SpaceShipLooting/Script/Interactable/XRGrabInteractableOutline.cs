@@ -77,7 +77,6 @@ public class XRGrabInteractableOutline : XRGrabInteractable
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
-        base.OnSelectEntering(args);
 
         // Attach Point 셋팅
         if (args.interactorObject.transform.CompareTag("LeftHand"))
@@ -97,5 +96,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
                 objectRenderer.materials = originalMaterials;
             }
         }
+        
+        base.OnSelectEntering(args);
     }
 }
