@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 359b2cc48aa7c4f23a749d883a644ec9, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -228,7 +228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &2055891301
 Light:
   m_ObjectHideFlags: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1001 &3947525390040472542
+--- !u!1001 &5500695295164763948
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -346,7 +346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431908866558723247, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7.121464
       objectReference: {fileID: 0}
     - target: {fileID: 3431908866558723247, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -354,7 +354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431908866558723247, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -49.929985
       objectReference: {fileID: 0}
     - target: {fileID: 3431908866558723247, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -395,4 +395,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1991028515}
   - {fileID: 2055891302}
-  - {fileID: 3947525390040472542}
+  - {fileID: 5500695295164763948}
