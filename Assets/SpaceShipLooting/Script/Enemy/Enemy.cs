@@ -7,23 +7,34 @@ public class Enemy : MonoBehaviour
     public Transform target;
     private NavMeshAgent agent;
 
+    // 메테리얼
+    public Material idleMaterial;
+    public Material moveMaterial;
+    public Material chaseMaterial;
+    public Material attackMaterial;
+
+    private Renderer renderer;
+
     EnemyState currentState;
 
     private bool isPlayerInStealthMode;
 
     private float distance;
-    private float minMoveDistance = 2f;
+    [SerializeField] private float minMoveDistance = 5f;
     [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float moveSpeed = 5f;
 
     // Perception Range
     [SerializeField] private float runPerceptionRange = 15f;
     [SerializeField] private float movePerceptionRange = 10f;
     [SerializeField] private float stealthPerceptionRange = 3f;
 
+    private Vector3 movingPosition;
+
     //
     public Transform spawnPoint;
     private bool isInPatrolRange;
-    public static float patrolRange = 10f;
+    public float patrolRange = 10f;
     private Vector3 nextMovePoint;
     #endregion
 
@@ -33,6 +44,8 @@ public class Enemy : MonoBehaviour
         currentState = EnemyState.E_Idle;
         agent = GetComponent<NavMeshAgent>();
         PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
+        agent.speed = moveSpeed;
+        renderer = GetComponent<Renderer>();
     }
 
     private void Update()
@@ -43,16 +56,21 @@ public class Enemy : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.E_Idle:
+                renderer.material = idleMaterial;
+                Debug.Log("current State: E_Idle");
                 AISearching();
                 break;
 
             case EnemyState.E_Move:
+                renderer.material = moveMaterial;
                 Debug.Log("current State: E_Move");
-                AIMove();
+                AIMove(nextMovePoint);
                 AISearching();
                 break;
 
             case EnemyState.E_Chase:
+                renderer.material = chaseMaterial;
+                ChasingTarget();
                 if(distance <= attackRange)
                 {
                     SetState(EnemyState.E_Attack);
@@ -61,6 +79,7 @@ public class Enemy : MonoBehaviour
                 break;
 
             case EnemyState.E_Attack:
+                renderer.material = attackMaterial;
                 Attack();
                 break;
 
@@ -90,6 +109,7 @@ public class Enemy : MonoBehaviour
             if (distance <= runPerceptionRange)
             {
                 // 타겟 RUN 여부 파악할 필요 있음
+                SetMovePoint();
                 SetState(EnemyState.E_Move);
             }
             else if (distance <= movePerceptionRange)
@@ -139,31 +159,47 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void AIMove()
-    {
-
+    private void AIMove(Vector3 destination)
+    {   
+        float remainingDistance = Vector3.Distance(transform.position, destination);
+        //Debug.Log(remainingDistance);
+        if(remainingDistance <= 1.2f)
+        {
+            // 도착
+            Debug.Log("도착");
+            SetState(EnemyState.E_Idle);
+        }
+        else
+        {
+            Debug.Log("이동");
+            Debug.Log(destination);
+            agent.SetDestination(destination);
+        }
     }
 
     private Vector3 SetMovePoint()
     {
-        Vector2 randomXZ = new Vector2(Random.Range(0, 11), Random.Range(0, 11));
+        Vector2 randomXZ = new Vector2(Random.Range(-patrolRange, patrolRange + 1), Random.Range(-patrolRange, patrolRange + 1));
+        nextMovePoint = new Vector3(randomXZ.x, 0f, randomXZ.y);
         float moveDistance = Vector3.Distance(this.transform.position, nextMovePoint);
-        if(moveDistance <= minMoveDistance)
+        Debug.Log(Vector3.Distance(spawnPoint.position, nextMovePoint));
+        isInPatrolRange = Vector3.Distance(spawnPoint.position, nextMovePoint) < patrolRange;
+        if(moveDistance <= minMoveDistance || !isInPatrolRange)
         {
             SetMovePoint();
-            
         }
-        else
-        {
+        movingPosition = nextMovePoint;
+        return nextMovePoint;
+    }
 
-        }
-
-
-        return Vector3.zero;
+    private void ChasingTarget()
+    {
+        agent.SetDestination(target.position);
     }
 
     private void Attack()
     {
+        agent.ResetPath();
         if(distance > attackRange)
         {
             SetState(EnemyState.E_Chase);
@@ -179,7 +215,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void OnDrawGizmos()
-    { 
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, stealthPerceptionRange);
 
@@ -188,5 +224,8 @@ public class Enemy : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, runPerceptionRange);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(movingPosition, 0.2f);
     }
 }
