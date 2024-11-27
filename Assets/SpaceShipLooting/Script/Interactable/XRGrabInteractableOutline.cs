@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class XRGrabInteractableOutline : XRGrabInteractable
 {
@@ -110,13 +111,34 @@ public class XRGrabInteractableOutline : XRGrabInteractable
         base.OnSelectEntering(args);
     }
 
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntered(args);
+
+        // 소켓에 들어갈 때 레이어를 원래대로 복구
+        if (args.interactorObject is XRSocketInteractor)
+        {
+            gameObject.layer = originalLayer;
+        }
+    }
+
     protected override void OnSelectExiting(SelectExitEventArgs args)
     {
-        isGrabbed = false;
-
         // 오브젝트를 놓을 때 원래 레이어로 복구
-        gameObject.layer = originalLayer;
+        if (args.interactorObject is XRSocketInteractor)
+        {
+            // 소켓에 부착될 때도 원래 레이어로 복구
+            gameObject.layer = originalLayer;
+        }
+        else
+        {
+            // 일반적인 경우에도 원래 레이어로 복구
+            gameObject.layer = originalLayer;
+        }
+
+        isGrabbed = false;
 
         base.OnSelectExiting(args);
     }
+
 }
