@@ -22,6 +22,11 @@ public class XRGrabInteractableOutline : XRGrabInteractable
     [Tooltip("오른손 컨트롤러가 오브젝트를 잡을 때 사용할 위치.")]
     [SerializeField] private Transform rightAttachTransform;
 
+    // 레이어
+    private int originalLayer;
+
+    private bool isGrabbed = false;
+
     protected virtual void Start()
     {
         if(outlineUse)
@@ -45,7 +50,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
     {
         base.OnHoverEntered(args);
 
-        if(outlineUse)
+        if(!isGrabbed && outlineUse)
         {
             // 호버 상태에서 아웃라인 머테리얼 추가
             if (objectRenderer != null && outlineMaterial != null)
@@ -65,7 +70,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
     {
         base.OnHoverExited(args);
 
-        if(outlineUse)
+        if(!isGrabbed && outlineUse)
         {
             // 호버 상태 해제 시 원래 머테리얼로 복구
             if (objectRenderer != null && originalMaterials != null)
@@ -77,6 +82,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
+        isGrabbed = true;
 
         // Attach Point 셋팅
         if (args.interactorObject.transform.CompareTag("LeftHand"))
@@ -87,6 +93,10 @@ public class XRGrabInteractableOutline : XRGrabInteractable
         {
             attachTransform = rightAttachTransform;
         }
+
+        // 오브젝트를 잡을 때 레이어를 GrabbedObject로 변경하여 손 레이와 충돌하지 않게 설정
+        originalLayer = gameObject.layer; // 원래 레이어 저장
+        gameObject.layer = LayerMask.NameToLayer("GrabbedObject");
         
         if(outlineUse)
         {
@@ -98,5 +108,15 @@ public class XRGrabInteractableOutline : XRGrabInteractable
         }
         
         base.OnSelectEntering(args);
+    }
+
+    protected override void OnSelectExiting(SelectExitEventArgs args)
+    {
+        isGrabbed = false;
+
+        // 오브젝트를 놓을 때 원래 레이어로 복구
+        gameObject.layer = originalLayer;
+
+        base.OnSelectExiting(args);
     }
 }

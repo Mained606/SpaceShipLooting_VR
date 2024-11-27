@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class GunScript : XRGrabInteractableOutline
+public class Pistol : XRGrabInteractableOutline
 {
     #region Variables
+    [Header("Bullet Sttings")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float bulletSpeed = 20f;
+    [SerializeField] private float bulletSpeed = 30f;
 
     private IObjectPool<Bullet> pool; // 총알 객체 풀
     #endregion
@@ -45,7 +45,7 @@ public class GunScript : XRGrabInteractableOutline
         }
 
         // 발사 방향을 디버그 레이로 시각화
-        Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
+        // Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
     }
 
     // 객체 풀에서 총알을 생성하는 메서드

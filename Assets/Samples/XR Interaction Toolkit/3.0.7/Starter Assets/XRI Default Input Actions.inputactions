@@ -1323,15 +1323,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Running Button",
-                    "type": "Button",
-                    "id": "c10fcafe-8b62-47dd-8405-d78c6d220df4",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1398,17 +1389,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Snap Turn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cb2be5a7-aa9b-44e6-ace9-ba7272789736",
-                    "path": "<XRController>{LeftHand}/{Primary2DAxisClick}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Running Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -2418,16 +2398,16 @@
                 {
                     "name": "Stealth Button",
                     "type": "Button",
-                    "id": "4a197a16-efd5-42b4-9c50-c194e8c6e069",
+                    "id": "5e1da4a3-e3bb-4d4a-8cb3-df24d1dd837d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TEST Stealth Button",
+                    "name": "Running Button",
                     "type": "Button",
-                    "id": "5e1da4a3-e3bb-4d4a-8cb3-df24d1dd837d",
+                    "id": "4db7c199-0d2e-4ed8-ad8d-fe24b75e7ac7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -2503,8 +2483,8 @@
                 },
                 {
                     "name": "",
-                    "id": "a5603e50-d41a-4606-bf53-6024a5cb5ab1",
-                    "path": "<XRController>{RightHand}/{Primary2DAxisClick}",
+                    "id": "5f93c91f-316b-4622-af8d-8b7d630c4592",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -2514,12 +2494,12 @@
                 },
                 {
                     "name": "",
-                    "id": "5f93c91f-316b-4622-af8d-8b7d630c4592",
-                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "id": "7af06c46-ecdb-40ad-9010-a3a64498af61",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TEST Stealth Button",
+                    "action": "Running Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

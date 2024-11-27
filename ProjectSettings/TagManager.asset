@@ -6,14 +6,16 @@ TagManager:
   tags:
   - LeftHand
   - RightHand
+  - Enemy
+  - Weapons
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - HandRay
   - Water
   - UI
-  - 
+  - GrabbedObject
   - 
   - 
   - 

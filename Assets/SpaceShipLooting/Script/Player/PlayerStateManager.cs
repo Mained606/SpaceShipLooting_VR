@@ -26,6 +26,9 @@ public class PlayerStateManager : MonoBehaviour
 
     // 스텔스 상태 변경을 알리는 UnityEvent (외부 구독 가능)
     [HideInInspector] public UnityEvent<bool> OnStealthStateChanged = new UnityEvent<bool>();
+    // Running State 변경을 알리는 UnityEvent
+    [HideInInspector] public UnityEvent<bool> OnRunningStateChanged = new UnityEvent<bool>();
+
 
     // 싱글톤 초기화
     private void Awake()
@@ -119,6 +122,7 @@ public class PlayerStateManager : MonoBehaviour
     private void ToggleRunningMode()
     {
         IsrunningMode = !IsrunningMode;
+        OnRunningStateChanged?.Invoke(IsrunningMode);
 
         if(IsrunningMode)
         {
