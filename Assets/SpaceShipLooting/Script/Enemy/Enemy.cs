@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     public Transform target;
     private NavMeshAgent agent;
 
+    [SerializeField] private float idleTime = 2f;
+    private float timer;
+
     // 메테리얼
     public Material idleMaterial;
     public Material moveMaterial;
@@ -23,29 +26,45 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float minMoveDistance = 5f;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float moveSpeed = 5f;
+    
 
     // Perception Range
     [SerializeField] private float runPerceptionRange = 15f;
     [SerializeField] private float movePerceptionRange = 10f;
     [SerializeField] private float stealthPerceptionRange = 3f;
 
-    private Vector3 movingPosition;
-
-    //
+    // patrol
     public Transform spawnPoint;
-    private bool isInPatrolRange;
+    private Vector3 spawnPosition;
     public float patrolRange = 10f;
     private Vector3 nextMovePoint;
+
+    // chase
+    private bool isTargeting = false;
+    private float chasingTime = 1f;
+    private float chaseTimer;
+
+    // attack
+    private float attackDelay = 1f;
+    private float attackTimer;
     #endregion
 
     private void Start()
     {
-        nextMovePoint = spawnPoint.position;
-        currentState = EnemyState.E_Idle;
-        agent = GetComponent<NavMeshAgent>();
         PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
-        agent.speed = moveSpeed;
+
+        // 참조
+        agent = GetComponent<NavMeshAgent>();
         renderer = GetComponent<Renderer>();
+
+        // 초기화
+        currentState = EnemyState.E_Idle;
+        nextMovePoint = spawnPoint.position;
+        agent.speed = moveSpeed;
+        spawnPosition = spawnPoint.position;
+        timer = idleTime;
+        attackTimer = attackDelay;
+        chaseTimer = chasingTime;
     }
 
     private void Update()
@@ -70,6 +89,7 @@ public class Enemy : MonoBehaviour
 
             case EnemyState.E_Chase:
                 renderer.material = chaseMaterial;
+                agent.enabled = true;
                 ChasingTarget();
                 if(distance <= attackRange)
                 {
@@ -80,7 +100,14 @@ public class Enemy : MonoBehaviour
 
             case EnemyState.E_Attack:
                 renderer.material = attackMaterial;
+                attackTimer -= Time.deltaTime;
                 Attack();
+                if (attackTimer < 0f)
+                {
+                    attackTimer = attackDelay;
+                    SetState(EnemyState.E_Chase);
+                }
+                
                 break;
 
             case EnemyState.E_Death:
@@ -161,49 +188,56 @@ public class Enemy : MonoBehaviour
 
     private void AIMove(Vector3 destination)
     {   
-        float remainingDistance = Vector3.Distance(transform.position, destination);
-        //Debug.Log(remainingDistance);
-        if(remainingDistance <= 1.2f)
+        if(agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
         {
-            // 도착
-            Debug.Log("도착");
-            SetState(EnemyState.E_Idle);
-        }
-        else
-        {
-            Debug.Log("이동");
-            Debug.Log(destination);
-            agent.SetDestination(destination);
+            timer -= Time.deltaTime;
+            if (timer < 0f)
+            {
+                destination = SetMovePoint();
+                agent.SetDestination(destination);
+                timer = idleTime;
+            }
         }
     }
 
     private Vector3 SetMovePoint()
     {
-        Vector2 randomXZ = new Vector2(Random.Range(-patrolRange, patrolRange + 1), Random.Range(-patrolRange, patrolRange + 1));
-        nextMovePoint = new Vector3(randomXZ.x, 0f, randomXZ.y);
-        float moveDistance = Vector3.Distance(this.transform.position, nextMovePoint);
-        Debug.Log(Vector3.Distance(spawnPoint.position, nextMovePoint));
-        isInPatrolRange = Vector3.Distance(spawnPoint.position, nextMovePoint) < patrolRange;
-        if(moveDistance <= minMoveDistance || !isInPatrolRange)
+        nextMovePoint = spawnPosition + Random.insideUnitSphere * patrolRange;
+        nextMovePoint.y = spawnPosition.y;
+
+        //
+        NavMeshHit hit;
+        if(NavMesh.SamplePosition(nextMovePoint, out hit, patrolRange, NavMesh.AllAreas))
         {
-            SetMovePoint();
+            return hit.position;
         }
-        movingPosition = nextMovePoint;
-        return nextMovePoint;
+        return spawnPosition;
     }
 
     private void ChasingTarget()
     {
-        agent.SetDestination(target.position);
+        if(isTargeting == false)
+        {
+            isTargeting = true;
+            Debug.Log($"{this.gameObject.name} says 타겟 발견!");
+            SetState(EnemyState.E_Attack);
+        }
+        else
+        {
+            chaseTimer -= Time.deltaTime;
+            agent.SetDestination(target.position);
+            if (chaseTimer < 0f)
+            {
+                chaseTimer = chasingTime;
+                SetState(EnemyState.E_Attack);
+            }
+        }
+
     }
 
     private void Attack()
     {
-        agent.ResetPath();
-        if(distance > attackRange)
-        {
-            SetState(EnemyState.E_Chase);
-        }
+        agent.enabled = false;
         Debug.Log("Attack");
 
 
@@ -224,8 +258,5 @@ public class Enemy : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, runPerceptionRange);
-
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(movingPosition, 0.2f);
     }
 }
