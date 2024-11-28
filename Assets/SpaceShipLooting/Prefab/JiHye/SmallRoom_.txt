@@ -1,0 +1,7 @@
+Small Room 오브젝트
+
+1. 캐비닛 : Select
+2. Desk-Door : Select
+3. 외의 오브제트들 : Grab
+
+Beam은 끄지 않고 벽의 point light만 끄기
