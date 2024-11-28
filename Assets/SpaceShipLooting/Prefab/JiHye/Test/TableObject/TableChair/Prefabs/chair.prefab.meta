@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ec505f73967a98c48a090df01f10c44b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 26678
+  packageName: Free Furniture Set
+  packageVersion: 1.0.0
+  assetPath: Assets/FreeFurnitureSet/Prefabs/chair.prefab
+  uploadId: 44538
