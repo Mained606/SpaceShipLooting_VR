@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Locomotion;
 
 public class Destructable : MonoBehaviour
 {

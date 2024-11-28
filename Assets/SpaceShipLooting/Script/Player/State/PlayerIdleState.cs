@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class PlayerIdleState : IPlayerState
 {
+    public float Speed => PlayerStateManager.Instance.StatsConfig.walkingSpeed;
+
     public void EnterState(PlayerStateManager manager)
     {
-
-        Debug.Log("Entering Idle State");
+        Debug.Log("Entering Idle State" + Speed);
+        manager.MoveProvider.moveSpeed = Speed;
     }
     public void UpdateState(PlayerStateManager manager)
     {
@@ -17,9 +19,9 @@ public class PlayerIdleState : IPlayerState
         {
             manager.SwitchState(new PlayerWalkingState());
         }
-        else if (manager.IsrunningMode)
+        else if (manager.IsRunningMode)
         {
-            manager.SwitchState(new PlayerRuningState());
+            manager.SwitchState(new PlayerRunningState());
         }
     }
     public void ExitState(PlayerStateManager manager)

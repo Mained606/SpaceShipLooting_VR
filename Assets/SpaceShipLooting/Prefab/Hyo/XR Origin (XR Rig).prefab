@@ -341,7 +341,7 @@ MonoBehaviour:
   m_SocketSnappingRadius: 0.1
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  m_TargetBoundsSize: {x: 0.3, y: 0.3, z: 0.3}
 --- !u!1 &1468111999420029907
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,13 +684,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e4e21ae346dff4eb3d722e34d052c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveProvider: {fileID: 0}
   OnStealthStateChanged:
     m_PersistentCalls:
       m_Calls: []
   OnRunningStateChanged:
     m_PersistentCalls:
       m_Calls: []
+  statsConfig: {fileID: 11400000, guid: fbb713f868f73e7408c8762da3fe2639, type: 2}
 --- !u!114 &252939846077909570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,7 +730,7 @@ MonoBehaviour:
   OnStealthToggle:
     m_PersistentCalls:
       m_Calls: []
-  OnRuuningToggle:
+  OnRunningToggle:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1487828013621536316
@@ -1340,7 +1340,7 @@ Transform:
   m_GameObject: {fileID: 4350070798943270605}
   serializedVersion: 2
   m_LocalRotation: {x: 0.9063079, y: -0, z: -0, w: -0.42261827}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0.35}
+  m_LocalPosition: {x: 0, y: 0.30000007, z: 0.35000014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4007,6 +4007,18 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2049451034638845223, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049451034638845223, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049451034638845223, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.31
+      objectReference: {fileID: 0}
     - target: {fileID: 3329464097128430867, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.06666662
@@ -4058,6 +4070,18 @@ PrefabInstance:
     - target: {fileID: 4576316677701361526, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
       propertyPath: m_Name
       value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070538807422532058, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070538807422532058, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070538807422532058, guid: 3b9c15190118152428f9f037078f16c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.311
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

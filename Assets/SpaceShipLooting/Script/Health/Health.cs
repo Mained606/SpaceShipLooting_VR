@@ -1,9 +1,9 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
+
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;    // 최대 체력
+    [SerializeField] private float maxHealth = 100f;
     public float CurrentHealth { get; private set; }    // 현재 체력
     private bool isDeath = false;                       //죽음 체크
 

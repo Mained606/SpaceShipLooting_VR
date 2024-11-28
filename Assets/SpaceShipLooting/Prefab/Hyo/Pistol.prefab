@@ -448,7 +448,7 @@ MonoBehaviour:
   rightAttachTransform: {fileID: 5341618219176813374}
   bulletPrefab: {fileID: 7513269862128748323, guid: 711c3c5fd1bf0a8408eb7cb0308e8cd5, type: 3}
   firePoint: {fileID: 1716208446653723562}
-  bulletSpeed: 30
+  bulletSpeed: 60
 --- !u!1 &5523978604306996077
 GameObject:
   m_ObjectHideFlags: 0

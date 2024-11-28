@@ -3,10 +3,6 @@ using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class PlayerStealthState : IPlayerState
 {
-    [SerializeField] private DynamicMoveProvider moveProvider;
-    [SerializeField] float beforePlayerSpeed;
-    [SerializeField] float StealthSpeed = 0.5f;
-
     // 앉기
     private Transform cameraOffset;
     private CharacterController characterController;
@@ -21,10 +17,12 @@ public class PlayerStealthState : IPlayerState
     private float afterCameraY;
     private float afterColliderCenterY;
 
+    // 속도
+    public float Speed => PlayerStateManager.Instance.StatsConfig.stealthSpeed;
 
     public void EnterState(PlayerStateManager manager)
     {
-        Debug.Log("Entering Stealth State");
+        Debug.Log("Entering Stealth State" + Speed);
 
         if (characterController == null)
         {
@@ -47,17 +45,14 @@ public class PlayerStealthState : IPlayerState
         // 포지션 셋팅
         SetSittingPosition();
 
-        moveProvider = manager.moveProvider;
-
-        beforePlayerSpeed = moveProvider.moveSpeed;
-        moveProvider.moveSpeed = StealthSpeed;
+        manager.MoveProvider.moveSpeed = Speed;
     }
 
     public void UpdateState(PlayerStateManager manager)
     {
-        if (manager.IsrunningMode)
+        if (manager.IsRunningMode)
         {
-            manager.SwitchState(new PlayerRuningState());
+            manager.SwitchState(new PlayerRunningState());
         }
         // 스텔스 모드 해제되면 Idle 상태로 전환
         if (!manager.IsStealthMode)
@@ -71,8 +66,6 @@ public class PlayerStealthState : IPlayerState
         SetStandingPosition();
 
         manager.IsStealthMode = false;
-
-        moveProvider.moveSpeed = beforePlayerSpeed;
         Debug.Log("Exiting Stealth State");
     }
 

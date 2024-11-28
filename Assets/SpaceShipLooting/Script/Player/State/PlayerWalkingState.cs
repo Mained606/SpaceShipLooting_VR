@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class PlayerWalkingState : IPlayerState
 {
+    public float Speed => PlayerStateManager.Instance.StatsConfig.walkingSpeed;
+
     public void EnterState(PlayerStateManager manager)
     {
         Debug.Log("Entering Walking State");
+        manager.MoveProvider.moveSpeed = Speed;
     }
 
     public void UpdateState(PlayerStateManager manager)
@@ -15,9 +18,9 @@ public class PlayerWalkingState : IPlayerState
             manager.SwitchState(new PlayerStealthState());
         }
         
-        if (manager.IsrunningMode)
+        if (manager.IsRunningMode)
         {
-            manager.SwitchState(new PlayerRuningState());
+            manager.SwitchState(new PlayerRunningState());
         }
 
         if (manager.MoveInput.magnitude <= 0.1f)

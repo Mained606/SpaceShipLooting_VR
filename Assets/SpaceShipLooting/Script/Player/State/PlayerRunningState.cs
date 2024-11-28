@@ -1,21 +1,13 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
-public class PlayerRuningState : IPlayerState
+public class PlayerRunningState : IPlayerState
 {
-    [SerializeField]private DynamicMoveProvider moveProvider;
-    [SerializeField]float beforePlayerSpeed;
-    [SerializeField]float runningSpeed = 5f;
+    public float Speed => PlayerStateManager.Instance.StatsConfig.runningSpeed;
 
     public void EnterState(PlayerStateManager manager)
     {
-        moveProvider = manager.moveProvider;
-
-        beforePlayerSpeed = moveProvider.moveSpeed;
-        moveProvider.moveSpeed = runningSpeed;
-
         Debug.Log("Entering Runing State");
+        manager.MoveProvider.moveSpeed = Speed;
     }
 
     public void UpdateState(PlayerStateManager manager)
@@ -26,7 +18,7 @@ public class PlayerRuningState : IPlayerState
             manager.SwitchState(new PlayerStealthState());
         }
 
-        if (!manager.IsrunningMode)
+        if (!manager.IsRunningMode)
         {
             manager.SwitchState(new PlayerIdleState());
         }
@@ -34,8 +26,7 @@ public class PlayerRuningState : IPlayerState
 
     public void ExitState(PlayerStateManager manager)
     {
-        manager.IsrunningMode = false;
-        moveProvider.moveSpeed = beforePlayerSpeed;
+        manager.IsRunningMode = false;
         Debug.Log("Exiting Runing State");
     }
 }
