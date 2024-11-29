@@ -8,6 +8,7 @@ TagManager:
   - RightHand
   - Enemy
   - Weapons
+  - ControllLight
   layers:
   - Default
   - TransparentFX
