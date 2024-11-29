@@ -6,19 +6,19 @@ public class Enemy : MonoBehaviour
     #region Variables
     public Transform target;
     private NavMeshAgent agent;
-
-    [SerializeField] private float idleTime = 2f;
-    private float timer;
+    private Collider _collider;
+    public GameObject item;
+    private Pattern patrolPattern;
+    
 
     // 메테리얼
     public Material idleMaterial;
-    public Material moveMaterial;
     public Material chaseMaterial;
     public Material attackMaterial;
 
     private Renderer renderer;
 
-    EnemyState currentState;
+    public EnemyState currentState;
 
     private bool isPlayerInStealthMode;
 
@@ -33,11 +33,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float movePerceptionRange = 10f;
     [SerializeField] private float stealthPerceptionRange = 3f;
 
-    // patrol
-    public Transform spawnPoint;
-    private Vector3 spawnPosition;
-    public float patrolRange = 10f;
-    private Vector3 nextMovePoint;
+    // patrol (move)
+    EnemyPatrol enemyPatrol;
 
     // chase
     private bool isTargeting = false;
@@ -47,28 +44,56 @@ public class Enemy : MonoBehaviour
     // attack
     private float attackDelay = 1f;
     private float attackTimer;
+
+    // death
+    [SerializeField] private bool isDeath = false;
+    [SerializeField] private bool hasItem = false;
+
     #endregion
+
 
     private void Start()
     {
         PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
+        if(GetComponentInParent<WayPointParent>() != null)
+        {
+            patrolPattern = new WayPointParent();
+
+            
+        }
+        if (GetComponentInParent<RandomParent>() != null)
+        {
+            patrolPattern = new RandomParent();
+
+        }
+
+
 
         // 참조
         agent = GetComponent<NavMeshAgent>();
+        _collider = GetComponent<Collider>();
         renderer = GetComponent<Renderer>();
+        enemyPatrol = GetComponent<EnemyPatrol>();
 
         // 초기화
         currentState = EnemyState.E_Idle;
-        nextMovePoint = spawnPoint.position;
         agent.speed = moveSpeed;
-        spawnPosition = spawnPoint.position;
-        timer = idleTime;
         attackTimer = attackDelay;
         chaseTimer = chasingTime;
+        
+        
+        if(item != null)
+        {
+            hasItem = true;
+        }
     }
 
     private void Update()
     {
+        if (isDeath)
+            return;
+
+
         distance = Vector3.Distance(transform.position, target.position);
         Vector3 dir = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
         
@@ -81,9 +106,7 @@ public class Enemy : MonoBehaviour
                 break;
 
             case EnemyState.E_Move:
-                renderer.material = moveMaterial;
                 Debug.Log("current State: E_Move");
-                AIMove(nextMovePoint);
                 AISearching();
                 break;
 
@@ -111,6 +134,8 @@ public class Enemy : MonoBehaviour
                 break;
 
             case EnemyState.E_Death:
+                agent.enabled = false;
+                // Animation
                 break;
         }
     }
@@ -129,15 +154,14 @@ public class Enemy : MonoBehaviour
         currentState = newState;
     }
 
-     private void AISearching()
+     public void AISearching()
     {
         if (currentState == EnemyState.E_Idle)
         {
+            SetState(EnemyState.E_Move);
             if (distance <= runPerceptionRange)
             {
                 // 타겟 RUN 여부 파악할 필요 있음
-                SetMovePoint();
-                SetState(EnemyState.E_Move);
             }
             else if (distance <= movePerceptionRange)
             {
@@ -156,7 +180,7 @@ public class Enemy : MonoBehaviour
             }
             else if(distance > runPerceptionRange)
             {
-                SetState(EnemyState.E_Idle);
+                //SetState(EnemyState.E_Idle);
             }
             else
             {
@@ -186,37 +210,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void AIMove(Vector3 destination)
-    {   
-        if(agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
-        {
-            timer -= Time.deltaTime;
-            if (timer < 0f)
-            {
-                destination = SetMovePoint();
-                agent.SetDestination(destination);
-                timer = idleTime;
-            }
-        }
-    }
-
-    private Vector3 SetMovePoint()
-    {
-        nextMovePoint = spawnPosition + Random.insideUnitSphere * patrolRange;
-        nextMovePoint.y = spawnPosition.y;
-
-        //
-        NavMeshHit hit;
-        if(NavMesh.SamplePosition(nextMovePoint, out hit, patrolRange, NavMesh.AllAreas))
-        {
-            return hit.position;
-        }
-        return spawnPosition;
-    }
+   
 
     private void ChasingTarget()
     {
-        if(isTargeting == false)
+        agent.speed = moveSpeed;
+        if (isTargeting == false)
         {
             isTargeting = true;
             Debug.Log($"{this.gameObject.name} says 타겟 발견!");
@@ -243,12 +242,33 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void Die()
+    {
+        if (isDeath)
+            return;
+
+        SetState(EnemyState.E_Death);
+        isDeath = true;
+        _collider.enabled = false;
+        if (hasItem)
+        {
+            DropItem();
+        }
+        Destroy(gameObject, 1f);
+    }
+
+    private void DropItem()
+    {
+        Instantiate(item, transform.position, Quaternion.identity);
+        Debug.Log("Item dropped!");
+    }
+
     private void OnDestroy()
     {
         PlayerStateManager.Instance.OnStealthStateChanged.RemoveListener(PlayerStealthCheck);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, stealthPerceptionRange);

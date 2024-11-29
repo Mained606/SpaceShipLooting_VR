@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpawnPointGizmos : MonoBehaviour
 {
-    private float patrolRange = 10f;
+    private float patrolRange = 5f;
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
