@@ -3,7 +3,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class GrabObject : XRGrabInteractable, ISignal
+public class GrabObject : XRGrabInteractableOutline, ISignal
 {
     public UnityEvent<string> OnSignal { get; } = new UnityEvent<string>();
 
