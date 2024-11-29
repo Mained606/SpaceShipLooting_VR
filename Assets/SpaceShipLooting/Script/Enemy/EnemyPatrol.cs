@@ -22,9 +22,18 @@ public class EnemyPatrol : MonoBehaviour
     private Vector3 nextMovePoint;
     private Transform[] wayPoints;
 
+    private Vector3 dir;
+
     // timer
-    [SerializeField] private float waitingTime = 2f;
+    [SerializeField] private float waitingTime = 4f;
     private float timer;
+
+    [SerializeField] private float rotationTime = 2f;
+    private bool rotatingLeft = true;
+    private Quaternion startRotation;
+    private Quaternion targetRotation;
+
+    private string rotationTimer = "rotationTimer";
 
     // material
     private Renderer renderer;
@@ -34,6 +43,9 @@ public class EnemyPatrol : MonoBehaviour
     private NavMeshAgent agent;
     [SerializeField] private float patrolSpeed = 3.5f;
     private float navMeshSampleRange = 1f;
+    private Vector3 destination;
+
+    float angle;
     #endregion
 
     private void Awake()
@@ -54,6 +66,9 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
+        Vector3 forward = transform.forward;
+        angle = Mathf.Atan2(forward.z, forward.x) * Mathf.Rad2Deg;
+        Debug.Log($"현재 오브젝트가 바라보는 방향의 앵글: {angle}");
         switch (enemy.currentState)
         {
             case EnemyState.E_Idle:
@@ -106,7 +121,6 @@ public class EnemyPatrol : MonoBehaviour
 
     public void RandomPatrol()
     {
-        Vector3 destination;
         bool isVaildPoint = false;
         while (!isVaildPoint)
         {
@@ -119,13 +133,18 @@ public class EnemyPatrol : MonoBehaviour
                 isVaildPoint = true;
                 if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
                 {
-                    timer -= Time.deltaTime;
-                    if (timer < 0f)
-                    {
-                        agent.speed = patrolSpeed;
-                        agent.SetDestination(destination);
-                        timer = waitingTime;
-                    }
+                    TimerManager.AddTimer(rotationTimer, rotationTime);
+
+                    startRotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
+                    LookAround(-90f, 90f);
+
+                    //timer -= Time.deltaTime;
+                    //if (timer < 0f)
+                    //{
+                    //    agent.speed = patrolSpeed;
+                    //    agent.SetDestination(destination);
+                    //    timer = waitingTime;
+                    //}
                 }
             }
         }
@@ -136,41 +155,46 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
         {
+            //startRotation = transform.rotation;
+            TimerManager.AddTimer(rotationTimer, rotationTime);
 
-            if(currentCount == wayPoints.Length)
+            LookAround(-45f, 45f);
+
+            if (currentCount == wayPoints.Length)
             {
                 currentCount = 0;
             }
-            timer -= Time.deltaTime;
-            LookAround(timer);
-            if (timer < 0f)
-            {
 
-                Debug.LogWarning("time: " + timer.ToString());
-                agent.speed = patrolSpeed;
-                agent.SetDestination(wayPoints[currentCount].position);
-                timer = waitingTime;
-                currentCount++;
-            }
+            //timer -= Time.deltaTime;
+            //LookAround(timer);
+            //if (timer < 0f)
+            //{
+
+            //    Debug.LogWarning("time: " + timer.ToString());
+            //    agent.speed = patrolSpeed;
+            //    agent.SetDestination(wayPoints[currentCount].position);
+            //    timer = waitingTime;
+            //    currentCount++;
+            //}
         }
     }
 
-    void LookAround(float timer)
-    {
-        float rotate = 1f;
+    //void LookAround(float timer)
+    //{
+    //    float rotate = 1f;
 
 
-        transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y - rotate, 0f);
-        if (transform.localEulerAngles == new Vector3(0f, -45f, 0f))
-        {
-            transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y + rotate, 0f);
-        }
-        else if(transform.localEulerAngles == new Vector3(0f, 45f, 0f))
-        {
-            transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y - rotate, 0f);
-        }
+    //    transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y - rotate, 0f);
+    //    if (transform.localEulerAngles == new Vector3(0f, -45f, 0f))
+    //    {
+    //        transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y + rotate, 0f);
+    //    }
+    //    else if(transform.localEulerAngles == new Vector3(0f, 45f, 0f))
+    //    {
+    //        transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y - rotate, 0f);
+    //    }
 
-    }
+    //}
 
     private void OnDrawGizmosSelected()
     {
@@ -199,6 +223,58 @@ public class EnemyPatrol : MonoBehaviour
             Debug.Log("no wayPoints");
         }
 
+
+    }
+
+
+
+    void LookAround(float leftAngle, float rightAngle)
+    {
+        
+        if (!TimerManager.IsContainsKey(rotationTimer))
+        {
+            TimerManager.AddTimer(rotationTimer, rotationTime);
+        }
+        else
+        {
+
+        }
+
+        float currentTime = TimerManager.currentTime(rotationTimer);
+
+        if (currentTime > 0)
+        {
+            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, (rotationTime - currentTime) / rotationTime);
+        }
+        else
+        {
+            SetTargetRotation(leftAngle, rightAngle);
+        }
+    }
+
+    void SetTargetRotation(float leftAngle, float rightAngle)
+    {
+        rotatingLeft = !rotatingLeft;
+
+        if (rotatingLeft) // 좌측으로 회전
+        {
+            startRotation = transform.rotation;
+            targetRotation = Quaternion.LookRotation(
+                Quaternion.AngleAxis(leftAngle, Vector3.up) * transform.forward
+            );
+            return;
+        }
+        else // 우측으로 회전
+        {
+            //startRotation = transform.rotation;
+            //targetRotation = Quaternion.LookRotation(
+            //    Quaternion.AngleAxis(rightAngle, Vector3.up) * transform.forward
+            //);
+            //return;
+            agent.SetDestination(destination);
+        }
+
+        
 
     }
 }

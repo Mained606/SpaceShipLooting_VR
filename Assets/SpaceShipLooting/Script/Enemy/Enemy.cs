@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     public EnemyState currentState;
 
     private bool isPlayerInStealthMode;
+    private bool isPlayerRunnning;
 
     private float distance;
     [SerializeField] private float minMoveDistance = 5f;
