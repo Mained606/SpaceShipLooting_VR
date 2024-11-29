@@ -7,19 +7,23 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
-    // 스텔스 버튼 입력 액션 (Unity의 New Input System 사용)
+    // 버튼 입력 액션 (Unity의 New Input System 사용)
     public InputActionProperty stealthButton;
     public InputActionProperty runningButton;
+    public InputActionProperty NightVisionButton;
 
     // 스텔스 모드 토글 이벤트 (UnityEvent를 통해 외부 구독 가능)
     [HideInInspector] public UnityEvent OnStealthToggle = new UnityEvent();
     [HideInInspector] public UnityEvent OnRunningToggle = new UnityEvent();
+    [HideInInspector] public UnityEvent OnNightVisionToggle = new UnityEvent();
+
 
     private void Update()
     {
         // 스텔스 모드 입력받기
         HandleStealthInput();
         HandleRunningInput();
+        HandleNightVisionInput();
     }
 
     private void HandleStealthInput()
@@ -36,6 +40,15 @@ public class PlayerInputHandler : MonoBehaviour
         if(runningButton.action.WasPressedThisFrame())
         {
             OnRunningToggle?.Invoke();
+        }
+    }
+
+    private void HandleNightVisionInput()
+    {
+        if (NightVisionButton.action.WasPressedThisFrame())
+        {
+            // 스텔스 토글 이벤트 호출
+            OnNightVisionToggle?.Invoke();
         }
     }
 }
