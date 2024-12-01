@@ -39,8 +39,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Basket
+  - PuzzleCube
   - 
   m_SortingLayers:
   - name: Default
