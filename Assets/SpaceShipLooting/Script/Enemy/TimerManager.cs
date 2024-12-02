@@ -1,12 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
     public static TimerManager Instance{ get; private set; }
-    private Dictionary<string, float> timers = new Dictionary<string, float>();
 
-    private string rotationTimer = "rotationTimer";
+    private Dictionary<ITimer, Coroutine> runningTimers = new Dictionary<ITimer, Coroutine>();
+
 
     private void Awake()
     {
@@ -20,49 +21,44 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void StartTimer(ITimer timer, bool autoStart = true)
     {
-        UpdateTimer();
-    }
-
-    public static void AddTimer(string timerName, float time)
-    {
-
-        if (!Instance.timers.ContainsKey(timerName))
+        if (runningTimers.ContainsKey(timer))
         {
-            Instance.timers.Add(timerName, time);
-            Debug.Log("timer 생성");
+            StopTimer(timer);
+        }
+
+        if (autoStart)
+        {
+            Coroutine timerCoroutine = StartCoroutine(TimerRoutine(timer));
+            runningTimers[timer] = timerCoroutine;
         }
     }
 
-    void UpdateTimer()
+    private IEnumerator TimerRoutine(ITimer timer)
     {
-        if (timers.Count > 0)
+        BasicTimer basicTimer = timer as BasicTimer;
+        basicTimer.Start();
+
+        while(!timer.IsCompleted)
         {
-            var keys = new List<string>(timers.Keys);
-            foreach (string key in keys)
+            if(basicTimer.IsRunning && !basicTimer.IsPaused)
             {
-                if (timers[key] > 0)
-                {
-                    timers[key] -= Time.deltaTime;
-                }
-                else
-                {
-                    timers.Remove(key);
-                    Debug.Log("Remove Timer");
-                }
+                basicTimer.AddTime(Time.deltaTime);
             }
+            yield return null;
         }
 
+        runningTimers.Remove(timer);
     }
 
-    public static float currentTime(string timerName)
+    public void StopTimer(ITimer timer)
     {
-        return Instance.timers[timerName];
-    }
-
-    public static bool IsContainsKey(string timerName)
-    {
-        return Instance.timers.ContainsKey(timerName);
+        if (runningTimers.TryGetValue(timer, out Coroutine timerCoroutine))
+        {
+            StopCoroutine(timerCoroutine);
+            runningTimers.Remove(timer);
+            timer.Stop();
+        }
     }
 }
