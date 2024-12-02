@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352774488904384566}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.55, z: -0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1665117766556498024}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: -90}
 --- !u!1 &858791343143498535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,7 +1606,7 @@ GameObject:
   - component: {fileID: 9197056026287437165}
   - component: {fileID: 1771600224571170694}
   - component: {fileID: 9103450363037835365}
-  - component: {fileID: 5192596856500094204}
+  - component: {fileID: 2324412376128346964}
   m_Layer: 2
   m_Name: Back Socket
   m_TagString: Untagged
@@ -1623,7 +1623,7 @@ Transform:
   m_GameObject: {fileID: 3540618439112926829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -0.25}
+  m_LocalPosition: {x: 0, y: 1.617, z: -0.25}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1704,7 +1704,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5192596856500094204
+--- !u!114 &2324412376128346964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1713,12 +1713,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3540618439112926829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Script: {fileID: 11500000, guid: d9c95b9b3e010f848a97bb7fee9038df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 6
+    m_Bits: 2
   m_Handedness: 0
   m_AttachTransform: {fileID: 7400628133688598621}
   m_KeepSelectedTargetValid: 1
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_InteractableHoverMeshMaterial: {fileID: 0}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
-  m_InteractableHoverScale: 1
+  m_InteractableHoverScale: 0.5
   m_RecycleDelayTime: 1
   m_HoverSocketSnapping: 0
   m_SocketSnappingRadius: 0.1

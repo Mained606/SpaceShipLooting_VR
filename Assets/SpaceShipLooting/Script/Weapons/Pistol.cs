@@ -11,12 +11,13 @@ public class Pistol : XRGrabInteractableOutline
     [SerializeField] private float bulletSpeed = 30f;
 
     private IObjectPool<Bullet> pool; // 총알 객체 풀
+
+    [SerializeField] private Animator animator;
     #endregion
 
     protected override void Awake()
     {
         base.Awake();
-
         pool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, maxSize: 20);
 
     }
@@ -25,6 +26,7 @@ public class Pistol : XRGrabInteractableOutline
     {
         base.OnActivated(args);
         Fire(args);
+        animator.SetTrigger("Shoot");
     }
 
     // 총 발사 메서드

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Weapons
   - ControllLight
+  - Backpack
   layers:
   - Default
   - TransparentFX
