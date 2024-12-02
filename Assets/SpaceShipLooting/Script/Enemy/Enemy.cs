@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private Collider _collider;
     public GameObject item;
     private Pattern patrolPattern;
+    private Health health;
     
 
     // 메테리얼
@@ -21,7 +22,7 @@ public class Enemy : MonoBehaviour
     public EnemyState currentState;
 
     private bool isPlayerInStealthMode;
-    private bool isPlayerRunnning;
+    [SerializeField] private bool isPlayerRunnning = true;
 
     private float distance;
     [SerializeField] private float minMoveDistance = 5f;
@@ -58,30 +59,32 @@ public class Enemy : MonoBehaviour
         PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
         if(GetComponentInParent<WayPointParent>() != null)
         {
+            //Debug.Log("GetComponentInParent WayPointParent");
             patrolPattern = new WayPointParent();
-
-            
         }
-        if (GetComponentInParent<RandomParent>() != null)
+        else if (GetComponentInParent<RandomParent>() != null)
         {
+            //Debug.Log("GetComponentInParent RandomParent");
             patrolPattern = new RandomParent();
-
         }
-
-
+        else if (GetComponentInParent<NoneParent>() != null)
+        {
+            //Debug.Log("GetComponentInParent NoneParent");
+            patrolPattern = new NoneParent();
+        }
 
         // 참조
         agent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
         renderer = GetComponent<Renderer>();
         enemyPatrol = GetComponent<EnemyPatrol>();
+        health = GetComponent<Health>();
 
         // 초기화
         currentState = EnemyState.E_Idle;
         agent.speed = moveSpeed;
         attackTimer = attackDelay;
         chaseTimer = chasingTime;
-        
         
         if(item != null)
         {
@@ -148,6 +151,12 @@ public class Enemy : MonoBehaviour
         Debug.Log("PlayerStealthCheck : " + isStealth);
     }
 
+    private void PlayerRunningCheck(bool isRunning)
+    {
+        isPlayerRunnning = isRunning;
+        Debug.Log("Player Running");
+    }
+
     private void SetState(EnemyState newState)
     {
         if (newState == currentState) return;
@@ -160,22 +169,18 @@ public class Enemy : MonoBehaviour
         if (currentState == EnemyState.E_Idle)
         {
             SetState(EnemyState.E_Move);
-            if (distance <= runPerceptionRange)
-            {
-                // 타겟 RUN 여부 파악할 필요 있음
-            }
-            else if (distance <= movePerceptionRange)
-            {
-                SetState(EnemyState.E_Chase);
-            }
-            else
-            {
-                return;
-            }
         }
         else if(currentState == EnemyState.E_Move)
         {
-            if(distance <= movePerceptionRange)
+            if (distance <= runPerceptionRange && distance > movePerceptionRange)
+            {
+                if (isPlayerRunnning == true)   // Player Running Check
+                {
+                    Debug.Log("Player Running Perception");
+                    SetState(EnemyState.E_Chase);
+                }
+            }
+            if (distance <= movePerceptionRange)
             {
                 targetStealthCheck();       // 스텔스 검사
             }

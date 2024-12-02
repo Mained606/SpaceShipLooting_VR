@@ -19,10 +19,17 @@ public class SpawnerType : MonoBehaviour
         if(wayPoints == null || wayPoints.Length == 0)
         {
             currentSpawnerType = SpawnType.RandomPatrol;
+            Debug.Log("SpawnType : Random");
         }
-        else
+        else if(wayPoints != null && wayPoints.Length >= 2)
         {
+            Debug.Log("SpawnType : WayPoint");
             currentSpawnerType = SpawnType.WayPointPatrol;
+        }
+        else if(wayPoints != null && wayPoints.Length == 1)
+        {
+            Debug.Log("SpawnType : Normal");
+            currentSpawnerType = SpawnType.normal;
         }
 
         if(transform.childCount > 0)
@@ -43,6 +50,14 @@ public class SpawnerType : MonoBehaviour
 
                     currentEnemies[i].SetSpawnType(currentSpawnerType, wayPoints);
                     i++;
+                }
+            }
+            else if(currentSpawnerType == SpawnType.RandomPatrol || currentSpawnerType == SpawnType.normal)
+            {
+                for(int i =1; i < transform.childCount; i++)
+                {
+                    currentEnemies[i] = transform.GetChild(i).GetComponent<EnemyPatrol>();
+                    currentEnemies[i].SetSpawnType(currentSpawnerType, wayPoints);
                 }
             }
         }

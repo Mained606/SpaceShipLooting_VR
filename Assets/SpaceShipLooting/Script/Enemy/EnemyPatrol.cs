@@ -8,12 +8,13 @@ public class EnemyPatrol : MonoBehaviour
     public enum PatrolType
     {
         Circle,
-        Rectangle
+        Rectangle,
+        None
     }
 
     #region Variables
     private Enemy enemy;
-    SpawnType spawnType;
+    [SerializeField] SpawnType spawnType;
 
     //
     public PatrolType patrolShape = PatrolType.Circle;
@@ -73,7 +74,6 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("rotationTimer: " + rotationTimer.RemainingPercent);
         switch (enemy.currentState)
         {
             case EnemyState.E_Idle:
@@ -91,13 +91,17 @@ public class EnemyPatrol : MonoBehaviour
                 }
                 else
                 {
-                    if (spawnType == SpawnType.normal)
+                    if (spawnType == SpawnType.RandomPatrol)
                     {
                         RandomPatrol();
                     }
-                    else
+                    else if(spawnType == SpawnType.WayPointPatrol)
                     {
                         WayPointPatrol();
+                    }
+                    else if(spawnType == SpawnType.normal)
+                    {
+                        NonePatrol();
                     }
                 }
                 break;
@@ -240,6 +244,11 @@ public class EnemyPatrol : MonoBehaviour
         //}
     }
 
+    public void NonePatrol()
+    {
+        // waiting player
+    }
+
     public void SetSpawnType(SpawnType spawnerType, Transform[] gob)
     {
         spawnType = spawnerType;
@@ -259,7 +268,6 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (rotationTimer.IsRunning)
         {
-            Debug.Log("IsRunning");
             transform.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
         }
         else
@@ -284,13 +292,13 @@ public class EnemyPatrol : MonoBehaviour
                     rotatingLeft = true;
                     agent.enabled = true;
 
-                    if (spawnType == SpawnType.normal)
+                    if (spawnType == SpawnType.RandomPatrol)
                     {
                         Debug.Log("랜덤 이동 시작");
                         agent.speed = patrolSpeed;
                         agent.SetDestination(destination);
                     }
-                    else
+                    else if(spawnType == SpawnType.WayPointPatrol)
                     {
                         Debug.Log("웨이포인트 이동 시작");
                         agent.speed = patrolSpeed;
