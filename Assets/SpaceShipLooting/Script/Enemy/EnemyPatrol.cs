@@ -20,7 +20,7 @@ public class EnemyPatrol : MonoBehaviour
     public PatrolType patrolShape = PatrolType.Circle;
     [SerializeField] private float circlePatrolRange = 10f;
     [SerializeField] private Vector2 rectanglePatrolRange = new Vector2(5f, 5f);
-    public Transform spawnPoint;
+    //public Transform spawnPoint;
     private Vector3 spawnPosition;
     private Vector3 nextMovePoint;
     private Transform[] wayPoints;
@@ -66,8 +66,8 @@ public class EnemyPatrol : MonoBehaviour
         enemy = GetComponent<Enemy>();
         renderer = GetComponent<Renderer>();
 
-        nextMovePoint = spawnPoint.position;
-        spawnPosition = spawnPoint.position;
+        nextMovePoint = transform.position;
+        spawnPosition = transform.position;
         timer = waitingTime;
         rotationTimer = new BasicTimer(rotationTime);
     }
@@ -320,16 +320,19 @@ public class EnemyPatrol : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
+        if (spawnType == SpawnType.RandomPatrol)
+        {
+            Gizmos.color = Color.green;
 
-        if(patrolShape == PatrolType.Circle)
-        {
-            Gizmos.DrawWireSphere(spawnPoint.position, circlePatrolRange);
-        }
-        else if(patrolShape == PatrolType.Rectangle)
-        {
-            Vector3 size = new Vector3(rectanglePatrolRange.x, 0f, rectanglePatrolRange.y);
-            Gizmos.DrawWireCube(spawnPoint.position, size);
+            if (patrolShape == PatrolType.Circle)
+            {
+                Gizmos.DrawWireSphere(transform.position, circlePatrolRange);
+            }
+            else if (patrolShape == PatrolType.Rectangle)
+            {
+                Vector3 size = new Vector3(rectanglePatrolRange.x, 0f, rectanglePatrolRange.y);
+                Gizmos.DrawWireCube(transform.position, size);
+            }
         }
     }
 }

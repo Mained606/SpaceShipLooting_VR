@@ -2,8 +2,8 @@ using UnityEngine;
 
 public enum SpawnType
 {
-    WayPointPatrol,
     RandomPatrol,
+    WayPointPatrol,
     normal
 }
 
