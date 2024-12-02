@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,12 +8,13 @@ public class EnemyPatrol : MonoBehaviour
     public enum PatrolType
     {
         Circle,
-        Rectangle
+        Rectangle,
+        None
     }
 
     #region Variables
     private Enemy enemy;
-    SpawnType spawnType;
+    [SerializeField] SpawnType spawnType;
 
     //
     public PatrolType patrolShape = PatrolType.Circle;
@@ -25,16 +28,17 @@ public class EnemyPatrol : MonoBehaviour
     private Vector3 dir;
 
     // timer
-    [SerializeField] private float waitingTime = 4f;
-    private float timer;
 
     [SerializeField] private float rotationTime = 2f;
     private bool rotatingLeft = true;
+    [SerializeField] private bool isLookAround = false;
     private Quaternion startRotation;
     private Quaternion targetRotation;
 
-    private string rotationTimer = "rotationTimer";
-
+    [SerializeField] private float waitingTime = 4f;
+    private BasicTimer rotationTimer;
+    private float timer;
+    [SerializeField] private float rotationAngle = 45f;
     // material
     private Renderer renderer;
     public Material moveMaterial;
@@ -44,6 +48,9 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private float patrolSpeed = 3.5f;
     private float navMeshSampleRange = 1f;
     private Vector3 destination;
+
+    [SerializeField] private bool isInterActEvent = false;
+    [SerializeField] private InterActEventData interActEventData;
 
     float angle;
     #endregion
@@ -62,13 +69,11 @@ public class EnemyPatrol : MonoBehaviour
         nextMovePoint = spawnPoint.position;
         spawnPosition = spawnPoint.position;
         timer = waitingTime;
+        rotationTimer = new BasicTimer(rotationTime);
     }
 
     private void Update()
     {
-        Vector3 forward = transform.forward;
-        angle = Mathf.Atan2(forward.z, forward.x) * Mathf.Rad2Deg;
-        Debug.Log($"현재 오브젝트가 바라보는 방향의 앵글: {angle}");
         switch (enemy.currentState)
         {
             case EnemyState.E_Idle:
@@ -76,13 +81,28 @@ public class EnemyPatrol : MonoBehaviour
 
             case EnemyState.E_Move:
                 renderer.material = moveMaterial;
-                if(spawnType == SpawnType.normal)
+                if (isInterActEvent)
                 {
-                    RandomPatrol();
+                    InvastigateTarget(interActEventData);
+                }
+                if (isLookAround)
+                {
+                    LookAround(rotationAngle);
                 }
                 else
                 {
-                    WayPointPatrol();
+                    if (spawnType == SpawnType.RandomPatrol)
+                    {
+                        RandomPatrol();
+                    }
+                    else if(spawnType == SpawnType.WayPointPatrol)
+                    {
+                        WayPointPatrol();
+                    }
+                    else if(spawnType == SpawnType.normal)
+                    {
+                        NonePatrol();
+                    }
                 }
                 break;
 
@@ -96,6 +116,59 @@ public class EnemyPatrol : MonoBehaviour
                 break;
         }
             
+    }
+
+    Vector3 preClossTarget = Vector3.zero;
+
+    private void InvastigateTarget(InterActEventData interActEventData)
+    {
+        // 1. 예외 처리: 유효하지 않은 데이터
+        if (interActEventData.interActPosition == null || interActEventData.interActPosition.Count == 0)
+        {
+            Debug.LogWarning("interActEventData가 없거나 포지션 리스트가 없습니다.");
+            return;
+        }
+
+        // 2. 에이전트 활성화
+        if (!agent.enabled) agent.enabled = true;
+
+        // 3. 기존 목표지점 도달 여부 확인
+        if (preClossTarget != Vector3.zero)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+            {
+                // 목표에 도달한 경우
+                isInterActEvent = false;
+                agent.enabled = false;
+                preClossTarget = Vector3.zero;
+                return;
+            }
+
+            // 목표지점으로 계속 이동
+            agent.SetDestination(preClossTarget);
+            return;
+        }
+
+        // 4. 가장 가까운 위치 계산 및 설정
+        Vector3 closestPosition = Vector3.zero;
+        float closestDistance = float.MaxValue;
+
+        foreach (Transform position in interActEventData.interActPosition)
+        {
+            float distance = Vector3.Distance(agent.transform.position, position.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestPosition = position.position;
+            }
+        }
+
+        Debug.LogWarning("이벤트 근거리 : " + closestPosition);
+
+        // 5. 새로운 목표지점 설정
+        preClossTarget = closestPosition;
+        agent.SetDestination(closestPosition);
     }
 
     private Vector3 GetCircleMovePoint()
@@ -127,16 +200,15 @@ public class EnemyPatrol : MonoBehaviour
             destination = patrolShape == PatrolType.Circle
                 ? GetCircleMovePoint()
                 : GetRectangleMovePoint();
+            agent.enabled = true;
 
             if(NavMesh.SamplePosition(destination, out NavMeshHit hit, navMeshSampleRange, NavMesh.AllAreas))
             {
                 isVaildPoint = true;
                 if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
                 {
-                    TimerManager.AddTimer(rotationTimer, rotationTime);
-
-                    startRotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
-                    LookAround(-90f, 90f);
+                    isLookAround = true;
+                    agent.enabled = false;
 
                     //timer -= Time.deltaTime;
                     //if (timer < 0f)
@@ -153,48 +225,98 @@ public class EnemyPatrol : MonoBehaviour
 
     public void WayPointPatrol()
     {
-        if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+        if (!isLookAround && agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
         {
-            //startRotation = transform.rotation;
-            TimerManager.AddTimer(rotationTimer, rotationTime);
+            isLookAround = true;
+            agent.enabled = false;
+        }
 
-            LookAround(-45f, 45f);
+        //timer -= Time.deltaTime;
+        //LookAround(timer);
+        //if (timer < 0f)
+        //{
 
-            if (currentCount == wayPoints.Length)
-            {
-                currentCount = 0;
-            }
+        //    Debug.LogWarning("time: " + timer.ToString());
+        //    agent.speed = patrolSpeed;
+        //    agent.SetDestination(wayPoints[currentCount].position);
+        //    timer = waitingTime;
+        //    currentCount++;
+        //}
+    }
 
-            //timer -= Time.deltaTime;
-            //LookAround(timer);
-            //if (timer < 0f)
-            //{
+    public void NonePatrol()
+    {
+        // waiting player
+    }
 
-            //    Debug.LogWarning("time: " + timer.ToString());
-            //    agent.speed = patrolSpeed;
-            //    agent.SetDestination(wayPoints[currentCount].position);
-            //    timer = waitingTime;
-            //    currentCount++;
-            //}
+    public void SetSpawnType(SpawnType spawnerType, Transform[] gob)
+    {
+        spawnType = spawnerType;
+        if (gob != null && gob.Length > 0)
+        {
+            wayPoints = gob;
+        }
+        else
+        {
+            Debug.Log("no wayPoints");
         }
     }
 
-    //void LookAround(float timer)
-    //{
-    //    float rotate = 1f;
+    bool turnCountOk = false;
 
+    void LookAround(float Angle)
+    {
+        if (rotationTimer.IsRunning)
+        {
+            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
+        }
+        else
+        {
+            TimerManager.Instance.StartTimer(rotationTimer);
+            rotatingLeft = !rotatingLeft;
 
-    //    transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y - rotate, 0f);
-    //    if (transform.localEulerAngles == new Vector3(0f, -45f, 0f))
-    //    {
-    //        transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y + rotate, 0f);
-    //    }
-    //    else if(transform.localEulerAngles == new Vector3(0f, 45f, 0f))
-    //    {
-    //        transform.localRotation = Quaternion.Euler(0f, transform.localRotation.y - rotate, 0f);
-    //    }
+            if (rotatingLeft) 
+            {
+                Debug.Log($"좌측 회전 시작: 현재 웨이포인트 {currentCount}");
+                startRotation = transform.rotation;
+                targetRotation = Quaternion.Euler(0f, transform.eulerAngles.y - (Angle * 2), 0f);
+                turnCountOk = true; 
+            }
+            else 
+            {
+                if (turnCountOk) 
+                {
+                    Debug.Log($"우측 회전 완료: 다음 행동 준비");
+                    isLookAround = false;
+                    turnCountOk = false;
+                    rotatingLeft = true;
+                    agent.enabled = true;
 
-    //}
+                    if (spawnType == SpawnType.RandomPatrol)
+                    {
+                        Debug.Log("랜덤 이동 시작");
+                        agent.speed = patrolSpeed;
+                        agent.SetDestination(destination);
+                    }
+                    else if(spawnType == SpawnType.WayPointPatrol)
+                    {
+                        Debug.Log("웨이포인트 이동 시작");
+                        agent.speed = patrolSpeed;
+                        agent.SetDestination(wayPoints[currentCount].position);
+                        currentCount++;
+                        if (currentCount >= wayPoints.Length)
+                        {
+                            currentCount = 0;
+                        }
+                    }
+                    return;
+                }
+                Debug.Log($"우측 회전 시작: 현재 웨이포인트 {currentCount}");
+                startRotation = transform.rotation;
+                targetRotation = Quaternion.Euler(0f, transform.eulerAngles.y + Angle, 0f);
+            }
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {
@@ -209,72 +331,5 @@ public class EnemyPatrol : MonoBehaviour
             Vector3 size = new Vector3(rectanglePatrolRange.x, 0f, rectanglePatrolRange.y);
             Gizmos.DrawWireCube(spawnPoint.position, size);
         }
-    }
-
-    public void SetSpawnType(SpawnType spawnerType, Transform[] gob)
-    {
-        spawnType = spawnerType;
-        if(gob != null && gob.Length > 0)
-        {
-            wayPoints = gob;
-        }
-        else
-        {
-            Debug.Log("no wayPoints");
-        }
-
-
-    }
-
-
-
-    void LookAround(float leftAngle, float rightAngle)
-    {
-        
-        if (!TimerManager.IsContainsKey(rotationTimer))
-        {
-            TimerManager.AddTimer(rotationTimer, rotationTime);
-        }
-        else
-        {
-
-        }
-
-        float currentTime = TimerManager.currentTime(rotationTimer);
-
-        if (currentTime > 0)
-        {
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, (rotationTime - currentTime) / rotationTime);
-        }
-        else
-        {
-            SetTargetRotation(leftAngle, rightAngle);
-        }
-    }
-
-    void SetTargetRotation(float leftAngle, float rightAngle)
-    {
-        rotatingLeft = !rotatingLeft;
-
-        if (rotatingLeft) // 좌측으로 회전
-        {
-            startRotation = transform.rotation;
-            targetRotation = Quaternion.LookRotation(
-                Quaternion.AngleAxis(leftAngle, Vector3.up) * transform.forward
-            );
-            return;
-        }
-        else // 우측으로 회전
-        {
-            //startRotation = transform.rotation;
-            //targetRotation = Quaternion.LookRotation(
-            //    Quaternion.AngleAxis(rightAngle, Vector3.up) * transform.forward
-            //);
-            //return;
-            agent.SetDestination(destination);
-        }
-
-        
-
     }
 }

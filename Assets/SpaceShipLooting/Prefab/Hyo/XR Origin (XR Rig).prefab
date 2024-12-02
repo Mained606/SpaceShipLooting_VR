@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 4446014824591159969}
   - component: {fileID: 8795484611171254287}
   - component: {fileID: 7099342518814174691}
-  - component: {fileID: 2882510733109331530}
+  - component: {fileID: 3479813925136461875}
   m_Layer: 2
   m_Name: Left Socket
   m_TagString: Untagged
@@ -327,7 +327,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2882510733109331530
+--- !u!114 &3479813925136461875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1292188795462032470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 182b63d2502aa7a4ba8d78ff2885a887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_SocketSnappingRadius: 0.1
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 0.3, y: 0.3, z: 0.3}
+  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
 --- !u!1 &1468111999420029907
 GameObject:
   m_ObjectHideFlags: 0
@@ -3299,7 +3299,7 @@ GameObject:
   - component: {fileID: 3992492342611071791}
   - component: {fileID: 5035451492367207799}
   - component: {fileID: 8658512476414133945}
-  - component: {fileID: 4501416098751558938}
+  - component: {fileID: 7378802654094074167}
   m_Layer: 2
   m_Name: Right Socket
   m_TagString: Untagged
@@ -3397,7 +3397,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4501416098751558938
+--- !u!114 &7378802654094074167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3406,7 +3406,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7360434505333969378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 182b63d2502aa7a4ba8d78ff2885a887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
