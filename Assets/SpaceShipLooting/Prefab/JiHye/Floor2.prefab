@@ -1063,11 +1063,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2, y: 0.5, z: 1.5}
+  m_Extents: {x: 2, y: 1, z: 1.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1, z: 3}
+  m_Center: {x: 0, y: 0.3, z: 3}
   m_TimeToStationary: 0.5
 --- !u!1 &1676272390432632332
 GameObject:
@@ -14354,11 +14354,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 1}
+  m_Extents: {x: 0.5, y: 0.4, z: 1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.4, z: 0}
   m_TimeToStationary: 0.5
 --- !u!4 &5645636323677931486 stripped
 Transform:
@@ -45919,11 +45919,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 1}
+  m_Extents: {x: 0.5, y: 0.4, z: 1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.4, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1001 &6828971711398460273
 PrefabInstance:
@@ -48612,7 +48612,7 @@ NavMeshObstacle:
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
   m_TimeToStationary: 0.5
 --- !u!4 &7654896534455064860 stripped
 Transform:
@@ -49069,11 +49069,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.25, y: 0.5, z: 0.25}
+  m_Extents: {x: 0.25, y: 2.5, z: 0.25}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &7318492986350625128 stripped
 GameObject:
