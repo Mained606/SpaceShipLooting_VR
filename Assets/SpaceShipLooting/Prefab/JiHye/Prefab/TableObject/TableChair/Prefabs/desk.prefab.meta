@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 29e497487ae706f4a90f81cac1f10ccf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 26678
+  packageName: Free Furniture Set
+  packageVersion: 1.0.0
+  assetPath: Assets/FreeFurnitureSet/Prefabs/desk.prefab
+  uploadId: 44538
