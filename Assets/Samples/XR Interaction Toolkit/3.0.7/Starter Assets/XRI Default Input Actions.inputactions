@@ -1276,7 +1276,7 @@
                 {
                     "name": "",
                     "id": "96ce9c9d-0ea4-4fda-9a3d-0da339bc5ab2",
-                    "path": "*/{PrimaryButton}",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

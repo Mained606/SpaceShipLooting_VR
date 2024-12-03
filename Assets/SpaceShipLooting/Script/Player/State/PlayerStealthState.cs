@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -16,6 +17,12 @@ public class PlayerStealthState : IPlayerState
     private float afterPlayerHeight;
     private float afterCameraY;
     private float afterColliderCenterY;
+
+    private RectTransform leftNightVisionPanel;
+    private RectTransform rightNightVisionPanel;
+
+    private Vector3 beforeLeftPanelSize;
+    private Vector3 beforeRightPanelSize;
 
     // 속도
     public float Speed => PlayerStateManager.Instance.StatsConfig.stealthSpeed;
@@ -40,6 +47,18 @@ public class PlayerStealthState : IPlayerState
             {
                 Debug.Log("카메라 오프셋 Null");
             }
+        }
+
+        leftNightVisionPanel = manager.transform.Find("NigitVision Left Panel").GetComponent<RectTransform>();
+        rightNightVisionPanel = manager.transform.Find("NigitVision Right Panel").GetComponent<RectTransform>();
+
+        if (leftNightVisionPanel != null && rightNightVisionPanel != null)
+        {
+            beforeLeftPanelSize.y = leftNightVisionPanel.localPosition.y;
+            beforeRightPanelSize.y = rightNightVisionPanel.localPosition.y;
+
+            leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, leftNightVisionPanel.localPosition.y / 2, leftNightVisionPanel.localPosition.z);
+            rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, rightNightVisionPanel.localPosition.y / 2, rightNightVisionPanel.localPosition.z);
         }
 
         // 포지션 셋팅
@@ -93,5 +112,8 @@ public class PlayerStealthState : IPlayerState
         cameraOffset.transform.localPosition = new Vector3(cameraOffset.localPosition.x, beforeCameraY, cameraOffset.localPosition.z);
         characterController.height = beforePlayerHeight;
         characterController.center = new Vector3(characterController.center.x, beforeColliderCenterY, characterController.center.z);
+
+        leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, beforeLeftPanelSize.y, leftNightVisionPanel.localPosition.z);
+            rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, beforeRightPanelSize.y, rightNightVisionPanel.localPosition.z);
     }
 }
