@@ -47,12 +47,14 @@ public class Enemy : MonoBehaviour
 
     // chase
     private bool isTargeting = false;
-    private float chasingTime = 1f;
+    [SerializeField] private float chasingTime = 1f;
     private float chaseTimer;
 
     // attack
-    private float attackDelay = 1f;
-    private float attackTimer;
+    [SerializeField] private float attackTime = 2f;
+    [SerializeField] private float attackDelayTime = 0.5f;
+    private BasicTimer AttackTimer;
+    private BasicTimer AttackDelayTimer;
 
     // death
     [SerializeField] private bool isDeath = false;
@@ -93,11 +95,13 @@ public class Enemy : MonoBehaviour
         // 초기화
         currentState = EnemyState.E_Idle;
         agent.speed = moveSpeed;
-        attackTimer = attackDelay;
         chaseTimer = chasingTime;
         isInTrigger = fanPerception.IsInRange;
-        
-        if(item != null)
+
+        AttackTimer = new BasicTimer(attackTime);
+        AttackDelayTimer = new BasicTimer(attackDelayTime);
+
+        if (item != null)
         {
             hasItem = true;
         }
@@ -138,14 +142,17 @@ public class Enemy : MonoBehaviour
 
             case EnemyState.E_Attack:
                 renderer.material = attackMaterial;
-                attackTimer -= Time.deltaTime;
-                Attack();
-                if (attackTimer < 0f)
+                agent.enabled = false;
+                if (AttackTimer.IsRunning)  // AttackTimer 가동 중이면 Attack()
                 {
-                    attackTimer = attackDelay;
+                    Attack();
+                }
+                else                         // AttackTimer 가동 중 아니면 새 AttackTimer 생성, 스타트
+                {
+                    TimerManager.Instance.StartTimer(AttackTimer);
                     SetState(EnemyState.E_Chase);
                 }
-                
+
                 break;
 
             case EnemyState.E_Death:
@@ -279,9 +286,16 @@ public class Enemy : MonoBehaviour
 
     private void Attack()
     {
-        agent.enabled = false;
-        Debug.Log("Attack");
-
+        if (AttackDelayTimer.IsRunning)
+        {
+            Debug.Log("대기");
+        }
+        else
+        {
+            //TakeDamage();
+            Debug.Log("TakeDamage");
+            TimerManager.Instance.StartTimer(AttackDelayTimer);
+        }
 
     }
 
