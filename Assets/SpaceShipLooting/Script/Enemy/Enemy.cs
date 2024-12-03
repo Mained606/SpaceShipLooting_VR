@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     #region Variables
-    public Transform target;
+    private Transform target;
     private NavMeshAgent agent;
     private Collider _collider;
     public GameObject item;
@@ -25,15 +25,22 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool isPlayerRunnning = true;
 
     private float distance;
-    [SerializeField] private float minMoveDistance = 5f;
+    //[SerializeField] private float minMoveDistance = 5f;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float moveSpeed = 5f;
     
 
-    // Perception Range
+    // Perception
     [SerializeField] private float runPerceptionRange = 15f;
     [SerializeField] private float movePerceptionRange = 10f;
     [SerializeField] private float stealthPerceptionRange = 3f;
+    private FanShapePerception fanPerception;
+    [SerializeField] private bool isInTrigger = false;
+    [SerializeField] private bool isPlayerVisible = false;
+    public Transform eyePoint;
+    private Transform targetHead;
+    private Vector3 directionToPlayer = Vector3.zero;
+    public LayerMask obstacleLayer;
 
     // patrol (move)
     EnemyPatrol enemyPatrol;
@@ -79,12 +86,16 @@ public class Enemy : MonoBehaviour
         renderer = GetComponent<Renderer>();
         enemyPatrol = GetComponent<EnemyPatrol>();
         health = GetComponent<Health>();
+        fanPerception = GetComponentInChildren<FanShapePerception>();
+        target = GameObject.FindWithTag("Player").transform;
+        targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
 
         // 초기화
         currentState = EnemyState.E_Idle;
         agent.speed = moveSpeed;
         attackTimer = attackDelay;
         chaseTimer = chasingTime;
+        isInTrigger = fanPerception.IsInRange;
         
         if(item != null)
         {
@@ -97,20 +108,20 @@ public class Enemy : MonoBehaviour
         if (isDeath)
             return;
 
-
-        distance = Vector3.Distance(transform.position, target.position);
-        Vector3 dir = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
+        isInTrigger = fanPerception.IsInRange;
+        distance = Vector3.Distance(eyePoint.position, targetHead.position);
+        directionToPlayer = (targetHead.position - eyePoint.position).normalized;
         
         switch (currentState)
         {
             case EnemyState.E_Idle:
                 renderer.material = idleMaterial;
-                Debug.Log("current State: E_Idle");
+                //Debug.Log("current State: E_Idle");
                 AISearching();
                 break;
 
             case EnemyState.E_Move:
-                Debug.Log("current State: E_Move");
+                //Debug.Log("current State: E_Move");
                 AISearching();
                 break;
 
@@ -122,7 +133,7 @@ public class Enemy : MonoBehaviour
                 {
                     SetState(EnemyState.E_Attack);
                 }
-                Debug.Log("current State: E_Chase");
+                //Debug.Log("current State: E_Chase");
                 break;
 
             case EnemyState.E_Attack:
@@ -172,27 +183,53 @@ public class Enemy : MonoBehaviour
         }
         else if(currentState == EnemyState.E_Move)
         {
-            if (distance <= runPerceptionRange && distance > movePerceptionRange)
+            //if (distance <= runPerceptionRange && distance > movePerceptionRange)
+            //{
+            //    if (isPlayerRunnning == true)   // Player Running Check
+            //    {
+            //        Debug.Log("Player Running Perception");
+            //        SetState(EnemyState.E_Chase);
+            //    }
+            //}
+            if (isInTrigger == true)
             {
-                if (isPlayerRunnning == true)   // Player Running Check
+                Ray ray = new Ray(eyePoint.position, directionToPlayer);
+                if (Physics.Raycast(ray, out RaycastHit hit, distance, obstacleLayer))
                 {
-                    Debug.Log("Player Running Perception");
+                    int hitLayer = hit.collider.gameObject.layer;   // Obstacle
+
+                    Debug.Log("레이가 맞은 오브젝트의 레이어: " + hitLayer);
+                    if (hitLayer == 11)
+                    {
+                        isPlayerVisible = false;
+                        Debug.Log("플레이어가 장애물 뒤에 있습니다.");
+
+                    }
+                    else
+                    {
+                        isPlayerVisible = true;
+                        Debug.Log("플레이어가 보입니다");
+                        SetState(EnemyState.E_Chase);
+                    }
+                }
+                else  // Ray에 아무것도 감지 안 됨
+                {
+                    isPlayerVisible = true;
+                    Debug.Log("플레이어가 보입니다");
                     SetState(EnemyState.E_Chase);
                 }
+
             }
             if (distance <= movePerceptionRange)
             {
                 targetStealthCheck();       // 스텔스 검사
-            }
-            else if(distance > runPerceptionRange)
-            {
-                //SetState(EnemyState.E_Idle);
             }
             else
             {
                 return;
             }
         }
+        
     }
 
     private void targetStealthCheck()
@@ -284,5 +321,19 @@ public class Enemy : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, runPerceptionRange);
+
+        if (isPlayerVisible)
+        {
+            Gizmos.color = Color.green;
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+        }
+
+        if(target != null && eyePoint != null)
+        {
+            Gizmos.DrawLine(eyePoint.position, targetHead.position);
+        }
     }
 }

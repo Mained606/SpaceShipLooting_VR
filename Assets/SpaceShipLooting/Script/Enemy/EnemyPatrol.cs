@@ -326,12 +326,12 @@ public class EnemyPatrol : MonoBehaviour
 
             if (patrolShape == PatrolType.Circle)
             {
-                Gizmos.DrawWireSphere(transform.position, circlePatrolRange);
+                Gizmos.DrawWireSphere(spawnPosition, circlePatrolRange);
             }
             else if (patrolShape == PatrolType.Rectangle)
             {
                 Vector3 size = new Vector3(rectanglePatrolRange.x, 0f, rectanglePatrolRange.y);
-                Gizmos.DrawWireCube(transform.position, size);
+                Gizmos.DrawWireCube(spawnPosition, size);
             }
         }
     }
