@@ -37121,6 +37121,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9028489898621070237, guid: 5b484fac83b9f6e4da4bd6fd51fe731c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9028489898621070239, guid: 5b484fac83b9f6e4da4bd6fd51fe731c, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -49690,6 +49694,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: c51b37d9d63a14b1a92a490f9b9ae19d, type: 3}
       propertyPath: m_Name
       value: Wall_Up_01_Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c51b37d9d63a14b1a92a490f9b9ae19d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: c51b37d9d63a14b1a92a490f9b9ae19d, type: 3}
       propertyPath: m_LocalPosition.x
