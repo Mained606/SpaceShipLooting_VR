@@ -27,7 +27,7 @@ public class FanShapePerception : MonoBehaviour
     private void Start()
     {
         // (DetectionType type, float range) = transform.parent.GetComponent<MonsterMovement>().GetRaderInfo();
-        RaderSettingStart(radius, 100f, 0.01f, true);
+        RaderSettingStart(radius, 100f, thickness, true);
     }
 
 
@@ -174,12 +174,20 @@ public class FanShapePerception : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        IsInRange = true;
+        if (other.CompareTag("Player"))
+        {
+            IsInRange = true;
+        }
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        IsInRange = false;
+        if (other.CompareTag("Player"))
+        {
+            IsInRange = false;
+        }
+
     }
 
     //private void OnDrawGizmos()

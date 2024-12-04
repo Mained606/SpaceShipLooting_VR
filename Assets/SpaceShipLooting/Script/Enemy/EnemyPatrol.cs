@@ -14,6 +14,7 @@ public class EnemyPatrol : MonoBehaviour
 
     #region Variables
     private Enemy enemy;
+    private Animator animator;
     [SerializeField] SpawnType spawnType;
 
     //
@@ -40,8 +41,8 @@ public class EnemyPatrol : MonoBehaviour
     private float timer;
     [SerializeField] private float rotationAngle = 45f;
     // material
-    private Renderer renderer;
-    public Material moveMaterial;
+    //private Renderer renderer;
+    //public Material moveMaterial;
 
     // Navmesh
     private NavMeshAgent agent;
@@ -64,7 +65,8 @@ public class EnemyPatrol : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<Enemy>();
-        renderer = GetComponent<Renderer>();
+        animator = GetComponent<Animator>();
+        //renderer = GetComponent<Renderer>();
 
         nextMovePoint = transform.position;
         spawnPosition = transform.position;
@@ -74,23 +76,39 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
+        if(enemy.currentState == EnemyState.E_Idle || enemy.currentState == EnemyState.E_Attack || !agent.enabled)
+        {
+            animator.SetFloat("VelocityY", 0);
+            animator.SetFloat("VelocitySpeed", 0);
+        }
+        else
+        {
+            animator.SetFloat("VelocityY", 1);
+            animator.SetFloat("VelocitySpeed", patrolSpeed);
+        }
+
+        //animator.SetFloat("VelocityX", localVelocity.x);
+        //animator.SetFloat("VelocitySpeed", velocity);
+
         switch (enemy.currentState)
         {
             case EnemyState.E_Idle:
                 break;
 
             case EnemyState.E_Move:
-                renderer.material = moveMaterial;
+                //renderer.material = moveMaterial;
                 if (isInterActEvent)
                 {
                     InvastigateTarget(interActEventData);
                 }
                 if (isLookAround)
                 {
+                    animator.SetBool("IsLookAround", true);
                     LookAround(rotationAngle);
                 }
                 else
                 {
+                    animator.SetBool("IsLookAround", false);
                     if (spawnType == SpawnType.RandomPatrol)
                     {
                         RandomPatrol();
