@@ -23,8 +23,14 @@ public class PlayerStealthState : IPlayerState
     private Vector3 beforeLeftPanelSize;
     private Vector3 beforeRightPanelSize;
 
+    private Transform sockets;
+    private Transform vest;
+
+    private Vector3 beforeSockets;
+    private Vector3 beforeVest;
+
     // 속도
-    public float Speed => GameManager.PlayerStats.stealthSpeed;
+    public float Speed => GameManager.Instance.PlayerStatsData.stealthSpeed;
 
     public void EnterState(PlayerStateManager manager)
     {
@@ -50,6 +56,9 @@ public class PlayerStealthState : IPlayerState
 
         leftNightVisionPanel = manager.transform.Find("NigitVision Left Panel").GetComponent<RectTransform>();
         rightNightVisionPanel = manager.transform.Find("NigitVision Right Panel").GetComponent<RectTransform>();
+        sockets = manager.transform.Find("Sockets").GetComponent<Transform>();
+        vest = manager.transform.Find("Vest").GetComponent<Transform>();
+
 
         // 포지션 셋팅
         SetSittingPosition();
@@ -105,6 +114,11 @@ public class PlayerStealthState : IPlayerState
             rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, rightNightVisionPanel.localPosition.y / 2, rightNightVisionPanel.localPosition.z);
         }
 
+        beforeSockets.y = sockets.localPosition.y;
+        beforeVest.y = vest.localPosition.y;
+
+        sockets.localPosition = new Vector3(sockets.localPosition.z, beforeSockets.y / 2, sockets.localPosition.z);
+        vest.localPosition = new Vector3(vest.localPosition.z, beforeVest.y / 2, vest.localPosition.z);
     }
 
     // 일어난 포지션
@@ -116,5 +130,8 @@ public class PlayerStealthState : IPlayerState
 
         leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, beforeLeftPanelSize.y, leftNightVisionPanel.localPosition.z);
         rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, beforeRightPanelSize.y, rightNightVisionPanel.localPosition.z);
+
+        sockets.localPosition = new Vector3(sockets.localPosition.x, beforeSockets.y, sockets.localPosition.z);
+        vest.localPosition = new Vector3(vest.localPosition.z, beforeVest.y, vest.localPosition.z);
     }
 }

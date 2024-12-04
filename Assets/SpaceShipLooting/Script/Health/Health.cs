@@ -3,17 +3,16 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    private float maxHealth;
+    [SerializeField] private float maxHealth;
     public float CurrentHealth { get; private set; }    // 현재 체력
     private bool isDeath = false;                       //죽음 체크
 
     public UnityAction<float> OnDamaged;   // 데미지 입었을때 호출되는 함수
     public UnityAction OnDie;              // 죽었을때 호출되는 함수
 
-
     private void Start()
     {
-        maxHealth = GameManager.PlayerStats.maxHealth;
+        maxHealth = GameManager.Instance.PlayerStatsData.maxHealth;
         CurrentHealth = maxHealth;
     }
 

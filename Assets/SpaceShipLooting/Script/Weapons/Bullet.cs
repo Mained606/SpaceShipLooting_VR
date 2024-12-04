@@ -11,10 +11,11 @@ public class Bullet : MonoBehaviour
     private float lifeTime; // 총알 수명 (5초)
     private float damage;   // 총알 데미지
 
+
     private void OnEnable()
     {
-        lifeTime = GameManager.PlayerStats.bulletlifeTime;
-        damage = GameManager.PlayerStats.bulletDamage;
+        lifeTime = GameManager.Instance.PlayerStatsData.bulletlifeTime;
+        damage = GameManager.Instance.PlayerStatsData.bulletDamage;
 
 
         // 총알이 활성화되면 다시 사용할 수 있으므로 플래그를 false로 초기화

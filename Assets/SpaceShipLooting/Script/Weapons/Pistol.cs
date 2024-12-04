@@ -8,7 +8,7 @@ public class Pistol : XRGrabInteractableOutline
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    private float bulletSpeed;
+    [SerializeField] private float bulletSpeed;
 
     private IObjectPool<Bullet> pool; // 총알 객체 풀
 
@@ -19,8 +19,12 @@ public class Pistol : XRGrabInteractableOutline
     {
         base.Awake();
         pool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, maxSize: 20);
-        bulletSpeed = GameManager.PlayerStats.pistolBulletSpeed;
+    }
 
+    protected override void Start()
+    {
+        base.Start();
+        bulletSpeed = GameManager.Instance.PlayerStatsData.pistolBulletSpeed;
     }
 
     protected override void OnActivated(ActivateEventArgs args)

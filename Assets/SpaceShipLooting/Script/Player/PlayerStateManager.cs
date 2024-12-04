@@ -29,10 +29,6 @@ public class PlayerStateManager : MonoBehaviour
     // // Running State 변경을 알리는 UnityEvent
     [HideInInspector] public UnityEvent<bool> OnRunningStateChanged = new UnityEvent<bool>();
 
-    // 스텟 관련
-    // [SerializeField] private PlayerStatsConfig statsConfig;
-    // public PlayerStatsConfig StatsConfig => statsConfig;
-
     // 싱글톤 초기화
     private void Awake()
     {
@@ -52,9 +48,9 @@ public class PlayerStateManager : MonoBehaviour
         
 
         // PlayerStatsConfig 설정
-        if (GameManager.PlayerStats == null)
+        if (GameManager.Instance.PlayerStatsData == null)
         {
-            Debug.LogError("PlayerStatsConfig가 설정되지 않았습니다!");
+            Debug.Log("PlayerStatsConfig가 설정되지 않았습니다!");
             enabled = false; // Config가 없으면 실행하지 않음
             return;
         }
@@ -80,12 +76,12 @@ public class PlayerStateManager : MonoBehaviour
 
 
         // 시작시 상태 설정
-        if (GameManager.PlayerStats.enableStealthMode)
+        if (GameManager.Instance.PlayerStatsData.enableStealthMode)
         {
             IsStealthMode = true;
             currentState = new PlayerStealthState();
         }
-        else if (GameManager.PlayerStats.enableRunningMode)
+        else if (GameManager.Instance.PlayerStatsData.enableRunningMode)
         {
             IsRunningMode = true;
             currentState = new PlayerRunningState();
@@ -131,7 +127,7 @@ public class PlayerStateManager : MonoBehaviour
     // 스텔스 모드 토글
     private void ToggleStealthMode()
     {
-        GameManager.PlayerStats.enableStealthMode = !GameManager.PlayerStats.enableStealthMode;
+        GameManager.Instance.PlayerStatsData.enableStealthMode = !GameManager.Instance.PlayerStatsData.enableStealthMode;
         // // 현재 스텔스 상태를 반대로 변경
         IsStealthMode = !IsStealthMode;
         
@@ -145,7 +141,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     private void ToggleRunningMode()
     {
-        GameManager.PlayerStats.enableRunningMode = !GameManager.PlayerStats.enableRunningMode;
+        GameManager.Instance.PlayerStatsData.enableRunningMode = !GameManager.Instance.PlayerStatsData.enableRunningMode;
 
         IsRunningMode = !IsRunningMode;
         
