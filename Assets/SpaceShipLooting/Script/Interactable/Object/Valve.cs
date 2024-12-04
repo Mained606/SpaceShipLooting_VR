@@ -1,84 +1,61 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class ValveObject : XRGrabInteractableOutline, ISignal
+public class Valve : XRGrabInteractableOutline
 {
-    private Transform interactorTransform;    // 잡은 컨트롤러의 Transform
-    private Quaternion initialRotation;       // 밸브의 초기 회전값
-    private Vector3 initialInteractorDirection; // 잡은 순간의 컨트롤러 방향
+    private Transform interactorTransform;
+    private Vector3 initialGrabPosition;  // 잡은 시점에서의 컨트롤러 위치
+    private Vector3 initialValveRotation; // 잡은 시점에서의 밸브 회전
 
-    public float minRotationX = 0f;           // X축 최소 회전 각도
-    public float maxRotationX = 180f;         // X축 최대 회전 각도
-
-    private Rigidbody valveRigidbody;         // 밸브의 Rigidbody
-    private bool signalSent = false;          // 신호를 한 번만 발송하기 위한 플래그
-
-    public UnityEvent<string> OnSignal { get; } = new UnityEvent<string>();
-
-    protected override void Awake()
-    {
-        base.Awake();
-        valveRigidbody = GetComponent<Rigidbody>();
-
-        if (valveRigidbody == null)
-        {
-            Debug.LogError("Rigidbody가 필요합니다. ValveController가 올바르게 작동하지 않을 수 있습니다.", this);
-        }
-    }
+    public float rotationSensitivity = 100f; // 회전 민감도 조절 변수
+    public float maxRotationAngle = 180f;    // 최대 회전 각도
+    private bool hasReachedMaxRotation = false; // 최대 회전에 도달했는지 확인하는 변수
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-
-        // 잡은 컨트롤러 Transform 저장
         interactorTransform = args.interactorObject.transform;
 
-        // 초기 상태 저장
-        initialRotation = transform.rotation;
-        initialInteractorDirection = (interactorTransform.position - transform.position).normalized;
+        // 그랩 시점의 컨트롤러 위치와 밸브의 초기 로컬 회전 값 저장
+        initialGrabPosition = interactorTransform.position;
+        initialValveRotation = transform.localEulerAngles;
+
+        // 초기화
+        hasReachedMaxRotation = false; // 밸브를 다시 잡으면 각도 제한 초기화
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
-
-        // 컨트롤러와의 연결 해제
         interactorTransform = null;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (interactorTransform == null || signalSent) return;
-
-        // 현재 컨트롤러 방향 계산
-        Vector3 currentInteractorDirection = (interactorTransform.position - transform.position).normalized;
-
-        // 초기 방향과 현재 방향 사이의 각도 계산
-        float angleDelta = Vector3.SignedAngle(
-            initialInteractorDirection,  // 초기 방향
-            currentInteractorDirection,  // 현재 방향
-            transform.right              // 밸브의 X축 (회전 축)
-        );
-
-        // 새로운 X축 회전값 계산 (회전 제한 적용)
-        float newRotationX = Mathf.Clamp(initialRotation.eulerAngles.x + angleDelta, minRotationX, maxRotationX);
-
-        // Rigidbody를 이용해 안전하게 회전값 적용
-        Quaternion targetRotation = Quaternion.Euler(newRotationX, initialRotation.eulerAngles.y, initialRotation.eulerAngles.z);
-        valveRigidbody.MoveRotation(targetRotation);
-
-        // 신호 발송 조건 확인 (180도 도달 시)
-        if (Mathf.Approximately(newRotationX, maxRotationX))
+        if (interactorTransform != null && !hasReachedMaxRotation)
         {
-            // 신호 발송
-            OnSignal.Invoke("Valve fully opened!");
-            signalSent = true; // 신호 한 번만 발송
-        }
-    }
+            // 현재 컨트롤러의 위치와 처음 잡았을 때의 위치 차이 계산
+            Vector3 currentGrabPosition = interactorTransform.position;
+            Vector3 positionDelta = currentGrabPosition - initialGrabPosition;
 
-    public void ReceiveSignal()
-    {
-        // 필요 시 추가 구현 가능
+            // X축 방향으로의 이동을 회전 각도로 변환 (부호 반전 제거)
+            float direction = Vector3.Dot(positionDelta, transform.right) < 0 ? 1f : -1f; // 이동 방향 확인 및 부호 반전
+            float rotationAmount = direction * positionDelta.magnitude * rotationSensitivity;
+
+            // 총 회전 각도 제한 적용
+            float currentRotation = transform.localEulerAngles.x;
+            if (Mathf.Abs(currentRotation - initialValveRotation.x) >= maxRotationAngle)
+            {
+                hasReachedMaxRotation = true;
+
+                // 회전 멈춤 처리
+                transform.localEulerAngles = new Vector3(initialValveRotation.x + maxRotationAngle, initialValveRotation.y, initialValveRotation.z);
+            }
+            else
+            {
+                // 밸브의 X축 회전 업데이트
+                transform.localEulerAngles = new Vector3(initialValveRotation.x + rotationAmount, initialValveRotation.y, initialValveRotation.z);
+            }
+        }
     }
 }

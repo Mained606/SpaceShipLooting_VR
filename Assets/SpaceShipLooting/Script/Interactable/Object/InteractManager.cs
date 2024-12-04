@@ -1,50 +1,75 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
-
-[System.Serializable]
-public class SignalPair
-{
-    public MonoBehaviour sender;   // A 역할 (SelectObject 또는 CollisionObject & GrabObject)
-    public MonoBehaviour receiver; // B 역할 (ISignal 인터페이스 상속)
-}
 
 public class InteractManager : MonoBehaviour
 {
-    public List<SignalPair> signalPairs = new List<SignalPair>(); // A-B 페어 리스트
-
-    private Dictionary<MonoBehaviour, ISignal> signalMappings = new Dictionary<MonoBehaviour, ISignal>();
+    private Dictionary<ISignal, ISignalReceiver> signalMappings = new Dictionary<ISignal, ISignalReceiver>();
 
     private void Start()
     {
-        // SignalPair 리스트를 기반으로 딕셔너리 초기화
-        foreach (var pair in signalPairs)
+        AutoBindSignals(); // 자동 바인딩 호출
+    }
+
+    private void AutoBindSignals()
+    {
+        var senders = FindObjectsOfType<MonoBehaviour>().OfType<ISignal>();
+        var receivers = FindObjectsOfType<MonoBehaviour>().OfType<ISignalReceiver>();
+
+        foreach (var sender in senders)
         {
-            if (pair.sender != null && pair.receiver != null && pair.receiver is ISignal)
+            bool isBound = false;
+
+            foreach (var receiver in receivers)
             {
-                signalMappings[pair.sender] = (ISignal)pair.receiver;
-                // UnityEvent 리스너 추가
-                if (pair.sender is ISignal senderSignal)
+                if (IsMatching(sender, receiver))
                 {
-                    senderSignal.OnSignal.AddListener((signal) => SignalReceive(signal, pair.sender));
+                    BindSignal(sender, receiver);
+                    isBound = true;
+                    break; // 매칭 완료 시 루프 종료
                 }
+            }
+
+            if (!isBound)
+            {
+                Debug.LogWarning($"No matching receiver found for sender: {sender.GetGameObject()?.name}");
             }
         }
     }
 
-    public void SignalReceive(string signal, MonoBehaviour sender)
+    private void BindSignal(ISignal sender, ISignalReceiver receiver)
     {
-    //    Debug.Log($"Signal received: {signal} from {sender.name}");
-
-        // 딕셔너리에서 Sender와 연결된 Receiver 찾기
-        if (signalMappings.TryGetValue(sender, out ISignal receiver))
+        if (signalMappings.TryGetValue(sender, out var existingReceiver))
         {
-     //       Debug.Log($"Forwarding signal to: {receiver}");
-            receiver.ReceiveSignal();
+            if (existingReceiver != receiver)
+            {
+                sender.OnSignal.RemoveListener(existingReceiver.ReceiveSignal); // 기존 연결 제거
+                sender.OnSignal.AddListener(receiver.ReceiveSignal);           // 새로운 연결 추가
+                signalMappings[sender] = receiver;                            // 매핑 갱신
+            }
         }
         else
         {
-      //      Debug.LogWarning($"No receiver found for sender: {sender.name}");
+            sender.OnSignal.AddListener(receiver.ReceiveSignal);
+            signalMappings[sender] = receiver;
+        }
+    }
+
+    private bool IsMatching(ISignal sender, ISignalReceiver receiver)
+    {
+        var senderObject = sender.GetGameObject();
+        var receiverObject = (receiver as MonoBehaviour)?.gameObject;
+
+        // 이름 기반 비교
+        return senderObject != null && receiverObject != null &&
+               senderObject.name == receiverObject.name; // 이름이 동일하면 매칭
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var sender in signalMappings.Keys)
+        {
+            sender.ClearListeners(); // 발신자에 연결된 모든 리스너 제거
         }
     }
 }
