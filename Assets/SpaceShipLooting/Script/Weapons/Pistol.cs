@@ -5,10 +5,10 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Pistol : XRGrabInteractableOutline
 {
     #region Variables
-    [Header("Bullet Sttings")]
+    [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    [SerializeField] private float bulletSpeed = 30f;
+    private float bulletSpeed;
 
     private IObjectPool<Bullet> pool; // 총알 객체 풀
 
@@ -19,6 +19,7 @@ public class Pistol : XRGrabInteractableOutline
     {
         base.Awake();
         pool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, maxSize: 20);
+        bulletSpeed = GameManager.PlayerStats.pistolBulletSpeed;
 
     }
 

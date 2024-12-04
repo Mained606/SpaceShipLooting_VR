@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: DefaultPlayerStats
   m_EditorClassIdentifier: 
   handAttackPower: 3
-  gunAttackPower: 10
   maxHealth: 100
   walkingSpeed: 2.5
   runningSpeed: 5
   stealthSpeed: 1
   enableStealthMode: 0
   enableRunningMode: 0
+  gunAttackPower: 10
+  bulletlifeTime: 5

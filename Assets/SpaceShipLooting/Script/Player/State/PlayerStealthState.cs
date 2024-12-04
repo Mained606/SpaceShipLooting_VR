@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -25,7 +24,7 @@ public class PlayerStealthState : IPlayerState
     private Vector3 beforeRightPanelSize;
 
     // 속도
-    public float Speed => PlayerStateManager.Instance.StatsConfig.stealthSpeed;
+    public float Speed => GameManager.PlayerStats.stealthSpeed;
 
     public void EnterState(PlayerStateManager manager)
     {
@@ -51,15 +50,6 @@ public class PlayerStealthState : IPlayerState
 
         leftNightVisionPanel = manager.transform.Find("NigitVision Left Panel").GetComponent<RectTransform>();
         rightNightVisionPanel = manager.transform.Find("NigitVision Right Panel").GetComponent<RectTransform>();
-
-        if (leftNightVisionPanel != null && rightNightVisionPanel != null)
-        {
-            beforeLeftPanelSize.y = leftNightVisionPanel.localPosition.y;
-            beforeRightPanelSize.y = rightNightVisionPanel.localPosition.y;
-
-            leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, leftNightVisionPanel.localPosition.y / 2, leftNightVisionPanel.localPosition.z);
-            rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, rightNightVisionPanel.localPosition.y / 2, rightNightVisionPanel.localPosition.z);
-        }
 
         // 포지션 셋팅
         SetSittingPosition();
@@ -104,6 +94,17 @@ public class PlayerStealthState : IPlayerState
         cameraOffset.transform.localPosition = new Vector3(cameraOffset.localPosition.x, afterCameraY, cameraOffset.localPosition.z);
         characterController.height = afterPlayerHeight;
         characterController.center = new Vector3(characterController.center.x, afterColliderCenterY, characterController.center.z);
+
+        // 나이트비젼 패널 위치 설정
+        if (leftNightVisionPanel != null && rightNightVisionPanel != null)
+        {
+            beforeLeftPanelSize.y = leftNightVisionPanel.localPosition.y;
+            beforeRightPanelSize.y = rightNightVisionPanel.localPosition.y;
+
+            leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, leftNightVisionPanel.localPosition.y / 2, leftNightVisionPanel.localPosition.z);
+            rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, rightNightVisionPanel.localPosition.y / 2, rightNightVisionPanel.localPosition.z);
+        }
+
     }
 
     // 일어난 포지션
@@ -114,6 +115,6 @@ public class PlayerStealthState : IPlayerState
         characterController.center = new Vector3(characterController.center.x, beforeColliderCenterY, characterController.center.z);
 
         leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, beforeLeftPanelSize.y, leftNightVisionPanel.localPosition.z);
-            rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, beforeRightPanelSize.y, rightNightVisionPanel.localPosition.z);
+        rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, beforeRightPanelSize.y, rightNightVisionPanel.localPosition.z);
     }
 }

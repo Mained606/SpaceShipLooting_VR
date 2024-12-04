@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerRunningState : IPlayerState
 {
-    public float Speed => PlayerStateManager.Instance.StatsConfig.runningSpeed;
+    public float Speed => GameManager.PlayerStats.runningSpeed;
 
     public void EnterState(PlayerStateManager manager)
     {

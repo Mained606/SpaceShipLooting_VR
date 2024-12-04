@@ -3,12 +3,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class StandardKnife : XRGrabInteractableOutline
 {
-    private float damage = 10f;
+    private float damage;
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
         Rigidbody rb = GetComponent<Rigidbody>();
+        damage = GameManager.PlayerStats.knifeDamage;
         rb.isKinematic = false;
     }
 

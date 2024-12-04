@@ -30,8 +30,8 @@ public class PlayerStateManager : MonoBehaviour
     [HideInInspector] public UnityEvent<bool> OnRunningStateChanged = new UnityEvent<bool>();
 
     // 스텟 관련
-    [SerializeField] private PlayerStatsConfig statsConfig;
-    public PlayerStatsConfig StatsConfig => statsConfig;
+    // [SerializeField] private PlayerStatsConfig statsConfig;
+    // public PlayerStatsConfig StatsConfig => statsConfig;
 
     // 싱글톤 초기화
     private void Awake()
@@ -49,9 +49,10 @@ public class PlayerStateManager : MonoBehaviour
     
     private void Start()
     {
+        
 
         // PlayerStatsConfig 설정
-        if (statsConfig == null)
+        if (GameManager.PlayerStats == null)
         {
             Debug.LogError("PlayerStatsConfig가 설정되지 않았습니다!");
             enabled = false; // Config가 없으면 실행하지 않음
@@ -79,12 +80,12 @@ public class PlayerStateManager : MonoBehaviour
 
 
         // 시작시 상태 설정
-        if (statsConfig.enableStealthMode)
+        if (GameManager.PlayerStats.enableStealthMode)
         {
             IsStealthMode = true;
             currentState = new PlayerStealthState();
         }
-        else if (statsConfig.enableRunningMode)
+        else if (GameManager.PlayerStats.enableRunningMode)
         {
             IsRunningMode = true;
             currentState = new PlayerRunningState();
@@ -130,7 +131,7 @@ public class PlayerStateManager : MonoBehaviour
     // 스텔스 모드 토글
     private void ToggleStealthMode()
     {
-        statsConfig.enableStealthMode = !statsConfig.enableStealthMode;
+        GameManager.PlayerStats.enableStealthMode = !GameManager.PlayerStats.enableStealthMode;
         // // 현재 스텔스 상태를 반대로 변경
         IsStealthMode = !IsStealthMode;
         
@@ -144,7 +145,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     private void ToggleRunningMode()
     {
-        statsConfig.enableRunningMode = !statsConfig.enableRunningMode;
+        GameManager.PlayerStats.enableRunningMode = !GameManager.PlayerStats.enableRunningMode;
 
         IsRunningMode = !IsRunningMode;
         

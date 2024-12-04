@@ -3,20 +3,19 @@ using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
-    // 추후 수정 필요
-    [SerializeField] private PlayerStatsConfig statsConfig;
-    
+   
     private IObjectPool<Bullet> managedPool;   // 관리되는 객체 풀
     private bool isReleased = false;           // 풀에 반환되었는지 여부를 추적하는 플래그
 
     [Header("Bullet Settings")]
-    [SerializeField] private float lifeTime = 5f; // 총알 수명 (5초)
+    private float lifeTime; // 총알 수명 (5초)
     private float damage;   // 총알 데미지
 
     private void OnEnable()
     {
-        // 추후 수정 필요
-        damage = statsConfig.gunAttackPower;
+        lifeTime = GameManager.PlayerStats.bulletlifeTime;
+        damage = GameManager.PlayerStats.bulletDamage;
+
 
         // 총알이 활성화되면 다시 사용할 수 있으므로 플래그를 false로 초기화
         isReleased = false;
