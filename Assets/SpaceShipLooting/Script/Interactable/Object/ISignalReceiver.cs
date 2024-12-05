@@ -1,4 +1,7 @@
+using UnityEngine;
+
 public interface ISignalReceiver
 {
-    void ReceiveSignal(string signal); // 신호 수신 및 처리 메서드
+    void ReceiveSignal(string signal);
+    GameObject GetGameObject();
 }

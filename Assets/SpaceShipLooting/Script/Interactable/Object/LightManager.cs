@@ -59,4 +59,9 @@ public class LightManager : MonoBehaviour, ISignalReceiver
             light.enabled = !light.enabled;
         }
     }
+
+    public GameObject GetGameObject()
+    {
+        throw new System.NotImplementedException();
+    }
 }
