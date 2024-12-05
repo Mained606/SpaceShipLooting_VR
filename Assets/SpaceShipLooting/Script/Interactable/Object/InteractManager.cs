@@ -17,12 +17,11 @@ public class InteractManager : MonoBehaviour
         var senders = FindObjectsOfType<MonoBehaviour>().OfType<ISignal>();
         var receivers = FindObjectsOfType<MonoBehaviour>().OfType<ISignalReceiver>();
 
-        // 이름을 기준으로 매칭
         foreach (var sender in senders)
         {
             foreach (var receiver in receivers)
             {
-                // 이름이 같은 경우 매핑
+                // 이름 기반 매칭
                 if (sender.GetGameObject().name == receiver.GetGameObject().name)
                 {
                     sender.OnSignal.AddListener(receiver.ReceiveSignal);
@@ -36,10 +35,9 @@ public class InteractManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // 모든 발신자의 리스너 제거
         foreach (var sender in signalMappings.Keys)
         {
-            sender.ClearListeners();
+            sender.ClearListeners(); // 모든 리스너 제거
         }
     }
 }

@@ -6,7 +6,7 @@ public class GasOpen : MonoBehaviour, ISignalReceiver
 
     private void Start()
     {
-        // ParticleSystem 컴포넌트를 가져오기
+        // ParticleSystem 가져오기
         particle = GetComponent<ParticleSystem>();
         if (particle != null)
         {
@@ -20,7 +20,8 @@ public class GasOpen : MonoBehaviour, ISignalReceiver
 
     public void ReceiveSignal(string signal)
     {
-        // 신호가 "OpenGas"인지 확인하고 파티클 실행
+        Debug.Log($"[{gameObject.name}] Received signal: {signal}");
+
         if (signal == "OpenGas" && particle != null)
         {
             particle.Play();

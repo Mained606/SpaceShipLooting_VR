@@ -7,6 +7,12 @@ public class smallroom_DoorOepen : SelectObject
 
     void Start()
     {
+
+        anim = GetComponent<Animator>();
+        if (anim == null )
+        {
+             anim = GetComponentInChildren<Animator>();
+        }
         // Animator를 자식에서 먼저 가져옴
         anim = GetComponentInChildren<Animator>();
 
