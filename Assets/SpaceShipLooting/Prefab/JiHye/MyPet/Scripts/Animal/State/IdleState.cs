@@ -11,7 +11,7 @@ namespace MyPet.AI
 
         public override void OnInitialized()
         {
-            //ÂüÁ¶
+            //ï¿½ï¿½ï¿½ï¿½
             animator = context.GetComponent<Animator>();
             //characterController = context.GetComponent<CharacterController>();
             //agent = context.GetComponent<NavMeshAgent>();

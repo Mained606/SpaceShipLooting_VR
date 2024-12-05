@@ -1,10 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpaceBossIdleState : State<BossController>
 {
-    private float searchRange = 30f;
-
     public override void OnInitialized()
     {
 
@@ -12,22 +9,20 @@ public class SpaceBossIdleState : State<BossController>
 
     public override void OnEnter()
     {
-        
+        Debug.Log("보스 아이들 스테이트");
     }
 
     public override void Update(float deltaTime)
     {
-        // if()
+        SpaceBossController boss = context as SpaceBossController;
+        if(boss.IsTargetInRange() == true)
+        {
+            boss.ChangeState<SpaceBossAttackState>();
+        }
     }
 
     public override void OnExit()
     {
 
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(context.transform.position, searchRange);
-    }  
 }
