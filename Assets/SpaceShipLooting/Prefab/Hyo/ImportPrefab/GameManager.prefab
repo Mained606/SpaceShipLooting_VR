@@ -44,4 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b89c49acfa2c43a030e8390c5c00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatsConfig: {fileID: 11400000, guid: fbb713f868f73e7408c8762da3fe2639, type: 2}
+  playerStatsData:
+    maxHealth: 100
+    walkingSpeed: 2.5
+    runningSpeed: 5
+    stealthSpeed: 0.5
+    bulletDamage: 10
+    bulletlifeTime: 5
+    pistolBulletSpeed: 70
+    maxAmmo: 7
+    knifeDamage: 40
+    enableStealthMode: 0
+    enableRunningMode: 0

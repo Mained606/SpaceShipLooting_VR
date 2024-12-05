@@ -8,7 +8,9 @@ public class Pistol : XRGrabInteractableOutline
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    [SerializeField] private float bulletSpeed;
+    private float bulletSpeed;
+    [SerializeField] private int maxAmmo;
+    [SerializeField] private int ammocount;
 
     private IObjectPool<Bullet> pool; // 총알 객체 풀
 
@@ -25,18 +27,31 @@ public class Pistol : XRGrabInteractableOutline
     {
         base.Start();
         bulletSpeed = GameManager.Instance.PlayerStatsData.pistolBulletSpeed;
+        maxAmmo = GameManager.Instance.PlayerStatsData.maxAmmo;
+        ammocount = maxAmmo;
     }
 
     protected override void OnActivated(ActivateEventArgs args)
     {
         base.OnActivated(args);
-        Fire(args);
-        animator.SetTrigger("Shoot");
+        if(ammocount > 0)
+        {
+            Fire(args);
+        }
+        else
+        {
+            Debug.Log("총알이 부족합니다. 테스트용 자동 리로드 실행");
+
+            //테스트용으로 추가. 총알이 없으면 자동 리로드
+            Reload();
+        }
     }
 
     // 총 발사 메서드
     void Fire(ActivateEventArgs args)
     {
+        animator.SetTrigger("Shoot");
+
         // 객체 풀에서 총알 가져오기
         Bullet bullet = pool.Get();
 
@@ -51,8 +66,23 @@ public class Pistol : XRGrabInteractableOutline
             rb.linearVelocity = firePoint.forward * bulletSpeed;
         }
 
+        ammocount--;
+
+        if(ammocount == 0)
+        {
+            animator.SetBool("HaveAmmo", false);
+        }
+
         // 발사 방향을 디버그 레이로 시각화
         // Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
+    
+    }
+
+    // 재장전 방식 추후 구현 필요
+    private void Reload()
+    {
+        animator.SetBool("HaveAmmo", true);
+        ammocount = maxAmmo;
     }
 
     // 객체 풀에서 총알을 생성하는 메서드

@@ -9,23 +9,23 @@ public class PlayerStealthState : IPlayerState
 
     private string cameraOffsetName = "Camera Offset";
 
+    // 플레이어
     private float beforeColliderCenterY;
     private float beforeCameraY;
     private float beforePlayerHeight;
-
     private float afterPlayerHeight;
     private float afterCameraY;
     private float afterColliderCenterY;
 
+    // 나이트 비전
     private RectTransform leftNightVisionPanel;
     private RectTransform rightNightVisionPanel;
-
     private Vector3 beforeLeftPanelSize;
     private Vector3 beforeRightPanelSize;
 
+    // 소켓
     private Transform sockets;
     private Transform vest;
-
     private Vector3 beforeSockets;
     private Vector3 beforeVest;
 

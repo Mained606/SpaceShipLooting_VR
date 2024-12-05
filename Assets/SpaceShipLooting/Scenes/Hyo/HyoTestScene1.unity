@@ -1073,18 +1073,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
-      propertyPath: playerStatsData.maxHealth
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
-      propertyPath: playerStatsData.knifeDamage
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
-      propertyPath: playerStatsData.pistolBulletSpeed
-      value: 70
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

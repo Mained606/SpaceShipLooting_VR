@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 /// </summary>
 public class PlayerStateManager : MonoBehaviour
 {
-    // 싱글톤
+    // 싱글톤 부분은 추후 제거 필요
     public static PlayerStateManager Instance { get; private set; }
     
     // 왼쪽 컨트롤러 조이스틱 값 받아오기 (New Input System 사용)
