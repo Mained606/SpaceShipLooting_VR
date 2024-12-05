@@ -99,6 +99,7 @@ public class Enemy : MonoBehaviour
         agent.speed = moveSpeed;
         chaseTimer = chasingTime;
         isInTrigger = fanPerception.IsInRange;
+        
 
         AttackTimer = new BasicTimer(attackTime);
 
@@ -131,12 +132,14 @@ public class Enemy : MonoBehaviour
 
             case EnemyState.E_Move:
                 //Debug.Log("current State: E_Move");
+                animator.SetBool("IsPatrol", true);
                 AISearching();
                 break;
 
             case EnemyState.E_Chase:
                 //renderer.material = chaseMaterial;
                 //agent.enabled = true;
+                animator.SetBool("IsPatrol", false);
                 if (isTargeting == false)
                 {
                     animator.SetBool("IsChase", false);

@@ -75,17 +75,17 @@ public class EnemyPatrol : MonoBehaviour
     private void Update()
     {
 
-        if(enemy.currentState == EnemyState.E_Move && agent.enabled == true)
-        {
-            animator.SetFloat("VelocityY", 1);
-            animator.SetFloat("VelocitySpeed", patrolSpeed);
-        }
-        else
-        //if (enemy.currentState == EnemyState.E_Idle || enemy.currentState == EnemyState.E_Attack || !agent.enabled)
-        {
-            animator.SetFloat("VelocityY", 0);
-            animator.SetFloat("VelocitySpeed", 0);
-        }
+        //if(enemy.currentState == EnemyState.E_Move && agent.enabled == true)
+        //{
+        //    animator.SetFloat("VelocityY", 1);
+        //    animator.SetFloat("VelocitySpeed", patrolSpeed);
+        //}
+        //else
+        ////if (enemy.currentState == EnemyState.E_Idle || enemy.currentState == EnemyState.E_Attack || !agent.enabled)
+        //{
+        //    animator.SetFloat("VelocityY", 0);
+        //    animator.SetFloat("VelocitySpeed", 0);
+        //}
 
         //animator.SetFloat("VelocityX", localVelocity.x);
         //animator.SetFloat("VelocitySpeed", velocity);
@@ -266,7 +266,8 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (rotationTimer.IsRunning)
         {
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
+            //transform.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
+            //
         }
         else
         {

@@ -31,7 +31,7 @@ public class Destructable : MonoBehaviour
     {
         if(gameObject.tag == "Enemy")
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 2f);
         }
         else if (gameObject.tag == "Player")
         {
