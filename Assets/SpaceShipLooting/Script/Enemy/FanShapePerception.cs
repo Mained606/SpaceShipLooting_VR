@@ -27,7 +27,7 @@ public class FanShapePerception : MonoBehaviour
     private void Start()
     {
         // (DetectionType type, float range) = transform.parent.GetComponent<MonsterMovement>().GetRaderInfo();
-        RaderSettingStart(radius, 100f, thickness, true);
+        RaderSettingStart(radius, angle, thickness, true);
     }
 
 

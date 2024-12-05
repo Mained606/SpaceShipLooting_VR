@@ -32,11 +32,10 @@ public class EnemyPatrol : MonoBehaviour
 
     [SerializeField] private float rotationTime = 2f;
     private bool rotatingLeft = true;
-    [SerializeField] private bool isLookAround = false;
+    private bool isLookAround = false;
     private Quaternion startRotation;
     private Quaternion targetRotation;
 
-    [SerializeField] private float waitingTime = 4f;
     private BasicTimer rotationTimer;
     private float timer;
     [SerializeField] private float rotationAngle = 45f;
@@ -70,21 +69,22 @@ public class EnemyPatrol : MonoBehaviour
 
         nextMovePoint = transform.position;
         spawnPosition = transform.position;
-        timer = waitingTime;
         rotationTimer = new BasicTimer(rotationTime);
     }
 
     private void Update()
     {
-        if(enemy.currentState == EnemyState.E_Idle || enemy.currentState == EnemyState.E_Attack || !agent.enabled)
-        {
-            animator.SetFloat("VelocityY", 0);
-            animator.SetFloat("VelocitySpeed", 0);
-        }
-        else
+
+        if(enemy.currentState == EnemyState.E_Move && agent.enabled == true)
         {
             animator.SetFloat("VelocityY", 1);
             animator.SetFloat("VelocitySpeed", patrolSpeed);
+        }
+        else
+        //if (enemy.currentState == EnemyState.E_Idle || enemy.currentState == EnemyState.E_Attack || !agent.enabled)
+        {
+            animator.SetFloat("VelocityY", 0);
+            animator.SetFloat("VelocitySpeed", 0);
         }
 
         //animator.SetFloat("VelocityX", localVelocity.x);
@@ -227,14 +227,6 @@ public class EnemyPatrol : MonoBehaviour
                 {
                     isLookAround = true;
                     agent.enabled = false;
-
-                    //timer -= Time.deltaTime;
-                    //if (timer < 0f)
-                    //{
-                    //    agent.speed = patrolSpeed;
-                    //    agent.SetDestination(destination);
-                    //    timer = waitingTime;
-                    //}
                 }
             }
         }
@@ -248,23 +240,11 @@ public class EnemyPatrol : MonoBehaviour
             isLookAround = true;
             agent.enabled = false;
         }
-
-        //timer -= Time.deltaTime;
-        //LookAround(timer);
-        //if (timer < 0f)
-        //{
-
-        //    Debug.LogWarning("time: " + timer.ToString());
-        //    agent.speed = patrolSpeed;
-        //    agent.SetDestination(wayPoints[currentCount].position);
-        //    timer = waitingTime;
-        //    currentCount++;
-        //}
     }
 
     public void NonePatrol()
     {
-        // waiting player
+        agent.enabled = false;
     }
 
     public void SetSpawnType(SpawnType spawnerType, Transform[] gob)

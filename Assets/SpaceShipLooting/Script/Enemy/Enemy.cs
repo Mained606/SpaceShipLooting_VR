@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.XR.OpenXR.Input;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,35 +11,27 @@ public class Enemy : MonoBehaviour
     public GameObject item;
     private Pattern patrolPattern;
     private Health health;
+    private Damageable targetDamageable;
+    private Destructable destructable;
     private Animator animator;
-    
-
-    // 메테리얼
-    //public Material idleMaterial;
-    //public Material chaseMaterial;
-    //public Material attackMaterial;
-
-    //private Renderer renderer;
+    private SpawnType spawnType;
 
     public EnemyState currentState;
 
-    [SerializeField] private bool isPlayerInStealthMode;
-    [SerializeField] private bool isPlayerRunnning;
+    private bool isPlayerInStealthMode;
+    private bool isPlayerRunnning;
 
-    private float distance;
-    //[SerializeField] private float minMoveDistance = 5f;
-    [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float moveSpeed = 5f;
-    
 
     // Perception
+    private float distance;
     [SerializeField] private float runPerceptionRange = 15f;
-    //[SerializeField] private float movePerceptionRange = 10f;
     [SerializeField] private float stealthPerceptionRange = 3f;
+
     private FanShapePerception fanPerception;
-    [SerializeField] private bool isInTrigger = false;
-    [SerializeField] private bool isPlayerVisible = false;
-    public Transform eyePoint;
+    private bool isInTrigger = false;
+    private bool isPlayerVisible = false;
+    private Transform eyePoint;
     private Transform targetHead;
     private Vector3 directionToPlayer = Vector3.zero;
     public LayerMask obstacleLayer;
@@ -48,18 +41,18 @@ public class Enemy : MonoBehaviour
 
     // chase
     private bool isTargeting = false;
-    [SerializeField] private float chasingTime = 1f;
+    private float chasingTime = 1f;
     private float chaseTimer;
 
     // attack
-    [SerializeField] private float attackTime = 2f;
-    [SerializeField] private float attackDelayTime = 0.5f;
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackTime = 3f;
     private BasicTimer AttackTimer;
-    private BasicTimer AttackDelayTimer;
+    [SerializeField] private float attackDamage = 10f;
 
     // death
-    [SerializeField] private bool isDeath = false;
-    [SerializeField] private bool hasItem = false;
+    private bool isDeath = false;
+    private bool hasItem = false;
 
     #endregion
 
@@ -84,15 +77,22 @@ public class Enemy : MonoBehaviour
         }
 
         // 참조
+        target = GameObject.FindWithTag("Player").transform;
+        targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
         agent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
         //renderer = GetComponent<Renderer>();
         enemyPatrol = GetComponent<EnemyPatrol>();
         health = GetComponent<Health>();
+        if(target.GetComponent<Damageable>() != null)
+        {
+            targetDamageable = target.GetComponent<Damageable>();
+        }
+        destructable = GetComponent<Destructable>();
         fanPerception = GetComponentInChildren<FanShapePerception>();
-        target = GameObject.FindWithTag("Player").transform;
-        targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
+        
         animator = GetComponent<Animator>();
+        eyePoint = transform.GetChild(0);
 
         // 초기화
         currentState = EnemyState.E_Idle;
@@ -101,7 +101,6 @@ public class Enemy : MonoBehaviour
         isInTrigger = fanPerception.IsInRange;
 
         AttackTimer = new BasicTimer(attackTime);
-        AttackDelayTimer = new BasicTimer(attackDelayTime);
 
         if (item != null)
         {
@@ -115,7 +114,7 @@ public class Enemy : MonoBehaviour
             return;
 
         isInTrigger = fanPerception.IsInRange;
-        distance = Vector3.Distance(eyePoint.position, targetHead.position);
+        distance = Vector2.Distance(new Vector2(eyePoint.position.x, eyePoint.position.z), new Vector2(targetHead.position.x, targetHead.position.z));
         directionToPlayer = (targetHead.position - eyePoint.position).normalized;
         
         switch (currentState)
@@ -123,6 +122,10 @@ public class Enemy : MonoBehaviour
             case EnemyState.E_Idle:
                 //renderer.material = idleMaterial;
                 //Debug.Log("current State: E_Idle");
+                if(spawnType == SpawnType.normal)
+                {
+                    break;
+                }
                 AISearching();
                 break;
 
@@ -133,11 +136,28 @@ public class Enemy : MonoBehaviour
 
             case EnemyState.E_Chase:
                 //renderer.material = chaseMaterial;
-                agent.enabled = true;
-                ChasingTarget();
-                if(distance <= attackRange)
+                //agent.enabled = true;
+                if (isTargeting == false)
                 {
-                    SetState(EnemyState.E_Attack);
+                    animator.SetBool("IsChase", false);
+                    agent.enabled = false;
+                    chaseTimer -= Time.deltaTime;
+
+                    if (chaseTimer <= 0f)
+                    {
+                        Debug.Log($"{this.gameObject.name} says 타겟 발견!");
+                        isTargeting = true;
+                        //ChasingTarget();
+                    }
+                }
+                else
+                {
+                    if(animator.GetBool("IsChase") == false)
+                    {
+                        animator.SetBool("IsChase", true);
+                    }
+
+                    ChasingTarget();
                 }
                 //Debug.Log("current State: E_Chase");
                 break;
@@ -145,10 +165,9 @@ public class Enemy : MonoBehaviour
             case EnemyState.E_Attack:
                 //renderer.material = attackMaterial;
                 agent.enabled = false;
-                if (AttackTimer.IsRunning)  // AttackTimer 가동 중이면 Attack()
+                if (AttackTimer.IsRunning)   // AttackTimer 가동 중이면 Attack()
                 {
                     animator.SetBool("IsAttack", true);
-                    Attack();
                 }
                 else                         // AttackTimer 가동 중 아니면 새 AttackTimer 생성, 스타트
                 {
@@ -264,52 +283,35 @@ public class Enemy : MonoBehaviour
 
     private void ChasingTarget()
     {
-
-        if (isTargeting == false)
+        if (distance <= attackRange)
         {
-            agent.enabled = false;
-            chaseTimer -= Time.deltaTime;
-
-            if (chaseTimer <= 0f)
-            {
-                Debug.Log($"{this.gameObject.name} says 타겟 발견!");
-                animator.SetBool("IsChase", true);
-                isTargeting = true;
-                agent.enabled = true;
-                agent.speed = moveSpeed;
-                chaseTimer = chasingTime;
-
-                ChasingTarget();
-            }
+            Debug.Log("플레이어 잡힙(즉사처리 예정)");
         }
-        else
+        chaseTimer -= Time.deltaTime;
+        agent.enabled = true;
+        agent.speed = moveSpeed;
+        agent.SetDestination(target.position);
+        if (chaseTimer <= 0f)
         {
-            animator.SetBool("IsChase", true);
-            chaseTimer -= Time.deltaTime;
-            agent.speed = moveSpeed;
-            agent.SetDestination(target.position);
-            if (chaseTimer <= 0f)
-            {
-                chaseTimer = chasingTime;
-                animator.SetBool("IsChase", false);
-                SetState(EnemyState.E_Attack);
-            }
+            chaseTimer = chasingTime;
+            animator.SetBool("IsChase", false);
+            SetState(EnemyState.E_Attack);
         }
-
     }
 
     private void Attack()
     {
-        if (AttackDelayTimer.IsRunning)
-        {
-            Debug.Log("대기");
-        }
-        else
-        {
-            //TakeDamage();
-            Debug.Log("TakeDamage");
-            TimerManager.Instance.StartTimer(AttackDelayTimer);
-        }
+        //if (AttackDelayTimer.IsRunning)
+        //{
+        //    Debug.Log("대기");
+        //}
+        //else
+        //{
+        //    //TakeDamage();
+        //    Debug.Log("TakeDamage");
+        //    TimerManager.Instance.StartTimer(AttackDelayTimer);
+        //}
+        targetDamageable.InflictDamage(attackDamage);
 
     }
 
@@ -341,11 +343,14 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, stealthPerceptionRange);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, runPerceptionRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
 
         if (isPlayerVisible)
         {
