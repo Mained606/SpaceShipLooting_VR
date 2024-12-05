@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float maxHealth;
+    [SerializeField] private float maxHealth = 100f;
     public float CurrentHealth { get; private set; }    // 현재 체력
     private bool isDeath = false;                       //죽음 체크
 
@@ -12,7 +12,6 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        maxHealth = GameManager.Instance.PlayerStatsData.maxHealth;
         CurrentHealth = maxHealth;
     }
 

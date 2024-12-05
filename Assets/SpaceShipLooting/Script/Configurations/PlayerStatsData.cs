@@ -4,9 +4,6 @@ using UnityEngine;
 // 추후 개선 필요
 public class PlayerStatsData
 {
-    [Header("Health Settings")]
-    public float maxHealth = 100f;      // 플레이어 최대 체력
-
     [Header("Speed Settings")]
     public float walkingSpeed = 2.5f;   // 플레이어 기본 이동 속도
     public float runningSpeed = 5f;     // 플레이어 달리기 속도
