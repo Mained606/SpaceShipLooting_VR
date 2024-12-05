@@ -10,6 +10,6 @@ public class test : XRSimpleInteractable
     {
         base.OnSelectEntering(args);
 
-        animator.SetBool("IsTouch", true);
+        animator.SetBool("IsSit", true);
     }
 }
