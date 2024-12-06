@@ -18,14 +18,16 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        // 죽은 상태면 리턴
+        if(isDeath) return;
+        
         // 무적 상태면 리턴
         if(isInvincible)
         {
             Debug.Log(gameObject.name + "은 무적입니다");
+            // 사용자에게 표시해줄 필요 있음.
             return;
         }
-        // 죽은 상태면 리턴
-        if(isDeath) return;
 
         float beforeHealth = CurrentHealth;
 

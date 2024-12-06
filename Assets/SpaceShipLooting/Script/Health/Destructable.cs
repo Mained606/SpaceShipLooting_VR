@@ -36,15 +36,17 @@ public class Destructable : MonoBehaviour
         {
             bossController.RemoveCore(gameObject);
         }
-        
-        if(gameObject.tag == "Enemy")
+
+        else if(gameObject.tag == "Enemy")
         {
             Destroy(gameObject, 2f);
         }
+
         else if (gameObject.tag == "Player")
         {
             Debug.Log("Player Die");
         }
+        
         else
         {
             Destroy(gameObject);

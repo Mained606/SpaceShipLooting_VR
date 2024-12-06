@@ -8,19 +8,24 @@ public class SpaceBossController : BossController
     [SerializeField] private GameObject eye;
     [SerializeField] public GameObject[] cores;
 
+    // 모든 코어 파괴 확인
     public bool allCoresDestroyed = false;
+    // 눈이 올라왔는지 확인
+    private bool eyeChange = false;
 
     // 올라올 때 눈알의 높이값
     [SerializeField] private float eyePositionY = 1.5f;
     
+    // 서치 범위
     [SerializeField] private float searchRange = 15f;
-    [SerializeField] public float defenceDuration = 20f;
+
+    // 디펜스 상태에서 어택 상태로 전환되기까지의 시간
+    [SerializeField] public float defenceDuration = 5f;
 
     // 각 보스 패턴 별 공격시작까지 걸리는 딜레이 시간
     [SerializeField] public float empAttackDuration = 5f;
     [SerializeField] public float laserAttackDuration = 5f;
     [SerializeField] public float coreExplosionDuration = 5f;
-
 
     // 공격 패턴 이벤트 리스트
     private List<System.Action> attackPatterns;
@@ -41,6 +46,7 @@ public class SpaceBossController : BossController
         stateMachine.AddState(new SpaceBossEyeLaserState());
         stateMachine.AddState(new SpaceBossEMPAttackState());
         
+        // 기본 상태를 아이들로 세팅
         ChangeState<SpaceBossIdleState>();
 
         // 공격 패턴 초기화
@@ -64,9 +70,10 @@ public class SpaceBossController : BossController
         {
             onAllCoresDestroyed = new UnityEvent();
         }
+        // 코어 전체 파괴 이벤트 구독
         onAllCoresDestroyed.AddListener(OnAllCoresDestroyed);
 
-        // 코어 Health 이벤트 등록
+        // 코어 Health 이벤트 등록(코어가 1개 파괴 되었는지 확인용)
         foreach (var core in cores)
         {
             if (core != null)
@@ -95,20 +102,14 @@ public class SpaceBossController : BossController
     // 만약 모든 코어가 파괴되었는지 확인하고 본체의 무적 해제 및 눈알 위치 조정
     public void CheckCoresAndUpdateState()
     {
-        allCoresDestroyed = cores.Length > 0;
-        foreach (var core in cores)
-        {
-            if (core != null)
-            {
-                allCoresDestroyed = false;
-                break;
-            }
-        }
+        // 모든 코어가 파괴되었는지 확인 (코어가 더 이상 남아있지 않은 경우)
+        allCoresDestroyed = cores.Length == 0;
 
         if (allCoresDestroyed)
         {
             // 모든 코어가 파괴되었을 때 이벤트 호출
             onAllCoresDestroyed.Invoke();
+            Debug.Log("모든 코어 파괴");
         }
     }
 
@@ -125,7 +126,12 @@ public class SpaceBossController : BossController
 
     public void ChangeEyePositionUp()
     {
+        // 눈이 이미 올라와 있으면 리턴
+        if(eyeChange) return; 
+
         eye.SetActive(true);
+        eyeChange = true;
+
         // 눈알 위치 조정 (y축으로 올리기)
         Vector3 newPosition = eye.transform.position;
         newPosition.y += eyePositionY; // y 위치를 eyePositionY 값만큼 올림 (필요에 따라 조정 가능)
@@ -133,9 +139,14 @@ public class SpaceBossController : BossController
         Debug.Log("눈알 위치 올라감");
     }
 
+    // 눈 위치 아래로
     public void ChangeEyePositionDown()
     {
+        if(eyeChange == false) return; 
+
         eye.SetActive(false);
+        eyeChange = false;
+
         Vector3 newPosition = eye.transform.position;
         newPosition.y -= eyePositionY; // y 위치를 eyePositionY 값만큼 내림 (필요에 따라 조정 가능)
         eye.transform.position = newPosition;
