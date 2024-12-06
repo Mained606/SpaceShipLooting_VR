@@ -106,10 +106,10 @@ public class EnemyPatrol : MonoBehaviour
                     {
                         WayPointPatrol();
                     }
-                    //else if(spawnType == SpawnType.normal)
-                    //{
-                    //    NonePatrol();
-                    //}
+                    else if (spawnType == SpawnType.normal)
+                    {
+                        NonePatrol();
+                    }
                 }
                 break;
 
