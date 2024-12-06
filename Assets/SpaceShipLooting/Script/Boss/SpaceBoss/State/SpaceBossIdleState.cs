@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class SpaceBossIdleState : State<BossController>
 {
+    private SpaceBossController boss;
+
     public override void OnInitialized()
     {
-
+        boss = context as SpaceBossController;
     }
 
     public override void OnEnter()
@@ -14,15 +16,10 @@ public class SpaceBossIdleState : State<BossController>
 
     public override void Update(float deltaTime)
     {
-        SpaceBossController boss = context as SpaceBossController;
-        if(boss.IsTargetInRange() == true)
+        // 타겟이 범위 안으로 들어오면 무적 상태로 전환
+        if(boss.IsTargetInRange())
         {
-            boss.ChangeState<SpaceBossAttackState>();
+            boss.SpaceBossDefenceState();
         }
-    }
-
-    public override void OnExit()
-    {
-
     }
 }

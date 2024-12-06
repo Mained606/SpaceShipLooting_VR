@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     public float CurrentHealth { get; private set; }    // 현재 체력
     private bool isDeath = false;                       //죽음 체크
+    public bool isInvincible = false;
 
     public UnityAction<float> OnDamaged;   // 데미지 입었을때 호출되는 함수
     public UnityAction OnDie;              // 죽었을때 호출되는 함수
@@ -17,6 +18,15 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        // 무적 상태면 리턴
+        if(isInvincible)
+        {
+            Debug.Log(gameObject.name + "은 무적입니다");
+            return;
+        }
+        // 죽은 상태면 리턴
+        if(isDeath) return;
+
         float beforeHealth = CurrentHealth;
 
         CurrentHealth -= damage;
