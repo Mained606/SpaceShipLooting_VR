@@ -15,7 +15,7 @@ public class EnemyPatrol : MonoBehaviour
     #region Variables
     private Enemy enemy;
     private Animator animator;
-    [SerializeField] SpawnType spawnType;
+    public SpawnType spawnType;
 
     //
     public PatrolType patrolShape = PatrolType.Circle;
@@ -25,6 +25,7 @@ public class EnemyPatrol : MonoBehaviour
     private Vector3 spawnPosition;
     private Vector3 nextMovePoint;
     private Transform[] wayPoints;
+    public Transform enemyHeadPosition;
 
     private Vector3 dir;
 
@@ -74,25 +75,13 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
-
-        //if(enemy.currentState == EnemyState.E_Move && agent.enabled == true)
-        //{
-        //    animator.SetFloat("VelocityY", 1);
-        //    animator.SetFloat("VelocitySpeed", patrolSpeed);
-        //}
-        //else
-        ////if (enemy.currentState == EnemyState.E_Idle || enemy.currentState == EnemyState.E_Attack || !agent.enabled)
-        //{
-        //    animator.SetFloat("VelocityY", 0);
-        //    animator.SetFloat("VelocitySpeed", 0);
-        //}
-
-        //animator.SetFloat("VelocityX", localVelocity.x);
-        //animator.SetFloat("VelocitySpeed", velocity);
-
         switch (enemy.currentState)
         {
             case EnemyState.E_Idle:
+                if(spawnType == SpawnType.normal)
+                {
+                    //
+                }
                 break;
 
             case EnemyState.E_Move:
@@ -117,10 +106,10 @@ public class EnemyPatrol : MonoBehaviour
                     {
                         WayPointPatrol();
                     }
-                    else if(spawnType == SpawnType.normal)
-                    {
-                        NonePatrol();
-                    }
+                    //else if(spawnType == SpawnType.normal)
+                    //{
+                    //    NonePatrol();
+                    //}
                 }
                 break;
 
@@ -266,7 +255,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (rotationTimer.IsRunning)
         {
-            //transform.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
+            //enemyHeadPosition.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
             //
         }
         else

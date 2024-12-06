@@ -76,6 +76,8 @@ public class Enemy : MonoBehaviour
             patrolPattern = new NoneParent();
         }
 
+
+        
         // 참조
         target = GameObject.FindWithTag("Player").transform;
         targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
@@ -90,7 +92,8 @@ public class Enemy : MonoBehaviour
         }
         destructable = GetComponent<Destructable>();
         fanPerception = GetComponentInChildren<FanShapePerception>();
-        
+        spawnType = GetComponent<EnemyPatrol>().spawnType;
+
         animator = GetComponent<Animator>();
         eyePoint = transform.GetChild(0);
 
@@ -114,6 +117,11 @@ public class Enemy : MonoBehaviour
         if (isDeath)
             return;
 
+        if(health.CurrentHealth <= 0)
+        {
+            Die();
+        }
+
         isInTrigger = fanPerception.IsInRange;
         distance = Vector2.Distance(new Vector2(eyePoint.position.x, eyePoint.position.z), new Vector2(targetHead.position.x, targetHead.position.z));
         directionToPlayer = (targetHead.position - eyePoint.position).normalized;
@@ -121,24 +129,22 @@ public class Enemy : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.E_Idle:
-                //renderer.material = idleMaterial;
-                //Debug.Log("current State: E_Idle");
-                if(spawnType == SpawnType.normal)
-                {
-                    break;
-                }
                 AISearching();
                 break;
 
             case EnemyState.E_Move:
-                //Debug.Log("current State: E_Move");
+                if (spawnType == SpawnType.normal)
+                {
+                    Debug.Log("normal E_Move 조건문");
+                    animator.SetBool("IsPatrol", false);
+                    return;
+                }
                 animator.SetBool("IsPatrol", true);
                 AISearching();
                 break;
 
             case EnemyState.E_Chase:
-                //renderer.material = chaseMaterial;
-                //agent.enabled = true;
+;
                 animator.SetBool("IsPatrol", false);
                 if (isTargeting == false)
                 {
@@ -150,7 +156,6 @@ public class Enemy : MonoBehaviour
                     {
                         Debug.Log($"{this.gameObject.name} says 타겟 발견!");
                         isTargeting = true;
-                        //ChasingTarget();
                     }
                 }
                 else
@@ -162,15 +167,14 @@ public class Enemy : MonoBehaviour
 
                     ChasingTarget();
                 }
-                //Debug.Log("current State: E_Chase");
                 break;
 
             case EnemyState.E_Attack:
-                //renderer.material = attackMaterial;
                 agent.enabled = false;
                 if (AttackTimer.IsRunning)   // AttackTimer 가동 중이면 Attack()
                 {
                     animator.SetBool("IsAttack", true);
+                    return;
                 }
                 else                         // AttackTimer 가동 중 아니면 새 AttackTimer 생성, 스타트
                 {
@@ -183,7 +187,7 @@ public class Enemy : MonoBehaviour
 
             case EnemyState.E_Death:
                 agent.enabled = false;
-                // Animation
+                animator.SetBool("IsDeath", true);
                 break;
         }
     }
@@ -210,20 +214,22 @@ public class Enemy : MonoBehaviour
 
      public void AISearching()
     {
-        if (currentState == EnemyState.E_Idle)
+
+        if (currentState == EnemyState.E_Idle && spawnType != SpawnType.normal)
         {
             SetState(EnemyState.E_Move);
         }
         else if(currentState == EnemyState.E_Move)
         {
-            //if (distance <= runPerceptionRange && distance > movePerceptionRange)
-            //{
-            //    if (isPlayerRunnning == true)   // Player Running Check
-            //    {
-            //        Debug.Log("Player Running Perception");
-            //        SetState(EnemyState.E_Chase);
-            //    }
-            //}
+            if (distance <= runPerceptionRange)
+            {
+                if (isPlayerRunnning == true)   // Player Running Check
+                {
+                    Debug.Log("Player Running Perception");
+                    SetState(EnemyState.E_Chase);
+                }
+            }
+
             if (isInTrigger == true && distance > stealthPerceptionRange)   // 움직임 감지 범위 안엔 있지만 장애물 뒤에 숨은 경우
             {
                 Ray ray = new Ray(eyePoint.position, directionToPlayer);
@@ -261,29 +267,6 @@ public class Enemy : MonoBehaviour
         
     }
 
-    //private void targetStealthCheck()
-    //{
-    //    // AI 행동 변경 로직 추가
-    //    if (isPlayerInStealthMode)
-    //    {
-    //        if(distance <= stealthPerceptionRange)
-    //        {
-    //            SetState(EnemyState.E_Chase);
-    //        }
-    //        else
-    //        {
-    //            SetState(EnemyState.E_Move);
-    //        }
-            
-    //    }
-    //    else
-    //    {
-    //        SetState(EnemyState.E_Chase);
-    //    }
-    //}
-
-   
-
     private void ChasingTarget()
     {
         if (distance <= attackRange)
@@ -304,18 +287,7 @@ public class Enemy : MonoBehaviour
 
     private void Attack()
     {
-        //if (AttackDelayTimer.IsRunning)
-        //{
-        //    Debug.Log("대기");
-        //}
-        //else
-        //{
-        //    //TakeDamage();
-        //    Debug.Log("TakeDamage");
-        //    TimerManager.Instance.StartTimer(AttackDelayTimer);
-        //}
         targetDamageable.InflictDamage(attackDamage);
-
     }
 
     private void Die()
@@ -330,12 +302,12 @@ public class Enemy : MonoBehaviour
         {
             DropItem();
         }
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 2f);
     }
 
     private void DropItem()
     {
-        Instantiate(item, transform.position, Quaternion.identity);
+        Instantiate(item, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
         Debug.Log("Item dropped!");
     }
 

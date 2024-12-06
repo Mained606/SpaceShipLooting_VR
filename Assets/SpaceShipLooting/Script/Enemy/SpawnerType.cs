@@ -28,8 +28,8 @@ public class SpawnerType : MonoBehaviour
         }
         else if(wayPoints != null && wayPoints.Length == 1)
         {
-            Debug.Log("SpawnType : Normal");
             currentSpawnerType = SpawnType.normal;
+            Debug.Log("SpawnType : Normal");
         }
 
         if(transform.childCount > 0)

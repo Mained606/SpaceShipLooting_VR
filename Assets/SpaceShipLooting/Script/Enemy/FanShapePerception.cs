@@ -22,12 +22,22 @@ public class FanShapePerception : MonoBehaviour
     private MeshFilter meshFilter;
 
     public bool IsInRange { get; private set; }
+    public Transform parentPosition;
     #endregion
 
     private void Start()
     {
         // (DetectionType type, float range) = transform.parent.GetComponent<MonsterMovement>().GetRaderInfo();
         RaderSettingStart(radius, angle, thickness, true);
+        
+
+    }
+
+    private void Update()
+    {
+        transform.position = parentPosition.position;
+        transform.rotation = Quaternion.Euler(transform.rotation.x, parentPosition.rotation.eulerAngles.y - 90, transform.rotation.z);
+        //transform.rotation = Quaternion.Euler(0, parentPosition.rotation.y, 0);
     }
 
 

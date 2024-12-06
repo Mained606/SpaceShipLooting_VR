@@ -197,6 +197,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5848308902420399619}
+  - {fileID: 2550669182048714068}
   - {fileID: 3151615897856026460}
   - {fileID: 6312052174768610601}
   m_Father: {fileID: 0}
@@ -262,6 +263,7 @@ MonoBehaviour:
   patrolShape: 1
   circlePatrolRange: 10
   rectanglePatrolRange: {x: 5, y: 13}
+  enemyHeadPosition: {fileID: 3517213262133845254}
   rotationTime: 2
   rotationAngle: 45
   patrolSpeed: 1
@@ -1553,7 +1555,6 @@ Transform:
   m_Children:
   - {fileID: 8017768838699747652}
   - {fileID: 3042520072844189896}
-  - {fileID: 2550669182048714068}
   m_Father: {fileID: 3922688628217949609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4718600147066824491
@@ -2952,12 +2953,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9096755494003548817}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.47540548, y: 0.44884732, z: -0.5234401, w: -0.5463846}
-  m_LocalPosition: {x: 51.59109, y: 0.23638254, z: -2.5978038}
-  m_LocalScale: {x: 100, y: 100, z: 99.99998}
+  m_LocalRotation: {x: 0.000000014901161, y: -0, z: 0.000000014901161, w: 1}
+  m_LocalPosition: {x: 0, y: 1.29, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3517213262133845254}
+  m_Father: {fileID: 3105791330351175728}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7523986670892456757
 MeshFilter:
@@ -3053,6 +3054,7 @@ MonoBehaviour:
   radarMaterial: {fileID: 0}
   useCustomNormals: 0
   isTrigger: 1
+  parentPosition: {fileID: 3517213262133845254}
 --- !u!1 &9131447912173677567
 GameObject:
   m_ObjectHideFlags: 0
