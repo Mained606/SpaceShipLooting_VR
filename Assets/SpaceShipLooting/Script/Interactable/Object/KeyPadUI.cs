@@ -1,74 +1,117 @@
 using UnityEngine;
-using UnityEngine.Events;
 using TMPro;
+using UnityEngine.Events;
+using NUnit.Framework;
+using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
+using static NUnit.Framework.Constraints.NUnitEqualityComparer;
 
 public class KeyPadUI : MonoBehaviour, ISignal
 {
-    public UnityEvent<string> OnSignal { get; } = new UnityEvent<string>();
-
     [SerializeField]
-    private string correctCode = "1945"; // 키패드 비밀번호 값
-
+    private string correctCode = "1945"; // 정답 코드
     private string currentInput = ""; // 현재 입력된 값
-    private TextMeshProUGUI displayText; // 입력된 숫자를 보여줄 텍스트
+    private int failCount = 0; // 실패 횟수 추적 변수
+
+    [SerializeField] private TMP_Text displayText; // 입력값을 보여줄 TextMeshProUGUI
+
+    [SerializeField] private Transform keyPad;
+
+    // 키패드 배열로 받아오기
+    private Button[] keyPads;
+
+    public UnityEvent<string> OnSignal { get; } = new UnityEvent<string>();
+    public UnityEvent FailSignal { get; } = new UnityEvent(); // 3번 실패 시그널
 
     private void Start()
     {
-        // TextMeshProUGUI 컴포넌트를 자동으로 찾아서 참조
-        displayText = GetComponentInChildren<TextMeshProUGUI>();
+        // 키패드 배열로 받아오기
+        keyPads = keyPad.GetComponentsInChildren<Button>();
+        for(int i = 0; i < keyPads.Length; i++)
+        {
+            int index = i + 1;
+            keyPads[i].onClick.AddListener(() => OnButtonPressed(index));
+        }
+        
 
         if (displayText == null)
         {
-            Debug.LogError("No TextMeshProUGUI component found in children!");
+            Debug.LogError("No TextMeshProUGUI found in children.");
         }
+
     }
 
-    public void OnButtonPressed(string number)
+    public void OnButtonPressed(int number)
     {
+        if (currentInput.Length >= 4) return; // 4자리 입력 제한
+
         currentInput += number;
 
-        // 입력값을 디스플레이에 간격 있는 형식으로 표시
+        // 디스플레이 업데이트
         if (displayText != null)
         {
-            displayText.text = FormatInputWithSpaces(currentInput);
+            displayText.text = currentInput;
         }
 
-        // 입력값이 정답과 일치하면 신호 발송
-        if (currentInput == correctCode)
+        // 입력값이 4자리일 경우 코루틴 실행
+        if (currentInput.Length == 4)
         {
-            OnSignal.Invoke("CodeMatched"); // 신호 발송
-            if (displayText != null)
-            {
-                displayText.text = "SUCCESS!"; // 성공 메시지 출력
-            }
-            ClearInput(); // 입력 초기화
+            StartCoroutine(DelayedResultCheck()); // 코루틴 호출
         }
     }
 
-    // 입력값 초기화
-    public void ClearInput()
+    // 성공/실패 여부를 딜레이 후 확인하는 코루틴
+    private System.Collections.IEnumerator DelayedResultCheck()
+    {
+        float originalFontSize = displayText.fontSize; // 원래 폰트 크기 저장
+
+        yield return new WaitForSeconds(1f); // 1초 대기 후 "체킹 중..." 표시
+
+        if (displayText != null)
+        {
+            displayText.fontSize = originalFontSize * 0.5f; // 폰트 크기를 80%로 줄임
+            displayText.text = "Checking";
+        }
+
+        yield return new WaitForSeconds(3f); // 추가 2초 대기
+
+        if (currentInput == correctCode)
+        {
+            displayText.fontSize = originalFontSize * 0.6f;
+            displayText.text = "SUCCESS!";
+        }
+        else
+        {
+            displayText.text = "FAIL!";
+            failCount++; // 실패 횟수 증가
+        }
+        // 실패 횟수가 3번이면 실패 신호 발행
+        if (failCount >= 3)
+        {
+            FailSignal?.Invoke();
+            failCount = 0; // 실패 횟수 초기화
+        }
+
+        displayText.fontSize = originalFontSize; // 폰트 크기를 원래대로 복원
+        Invoke(nameof(ClearInput), 2f); // 2초 후 입력 초기화
+    }
+
+    private void ClearInput()
     {
         currentInput = "";
         if (displayText != null)
         {
-            displayText.text = ""; // 디스플레이 초기화
+            displayText.text = "";
         }
-        Debug.Log("Input cleared.");
-    }
-
-    // 숫자 사이에 간격 추가하는 메서드
-    private string FormatInputWithSpaces(string input)
-    {
-        return string.Join(" ", input.ToCharArray());
-    }
-
-    public void ClearListeners()
-    {
-        OnSignal.RemoveAllListeners(); // 모든 이벤트 리스너 제거
     }
 
     public GameObject GetGameObject()
     {
-        return gameObject; // 현재 오브젝트 반환
+        return gameObject;
+    }
+
+    public void ClearListeners()
+    {
+        OnSignal.RemoveAllListeners();
     }
 }

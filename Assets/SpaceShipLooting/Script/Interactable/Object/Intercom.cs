@@ -1,31 +1,32 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Intercom : XRSimpleInteractableOutline
-{ 
-
-    private GameObject keypadUI; // Keypad UI 오브젝트
+public class Intercom : XRSimpleInteractableOutline, ISignalReceiver
+{
+    private GameObject keyPadUI; // Keypad UI 오브젝트
     private Transform displayPosition; // UI가 나타날 위치
-    private string correctCode = "1945"; // 정답 비밀번호
-    private string currentInput = ""; // 현재 입력된 값
+
     private bool isUIActive = false; // UI 활성화 상태 체크
 
     protected override void Awake()
     {
         base.Awake();
 
-        // 키패드 UI와 표시 위치 자동 검색
-        keypadUI = GameObject.Find("KeypadUI"); // 이름으로 Keypad UI 검색
-        displayPosition = transform.Find("DisplayPosition"); // 자식 오브젝트에서 위치 검색
-
-        if (keypadUI == null)
+        // KeyPadUI 동적 검색
+        keyPadUI = FindObjectOfType<KeyPadUI>(true)?.gameObject;// 비활성화된 오브젝트도 검색
+        if (keyPadUI == null)
         {
-            Debug.LogError("Keypad UI not found!");
+            Debug.LogError("KeyPadUI not found in the scene!");
         }
 
-        if (displayPosition == null)
+        // DisplayPosition을 KeyPadUI 하위에서 찾음
+        if (keyPadUI != null)
         {
-            Debug.LogError("Display Position not found!");
+            displayPosition = keyPadUI.transform.Find("Canvas/Display");
+            if (displayPosition == null)
+            {
+                Debug.LogError("DisplayPosition not found under KeyPadUI!");
+            }
         }
     }
 
@@ -33,58 +34,37 @@ public class Intercom : XRSimpleInteractableOutline
     {
         base.OnSelectEntered(args);
 
-        // UI가 이미 활성화되어 있다면 동작 방지
-        if (isUIActive)
+        // UI 활성화
+        if (!isUIActive && keyPadUI != null)
         {
-            Debug.Log("UI is already active. Ignoring further input.");
-            return;
-        }
+            keyPadUI.SetActive(true);
+            keyPadUI.transform.position = displayPosition.position;
 
-        if (keypadUI != null && displayPosition != null)
-        {
-            // UI 활성화 및 위치 이동
-            keypadUI.SetActive(true);
-            keypadUI.transform.position = displayPosition.position;
-            keypadUI.transform.rotation = displayPosition.rotation;
-            isUIActive = true; // UI 활성화 상태 갱신
+            // Y축 180도 회전 추가
+            keyPadUI.transform.rotation = displayPosition.rotation * Quaternion.Euler(0, 180, 0);
+
+            isUIActive = true;
         }
     }
 
-    public void OnButtonPressed(string number)
+    public void ReceiveSignal(string signal)
     {
-        currentInput += number;
-
-        // 입력값 확인
-        if (currentInput.Length >= correctCode.Length)
+        if (signal == "CodeMatched")
         {
-            if (currentInput == correctCode)
-            {
-                Debug.Log("SUCCESS!");
-            }
-            else
-            {
-                Debug.Log("WRONG CODE! UI will hide.");
-                if (keypadUI != null)
-                {
-                    keypadUI.SetActive(false); // UI 비활성화
-                }
-                isUIActive = false; // UI 상태 갱신
-            }
+            Debug.Log("Correct code entered. Triggering animation.");
+            // 여기에 애니메이션 트리거 추가
+        }
 
-            // 입력 초기화
-            currentInput = "";
+        // UI 비활성화
+        if (keyPadUI != null)
+        {
+            keyPadUI.SetActive(false);
+            isUIActive = false;
         }
     }
 
-    protected override void OnSelectExited(SelectExitEventArgs args)
+    public GameObject GetGameObject()
     {
-        base.OnSelectExited(args);
-
-        if (keypadUI != null)
-        {
-            // 선택 종료 시 UI 비활성화
-            keypadUI.SetActive(false);
-            isUIActive = false; // UI 상태 갱신
-        }
+        return gameObject;
     }
 }
