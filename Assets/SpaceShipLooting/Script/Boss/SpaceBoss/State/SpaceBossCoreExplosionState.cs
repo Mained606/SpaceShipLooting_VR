@@ -3,32 +3,43 @@ using UnityEngine;
 public class SpaceBossCoreExplosionState : State<BossController>
 {
     private SpaceBossController boss;
-
     private float timer;
-    private float coreExplosionDuration;
 
     public override void OnInitialized()
     {
+        // context를 SpaceBossController로 캐스팅
         boss = context as SpaceBossController;
-        coreExplosionDuration = boss.coreExplosionDuration;
+        if (boss == null)
+        {
+            Debug.LogError("SpaceBossController를 초기화할 수 없습니다.");
+        }
     }
 
     public override void OnEnter()
     {
-        Debug.Log("보스 코어 폭발 스테이트 시작");
-        timer = 0f;
+        Debug.Log("보스 코어 폭발 상태 진입");
+        timer = 0f; // 타이머 초기화
+
+        if (boss == null) return;
     }
 
     public override void Update(float deltaTime)
     {
+        if (boss == null) return;
+
         timer += deltaTime;
-        if(timer >= coreExplosionDuration)
+        if (timer >= boss.CoreExplosionDuration)
         {
-            // 코어 폭발 스킬 효과 발동
 
-
-            // 공격 후 다시 디펜스 스테이트로 변경
-            boss.SpaceBossDefenceState();
         }
+        // 디펜스 상태로 전환
+        boss.SpaceBossDefenceState();
+    }
+
+    public override void OnExit()
+    {
+        Debug.Log("보스 코어 폭발 상태 종료");
+        // 필요 시 상태 종료 로직 추가
     }
 }
+

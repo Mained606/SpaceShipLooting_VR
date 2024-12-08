@@ -3,61 +3,71 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float maxHealth = 100f;    // 최대 체력
     public float CurrentHealth { get; private set; }    // 현재 체력
-    private bool isDeath = false;                       //죽음 체크
-    public bool isInvincible = false;
 
-    public UnityAction<float> OnDamaged;   // 데미지 입었을때 호출되는 함수
-    public UnityAction OnDie;              // 죽었을때 호출되는 함수
-
-    private void Start()
+    private bool isDead = false;                       //죽음 체크
+    private bool isInvincible;                           // 무적 상태
+    public bool IsInvincible
     {
-        CurrentHealth = maxHealth;
+        get => isInvincible;
+        set
+        {
+            if (isInvincible == value) return;
+            isInvincible = value;
+            OnInvincibilityChanged?.Invoke(isInvincible); // 무적 상태 변경 이벤트 호출
+        }
     }
 
+    // 이벤트
+    public UnityEvent<bool> OnInvincibilityChanged { get; private set; } = new UnityEvent<bool>();
+    public UnityEvent<float> OnDamaged { get; private set; } = new UnityEvent<float>();
+    public UnityEvent OnDie { get; private set; } = new UnityEvent();
+
+    private void Awake()
+    {
+        CurrentHealth = maxHealth; // 초기 체력을 최대 체력으로 설정
+    }
+
+    // 데미지를 받는 메서드
     public void TakeDamage(float damage)
     {
-        // 죽은 상태면 리턴
-        if(isDeath) return;
-        
-        // 무적 상태면 리턴
-        if(isInvincible)
+        if (isDead || IsInvincible) return; // 죽었거나 무적 상태라면 데미지 무효화
+
+        float previousHealth = CurrentHealth;
+        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0f, maxHealth); // 체력 감소
+
+        if (CurrentHealth < previousHealth)
         {
-            Debug.Log(gameObject.name + "은 무적입니다");
-            // 사용자에게 표시해줄 필요 있음.
-            return;
+            Debug.Log($"[Health] {gameObject.name}가 {previousHealth - CurrentHealth}의 피해를 입었습니다. 남은 체력: {CurrentHealth}");
+            OnDamaged?.Invoke(previousHealth - CurrentHealth); // 데미지 이벤트 호출
         }
 
-        float beforeHealth = CurrentHealth;
-
-        CurrentHealth -= damage;
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, maxHealth);
-
-        // 실제로 받은 데미지가 있을 때 이벤트 호출
-        float realDamage = beforeHealth - CurrentHealth;
-        if (realDamage > 0f)
+        if (CurrentHealth <= 0 && !isDead)
         {
-            Debug.Log(gameObject.name + "가" + realDamage +"의 피해를 입어" + CurrentHealth +"의 체력이 남았습니다.");
-            OnDamaged?.Invoke(realDamage);
+            HandleDeath(); // 죽음 처리
         }
-
-        // 죽음 처리
-        HandleDeath();
     }
 
+    // 체력을 회복하는 메서드 (추가 가능성)
+    public void Heal(float amount)
+    {
+        if (isDead) return; // 죽은 상태에서는 회복 불가
+
+        float previousHealth = CurrentHealth;
+        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0f, maxHealth); // 체력 증가
+
+        if (CurrentHealth > previousHealth)
+        {
+            Debug.Log($"[Health] {gameObject.name}가 {amount}만큼 회복했습니다. 현재 체력: {CurrentHealth}");
+        }
+    }
+
+    // 죽음을 처리하는 메서드
     private void HandleDeath()
     {
-        // 이미 죽었으면 처리 안함
-        if (isDeath) return;
-
-        // 체력이 0 이하면 죽음 처리
-        if (CurrentHealth <= 0)
-        {
-            isDeath = true;
-            Debug.Log(gameObject.name + " is dead");
-
-            OnDie?.Invoke();
-        }
+        isDead = true;
+        Debug.Log($"[Health] {gameObject.name}이(가) 사망했습니다.");
+        OnDie?.Invoke(); // 죽음 이벤트 호출
     }
 }

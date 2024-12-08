@@ -1,17 +1,25 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Destructable : MonoBehaviour
 {
     private Health health;
-    private SpaceBossController bossController;
+
+    // 오브젝트가 파괴되었을 때 발생하는 이벤트
+    public UnityEvent<GameObject> OnObjectDestroyed { get; private set; } = new UnityEvent<GameObject>();
 
     private void Start()
     {
         health = GetComponent<Health>();
-        bossController = Object.FindAnyObjectByType<SpaceBossController>();
+        if (health == null)
+        {
+            Debug.LogError("Health 컴포넌트를 찾을 수 없습니다.");
+            return;
+        }
 
-        health.OnDamaged += OnDamaged;  // 데미지를 입을 때 호출되는 메서드
-        health.OnDie += OnDie;          // 죽을 때 호출되는 메서드
+        // Health 이벤트 구독
+        health.OnDamaged.AddListener(HandleDamaged);
+        health.OnDie.AddListener(HandleDeath);
 
     }
 
@@ -20,36 +28,38 @@ public class Destructable : MonoBehaviour
         if (health != null)
         {
             // 이벤트 구독 해제
-            health.OnDamaged -= OnDamaged;
-            health.OnDie -= OnDie;
+            health.OnDamaged?.RemoveListener(HandleDamaged);
+            health.OnDie?.RemoveListener(HandleDeath);
         }
     }
 
-    void OnDamaged(float damage)
+    private void HandleDamaged(float damage)
     {
-        // VFX, Sound 등 데미지 효과 구현
+        // 데미지를 받을 때 발생하는 효과 처리 (VFX, 사운드 등)
+        Debug.Log($"[Destructable] {gameObject.name}이(가) {damage}의 피해를 입었습니다.");
     }
 
-    void OnDie()
+    private void HandleDeath()
     {
-        if (bossController != null && gameObject.CompareTag("Core")) // Core 태그 확인
-        {
-            bossController.RemoveCore(gameObject);
-        }
+        // 파괴 로직
+        OnObjectDestroyed?.Invoke(gameObject);
+        Debug.Log($"[Destructable] {gameObject.name}이(가) 파괴되었습니다.");
 
-        else if(gameObject.tag == "Enemy")
+        if (gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 2f); // 적일 경우 2초 후 제거
         }
-
-        else if (gameObject.tag == "Player")
+        else if (gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Die");
+            Debug.Log("[Destructable] 플레이어가 사망했습니다.");
         }
-        
+        else if (gameObject.CompareTag("Core"))
+        {
+            return;
+        }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // 기본 파괴 로직
         }
     }
 }

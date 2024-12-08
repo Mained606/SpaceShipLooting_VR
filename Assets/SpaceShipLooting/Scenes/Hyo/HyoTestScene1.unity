@@ -508,6 +508,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1386084713983653585, guid: 8bd9b51ac8cb0574ab29ccdeae3c6971, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485337978725196697, guid: 8bd9b51ac8cb0574ab29ccdeae3c6971, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5352500577149586070, guid: 8bd9b51ac8cb0574ab29ccdeae3c6971, type: 3}
       propertyPath: m_Name
       value: Boss
@@ -550,6 +558,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6430735328666091731, guid: 8bd9b51ac8cb0574ab29ccdeae3c6971, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7816810258872683723, guid: 8bd9b51ac8cb0574ab29ccdeae3c6971, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991269576113674364, guid: 8bd9b51ac8cb0574ab29ccdeae3c6971, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -792,10 +808,6 @@ PrefabInstance:
       propertyPath: m_StartingSelectedInteractable
       value: 
       objectReference: {fileID: 434509388}
-    - target: {fileID: 8140234793415768236, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

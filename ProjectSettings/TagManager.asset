@@ -12,6 +12,7 @@ TagManager:
   - Backpack
   - Card
   - Core
+  - Bullet
   layers:
   - Default
   - TransparentFX
