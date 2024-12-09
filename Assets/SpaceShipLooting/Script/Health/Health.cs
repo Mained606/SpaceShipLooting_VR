@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;    // 최대 체력
-    public float CurrentHealth { get; private set; }    // 현재 체력
+    public float CurrentHealth { get; set; }    // 현재 체력
 
     private bool isDead = false;                       //죽음 체크
     private bool isInvincible;                           // 무적 상태
@@ -49,7 +49,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    // 체력을 회복하는 메서드 (추가 가능성)
+    // 체력을 회복하는 메서드
     public void Heal(float amount)
     {
         if (isDead) return; // 죽은 상태에서는 회복 불가
@@ -60,6 +60,14 @@ public class Health : MonoBehaviour
         if (CurrentHealth > previousHealth)
         {
             Debug.Log($"[Health] {gameObject.name}가 {amount}만큼 회복했습니다. 현재 체력: {CurrentHealth}");
+            if(gameObject.CompareTag("Core"))
+            {
+                SpaceBossController boss = FindAnyObjectByType<SpaceBossController>();
+                if (boss != null)
+                {
+                    boss.RecoverCore(gameObject);
+                }
+            }
         }
     }
 

@@ -5,6 +5,7 @@ public class SpaceBossGroggyState : State<BossController>
     private SpaceBossController boss;
     private float groggyDuration;
     private float timer;
+    private Health health;
 
     public override void OnInitialized()
     {
@@ -26,6 +27,7 @@ public class SpaceBossGroggyState : State<BossController>
         timer = 0f; // 타이머 초기화
 
         if (boss == null) return;
+        health = boss.GetComponent<Health>();
 
         // 그로기 상태 초기화 효과 실행
         TriggerGroggyStartEffects();
@@ -57,6 +59,9 @@ public class SpaceBossGroggyState : State<BossController>
     {
         // 그로기 상태 시작 효과 실행
         Debug.Log("그로기 상태 효과 시작");
+
+        health.IsInvincible = false;
+        
         // 추가적인 파티클, 사운드 처리 가능
     }
 
@@ -64,6 +69,7 @@ public class SpaceBossGroggyState : State<BossController>
     {
         // 그로기 상태 종료 효과 실행
         Debug.Log("그로기 상태 효과 종료");
+        health.IsInvincible = true;
         // 추가적인 파티클, 사운드 처리 가능
     }
 }

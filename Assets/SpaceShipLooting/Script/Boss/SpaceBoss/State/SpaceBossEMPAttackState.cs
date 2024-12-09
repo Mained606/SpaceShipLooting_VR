@@ -1,10 +1,13 @@
 using UnityEngine;
+using System.Collections;
 
 public class SpaceBossEMPAttackState : State<BossController>
 {
     private SpaceBossController boss;
-    private float timer;
-    private float empAttackDuration;
+
+    private bool isPlayerInStealthMode;
+    private bool hasTriggeredEMP; // EMP 공격 트리거 여부
+
 
     public override void OnInitialized()
     {
@@ -16,43 +19,76 @@ public class SpaceBossEMPAttackState : State<BossController>
         }
         else
         {
-            empAttackDuration = boss.EMPAttackDuration;
+            PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
         }
     }
 
     public override void OnEnter()
     {
         Debug.Log("보스 EMP 공격 상태 진입");
-        timer = 0f; // 타이머 초기화
+        hasTriggeredEMP = false;
 
-        if (boss == null) return;
+        boss.canvas.gameObject.SetActive(true);
+        boss.textbox.text = "EMP Attack...";
 
-        // EMP 공격 효과 실행
-        TriggerEMPAttackEffects();
+        Coroutine coroutine = boss.StartSkillCoroutine(TriggerEMPAttackEffects());
     }
 
     public override void Update(float deltaTime)
     {
-        if (boss == null) return;
 
-        timer += deltaTime;
-        if (timer >= empAttackDuration)
-        {
-            // 디펜스 상태로 전환
-            boss.SpaceBossDefenceState();
-        }
     }
 
     public override void OnExit()
     {
         Debug.Log("보스 EMP 공격 상태 종료");
-        // 필요 시 상태 종료 로직 추가
+
+        boss.canvas.gameObject.SetActive(false);
     }
 
-    private void TriggerEMPAttackEffects()
+    // 플레이어 앉은 상태 체크
+    private void PlayerStealthCheck(bool isStealth)
     {
-        // EMP 공격 효과 실행 로직
-        Debug.Log("EMP 공격 효과 발동");
-        // 예: 범위 데미지, 화면 효과, 사운드 재생 등
+        isPlayerInStealthMode = isStealth;
+    }
+
+    // EMP 공격 트리거
+    private IEnumerator TriggerEMPAttackEffects()
+    {
+        if (hasTriggeredEMP) yield break;
+
+        hasTriggeredEMP = true;
+        
+        yield return new WaitForSeconds(boss.EMPAttackDuration);
+
+        //SFX
+
+        //VFX
+        
+        // 범위 내의 모든 콜라이더를 가져옴
+        Collider[] hitColliders = Physics.OverlapSphere(boss.transform.position, boss.EMPAttackRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            // 데미지를 줄 수 있는 객체인지 확인
+            if (hitCollider.gameObject.CompareTag("Player"))
+            {
+                if (isPlayerInStealthMode)
+                {
+                    Debug.Log("플레이어가 스텔스 모드에 있어 EMP 공격을 피했습니다.");
+                    continue;
+                }
+
+                Damageable damageable = hitCollider.GetComponent<Damageable>();
+                if (damageable != null)
+                {
+                    // 데미지 적용
+                    damageable.InflictDamage(boss.EMPAttackDamage);
+                    Debug.Log($"범위 공격이 {hitCollider.gameObject.name}에 {boss.EMPAttackDamage}의 데미지를 주었습니다.");
+                }
+            }
+        }
+
+        // 디펜스 상태로 전환
+        boss.SpaceBossDefenceState();
     }
 }
