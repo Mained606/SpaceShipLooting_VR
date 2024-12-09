@@ -606,6 +606,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1981790790041551282, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: 'interActEventData.interActPosition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 656215973474016258}
     - target: {fileID: 2834863009456322657, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: item
       value: 

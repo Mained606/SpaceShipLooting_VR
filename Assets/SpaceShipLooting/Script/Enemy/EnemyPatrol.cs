@@ -51,7 +51,6 @@ public class EnemyPatrol : MonoBehaviour
     // Navmesh
     private NavMeshAgent agent;
     [SerializeField] private float patrolSpeed = 3.5f;
-    private float navMeshSampleRange = 1f;
     private Vector3 destination;
     public Vector3 Destination { get; set; }
 
