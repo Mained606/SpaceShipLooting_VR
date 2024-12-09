@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -13,64 +14,72 @@ public class EnemyPatrol : MonoBehaviour
     }
 
     #region Variables
+    private EnemyPatrol enemyPatrol;
     private Enemy enemy;
     private Animator animator;
+    public Animator Animator { get; set; }
     public SpawnType spawnType;
+    private IEnemyPatrol patrolBehavior;
 
     //
     public PatrolType patrolShape = PatrolType.Circle;
     [SerializeField] private float circlePatrolRange = 10f;
+    public float CirclePatrolRange { get; private set; }
+
     [SerializeField] private Vector2 rectanglePatrolRange = new Vector2(5f, 5f);
-    //public Transform spawnPoint;
+    public Vector2 RectanglePatrolRange { get; private set; }
+
     private Vector3 spawnPosition;
-    private Vector3 nextMovePoint;
     private Transform[] wayPoints;
     public Transform enemyHeadPosition;
 
     private Vector3 dir;
 
     // timer
-
     [SerializeField] private float rotationTime = 2f;
     private bool rotatingLeft = true;
     private bool isLookAround = false;
+    public bool IsLookAround { get; set; }
+
     private Quaternion startRotation;
     private Quaternion targetRotation;
 
     private BasicTimer rotationTimer;
     private float timer;
     [SerializeField] private float rotationAngle = 45f;
-    // material
-    //private Renderer renderer;
-    //public Material moveMaterial;
 
     // Navmesh
     private NavMeshAgent agent;
     [SerializeField] private float patrolSpeed = 3.5f;
     private float navMeshSampleRange = 1f;
     private Vector3 destination;
+    public Vector3 Destination { get; set; }
 
     [SerializeField] private bool isInterActEvent = false;
     [SerializeField] private InterActEventData interActEventData;
 
     float angle;
+    int currentCount = 0;
+    bool turnCountOk = false;
     #endregion
 
     private void Awake()
     {
-        spawnType = SpawnType.normal;
+        RectanglePatrolRange = rectanglePatrolRange;
+        Animator = animator;
     }
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        enemyPatrol = GetComponent<EnemyPatrol>();
         enemy = GetComponent<Enemy>();
         animator = GetComponent<Animator>();
-        //renderer = GetComponent<Renderer>();
 
-        nextMovePoint = transform.position;
         spawnPosition = transform.position;
         rotationTimer = new BasicTimer(rotationTime);
+
+        SetPatrolBehavior();
     }
 
     private void Update()
@@ -78,35 +87,38 @@ public class EnemyPatrol : MonoBehaviour
         switch (enemy.currentState)
         {
             case EnemyState.E_Idle:
-                if(spawnType == SpawnType.normal)
-                {
-                    //
-                }
+                //if(spawnType == SpawnType.normal)
+                //{
+                //    return;
+                //}
+                
                 break;
 
             case EnemyState.E_Move:
-                //renderer.material = moveMaterial;
                 if (isInterActEvent)
                 {
                     InvastigateTarget(interActEventData);
                 }
                 if (isLookAround)
                 {
+                    agent.enabled = false;
                     animator.SetBool("IsLookAround", true);
                     LookAround(rotationAngle);
                 }
                 else
                 {
+                    agent.enabled = true;
                     animator.SetBool("IsLookAround", false);
                     if (spawnType == SpawnType.RandomPatrol)
                     {
-                        RandomPatrol();
+                        isLookAround = patrolBehavior.Patrol(agent);
+
                     }
                     else if(spawnType == SpawnType.WayPointPatrol)
                     {
-                        WayPointPatrol();
+                        isLookAround = patrolBehavior.Patrol(agent);
                     }
-                    else if (spawnType == SpawnType.normal)
+                    else if (spawnType == SpawnType.Normal)
                     {
                         NonePatrol();
                     }
@@ -123,6 +135,24 @@ public class EnemyPatrol : MonoBehaviour
                 break;
         }
             
+    }
+
+    private void SetPatrolBehavior()
+    {
+        switch (spawnType)
+        {
+            case SpawnType.RandomPatrol:
+                patrolBehavior = new RandomPatrol();
+                patrolBehavior.Initialize(this);
+                break;
+            case SpawnType.WayPointPatrol:
+                patrolBehavior = new WayPointPatrol();
+                patrolBehavior.Initialize(this);
+                break;
+            case SpawnType.Normal:
+                //patrolBehavior = new Normal();
+                break;
+        }
     }
 
     Vector3 preClossTarget = Vector3.zero;
@@ -177,60 +207,7 @@ public class EnemyPatrol : MonoBehaviour
         preClossTarget = closestPosition;
         agent.SetDestination(closestPosition);
     }
-
-    private Vector3 GetCircleMovePoint()
-    {
-        nextMovePoint = spawnPosition + Random.insideUnitSphere * circlePatrolRange;
-        nextMovePoint.y = spawnPosition.y;
-
-        return nextMovePoint;
-    }
-
-    private Vector3 GetRectangleMovePoint()
-    {
-        float halfWidth = rectanglePatrolRange.x / 2;
-        float halfHeight = rectanglePatrolRange.y / 2;
-
-        float x = Random.Range(-halfWidth, halfWidth);
-        float z = Random.Range(-halfHeight, halfHeight);
-
-        nextMovePoint = new Vector3(spawnPosition.x + x, spawnPosition.y, spawnPosition.z + z);
-
-        return nextMovePoint;
-    }
-
-    public void RandomPatrol()
-    {
-        bool isVaildPoint = false;
-        while (!isVaildPoint)
-        {
-            destination = patrolShape == PatrolType.Circle
-                ? GetCircleMovePoint()
-                : GetRectangleMovePoint();
-            agent.enabled = true;
-
-            if(NavMesh.SamplePosition(destination, out NavMeshHit hit, navMeshSampleRange, NavMesh.AllAreas))
-            {
-                isVaildPoint = true;
-                if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
-                {
-                    isLookAround = true;
-                    agent.enabled = false;
-                }
-            }
-        }
-    }
-    int currentCount = 0;
-
-    public void WayPointPatrol()
-    {
-        if (!isLookAround && agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
-        {
-            isLookAround = true;
-            agent.enabled = false;
-        }
-    }
-
+    
     public void NonePatrol()
     {
         agent.enabled = false;
@@ -245,37 +222,38 @@ public class EnemyPatrol : MonoBehaviour
         }
         else
         {
-            Debug.Log("no wayPoints");
+            //Debug.Log("no wayPoints");
         }
+        Debug.Log($"SpawnType : {spawnType}");
     }
-
-    bool turnCountOk = false;
 
     void LookAround(float Angle)
     {
         if (rotationTimer.IsRunning)
         {
+            //agent.enabled = false;
             //enemyHeadPosition.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
-            //
         }
         else
         {
             TimerManager.Instance.StartTimer(rotationTimer);
+
             rotatingLeft = !rotatingLeft;
 
-            if (rotatingLeft) 
+            if (rotatingLeft)
             {
                 Debug.Log($"좌측 회전 시작: 현재 웨이포인트 {currentCount}");
                 startRotation = transform.rotation;
                 targetRotation = Quaternion.Euler(0f, transform.eulerAngles.y - (Angle * 2), 0f);
-                turnCountOk = true; 
+                turnCountOk = true;
             }
-            else 
+            else
             {
-                if (turnCountOk) 
+                if (turnCountOk)
                 {
                     Debug.Log($"우측 회전 완료: 다음 행동 준비");
                     isLookAround = false;
+
                     turnCountOk = false;
                     rotatingLeft = true;
                     agent.enabled = true;
@@ -286,7 +264,7 @@ public class EnemyPatrol : MonoBehaviour
                         agent.speed = patrolSpeed;
                         agent.SetDestination(destination);
                     }
-                    else if(spawnType == SpawnType.WayPointPatrol)
+                    else if (spawnType == SpawnType.WayPointPatrol)
                     {
                         Debug.Log("웨이포인트 이동 시작");
                         agent.speed = patrolSpeed;

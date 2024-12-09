@@ -4,7 +4,7 @@ public enum SpawnType
 {
     RandomPatrol,
     WayPointPatrol,
-    normal
+    Normal
 }
 
 public class SpawnerType : MonoBehaviour
@@ -12,24 +12,25 @@ public class SpawnerType : MonoBehaviour
 
     [SerializeField] Transform[] wayPoints;
     SpawnType currentSpawnerType;
+    public SpawnType CurrentSpawnerType { get; private set; }
     EnemyPatrol[] currentEnemies;
 
-    private void Start()
+    private void Awake()
     {
         if(wayPoints == null || wayPoints.Length == 0)
         {
             currentSpawnerType = SpawnType.RandomPatrol;
-            Debug.Log("SpawnType : Random");
+            //Debug.Log("SpawnType : Random");
         }
         else if(wayPoints != null && wayPoints.Length >= 2)
         {
-            Debug.Log("SpawnType : WayPoint");
+            //Debug.Log("SpawnType : WayPoint");
             currentSpawnerType = SpawnType.WayPointPatrol;
         }
         else if(wayPoints != null && wayPoints.Length == 1)
         {
-            currentSpawnerType = SpawnType.normal;
-            Debug.Log("SpawnType : Normal");
+            currentSpawnerType = SpawnType.Normal;
+            //Debug.Log("SpawnType : Normal");
         }
 
         if(transform.childCount > 0)
@@ -52,7 +53,7 @@ public class SpawnerType : MonoBehaviour
                     i++;
                 }
             }
-            else if(currentSpawnerType == SpawnType.RandomPatrol || currentSpawnerType == SpawnType.normal)
+            else if(currentSpawnerType == SpawnType.RandomPatrol || currentSpawnerType == SpawnType.Normal)
             {
                 for(int i =1; i < transform.childCount; i++)
                 {

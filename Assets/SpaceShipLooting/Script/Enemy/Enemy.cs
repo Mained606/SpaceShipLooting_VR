@@ -75,15 +75,12 @@ public class Enemy : MonoBehaviour
             //Debug.Log("GetComponentInParent NoneParent");
             patrolPattern = new NoneParent();
         }
-
-
         
         // 참조
         target = GameObject.FindWithTag("Player").transform;
         targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
         agent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
-        //renderer = GetComponent<Renderer>();
         enemyPatrol = GetComponent<EnemyPatrol>();
         health = GetComponent<Health>();
         if(target.GetComponent<Damageable>() != null)
@@ -133,12 +130,6 @@ public class Enemy : MonoBehaviour
                 break;
 
             case EnemyState.E_Move:
-                if (spawnType == SpawnType.normal)
-                {
-                    Debug.Log("normal E_Move 조건문");
-                    animator.SetBool("IsPatrol", false);
-                    return;
-                }
                 animator.SetBool("IsPatrol", true);
                 AISearching();
                 break;
@@ -215,7 +206,7 @@ public class Enemy : MonoBehaviour
      public void AISearching()
     {
 
-        if (currentState == EnemyState.E_Idle && spawnType != SpawnType.normal)
+        if (currentState == EnemyState.E_Idle && spawnType != SpawnType.Normal)
         {
             SetState(EnemyState.E_Move);
         }
