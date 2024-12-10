@@ -6,8 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wire1
+  m_Name: Wire4
   m_Controller: {fileID: 9100000, guid: 8bcabf4169c709b43a5830ff2195da9a, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: d799ce1cc5e4d2442bbf0a3515e00a9d, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: d0c5a82fbb868df43a5cacfae2c43282, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d0c5a82fbb868df43a5cacfae2c43282, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: da88fb7d097d98e48a117b502d7bf51e, type: 2}
