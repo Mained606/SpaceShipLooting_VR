@@ -55,6 +55,7 @@ public class Destructable : MonoBehaviour
         }
         else if (gameObject.CompareTag("Core"))
         {
+            OnObjectDestroyed?.Invoke(gameObject);
             return;
         }
         else

@@ -67,6 +67,10 @@ public class Health : MonoBehaviour
                 {
                     boss.RecoverCore(gameObject);
                 }
+                else
+                {
+                    Debug.Log("보스 컨트롤러 못 찾음");
+                }
             }
         }
     }
