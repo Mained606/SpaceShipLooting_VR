@@ -8,7 +8,7 @@ public class BossRoomWall : MonoBehaviour
     {
         if (other.CompareTag("Player")) 
         {
-            animator.SetTrigger("StartAnimation");
+            animator.SetTrigger("StartAnim");
         }
     }
 }
