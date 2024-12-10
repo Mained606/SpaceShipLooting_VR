@@ -225,11 +225,12 @@ public class SpaceBossController : BossController
             Debug.LogWarning("[SpaceBossController] 이미 존재하는 코어입니다.");
             return;
         }
-    
+
         Debug.Log($"[SpaceBossController] 코어 회복됨: {core.name}");
         var coreList = new List<GameObject>(cores);
         coreList.Add(core);
         cores = coreList.ToArray();
+        Debug.Log(cores +" 코어 리스트");
 
         OnCoreRecovered?.Invoke();
         UpdateCoreState(); // 코어 상태 갱신

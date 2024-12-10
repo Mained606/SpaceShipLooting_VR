@@ -26,7 +26,7 @@ public class StandardKnife : XRGrabInteractableOutline
     {
         Debug.Log(other.gameObject.name + "Enter");
 
-        if(other.gameObject.tag == "Enemy")
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Core") || other.gameObject.CompareTag("Boss"))
         {
             Damageable damageable = other.gameObject.GetComponent<Damageable>();
             if (damageable != null)

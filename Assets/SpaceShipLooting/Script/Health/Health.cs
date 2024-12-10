@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -66,6 +67,7 @@ public class Health : MonoBehaviour
                 if (boss != null)
                 {
                     boss.RecoverCore(gameObject);
+                    Debug.Log("리커버 실행");
                 }
                 else
                 {
@@ -78,7 +80,11 @@ public class Health : MonoBehaviour
     // 죽음을 처리하는 메서드
     private void HandleDeath()
     {
-        isDead = true;
+        if(!gameObject.CompareTag("Core"))
+        {
+            isDead = true;
+        }
+        
         Debug.Log($"[Health] {gameObject.name}이(가) 사망했습니다.");
         OnDie?.Invoke(); // 죽음 이벤트 호출
     }

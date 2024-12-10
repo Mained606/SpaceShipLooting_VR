@@ -14,6 +14,7 @@ TagManager:
   - Core
   - Bullet
   - Wire
+  - Boss
   layers:
   - Default
   - TransparentFX

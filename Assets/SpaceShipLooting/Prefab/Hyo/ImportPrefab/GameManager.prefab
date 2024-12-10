@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatsData:
-    maxHealth: 100
     walkingSpeed: 2.5
     runningSpeed: 5
     stealthSpeed: 0.5
@@ -53,6 +52,6 @@ MonoBehaviour:
     bulletlifeTime: 5
     pistolBulletSpeed: 70
     maxAmmo: 7
-    knifeDamage: 40
+    knifeDamage: 60
     enableStealthMode: 0
     enableRunningMode: 0
