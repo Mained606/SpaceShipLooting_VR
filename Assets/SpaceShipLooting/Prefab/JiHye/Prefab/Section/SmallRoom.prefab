@@ -142,16 +142,16 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4654500402833189791}
   - {fileID: 998944509956669136}
+  - {fileID: 4654500402833189791}
   - {fileID: 2134792421766568639}
   - {fileID: 1833516759542042942}
-  - {fileID: 4839763642764065443}
   - {fileID: 7837470890577192410}
   - {fileID: 7302915799119367545}
   - {fileID: 2266461341742443782}
   - {fileID: 3170102666285278489}
   - {fileID: 4731646494564666756}
+  - {fileID: 4839763642764065443}
   m_Father: {fileID: 3532752838009074947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2861565577359898057
@@ -738,7 +738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1664897690422587255, guid: 9be182bf50e9dc9478c8dead3e7d9495, type: 3}
       propertyPath: m_Name
-      value: 2_3
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1664897690422587255, guid: 9be182bf50e9dc9478c8dead3e7d9495, type: 3}
       propertyPath: m_Layer
@@ -1062,7 +1062,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2196296581606660801, guid: fbd7d032908b04943aede44bbbd3db7e, type: 3}
       propertyPath: m_Name
-      value: 4_4
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2196296581606660801, guid: fbd7d032908b04943aede44bbbd3db7e, type: 3}
       propertyPath: m_Layer
@@ -1408,7 +1408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9182778239461922917, guid: e79b406af60910d4abd29696be7a3bae, type: 3}
       propertyPath: m_Name
-      value: 3_9
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9182778239461922917, guid: e79b406af60910d4abd29696be7a3bae, type: 3}
       propertyPath: m_Layer
@@ -1779,7 +1779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8946145238897258910, guid: ea27175da8a4eb4428610ab90ddd9927, type: 3}
       propertyPath: m_Name
-      value: 8_R
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8946145238897258910, guid: ea27175da8a4eb4428610ab90ddd9927, type: 3}
       propertyPath: m_Layer
@@ -3116,7 +3116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2845458721454337161, guid: 2c114ed69b7876349987d04bc189b9f9, type: 3}
       propertyPath: m_Name
-      value: 1_0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2845458721454337161, guid: 2c114ed69b7876349987d04bc189b9f9, type: 3}
       propertyPath: m_Layer
