@@ -33,6 +33,11 @@ public class BossLaser : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        else if(collision.gameObject.CompareTag("Shield"))
+        {
+            
+        }
+
         else
         {
             Destroy(gameObject);

@@ -28,8 +28,12 @@ public class SpaceBossDefenceState : State<BossController>
         if (boss == null) return;
 
         // 디펜스 상태 초기화 로직
+        boss.bossShield.SetActive(true);
+        SetCoreShield(true);
+
         SetCoresVulnerable(true); // 코어 무적 설정
         SetEntityInvincible(true); // 본체 무적 설정
+
     }
 
     // 시간 체크해서 보스 어택 상태로 진입
@@ -51,6 +55,7 @@ public class SpaceBossDefenceState : State<BossController>
         if (boss == null) return;
 
         // 디펜스 상태 종료 시 코어를 다시 취약 상태로 설정
+        SetCoreShield(false);
         SetCoresVulnerable(false);
     }
 
@@ -74,6 +79,14 @@ public class SpaceBossDefenceState : State<BossController>
         if (bossHealth != null)
         {
             bossHealth.IsInvincible = isInvincible;
+        }
+    }
+
+    private void SetCoreShield(bool isShield)
+    {
+        foreach(var core in boss.coreShields)
+        {
+            core.SetActive(isShield);
         }
     }
 }

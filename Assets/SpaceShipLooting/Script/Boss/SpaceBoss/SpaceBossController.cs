@@ -16,6 +16,12 @@ public class SpaceBossController : BossController
     [SerializeField] private GameObject laserPrefab;
     [SerializeField] private Transform laserFirePoint;
 
+    [SerializeField] public GameObject bossShield;
+    [SerializeField] public List<GameObject> coreShields;
+
+
+
+
     private Health health;
 
     // 모든 코어 파괴 여부
