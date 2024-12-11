@@ -117,8 +117,8 @@ public class PlayerStealthState : IPlayerState
         beforeSockets.y = sockets.localPosition.y;
         beforeVest.y = vest.localPosition.y;
 
-        sockets.localPosition = new Vector3(sockets.localPosition.z, beforeSockets.y / 2, sockets.localPosition.z);
-        vest.localPosition = new Vector3(vest.localPosition.z, beforeVest.y / 2, vest.localPosition.z);
+        sockets.localPosition = new Vector3(0f, beforeSockets.y / 4, sockets.localPosition.z);
+        vest.localPosition = new Vector3(0f, beforeVest.y / 4, vest.localPosition.z);
     }
 
     // 일어난 포지션
@@ -131,7 +131,7 @@ public class PlayerStealthState : IPlayerState
         leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, beforeLeftPanelSize.y, leftNightVisionPanel.localPosition.z);
         rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, beforeRightPanelSize.y, rightNightVisionPanel.localPosition.z);
 
-        sockets.localPosition = new Vector3(sockets.localPosition.x, beforeSockets.y, sockets.localPosition.z);
-        vest.localPosition = new Vector3(vest.localPosition.z, beforeVest.y, vest.localPosition.z);
+        sockets.localPosition = new Vector3(0f, beforeSockets.y, sockets.localPosition.z);
+        vest.localPosition = new Vector3(0f, beforeVest.y, vest.localPosition.z);
     }
 }
