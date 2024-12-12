@@ -15,9 +15,8 @@ public class EnemyPatrol : MonoBehaviour
 
     #region Variables
     private EnemyPatrol enemyPatrol;
-    private Enemy enemy;
-    private Animator animator;
-    public Animator Animator { get; set; }
+    private EnemyBehaviour enemy;
+    [HideInInspector] public Animator animator;
     public SpawnType spawnType;
     private IEnemyPatrol patrolBehavior;
 
@@ -36,17 +35,10 @@ public class EnemyPatrol : MonoBehaviour
     private Vector3 dir;
 
     // timer
-    [SerializeField] private float rotationTime = 2f;
-    private bool rotatingLeft = true;
+
+    private float lookAroundTimer = 0f;
     private bool isLookAround = false;
     public bool IsLookAround { get; set; }
-
-    private Quaternion startRotation;
-    private Quaternion targetRotation;
-
-    private BasicTimer rotationTimer;
-    private float timer;
-    [SerializeField] private float rotationAngle = 45f;
 
     // Navmesh
     private NavMeshAgent agent;
@@ -57,26 +49,22 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private bool isInterActEvent = false;
     [SerializeField] private InterActEventData interActEventData;
 
-    float angle;
     int currentCount = 0;
-    bool turnCountOk = false;
     #endregion
 
     private void Awake()
     {
         RectanglePatrolRange = rectanglePatrolRange;
-        Animator = animator;
     }
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         enemyPatrol = GetComponent<EnemyPatrol>();
-        enemy = GetComponent<Enemy>();
+        enemy = GetComponent<EnemyBehaviour>();
         animator = GetComponent<Animator>();
 
         spawnPosition = transform.position;
-        rotationTimer = new BasicTimer(rotationTime);
 
         SetPatrolBehavior();
     }
@@ -85,52 +73,35 @@ public class EnemyPatrol : MonoBehaviour
     {
         switch (enemy.currentState)
         {
-            case EnemyState.E_Idle:
-                //if(spawnType == SpawnType.normal)
-                //{
-                //    return;
-                //}
-                
-                break;
-
-            case EnemyState.E_Move:
+            case EnemyState.E_Patrol:
                 if (isInterActEvent)
                 {
                     InvastigateTarget(interActEventData);
                 }
-                if (isLookAround)
-                {
-                    agent.enabled = false;
-                    animator.SetBool("IsLookAround", true);
-                    LookAround(rotationAngle);
-                }
                 else
                 {
-                    agent.enabled = true;
-                    animator.SetBool("IsLookAround", false);
-                    if (spawnType == SpawnType.RandomPatrol)
+                    if (isLookAround)
                     {
-                        isLookAround = patrolBehavior.Patrol(agent);
-
+                        LookAround();
                     }
-                    else if(spawnType == SpawnType.WayPointPatrol)
+                    else
                     {
-                        isLookAround = patrolBehavior.Patrol(agent);
-                    }
-                    else if (spawnType == SpawnType.Normal)
-                    {
-                        NonePatrol();
+                        agent.enabled = true;
+                        animator.SetBool("IsLookAround", false);
+                        if (spawnType == SpawnType.RandomPatrol)
+                        {
+                            isLookAround = patrolBehavior.Patrol(agent);
+                        }
+                        else if (spawnType == SpawnType.WayPointPatrol)
+                        {
+                            isLookAround = patrolBehavior.Patrol(agent);
+                        }
+                        else if (spawnType == SpawnType.Normal)
+                        {
+                            isLookAround = patrolBehavior.Patrol(agent);
+                        }
                     }
                 }
-                break;
-
-            case EnemyState.E_Chase:
-                break;
-
-            case EnemyState.E_Attack:
-                break;
-
-            case EnemyState.E_Death:
                 break;
         }
             
@@ -149,7 +120,8 @@ public class EnemyPatrol : MonoBehaviour
                 patrolBehavior.Initialize(this);
                 break;
             case SpawnType.Normal:
-                //patrolBehavior = new Normal();
+                patrolBehavior = new NonePatrol();
+                patrolBehavior.Initialize(this);
                 break;
         }
     }
@@ -226,59 +198,26 @@ public class EnemyPatrol : MonoBehaviour
         Debug.Log($"SpawnType : {spawnType}");
     }
 
-    void LookAround(float Angle)
+    void LookAround()
     {
-        if (rotationTimer.IsRunning)
+        lookAroundTimer += Time.deltaTime;
+        agent.enabled = false;
+        animator.SetBool("IsLookAround", true);
+        if ( lookAroundTimer > 4f)
         {
-            //agent.enabled = false;
-            //enemyHeadPosition.rotation = Quaternion.Lerp(startRotation, targetRotation, 1f - rotationTimer.RemainingPercent);
-        }
-        else
-        {
-            TimerManager.Instance.StartTimer(rotationTimer);
-
-            rotatingLeft = !rotatingLeft;
-
-            if (rotatingLeft)
+            lookAroundTimer = 0f;
+            agent.enabled = true;
+            animator.SetBool("IsLookAround", false);
+            agent.speed = patrolSpeed;
+            isLookAround = false;
+            if (spawnType == SpawnType.WayPointPatrol)
             {
-                Debug.Log($"좌측 회전 시작: 현재 웨이포인트 {currentCount}");
-                startRotation = transform.rotation;
-                targetRotation = Quaternion.Euler(0f, transform.eulerAngles.y - (Angle * 2), 0f);
-                turnCountOk = true;
-            }
-            else
-            {
-                if (turnCountOk)
+                agent.SetDestination(wayPoints[currentCount].position);
+                currentCount++;
+                if (currentCount >= wayPoints.Length)
                 {
-                    Debug.Log($"우측 회전 완료: 다음 행동 준비");
-                    isLookAround = false;
-
-                    turnCountOk = false;
-                    rotatingLeft = true;
-                    agent.enabled = true;
-
-                    if (spawnType == SpawnType.RandomPatrol)
-                    {
-                        Debug.Log("랜덤 이동 시작");
-                        agent.speed = patrolSpeed;
-                        agent.SetDestination(destination);
-                    }
-                    else if (spawnType == SpawnType.WayPointPatrol)
-                    {
-                        Debug.Log("웨이포인트 이동 시작");
-                        agent.speed = patrolSpeed;
-                        agent.SetDestination(wayPoints[currentCount].position);
-                        currentCount++;
-                        if (currentCount >= wayPoints.Length)
-                        {
-                            currentCount = 0;
-                        }
-                    }
-                    return;
+                    currentCount = 0;
                 }
-                Debug.Log($"우측 회전 시작: 현재 웨이포인트 {currentCount}");
-                startRotation = transform.rotation;
-                targetRotation = Quaternion.Euler(0f, transform.eulerAngles.y + Angle, 0f);
             }
         }
     }

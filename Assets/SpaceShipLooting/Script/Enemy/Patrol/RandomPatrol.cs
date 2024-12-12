@@ -7,6 +7,7 @@ using static EnemyPatrol;
 public class RandomPatrol : IEnemyPatrol
 {
     PatrolType patrolShape;
+    Animator animator;
     
     Vector3 destination;
     Vector3 nextMovePoint;
@@ -35,6 +36,7 @@ public class RandomPatrol : IEnemyPatrol
             spawnPosition = _enemyPatrol.transform.position;
             circlePatrolRange = _enemyPatrol.CirclePatrolRange;
             rectanglePatrolRange = _enemyPatrol.RectanglePatrolRange;
+            animator = _enemyPatrol.animator;
             isEnter = false;
         }
     }
@@ -58,6 +60,7 @@ public class RandomPatrol : IEnemyPatrol
             if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 1f, NavMesh.AllAreas))
             {
                 isVaildPoint = true;
+                animator.SetBool("IsPatrol", true);
                 agent.SetDestination(destination);
                 if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
                 {

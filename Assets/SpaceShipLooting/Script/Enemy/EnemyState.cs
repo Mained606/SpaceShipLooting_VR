@@ -5,7 +5,7 @@ using UnityEngine;
 public enum EnemyState
 {
     E_Idle,
-    E_Move,
+    E_Patrol,
     E_Chase,
     E_Attack,
     E_Death

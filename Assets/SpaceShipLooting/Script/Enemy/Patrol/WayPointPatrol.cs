@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class WayPointPatrol : IEnemyPatrol
 {
     bool isLookAround;
+    Animator animator;
 
     public void Initialize(EnemyPatrol _enemyPatrol)
     {
@@ -15,7 +16,7 @@ public class WayPointPatrol : IEnemyPatrol
         else
         {
             isLookAround = _enemyPatrol.IsLookAround;
-
+            animator = _enemyPatrol.animator;
         }
     }
 
@@ -28,6 +29,7 @@ public class WayPointPatrol : IEnemyPatrol
         }
         else
         {
+            animator.SetBool("IsPatrol", true);
             isLookAround = false;
         }
         return isLookAround;

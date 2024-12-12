@@ -129,7 +129,7 @@ public class Enemy : MonoBehaviour
                 AISearching();
                 break;
 
-            case EnemyState.E_Move:
+            case EnemyState.E_Patrol:
                 animator.SetBool("IsPatrol", true);
                 AISearching();
                 break;
@@ -208,9 +208,9 @@ public class Enemy : MonoBehaviour
 
         if (currentState == EnemyState.E_Idle && spawnType != SpawnType.Normal)
         {
-            SetState(EnemyState.E_Move);
+            SetState(EnemyState.E_Patrol);
         }
-        else if(currentState == EnemyState.E_Move)
+        else if(currentState == EnemyState.E_Patrol)
         {
             if (distance <= runPerceptionRange)
             {
