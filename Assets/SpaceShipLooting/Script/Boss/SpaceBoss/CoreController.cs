@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CoreController : MonoBehaviour
 {
     [SerializeField] private bool isDestroyed = false;
     [SerializeField] private GameObject shieldEffects;
+    [SerializeField] private GameObject lightEffects;
+
+    public UnityEvent OnCoreRecovered { get; private set; } = new UnityEvent();
+
 
     private void Awake()
     {
@@ -17,6 +22,17 @@ public class CoreController : MonoBehaviour
         {
             Debug.LogError($"Shield 오브젝트를 찾을 수 없습니다: {gameObject.name}");
         }
+        // 자식 오브젝트 중에서 라이트 오브젝트 참조
+        Transform lightTransform = transform.Find("CoreLight");
+        if (lightTransform != null)
+        {
+            lightEffects = lightTransform.gameObject;
+            lightEffects.SetActive(true); // 시작할 때 라이트 켜기
+        }
+        else
+        {
+            Debug.LogError($"Light 오브젝트를 찾을 수 없습니다: {gameObject.name}");
+        }
     }
 
     public void SetDestroyed(bool destroyed)
@@ -26,6 +42,13 @@ public class CoreController : MonoBehaviour
         {
             // 코어가 파괴되면 모든 이펙트를 비활성화
             shieldEffects.SetActive(false);
+            lightEffects.SetActive(false);
+        }
+        else
+        {
+            // 코어가 부활하면 라이트와 실드 다시 켜기
+            lightEffects.SetActive(true);
+            shieldEffects.SetActive(true);
         }
     }
 

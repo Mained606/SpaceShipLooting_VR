@@ -67,8 +67,12 @@ public class Health : MonoBehaviour
                 if (boss != null)
                 {
                     boss.RecoverCore(gameObject);
+                    CoreController coreController = gameObject.GetComponent<CoreController>();
+                    coreController.SetDestroyed(false);
+                    
                     Debug.Log("리커버 실행");
                 }
+                
                 else
                 {
                     Debug.Log("보스 컨트롤러 못 찾음");

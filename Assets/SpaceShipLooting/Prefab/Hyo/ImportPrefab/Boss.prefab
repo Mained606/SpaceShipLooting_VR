@@ -2823,6 +2823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroyed: 0
   shieldEffects: {fileID: 0}
+  lightEffects: {fileID: 0}
 --- !u!1 &6329989938406589069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,6 +3302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroyed: 0
   shieldEffects: {fileID: 0}
+  lightEffects: {fileID: 0}
 --- !u!1 &6538498106543003170
 GameObject:
   m_ObjectHideFlags: 0
@@ -4045,6 +4047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroyed: 0
   shieldEffects: {fileID: 0}
+  lightEffects: {fileID: 0}
 --- !u!1 &8395738744718382017
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,6 +4377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroyed: 0
   shieldEffects: {fileID: 0}
+  lightEffects: {fileID: 0}
 --- !u!1 &9222205643932072760
 GameObject:
   m_ObjectHideFlags: 0

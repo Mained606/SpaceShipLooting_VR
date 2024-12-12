@@ -55,6 +55,8 @@ public class Destructable : MonoBehaviour
         }
         else if (gameObject.CompareTag("Core"))
         {
+            CoreController coreController = gameObject.GetComponent<CoreController>();
+            coreController.SetDestroyed(true);
             OnObjectDestroyed?.Invoke(gameObject);
             return;
         }

@@ -491,14 +491,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
-    - target: {fileID: 2483727452005291801, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3479813925136461875, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_StartingSelectedInteractable
       value: 
       objectReference: {fileID: 2135422528}
+    - target: {fileID: 4266798163787472317, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 34.18
@@ -543,10 +543,6 @@ PrefabInstance:
       propertyPath: m_StartingSelectedInteractable
       value: 
       objectReference: {fileID: 1266431019}
-    - target: {fileID: 8678530956114058751, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -671,14 +667,6 @@ PrefabInstance:
     - target: {fileID: 5889547833588053518, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
       propertyPath: m_Name
       value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 7364542133093768920, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191500453757001849, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
