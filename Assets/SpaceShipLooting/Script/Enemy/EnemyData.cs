@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyData
 {
     public float health;
-    public EnemyType enemyType;
+    //public EnemyType enemyType;
     public float moveSpeed;
     public float runPerceptionRange;
     public float stealthPerceptionRange;
@@ -14,11 +14,12 @@ public class EnemyData
     public float chaseInterval;
     public GameObject targetEncounterUI;
     public GameObject item;
+    public bool infinitePatrolMode;
 }
 
-public enum EnemyType
-{
-    RandomPatrol,
-    WaypointPatrol,
-    NonePatrol
-}
+//public enum EnemyType
+//{
+//    RandomPatrol,
+//    WaypointPatrol,
+//    NonePatrol
+//}

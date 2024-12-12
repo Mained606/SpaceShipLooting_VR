@@ -14,11 +14,11 @@ public class EnemyPatrol : MonoBehaviour
     }
 
     #region Variables
-    private EnemyPatrol enemyPatrol;
-    private EnemyBehaviour enemy;
+    [HideInInspector] public EnemyBehaviour enemy;
     [HideInInspector] public Animator animator;
     public SpawnType spawnType;
     private IEnemyPatrol patrolBehavior;
+    private bool isInfinite;
 
     //
     public PatrolType patrolShape = PatrolType.Circle;
@@ -37,7 +37,7 @@ public class EnemyPatrol : MonoBehaviour
     // timer
 
     private float lookAroundTimer = 0f;
-    private bool isLookAround = false;
+    [SerializeField] private bool isLookAround = false;
     public bool IsLookAround { get; set; }
 
     // Navmesh
@@ -60,11 +60,11 @@ public class EnemyPatrol : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        enemyPatrol = GetComponent<EnemyPatrol>();
         enemy = GetComponent<EnemyBehaviour>();
         animator = GetComponent<Animator>();
 
         spawnPosition = transform.position;
+        isInfinite = enemy.enemyData.infinitePatrolMode;
 
         SetPatrolBehavior();
     }
@@ -146,13 +146,17 @@ public class EnemyPatrol : MonoBehaviour
             if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
             {
                 // 목표에 도달한 경우
-                isInterActEvent = false;
+                animator.SetBool("IsPatrol", false);
+                //isInterActEvent = false;
                 agent.enabled = false;
                 preClossTarget = Vector3.zero;
                 return;
             }
 
             // 목표지점으로 계속 이동
+            isLookAround = false;
+            animator.SetBool("IsLookAround", false);
+            animator.SetBool("IsPatrol", true);
             agent.SetDestination(preClossTarget);
             return;
         }
@@ -178,11 +182,6 @@ public class EnemyPatrol : MonoBehaviour
         preClossTarget = closestPosition;
         agent.SetDestination(closestPosition);
     }
-    
-    public void NonePatrol()
-    {
-        agent.enabled = false;
-    }
 
     public void SetSpawnType(SpawnType spawnerType, Transform[] gob)
     {
@@ -200,12 +199,8 @@ public class EnemyPatrol : MonoBehaviour
 
     void LookAround()
     {
-        lookAroundTimer += Time.deltaTime;
-        agent.enabled = false;
-        animator.SetBool("IsLookAround", true);
-        if ( lookAroundTimer > 4f)
+        if (isInfinite)
         {
-            lookAroundTimer = 0f;
             agent.enabled = true;
             animator.SetBool("IsLookAround", false);
             agent.speed = patrolSpeed;
@@ -217,6 +212,29 @@ public class EnemyPatrol : MonoBehaviour
                 if (currentCount >= wayPoints.Length)
                 {
                     currentCount = 0;
+                }
+            }
+        }
+        else
+        {
+            lookAroundTimer += Time.deltaTime;
+            agent.enabled = false;
+            animator.SetBool("IsLookAround", true);
+            if (lookAroundTimer > 4f)
+            {
+                lookAroundTimer = 0f;
+                agent.enabled = true;
+                animator.SetBool("IsLookAround", false);
+                agent.speed = patrolSpeed;
+                isLookAround = false;
+                if (spawnType == SpawnType.WayPointPatrol)
+                {
+                    agent.SetDestination(wayPoints[currentCount].position);
+                    currentCount++;
+                    if (currentCount >= wayPoints.Length)
+                    {
+                        currentCount = 0;
+                    }
                 }
             }
         }

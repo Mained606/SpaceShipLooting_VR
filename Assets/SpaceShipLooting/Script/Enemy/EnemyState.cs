@@ -21,6 +21,6 @@ public class InterActEventData
 public enum InterActType
 {
     PipeExpolde,
-    Working,
+    Dispatch,
     None
 }

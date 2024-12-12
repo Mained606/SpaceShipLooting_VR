@@ -69,6 +69,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (isDeath)
             return;
 
+        directionToPlayer = (targetHead.position - eyePoint.position).normalized;
+
         if (health.CurrentHealth <= 0)
         {
             Die();
@@ -123,7 +125,6 @@ public class EnemyBehaviour : MonoBehaviour
     private void CheckForTarget()   // 타겟 감지, 서칭 함수
     {
         bool isInTrigger = fanPerception.IsInRange;
-        directionToPlayer = (targetHead.position - eyePoint.position).normalized;
 
         if (distance <= enemyData.runPerceptionRange)
         {
@@ -171,7 +172,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void FirstEncounter()
     {
         encounterTimer += Time.deltaTime;
-        enemyData.targetEncounterUI.SetActive(true);    
+        enemyData.targetEncounterUI.SetActive(true);
         animator.SetBool("IsPatrol", false);
         agent.enabled = false;
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
@@ -216,6 +217,8 @@ public class EnemyBehaviour : MonoBehaviour
     private void AttackingWait()    // AttackTime 기다리는 용도
     {
         attackTimer += Time.deltaTime;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
         agent.enabled = false;
         if(attackTimer >= enemyData.attackInterval)
         {
@@ -241,7 +244,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             DropItem();
         }
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 3f);
     }
 
     private void DropItem()
