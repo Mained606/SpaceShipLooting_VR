@@ -84,9 +84,16 @@ public class SpaceBossDefenceState : State<BossController>
 
     private void SetCoreShield(bool isShield)
     {
-        foreach(var core in boss.coreShields)
+        foreach(var core in boss.cores)
         {
-            core.SetActive(isShield);
+            if (core.TryGetComponent(out CoreController coreController))
+            {
+                if (!coreController.IsDestroyed())
+                {
+                    core.SetActive(true);
+                    coreController.SetShieldEffect(isShield);
+                }
+            }
         }
     }
 }

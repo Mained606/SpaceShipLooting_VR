@@ -1401,7 +1401,7 @@ Animator:
   m_GameObject: {fileID: 3189556964359853671}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: eada6cf29e1c1b04ba6c351a0c2a29e6, type: 2}
+  m_Controller: {fileID: 22100000, guid: df87be315144da845b31462f84e9b9e7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2145,6 +2145,7 @@ GameObject:
   - component: {fileID: 6590834206444440627}
   - component: {fileID: 8568123845144623675}
   - component: {fileID: 2609443824801462068}
+  - component: {fileID: 603790781109574427}
   m_Layer: 0
   m_Name: Core1
   m_TagString: Core
@@ -2230,6 +2231,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184aa380394aa6f4f9a9dbaf25681dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &603790781109574427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138003689549321428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76f1a6ab868bcc44a0c94cbe1c107ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDestroyed: 0
+  shieldEffects: {fileID: 0}
 --- !u!1 &6329989938406589069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,6 +2622,7 @@ GameObject:
   - component: {fileID: 5234020170688262239}
   - component: {fileID: 1276651415050383745}
   - component: {fileID: 8008130277632415036}
+  - component: {fileID: 680998880617221929}
   m_Layer: 0
   m_Name: Core3
   m_TagString: Core
@@ -2692,6 +2708,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184aa380394aa6f4f9a9dbaf25681dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &680998880617221929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6443852848783162570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76f1a6ab868bcc44a0c94cbe1c107ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDestroyed: 0
+  shieldEffects: {fileID: 0}
 --- !u!1 &6538498106543003170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,7 +2873,7 @@ GameObject:
   - component: {fileID: 2940188487401711180}
   m_Layer: 0
   m_Name: Eye
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3214,6 +3244,7 @@ GameObject:
   - component: {fileID: 1965521851251077434}
   - component: {fileID: 7109203825499782978}
   - component: {fileID: 2473692702663813241}
+  - component: {fileID: 3191512315024828489}
   m_Layer: 0
   m_Name: Core2
   m_TagString: Core
@@ -3299,6 +3330,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184aa380394aa6f4f9a9dbaf25681dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3191512315024828489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8277461114615483355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76f1a6ab868bcc44a0c94cbe1c107ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDestroyed: 0
+  shieldEffects: {fileID: 0}
 --- !u!1 &8395738744718382017
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,6 +3572,7 @@ GameObject:
   - component: {fileID: 52814179494914483}
   - component: {fileID: 8426392097606396066}
   - component: {fileID: 2164895449023744755}
+  - component: {fileID: 5453428144306705820}
   m_Layer: 0
   m_Name: Core4
   m_TagString: Core
@@ -3612,6 +3658,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184aa380394aa6f4f9a9dbaf25681dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5453428144306705820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941653531846968773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76f1a6ab868bcc44a0c94cbe1c107ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDestroyed: 0
+  shieldEffects: {fileID: 0}
 --- !u!1 &9222205643932072760
 GameObject:
   m_ObjectHideFlags: 0
