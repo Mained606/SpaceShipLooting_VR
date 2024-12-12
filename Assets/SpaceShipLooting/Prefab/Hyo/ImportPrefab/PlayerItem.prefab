@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3524104156633583664
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1613206215664397603}
-  m_Layer: 0
-  m_Name: LeftAttachPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1613206215664397603
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3524104156633583664}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.258819, y: 0, z: 0, w: 0.9659259}
-  m_LocalPosition: {x: 0.0079, y: 0.013, z: 0.0043}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2938539770576295941}
-  m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
 --- !u!1 &8493794068504608769
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,37 +35,6 @@ Transform:
   - {fileID: 2938539770576295941}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8874728112082558903
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1882980353071976245}
-  m_Layer: 0
-  m_Name: RightAttachPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1882980353071976245
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8874728112082558903}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.258819, y: 0, z: 0, w: 0.9659259}
-  m_LocalPosition: {x: -0.0083, y: 0.013, z: 0.0043}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2938539770576295941}
-  m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
 --- !u!1001 &738993331217896028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108,7 +46,7 @@ PrefabInstance:
     - target: {fileID: 2782974010290465922, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
       propertyPath: muzzleEffect
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6783405871395700818}
     - target: {fileID: 2782974010290465922, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 6
@@ -162,6 +100,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
+--- !u!198 &6783405871395700818 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6080441378137379342, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
+  m_PrefabInstance: {fileID: 738993331217896028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7571683071697273521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7157745001629929709, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
@@ -215,29 +158,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2258699078203037022, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
-      propertyPath: leftAttachTransform
-      value: 
-      objectReference: {fileID: 1613206215664397603}
-    - target: {fileID: 2258699078203037022, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
-      propertyPath: rightAttachTransform
-      value: 
-      objectReference: {fileID: 1882980353071976245}
+    - target: {fileID: 5236480697886718245, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0083
+      objectReference: {fileID: 0}
     - target: {fileID: 6851722067501126963, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
       propertyPath: m_Name
       value: LightSaber01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8563842177263828244, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
-    - {fileID: 5831278586314011182, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 823570258883674934, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1613206215664397603}
-    - targetCorrespondingSourceObject: {fileID: 823570258883674934, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1882980353071976245}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
 --- !u!4 &2938539770576295941 stripped

@@ -4510,18 +4510,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 5029456240049642524}
     m_Modifications:
     - target: {fileID: 1478648131047542465, guid: 6508b95c5cdb77443babca1ddded4f05, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.9230769
-      objectReference: {fileID: 0}
-    - target: {fileID: 1478648131047542465, guid: 6508b95c5cdb77443babca1ddded4f05, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.923077
-      objectReference: {fileID: 0}
-    - target: {fileID: 1478648131047542465, guid: 6508b95c5cdb77443babca1ddded4f05, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1478648131047542465, guid: 6508b95c5cdb77443babca1ddded4f05, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.046152163
       objectReference: {fileID: 0}
@@ -4561,17 +4549,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7785964710262296900, guid: 6508b95c5cdb77443babca1ddded4f05, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8905692241527959525, guid: 6508b95c5cdb77443babca1ddded4f05, type: 3}
       propertyPath: m_Name
       value: Shield01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8905692241527959525, guid: 6508b95c5cdb77443babca1ddded4f05, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
