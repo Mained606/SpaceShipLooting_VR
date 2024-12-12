@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3743801725347228738}
   - component: {fileID: 6938663467054236332}
   m_Layer: 0
-  m_Name: v_GasOpen
+  m_Name: GasOpen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
