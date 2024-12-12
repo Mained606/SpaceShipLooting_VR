@@ -1,40 +1,35 @@
 using UnityEngine;
+using UnityEngine.Events;
+using static UnityEngine.ParticleSystem;
 
-public class GasOpen : MonoBehaviour, ISignalReceiver
+public class GasOpen : MonoBehaviour, ISignal
 {
+    public static UnityEvent<bool> GasGasGas = new UnityEvent<bool>();
+
     private ParticleSystem particle;
 
     private void Start()
     {
         // ParticleSystem 가져오기
-        particle = GetComponent<ParticleSystem>();
-        if (particle != null)
-        {
-            particle.Stop(); // 초기 상태에서 정지
-        }
-        else
-        {
-            Debug.LogError($"[{gameObject.name}] ParticleSystem is missing!");
-        }
+     particle = GetComponent<ParticleSystem>();
+     particle.Stop(); // 초기 상태에서 정지
+
+     ValveMove.OnValve.AddListener(Receiver);
     }
 
-    public void ReceiveSignal(string signal)
+    public void Sender(bool state)
     {
-        Debug.Log($"[{gameObject.name}] Received signal: {signal}");
-
-        if (signal == "OpenGas" && particle != null)
-        {
-            particle.Play();
-            Debug.Log($"[{gameObject.name}] Gas particle started.");
-        }
-        else
-        {
-            Debug.LogError($"[{gameObject.name}] Signal not matched or ParticleSystem is missing!");
-        }
+     GasGasGas?.Invoke(state);
     }
 
-    public GameObject GetGameObject()
+    public void Receiver(bool state)
     {
-        return gameObject; // 현재 오브젝트 반환
+        if (state) particle.Play();
+        Sender(true);
+    }
+
+    public void Clear(UnityEvent<bool> signal)
+    {
+        signal.RemoveAllListeners();
     }
 }

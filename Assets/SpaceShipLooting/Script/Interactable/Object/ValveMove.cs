@@ -2,25 +2,16 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class ValveMove : SelectObject, ISignal
+public class ValveMove : XRSimpleInteractableOutline, ISignal
 {
     private Animator anim;
 
-    public UnityEvent<string> OnSignal { get; } = new UnityEvent<string>();
+    public static UnityEvent<bool> OnValve { get; } = new UnityEvent<bool>();
 
-    private void Start()
+    protected override void  Start()
     {
         // Animator를 현재 오브젝트 또는 부모에서 검색
-        anim = GetComponent<Animator>();
-        if (anim == null)
-        {
-            anim = GetComponentInParent<Animator>();
-        }
-
-        if (anim == null)
-        {
-            Debug.LogError($"[{gameObject.name}] Animator component is missing!");
-        }
+        anim = GetComponent<Animator>() ?? GetComponentInParent<Animator>();
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -30,22 +21,14 @@ public class ValveMove : SelectObject, ISignal
         if (anim != null)
         {
             anim.SetTrigger("Open");
-            Debug.Log($"[{gameObject.name}] Valve turned, sending signal...");
-            OnSignal.Invoke("OpenGas");
         }
-        else
-        {
-            Debug.LogError($"[{gameObject.name}] Animator is null. Cannot trigger animation.");
-        }
+        Sender(true);
     }
 
-    public GameObject GetGameObject()
-    {
-        return gameObject; // 현재 오브젝트 반환
-    }
+    public void Sender(bool state) => OnValve?.Invoke(state);
 
-    public void ClearListeners()
-    {
-        OnSignal.RemoveAllListeners();
-    }
+    public void Receiver(bool state) { }
+    
+    public void Clear(UnityEvent<bool> signal) => OnValve.RemoveAllListeners();
+
 }

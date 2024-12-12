@@ -1,26 +1,27 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Intercom : XRSimpleInteractableOutline, ISignalReceiver
+public class Intercom : XRSimpleInteractableOutline
 {
-    private GameObject keyPadUI; // Keypad UI 오브젝트
+    private GameObject canvasUI; // Keypad UI 오브젝트
     private Transform displayPosition; // UI가 나타날 위치
 
-    private bool isUIActive = false; // UI 활성화 상태 체크
 
     protected override void Awake()
     {
         base.Awake();
 
         // KeyPadUI 동적 검색
-        keyPadUI = FindObjectOfType<KeyPadUI>(true)?.gameObject;// 비활성화된 오브젝트도 검색
+        var keyPadUI = FindObjectOfType<KeyPadUI>(true)?.gameObject;// 비활성화된 오브젝트도 검색
         if (keyPadUI == null)
         {
             Debug.LogError("KeyPadUI not found in the scene!");
         }
+        canvasUI = keyPadUI.transform.Find("Canvas")?.gameObject;
 
         // DisplayPosition을 KeyPadUI 하위에서 찾음
-        if (keyPadUI != null)
+        if (canvasUI != null)
         {
             displayPosition = keyPadUI.transform.Find("Canvas/Display");
             if (displayPosition == null)
@@ -35,36 +36,10 @@ public class Intercom : XRSimpleInteractableOutline, ISignalReceiver
         base.OnSelectEntered(args);
 
         // UI 활성화
-        if (!isUIActive && keyPadUI != null)
+        if (canvasUI != null && !canvasUI.activeSelf)
         {
-            keyPadUI.SetActive(true);
-            keyPadUI.transform.position = displayPosition.position;
-
-            // Y축 180도 회전 추가
-            keyPadUI.transform.rotation = displayPosition.rotation * Quaternion.Euler(0, 180, 0);
-
-            isUIActive = true;
+            canvasUI.SetActive(true);
         }
     }
 
-    public void ReceiveSignal(string signal)
-    {
-        if (signal == "CodeMatched")
-        {
-            Debug.Log("Correct code entered. Triggering animation.");
-            // 여기에 애니메이션 트리거 추가
-        }
-
-        // UI 비활성화
-        if (keyPadUI != null)
-        {
-            keyPadUI.SetActive(false);
-            isUIActive = false;
-        }
-    }
-
-    public GameObject GetGameObject()
-    {
-        return gameObject;
-    }
 }

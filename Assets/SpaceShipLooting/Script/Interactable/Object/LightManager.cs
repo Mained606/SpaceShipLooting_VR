@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightManager : MonoBehaviour, ISignalReceiver
+public class LightManager : MonoBehaviour
 {
     [SerializeField]
     private bool startLightsOn = false; // 시작 시 라이트 상태 (Inspector에서 설정 가능)

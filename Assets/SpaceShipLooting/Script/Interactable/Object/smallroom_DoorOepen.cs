@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class smallroom_DoorOepen : SelectObject
+public class smallroom_DoorOepen : XRSimpleInteractableOutline 
 {
     private Animator anim;
 
@@ -33,14 +33,6 @@ public class smallroom_DoorOepen : SelectObject
     {
         base.OnSelectEntered(args);
 
-        if (anim != null)
-        {
-            anim.SetTrigger("Open");
-            Debug.Log("Door open animation triggered.");
-        }
-        else
-        {
-            Debug.LogError("Animator is null. Cannot trigger animation.");
-        }
+        anim.SetTrigger("Open");
     }
 }

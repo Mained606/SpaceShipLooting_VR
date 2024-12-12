@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c98ef209a952b47957e2a09c47c8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startLightsOn: 0
