@@ -30,7 +30,7 @@ public class SpaceBossController : BossController
 
     //눈 포지션 설정
     [Header("눈 위치 설정 및 탐색 범위")]
-    [SerializeField] private float eyePositionY = 1.5f; // 눈 위치 조정 값
+    [SerializeField] private float eyePositionY = 2.5f; // 눈 위치 조정 값
     [SerializeField] private float eyeMoveSpeed = 5f; // 눈 이동 속도
     [SerializeField] private float searchRange = 15f; // 탐색 범위
     private Coroutine eyeMovementCoroutine;

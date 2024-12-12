@@ -48,8 +48,8 @@ Material:
     - _VertexFrequency: 4
     m_Colors:
     - _BackColor: {r: 0, g: 0.17627445, b: 1.2167864, a: 0.44705883}
-    - _FresnelColor: {r: 0, g: 24.901293, b: 353.6433, a: 0.7294118}
-    - _FrontColor: {r: 2.2648802, g: 2.4123614, b: 68.593475, a: 1}
+    - _FresnelColor: {r: 0, g: 19.094337, b: 271.17407, a: 0.7294118}
+    - _FrontColor: {r: 35.90596, g: 1.3159257, b: 10.243466, a: 1}
     - _VertexAmount: {r: 0.1, g: 0.1, b: 0.1, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
