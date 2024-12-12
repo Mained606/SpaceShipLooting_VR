@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.Pool;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -9,6 +10,10 @@ public class Pistol : XRGrabInteractableOutline
     public GameObject bulletPrefab;
     public Transform firePoint;
     private float bulletSpeed;
+    [SerializeField] private ParticleSystem muzzleEffect;
+    // 연결 수정 필요
+    private float fireRate = 0.5f;
+    private bool isFiring = false;
     [SerializeField] private int maxAmmo;
     [SerializeField] private int ammocount;
 
@@ -34,11 +39,11 @@ public class Pistol : XRGrabInteractableOutline
     protected override void OnActivated(ActivateEventArgs args)
     {
         base.OnActivated(args);
-        if(ammocount > 0)
+        if(ammocount > 0 && !isFiring)
         {
-            Fire(args);
+            StartCoroutine(Fire(args));
         }
-        else
+        else if(ammocount == 0 && !isFiring)
         {
             Debug.Log("총알이 부족합니다. 테스트용 자동 리로드 실행");
 
@@ -48,8 +53,9 @@ public class Pistol : XRGrabInteractableOutline
     }
 
     // 총 발사 메서드
-    void Fire(ActivateEventArgs args)
+    private IEnumerator Fire(ActivateEventArgs args)
     {
+        isFiring = true;
         animator.SetTrigger("Shoot");
 
         // 객체 풀에서 총알 가져오기
@@ -66,16 +72,26 @@ public class Pistol : XRGrabInteractableOutline
             rb.linearVelocity = firePoint.forward * bulletSpeed;
         }
 
+        muzzleEffect.gameObject.SetActive(true);
+        muzzleEffect.Play();
+        
         ammocount--;
 
-        if(ammocount == 0)
+
+        if(ammocount <= 0)
         {
             animator.SetBool("HaveAmmo", false);
         }
+        
+        yield return new WaitForSeconds(fireRate);
+
+        muzzleEffect.Stop();
+        muzzleEffect.gameObject.SetActive(false);
+
+        isFiring = false;
 
         // 발사 방향을 디버그 레이로 시각화
         // Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
-    
     }
 
     // 재장전 방식 추후 구현 필요
