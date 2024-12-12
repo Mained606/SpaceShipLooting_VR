@@ -430,6 +430,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 72189597008098770, guid: c45d17f119f30664896df883afe9bb4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 72189597008098770, guid: c45d17f119f30664896df883afe9bb4a, type: 3}
+      propertyPath: m_TagString
+      value: Weapons
+      objectReference: {fileID: 0}
     - target: {fileID: 3504328574450282704, guid: c45d17f119f30664896df883afe9bb4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -473,6 +481,10 @@ PrefabInstance:
     - target: {fileID: 8493794068504608769, guid: c45d17f119f30664896df883afe9bb4a, type: 3}
       propertyPath: m_Name
       value: PlayerItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8988083662230932992, guid: c45d17f119f30664896df883afe9bb4a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -620,18 +632,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1658060417103109341, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: d87e6b42fd353414cb31b1615da9d5d4, type: 3}
-    - target: {fileID: 3225962058755210664, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278130649349309193, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5029456240049642524, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
       propertyPath: m_LocalPosition.x
       value: 50.58996
@@ -675,14 +675,6 @@ PrefabInstance:
     - target: {fileID: 5889547833588053518, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
       propertyPath: m_Name
       value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 7364542133093768920, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191500453757001849, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

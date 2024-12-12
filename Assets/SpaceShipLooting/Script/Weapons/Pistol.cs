@@ -12,7 +12,7 @@ public class Pistol : XRGrabInteractableOutline
     private float bulletSpeed;
     [SerializeField] private ParticleSystem muzzleEffect;
     // 연결 수정 필요
-    private float fireRate = 0.5f;
+    [SerializeField] private float fireRate = 0.5f;
     private bool isFiring = false;
     [SerializeField] private int maxAmmo;
     [SerializeField] private int ammocount;
