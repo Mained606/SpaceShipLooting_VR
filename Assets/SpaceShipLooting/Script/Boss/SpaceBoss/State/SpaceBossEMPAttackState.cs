@@ -8,6 +8,9 @@ public class SpaceBossEMPAttackState : State<BossController>
     private bool isPlayerInStealthMode;
     private bool hasTriggeredEMP; // EMP 공격 트리거 여부
 
+    private ParticleSystem empEffect;
+    private ParticleSystem vfx_Implosion;
+
 
     public override void OnInitialized()
     {
@@ -30,6 +33,9 @@ public class SpaceBossEMPAttackState : State<BossController>
 
         boss.canvas.gameObject.SetActive(true);
         boss.textbox.text = "EMP Attack...";
+
+        empEffect = boss.empEffect;
+        vfx_Implosion = boss.vfx_Implosion;
 
         Coroutine coroutine = boss.StartSkillCoroutine(TriggerEMPAttackEffects());
     }
@@ -58,13 +64,23 @@ public class SpaceBossEMPAttackState : State<BossController>
         if (hasTriggeredEMP) yield break;
 
         hasTriggeredEMP = true;
-        
+
+        //보스 EMP 모으는 사운드 및 이펙트 재생
+
+        vfx_Implosion.gameObject.SetActive(true);
+        vfx_Implosion.Play();
+
         yield return new WaitForSeconds(boss.EMPAttackDuration);
 
-        //SFX
+        vfx_Implosion.gameObject.SetActive(false);
+        vfx_Implosion.Stop();
 
-        //VFX
-        
+        // //EMP 발사 사운드 및 이펙트 재생
+        boss.empEffect.gameObject.SetActive(true);
+        boss.empEffect.Play();
+
+
+
         // 범위 내의 모든 콜라이더를 가져옴
         Collider[] hitColliders = Physics.OverlapSphere(boss.transform.position, boss.EMPAttackRadius);
         foreach (var hitCollider in hitColliders)
@@ -87,6 +103,11 @@ public class SpaceBossEMPAttackState : State<BossController>
                 }
             }
         }
+
+        yield return new WaitForSeconds(1f);
+
+        empEffect.Stop();
+        empEffect.gameObject.SetActive(false);
 
         // 디펜스 상태로 전환
         boss.SpaceBossDefenceState();

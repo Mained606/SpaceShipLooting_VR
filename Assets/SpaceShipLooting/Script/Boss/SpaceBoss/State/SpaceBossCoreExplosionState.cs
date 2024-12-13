@@ -8,7 +8,6 @@ public class SpaceBossCoreExplosionState : State<BossController>
 {
     private SpaceBossController boss;
     private Dictionary<GameObject, Coroutine> activeCoreCoroutines = new Dictionary<GameObject, Coroutine>();
-
     public override void OnInitialized()
     {
         // context를 SpaceBossController로 캐스팅
@@ -90,7 +89,21 @@ public class SpaceBossCoreExplosionState : State<BossController>
 
     private IEnumerator PerformAreaAttack(GameObject core)
     {
+        Debug.Log(core.gameObject.name + "폭발 대기");
+        var vfx_Electricity = core.gameObject.transform.Find("vfx_Electricity").GetComponent<ParticleSystem>();
+        var vfx_Explosion = core.gameObject.transform.Find("vfx_Explosion").GetComponent<ParticleSystem>();
+
+        vfx_Electricity.gameObject.SetActive(true);
+        vfx_Electricity.Play();
         yield return new WaitForSeconds(boss.ExplosionDelay);
+
+        vfx_Electricity.Stop();
+        vfx_Electricity.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(0.2f);
+
+        vfx_Explosion.gameObject.SetActive(true);
+        vfx_Explosion.Play();
 
         if (IsWireActive(core))
         {
@@ -110,6 +123,12 @@ public class SpaceBossCoreExplosionState : State<BossController>
                 }
             }
         }
+
+        Debug.Log(core.gameObject.name + "폭발 종료");
+        yield return new WaitForSeconds(1f);
+
+        vfx_Explosion.Stop();
+        vfx_Explosion.gameObject.SetActive(false);
 
         ActivateWire(core, false);
         activeCoreCoroutines.Remove(core);

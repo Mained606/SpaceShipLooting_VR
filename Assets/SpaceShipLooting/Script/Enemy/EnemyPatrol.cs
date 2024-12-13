@@ -28,7 +28,7 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private Vector2 rectanglePatrolRange = new Vector2(5f, 5f);
     public Vector2 RectanglePatrolRange { get; private set; }
 
-    private Vector3 spawnPosition;
+    [HideInInspector] public Vector3 spawnPosition;
     private Transform[] wayPoints;
     public Transform enemyHeadPosition;
 
@@ -146,41 +146,50 @@ public class EnemyPatrol : MonoBehaviour
             if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
             {
                 // 목표에 도달한 경우
-                animator.SetBool("IsPatrol", false);
-                //isInterActEvent = false;
+                Debug.Log("이벤트목표 도착");
+                animator.SetBool("IsLookAround", true);
                 agent.enabled = false;
                 preClossTarget = Vector3.zero;
+                if (interActEventData.interActType == InterActType.Dispatch)
+                {
+                    isInterActEvent = false;
+                    isLookAround = true;
+                }
+            }
+            else
+            {
+                // 목표지점으로 계속 이동
+                agent.enabled = true;
+                isLookAround = false;
+                animator.SetBool("IsLookAround", false);
+                animator.SetBool("IsPatrol", true);
+                agent.SetDestination(preClossTarget);
                 return;
             }
-
-            // 목표지점으로 계속 이동
-            isLookAround = false;
-            animator.SetBool("IsLookAround", false);
-            animator.SetBool("IsPatrol", true);
-            agent.SetDestination(preClossTarget);
-            return;
         }
-
-        // 4. 가장 가까운 위치 계산 및 설정
-        Vector3 closestPosition = Vector3.zero;
-        float closestDistance = float.MaxValue;
-
-        foreach (Transform position in interActEventData.interActPosition)
+        else
         {
-            float distance = Vector3.Distance(agent.transform.position, position.position);
+            // 4. 가장 가까운 위치 계산 및 설정
+            Vector3 closestPosition = Vector3.zero;
+            float closestDistance = float.MaxValue;
 
-            if (distance < closestDistance)
+            foreach (Transform position in interActEventData.interActPosition)
             {
-                closestDistance = distance;
-                closestPosition = position.position;
+                float distance = Vector3.Distance(agent.transform.position, position.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPosition = position.position;
+                }
             }
+
+            Debug.LogWarning("이벤트 근거리 : " + closestPosition);
+
+            // 5. 새로운 목표지점 설정
+            preClossTarget = closestPosition;
+            agent.SetDestination(closestPosition);
         }
-
-        Debug.LogWarning("이벤트 근거리 : " + closestPosition);
-
-        // 5. 새로운 목표지점 설정
-        preClossTarget = closestPosition;
-        agent.SetDestination(closestPosition);
     }
 
     public void SetSpawnType(SpawnType spawnerType, Transform[] gob)
@@ -235,6 +244,10 @@ public class EnemyPatrol : MonoBehaviour
                     {
                         currentCount = 0;
                     }
+                }
+                else if (spawnType == SpawnType.Normal)
+                {
+                    isInterActEvent = false;
                 }
             }
         }

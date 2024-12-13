@@ -9,7 +9,7 @@ public class SpaceBossController : BossController
     [SerializeField] private Transform target; // 타겟 참조 (캡슐화)
     [SerializeField] private GameObject eye; // 눈 오브젝트
     [SerializeField] public GameObject[] cores; // 코어 리스트
-    
+
     [SerializeField] public Canvas canvas;
     [SerializeField] public TextMeshProUGUI textbox;
 
@@ -19,7 +19,8 @@ public class SpaceBossController : BossController
     [SerializeField] public GameObject bossShield;
     [SerializeField] public List<GameObject> coreShields;
 
-
+    [SerializeField] public ParticleSystem empEffect;
+    [SerializeField] public ParticleSystem vfx_Implosion;
 
 
     private Health health;
@@ -236,7 +237,7 @@ public class SpaceBossController : BossController
         var coreList = new List<GameObject>(cores);
         coreList.Add(core);
         cores = coreList.ToArray();
-        Debug.Log(cores +" 코어 리스트");
+        Debug.Log(cores + " 코어 리스트");
 
         OnCoreRecovered?.Invoke();
         UpdateCoreState(); // 코어 상태 갱신
@@ -260,6 +261,8 @@ public class SpaceBossController : BossController
     private void HandleAllCoresDestroyed()
     {
         health.IsInvincible = false;
+        bossShield.SetActive(false);
+
         Debug.Log("모든 코어 파괴 - 무적 해제");
         AdjustEyePosition(true);
     }
@@ -268,6 +271,8 @@ public class SpaceBossController : BossController
     private void HandleCoreRecovered()
     {
         health.IsInvincible = true;
+        bossShield.SetActive(true);
+
         Debug.Log("코어 회복 - 무적 설정");
         AdjustEyePosition(false);
     }
@@ -291,7 +296,7 @@ public class SpaceBossController : BossController
         // 1. 레이저 VFX 생성
         GameObject laserGo = Instantiate(laserPrefab, laserFirePoint.position, Quaternion.identity);
         laserGo.transform.LookAt(targetPosition);
-        
+
         // 2. 레이저의 이동 및 도달 처리
         Rigidbody rb = laserGo.GetComponent<Rigidbody>();
         if (rb != null)
