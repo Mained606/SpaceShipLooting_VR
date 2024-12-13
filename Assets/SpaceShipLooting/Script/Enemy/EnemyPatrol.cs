@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
@@ -133,6 +134,12 @@ public class EnemyPatrol : MonoBehaviour
         // 1. 예외 처리: 유효하지 않은 데이터
         if (interActEventData.interActPosition == null || interActEventData.interActPosition.Count == 0)
         {
+            if (interActEventData.interActType == InterActType.BusterCall)
+            {
+                agent.enabled = true;
+                enemy.SetState(EnemyState.E_BusterCall);
+                return;
+            }
             Debug.LogWarning("interActEventData가 없거나 포지션 리스트가 없습니다.");
             return;
         }

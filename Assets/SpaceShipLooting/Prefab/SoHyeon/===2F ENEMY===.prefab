@@ -266,7 +266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5568404020475732463
 Transform:
   m_ObjectHideFlags: 0
@@ -714,7 +714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActPosition.Array.size
@@ -792,7 +792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActPosition.Array.size
@@ -862,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActPosition.Array.size
@@ -932,7 +932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: 'interActEventData.interActPosition.Array.data[0]'

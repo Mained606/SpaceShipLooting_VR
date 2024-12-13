@@ -10,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Health health;
     private Collider _collider;
     private Transform target;
+    public Transform Target { get; }
     private Damageable targetDamageable;
     private Animator animator;
     private EnemyPatrol patrol;
@@ -90,6 +91,9 @@ public class EnemyBehaviour : MonoBehaviour
             case EnemyState.E_Chase:
                 ChaseTarget();
                 break;
+            case EnemyState.E_BusterCall:
+                BusterCall();
+                break;
             case EnemyState.E_Attack:
                 animator.SetBool("IsAttack", true);
                 AttackingWait();
@@ -102,7 +106,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private void SetState(EnemyState newState)
+    public void SetState(EnemyState newState)
     {
         if (newState == currentState) return;
 
@@ -212,6 +216,17 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
        
+    }
+
+    public void BusterCall()
+    {
+        isEncounter = true;
+        animator.SetBool("IsChase", true);
+        agent.SetDestination(target.position);
+        if (distance <= 10f)    // 수치 변수로 바꿀 필요 있음
+        {
+            SetState(EnemyState.E_Chase);
+        }
     }
 
     private void AttackingWait()    // AttackTime 기다리는 용도
