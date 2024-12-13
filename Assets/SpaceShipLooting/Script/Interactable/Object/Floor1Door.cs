@@ -5,7 +5,7 @@ public class Floor1Door : XRSimpleInteractableOutline
 {
     private Animator anim;
 
-    void Start()
+  protected override void Start()
     {
         // Animator 가져오기
         anim = GetComponentInParent<Animator>();

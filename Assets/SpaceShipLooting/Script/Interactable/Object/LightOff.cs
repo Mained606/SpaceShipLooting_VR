@@ -1,33 +1,39 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class LightOff : MonoBehaviour, ISignal
 {
-  
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Light[]lights;
+    private int TrueCount = 0;
+
     void Start()
     {
         Floor1Console.consoleCheck.AddListener(Receiver);
+
+        lights = FindObjectsOfType<Light>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void lightoff()
     {
-        
+            foreach (var light in lights)
+            {
+                light.enabled = false;
+            }
     }
-    public void Clear(UnityEvent<bool> signal)
-    {
-       
-    }
+
+
+    public void Clear(UnityEvent<bool> signal) =>  signal.RemoveAllListeners();
 
     public void Receiver(bool state)
     {
-      
+        if(state)
+        {
+            TrueCount++;
+            if (TrueCount >= 3) lightoff();
+        }
     }
 
-    public void Sender(bool state)
-    {
-     
-    }
-
+    public void Sender(bool state) { }
+   
 }

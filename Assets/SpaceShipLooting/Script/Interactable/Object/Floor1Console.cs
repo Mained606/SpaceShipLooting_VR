@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,45 +13,45 @@ public class Floor1Console: MonoBehaviour, ISignal
 
     [Header("Object Settings")]
     [SerializeField] private bool Succesce; // Inspector에서 체크 여부 설정
+    private HashSet<GameObject> nono = new HashSet<GameObject>(); // 중복 사격 방지
 
     void Start()
     {
         render = GetComponentInChildren<Renderer>();
-        if(render == null)
+
+        if(render == null) Debug.Log(" 렌더러가 없잖아 ");
+        else boom = GetComponent<ParticleSystem>();
+
+        if (boom == null)
         {
-            Debug.Log(" 렌더러가 없잖아 ");
+            Debug.Log(" 파티클이 없다고 ");
         }
-        else
-        boom = GetComponent<ParticleSystem>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-     //   if (collision.gameObject.CompareTag(Tag))
+        if (nono.Contains(collision.gameObject) || !collision.gameObject.CompareTag(Tag)) return; // 이미 처리된 오브젝트는 무시
+        nono.Add(collision.gameObject);
+
+        if (collision.gameObject.CompareTag(Tag))
         {
-            if (boom == null)
-            Debug.Log(" 파티클이 없다고 ");
-            else
-            boom.Play();
+            EffectGo();
 
-            render.material = new Material(render.material); // 개별 마테리얼 생성 
-            render.material.SetColor("BaseMap", Color.black);    // 색상 변경 
-
-            if (Succesce == true)
+            if (Succesce)
             {
                 Sender(true);
                 Scount++;
-                if(Scount >=3)
+                if (Scount >= 3)
                 {
                     Clear(consoleCheck);
                 }
             }
 
-            if(Succesce == false)
+            else
             {
                 Sender(false);
                 Fcount++;
-                if(Fcount >=2)
+                if (Fcount >= 2)
                 {
                     Clear(consoleCheck);
                 }
@@ -58,7 +59,14 @@ public class Floor1Console: MonoBehaviour, ISignal
 
         }
     }
+    private void EffectGo()
+    {
+        boom.Play();
 
+        render.material = new Material(render.material); // 개별 마테리얼 생성 
+        render.material.SetColor("BaseMap", Color.black);    // 색상 변경 
+    }
+   
     public void Clear(UnityEvent<bool> signal) => signal.RemoveAllListeners();
 
     public void Sender(bool state) => consoleCheck?.Invoke(state);

@@ -5,7 +5,7 @@ public class smallroom_DoorOepen : XRSimpleInteractableOutline
 {
     private Animator anim;
 
-    void Start()
+   protected override void Start()
     {
 
         anim = GetComponent<Animator>();
