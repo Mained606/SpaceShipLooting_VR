@@ -1,12 +1,27 @@
+using System.Collections;
 using UnityEngine;
+
 
 public class BossLaser : MonoBehaviour
 {
     private SpaceBossController boss;
-    
+    ParticleSystem healEffect;
+
     private void Awake()
     {
         boss = GameObject.Find("Boss").GetComponent<SpaceBossController>();
+    }
+
+    // 보스 코어 힐 이펙트 & 사운드 재생
+    private IEnumerator CoreHeal()
+    {
+        healEffect.gameObject.SetActive(true);
+        healEffect.Play();
+
+        yield return new WaitForSeconds(1f);
+
+        healEffect.Stop();
+        healEffect.gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -31,11 +46,17 @@ public class BossLaser : MonoBehaviour
             {
                 health.Heal(boss.LaserHealAmount);
             }
+            healEffect = collision.gameObject.transform.Find("HealEffect").GetComponent<ParticleSystem>();
+            if (healEffect != null)
+            {
+                StartCoroutine(CoreHeal());
+            }
+
             Destroy(gameObject);
         }
-        else if(collision.gameObject.CompareTag("Shield"))
+        else if (collision.gameObject.CompareTag("Shield"))
         {
-            
+
         }
 
         else

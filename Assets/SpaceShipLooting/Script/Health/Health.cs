@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     public float CurrentHealth { get; set; }    // 현재 체력
 
     private bool isDead = false;                       //죽음 체크
-    private bool isInvincible;                           // 무적 상태
+    [SerializeField] private bool isInvincible;                           // 무적 상태
     public bool IsInvincible
     {
         get => isInvincible;
@@ -61,7 +61,7 @@ public class Health : MonoBehaviour
         if (CurrentHealth > previousHealth)
         {
             Debug.Log($"[Health] {gameObject.name}가 {amount}만큼 회복했습니다. 현재 체력: {CurrentHealth}");
-            if(gameObject.CompareTag("Core"))
+            if (gameObject.CompareTag("Core"))
             {
                 SpaceBossController boss = FindAnyObjectByType<SpaceBossController>();
                 if (boss != null)
@@ -69,10 +69,11 @@ public class Health : MonoBehaviour
                     boss.RecoverCore(gameObject);
                     CoreController coreController = gameObject.GetComponent<CoreController>();
                     coreController.SetDestroyed(false);
-                    
+
+
                     Debug.Log("리커버 실행");
                 }
-                
+
                 else
                 {
                     Debug.Log("보스 컨트롤러 못 찾음");
@@ -84,11 +85,11 @@ public class Health : MonoBehaviour
     // 죽음을 처리하는 메서드
     private void HandleDeath()
     {
-        if(!gameObject.CompareTag("Core"))
+        if (!gameObject.CompareTag("Core"))
         {
             isDead = true;
         }
-        
+
         Debug.Log($"[Health] {gameObject.name}이(가) 사망했습니다.");
         OnDie?.Invoke(); // 죽음 이벤트 호출
     }

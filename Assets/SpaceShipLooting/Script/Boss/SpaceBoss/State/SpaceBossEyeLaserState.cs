@@ -22,7 +22,7 @@ public class SpaceBossEyeLaserState : State<BossController>
         if (boss == null) return;
 
         boss.canvas.gameObject.SetActive(true);
-        boss.textbox.text = "Laser State...";  
+        boss.textbox.text = "Laser State...";
 
         // 레이저 공격 시작 이벤트 실행
         boss.OnLaserStateStarted?.Invoke();
@@ -32,7 +32,7 @@ public class SpaceBossEyeLaserState : State<BossController>
         boss.StartSkillCoroutine(LaserAttackSequence());
     }
 
-     private IEnumerator LaserAttackSequence()
+    private IEnumerator LaserAttackSequence()
     {
         // 1. 플레이어를 따라다니는 3초
         float trackingDuration = boss.TrackingDuration;
@@ -51,11 +51,11 @@ public class SpaceBossEyeLaserState : State<BossController>
 
         // 2. 공격 위치 고정 및 에너지 모으기
         Vector3 fixedAttackPosition = boss.EyeTransform.position; // 공격 위치 고정
-        
+
         // boss.SetChargeEffect(true); // 에너지 모으는 이펙트 활성화
 
         yield return new WaitForSeconds(boss.LaserChargeDuration); // 3초간 에너지 모으기
-        boss.textbox.text = "Laser Charge...";  
+        boss.textbox.text = "Laser Charge...";
 
 
         // boss.SetChargeEffect(false); // 에너지 모으는 이펙트 비활성화

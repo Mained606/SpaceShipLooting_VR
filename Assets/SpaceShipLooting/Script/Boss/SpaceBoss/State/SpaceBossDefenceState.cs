@@ -28,7 +28,15 @@ public class SpaceBossDefenceState : State<BossController>
         if (boss == null) return;
 
         // 디펜스 상태 초기화 로직
-        boss.bossShield.SetActive(true);
+        if (!boss.AllCoresDestroyed)
+        {
+            boss.bossShield.SetActive(true);
+        }
+        else
+        {
+            boss.bossShield.SetActive(false);
+        }
+
         SetCoreShield(true);
 
         SetCoresVulnerable(true); // 코어 무적 설정
@@ -84,7 +92,7 @@ public class SpaceBossDefenceState : State<BossController>
 
     private void SetCoreShield(bool isShield)
     {
-        foreach(var core in boss.cores)
+        foreach (var core in boss.cores)
         {
             if (core.TryGetComponent(out CoreController coreController))
             {

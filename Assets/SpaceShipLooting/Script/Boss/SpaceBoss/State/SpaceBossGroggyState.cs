@@ -19,6 +19,8 @@ public class SpaceBossGroggyState : State<BossController>
         {
             groggyDuration = boss.GroggyDuration;
         }
+
+        health = boss.GetComponent<Health>();
     }
 
     public override void OnEnter()
@@ -61,7 +63,8 @@ public class SpaceBossGroggyState : State<BossController>
         Debug.Log("그로기 상태 효과 시작");
 
         health.IsInvincible = false;
-        
+        boss.bossShield.SetActive(false);
+
         // 추가적인 파티클, 사운드 처리 가능
     }
 
@@ -70,6 +73,7 @@ public class SpaceBossGroggyState : State<BossController>
         // 그로기 상태 종료 효과 실행
         Debug.Log("그로기 상태 효과 종료");
         health.IsInvincible = true;
+        boss.bossShield.SetActive(true);
         // 추가적인 파티클, 사운드 처리 가능
     }
 }
