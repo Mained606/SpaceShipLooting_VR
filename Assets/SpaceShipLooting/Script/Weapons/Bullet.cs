@@ -3,13 +3,15 @@ using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
-   
+
     private IObjectPool<Bullet> managedPool;   // 관리되는 객체 풀
     private bool isReleased = false;           // 풀에 반환되었는지 여부를 추적하는 플래그
 
     [Header("Bullet Settings")]
     private float lifeTime; // 총알 수명 (5초)
     private float damage;   // 총알 데미지
+    [SerializeField] GameObject impactEffectPrefab;
+    [SerializeField] private float effectLifetime = 2f;
 
 
     private void OnEnable()
@@ -50,17 +52,30 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject); // 풀 관리가 없는 경우 안전하게 파괴
         }
-        
+
         // 풀에 반환되었음을 표시
         isReleased = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Weapons") return;
-        
-        // 충돌 시 풀로 반환
+
+        if (collision.gameObject.CompareTag("Weapons") ||
+            collision.gameObject.CompareTag("Player") ||
+            collision.gameObject.CompareTag("Blade")) return;
+
         Debug.Log($"Bullet이 {collision.gameObject.name}에 충돌");
+
+        ContactPoint contact = collision.contacts[0];
+        Vector3 hitPoint = contact.point;
+        Vector3 hitNormal = contact.normal;
+
+        // 이펙트 생성
+        if (impactEffectPrefab != null)
+        {
+            GameObject impactEffect = Instantiate(impactEffectPrefab, hitPoint, Quaternion.LookRotation(hitNormal));
+            Destroy(impactEffect, effectLifetime); // 일정 시간 후 이펙트 제거
+        }
 
         // 적이면 데미지 입히기
         Damageable damageable = collision.gameObject.GetComponent<Damageable>();

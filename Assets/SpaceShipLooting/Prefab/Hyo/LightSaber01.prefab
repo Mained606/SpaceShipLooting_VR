@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4014931081548803629}
   m_Layer: 0
   m_Name: Blade
-  m_TagString: Untagged
+  m_TagString: Blade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -378,8 +378,11 @@ MonoBehaviour:
   rightAttachTransform: {fileID: 2820029133002553182}
   damage: 0
   blade: {fileID: 2497908573720096481}
+  bladeCollider: {fileID: 4014931081548803629}
   isActive: 0
   cooldownTime: 1
+  impactEffectPrefab: {fileID: 3061015098213265699, guid: 8dab52b39bb64d44da252b3dbf79fe59, type: 3}
+  effectLifetime: 2
 --- !u!1 &7303057216037226187
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +408,7 @@ Transform:
   m_GameObject: {fileID: 7303057216037226187}
   serializedVersion: 2
   m_LocalRotation: {x: -0.258819, y: 0, z: 0, w: 0.9659259}
-  m_LocalPosition: {x: 0.0079, y: 0.013, z: 0.0043}
+  m_LocalPosition: {x: 0.0083, y: 0.013, z: 0.0043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

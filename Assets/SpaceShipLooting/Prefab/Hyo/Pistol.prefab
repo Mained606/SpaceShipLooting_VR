@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 2470585090537168739}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00028, y: 0.04972, z: 0.1016}
+  m_LocalPosition: {x: -0.00028, y: 0.04972, z: 0.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 2
+    m_Bits: 6
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -451,6 +451,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7513269862128748323, guid: 711c3c5fd1bf0a8408eb7cb0308e8cd5, type: 3}
   firePoint: {fileID: 1716208446653723562}
   muzzleEffect: {fileID: 6080441378137379342}
+  fireRate: 0.5
   maxAmmo: 0
   ammocount: 0
   animator: {fileID: 9069382510760444527}

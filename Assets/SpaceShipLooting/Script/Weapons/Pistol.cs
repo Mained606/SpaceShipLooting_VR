@@ -39,11 +39,11 @@ public class Pistol : XRGrabInteractableOutline
     protected override void OnActivated(ActivateEventArgs args)
     {
         base.OnActivated(args);
-        if(ammocount > 0 && !isFiring)
+        if (maxAmmo > 0 && !isFiring)
         {
             StartCoroutine(Fire(args));
         }
-        else if(ammocount == 0 && !isFiring)
+        else if (maxAmmo == 0 && !isFiring)
         {
             Debug.Log("총알이 부족합니다. 테스트용 자동 리로드 실행");
 
@@ -74,15 +74,15 @@ public class Pistol : XRGrabInteractableOutline
 
         muzzleEffect.gameObject.SetActive(true);
         muzzleEffect.Play();
-        
-        ammocount--;
+
+        maxAmmo--;
 
 
-        if(ammocount <= 0)
+        if (maxAmmo <= 0)
         {
             animator.SetBool("HaveAmmo", false);
         }
-        
+
         yield return new WaitForSeconds(fireRate);
 
         muzzleEffect.Stop();
@@ -98,7 +98,7 @@ public class Pistol : XRGrabInteractableOutline
     private void Reload()
     {
         animator.SetBool("HaveAmmo", true);
-        ammocount = maxAmmo;
+        maxAmmo = ammocount;
     }
 
     // 객체 풀에서 총알을 생성하는 메서드

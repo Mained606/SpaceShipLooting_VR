@@ -43,14 +43,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3504328574450282704}
     m_Modifications:
-    - target: {fileID: 2782974010290465922, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
-      propertyPath: muzzleEffect
-      value: 
-      objectReference: {fileID: 6783405871395700818}
-    - target: {fileID: 2782974010290465922, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
-      propertyPath: m_InteractionLayers.m_Bits
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 3522175196609062746, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
       propertyPath: m_Name
       value: Pistol
@@ -100,11 +92,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
---- !u!198 &6783405871395700818 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6080441378137379342, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
-  m_PrefabInstance: {fileID: 738993331217896028}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7571683071697273521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7157745001629929709, guid: 27ac659e8f35a6147a96a8f539b3efde, type: 3}
@@ -157,10 +144,6 @@ PrefabInstance:
     - target: {fileID: 823570258883674934, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5236480697886718245, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.0083
       objectReference: {fileID: 0}
     - target: {fileID: 6851722067501126963, guid: 3bbd610c1d2dcbe4c829d84d81a38b79, type: 3}
       propertyPath: m_Name
