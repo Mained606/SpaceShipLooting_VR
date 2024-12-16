@@ -20,10 +20,9 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 dir;
 
     private float lookAroundTimer = 0f;
-    [SerializeField] private bool isLookAround = false;
+    private bool isLookAround = false;
     public bool IsLookAround { get; set; }
 
-    [SerializeField] private float patrolSpeed = 1f;
     private Vector3 destination;
     public Vector3 Destination { get; set; }
 
@@ -59,7 +58,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool isEncounter = false;
     public bool IsEncounter { get; set; } 
-    public bool isAssassiable = true;
+    [HideInInspector] public bool isAssassiable = true;
 
     private bool isDeath = false;
     private bool hasItem = false;
@@ -69,7 +68,8 @@ public class EnemyBehaviour : MonoBehaviour
     private void Start()
     {
         PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
-        GasOpen.GasGasGas.AddListener(EventOn);
+        PlayerStateManager.Instance.OnRunningStateChanged.AddListener(PlayerRunningCheck);
+        GasOpen.GasGasGas.AddListener(GasEventOn);
 
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
@@ -196,9 +196,12 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private void EventOn(bool isEventOn)
+    private void GasEventOn(bool isEventOn)
     {
-        isInterActEvent = isEventOn;
+        if(interActEventData.interActType == InterActType.PipeExpolde)
+        {
+            isInterActEvent = isEventOn;
+        }
     }
 
     private void PlayerStealthCheck(bool isStealth)
@@ -305,7 +308,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             agent.enabled = true;
             animator.SetBool("IsLookAround", false);
-            agent.speed = patrolSpeed;
+            agent.speed = enemyData.patrolSpeed;
             isLookAround = false;
             if (spawnType == SpawnType.WayPointPatrol)
             {
@@ -327,7 +330,7 @@ public class EnemyBehaviour : MonoBehaviour
                 lookAroundTimer = 0f;
                 agent.enabled = true;
                 animator.SetBool("IsLookAround", false);
-                agent.speed = patrolSpeed;
+                agent.speed = enemyData.patrolSpeed;
                 isLookAround = false;
                 if (spawnType == SpawnType.WayPointPatrol)
                 {
@@ -450,7 +453,8 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         PlayerStateManager.Instance.OnStealthStateChanged.RemoveListener(PlayerStealthCheck);
-        GasOpen.GasGasGas.RemoveListener(EventOn);
+        PlayerStateManager.Instance.OnStealthStateChanged.RemoveListener(PlayerRunningCheck);
+        GasOpen.GasGasGas.RemoveListener(GasEventOn);
     }
 
     private void OnDrawGizmosSelected()

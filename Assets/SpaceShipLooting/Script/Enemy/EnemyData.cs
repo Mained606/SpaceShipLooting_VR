@@ -5,16 +5,17 @@ public class EnemyData
 {
     [Header("기본 설정")]
     public float health;
-    public float moveSpeed;
-    public float attackDamage;
+    public float moveSpeed = 3f;
+    public float attackDamage = 10f;
     public GameObject item;
 
     [Header("패트롤 설정")]
     public PatrolType enemyPatrolType;
+    public float patrolSpeed = 1f;
     public float circlePatrolRange = 10f;
     public Vector2 rectanglePatrolRange = new Vector2(5f, 5f);
-    public float runPerceptionRange;
-    public float stealthPerceptionRange;
+    public float runPerceptionRange = 15f;
+    public float stealthPerceptionRange = 3f;
     public bool infinitePatrolMode;
 
     [Header("추격 설정")]
