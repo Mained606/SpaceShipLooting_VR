@@ -624,22 +624,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1871271537981567503, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2139710608464222953, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336337186949699942, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: laserSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336337186949699942, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: laserPrefab
-      value: 
-      objectReference: {fileID: 1911040498885179441, guid: 110aba2aa08dd004bad600191972e500, type: 3}
     - target: {fileID: 5029456240049642524, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
       propertyPath: m_LocalPosition.x
       value: 50.58996
@@ -680,41 +664,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5438325809412466791, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438325809412466791, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438325809412466791, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438325809412466791, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438325809412466791, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438325809412466791, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5889547833588053518, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
       propertyPath: m_Name
       value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679724594691198766, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7755746103715545752, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

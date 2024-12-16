@@ -50,8 +50,9 @@ public class BossEye : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Trigger 충돌 태그: {other.tag}");
         // Weapons 태그이거나 Bullet 태그가 아니라면 리턴
-        if (!other.CompareTag("Weapons") && !other.CompareTag("Bullet")) return;
+        if (!(other.CompareTag("Blade") || other.CompareTag("Bullet"))) return;
 
         TakeDamage();
     }
@@ -60,7 +61,7 @@ public class BossEye : MonoBehaviour
     public void TakeDamage()
     {
         // 레이저 패턴이 아니고 모든 코어가 파괴된 상태가 아니라면 리턴
-        if (!onlaserState && !allCoresDestroyed) return;
+        // if (!onlaserState && !allCoresDestroyed) return;
 
         damageCount++;
         Debug.Log($"[BossEye] 데미지 횟수: {damageCount}/{maxDamageCount}");

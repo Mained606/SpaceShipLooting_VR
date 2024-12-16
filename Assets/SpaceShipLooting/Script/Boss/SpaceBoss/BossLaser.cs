@@ -27,42 +27,48 @@ public class BossLaser : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("레이저 충돌" + other.gameObject.name);
-        Debug.Log("레이저 충돌 태그" + other.gameObject.tag);
-        Debug.Log("레이저 충돌 태그 비교" + boss.LaserDamage);
+        Debug.Log("레이저 충돌: " + other.gameObject.name);
+        Debug.Log("레이저 충돌 태그: " + other.gameObject.tag);
 
-        if (other.gameObject.CompareTag("Player"))
+        switch (other.gameObject.tag)
         {
-            Damageable damageable = other.gameObject.GetComponent<Damageable>();
-            if (damageable != null)
-            {
-                damageable.InflictDamage(boss.LaserDamage);
-            }
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.CompareTag("Core"))
-        {
-            Health health = other.gameObject.GetComponent<Health>();
-            if (health != null)
-            {
-                health.Heal(boss.LaserHealAmount);
-            }
-            healEffect = other.gameObject.transform.Find("HealEffect").GetComponent<ParticleSystem>();
-            if (healEffect != null)
-            {
-                StartCoroutine(CoreHeal());
-            }
+            case "Player":
+                Damageable damageable = other.gameObject.GetComponent<Damageable>();
+                if (damageable != null)
+                {
+                    damageable.InflictDamage(boss.LaserDamage);
+                }
+                Destroy(gameObject); // 레이저 삭제
+                break;
 
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.CompareTag("Shield") || other.gameObject.CompareTag("Weapons"))
-        {
-            
-        }
+            case "Core":
+                Health health = other.gameObject.GetComponent<Health>();
+                if (health != null)
+                {
+                    health.Heal(boss.LaserHealAmount);
+                }
 
-        else
-        {
-            Destroy(gameObject, 5f);
+                healEffect = other.gameObject.transform.Find("HealEffect").GetComponent<ParticleSystem>();
+                if (healEffect != null)
+                {
+                    StartCoroutine(CoreHeal());
+                }
+                Destroy(gameObject); // 레이저 삭제
+                break;
+
+            case "Shield":
+            case "Weapons":
+            case "Boss":
+            case "Bullet":
+            case "Blade":
+                // Do nothing for these tags
+                break;
+
+            default:
+                Destroy(gameObject); // 5초 후 레이저 삭제
+                break;
         }
     }
 }
+
+
