@@ -304,7 +304,7 @@ public class SpaceBossController : BossController
         if (Target != null)
         {
             adjustedTargetPosition = Target.position; // 기본 위치
-            adjustedTargetPosition.y += 1.2f; // 타겟 중심을 향하도록 높이 조정
+            adjustedTargetPosition.y += 1f; // 타겟 중심을 향하도록 높이 조정
         }
 
         // 3. 목표 방향 계산

@@ -4847,6 +4847,7 @@ GameObject:
   - component: {fileID: 9131483444470942233}
   - component: {fileID: 939633338923035602}
   - component: {fileID: 7628272936129197186}
+  - component: {fileID: 4440239819779368438}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -4930,6 +4931,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!95 &4440239819779368438
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911040498885179441}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22a3ab9dda682fe4b82a651a01ae90fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3721851197419248896
 GameObject:
   m_ObjectHideFlags: 0

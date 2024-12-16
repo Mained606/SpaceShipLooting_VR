@@ -29,10 +29,10 @@ public class Wire : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         // 플레이어의 무기 또는 총알과 충돌했을 때
-        if (other.CompareTag("Blade") || other.CompareTag("Bullet")) 
+        if (collision.gameObject.CompareTag("Blade") || collision.gameObject.CompareTag("Bullet")) 
         {
             Debug.Log("와이어가 파괴되었습니다.");
             
