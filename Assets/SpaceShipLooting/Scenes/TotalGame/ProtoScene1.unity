@@ -456,6 +456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 714529398414283191, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2525154603413652083, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -504,6 +508,98 @@ PrefabInstance:
       propertyPath: fader
       value: 
       objectReference: {fileID: 564608330}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: trigger
+      value: 
+      objectReference: {fileID: 1786206259}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: gogo.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: scenes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: mappings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: sceneNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: 'sceneNames.Array.data[0]'
+      value: ProtoScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: spawnPositions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: gogo.Array.data[0].trigger
+      value: 
+      objectReference: {fileID: 1786206259}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: scenes.Array.data[0].trigger
+      value: 
+      objectReference: {fileID: 1786206259}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: scenes.Array.data[1].trigger
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: 'spawnPositions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1786206260}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: mappings.Array.data[0].trigger
+      value: 
+      objectReference: {fileID: 1786206259}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: mappings.Array.data[1].trigger
+      value: 
+      objectReference: {fileID: 1786206259}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: scenes.Array.data[0].sceneName
+      value: ProtoScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: scenes.Array.data[1].sceneName
+      value: ProtoScene3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: gogo.Array.data[0].nextSceneName
+      value: ProtoScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: mappings.Array.data[0].sceneName
+      value: ProtoScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: mappings.Array.data[1].sceneName
+      value: ProtoScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: mappings.Array.data[0].spawnPoint
+      value: Position2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: mappings.Array.data[1].spawnPoint
+      value: Positoin2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: scenes.Array.data[0].spawnObjectName
+      value: Position2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: scenes.Array.data[1].spawnObjectName
+      value: Position3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -618,19 +714,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor1
       objectReference: {fileID: 0}
-    - target: {fileID: 7383140132293762288, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+    - target: {fileID: 6049224092759596304, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
       propertyPath: fader
       value: 
       objectReference: {fileID: 564608330}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7835430925482711004, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
 --- !u!65 &1786206259 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 1363654455259640172, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+  m_PrefabInstance: {fileID: 1786206258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1786206260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1994320057979261842, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
   m_PrefabInstance: {fileID: 1786206258}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2057727899
@@ -663,7 +763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: -29.63
       objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -671,7 +771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 8.59
       objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -707,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 1011838220}
     - target: {fileID: 8140234793415768236, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8678530956114058751, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_IsActive

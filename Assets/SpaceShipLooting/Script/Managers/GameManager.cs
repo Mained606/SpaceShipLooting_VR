@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     public SceneFader fader;
     [SerializeField] private string loadToScene = "ProtoScene2";
-    public Collider col;
+    public Collider trigger;
 
     private void Awake()
     {
@@ -25,11 +25,9 @@ public class GameManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other == trigger && other.CompareTag("Player"))
         {
             fader.FadeTo(loadToScene);
         }
     }
-
-
 }

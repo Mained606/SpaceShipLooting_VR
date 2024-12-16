@@ -55,3 +55,6 @@ MonoBehaviour:
     knifeDamage: 60
     enableStealthMode: 0
     enableRunningMode: 0
+  fader: {fileID: 3152837621364014442, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
+  loadToScene: ProtoScene2
+  trigger: {fileID: 0}

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Floor1Console: MonoBehaviour, ISignal
+public class Floor1Console : MonoBehaviour, ISignal
 {
     public static UnityEvent<bool> consoleCheck = new UnityEvent<bool>();
     private int Scount = 0;
     private int Fcount = 0;
- //   private ParticleSystem boom;
+
     [SerializeField] private string Tag;
     private MeshRenderer[] render;
     private GameObject Particle;
@@ -18,117 +18,85 @@ public class Floor1Console: MonoBehaviour, ISignal
 
     void Start()
     {
-        Debug.Log($"This script is attached to: {gameObject.name}");
-
+        // Particle 오브젝트와 렌더러 배열 초기화
         Particle = transform.Find("Particle")?.gameObject;
         render = new MeshRenderer[3];
         render[0] = transform.Find("Screen_A")?.GetComponent<MeshRenderer>();
         render[1] = transform.Find("Screen_B")?.GetComponent<MeshRenderer>();
         render[2] = transform.Find("Screen_C")?.GetComponent<MeshRenderer>();
-
-        foreach (var renderer in render)
-        {
-            if (renderer == null)
-            {
-                Debug.LogError("렌더러가 없잖아");
-            }
-        }
-
-    //    boom = GetComponent<ParticleSystem>();
-
-        if (Particle == null)
-        {
-            Debug.Log(" 파티클이 없다고 ");
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (nono.Contains(collision.gameObject) || !collision.gameObject.CompareTag(Tag)) return; // 이미 처리된 오브젝트는 무시
+        if (nono.Contains(collision.gameObject) || !collision.gameObject.CompareTag(Tag)) return; // 중복 처리 방지 및 태그 확인
+
         nono.Add(collision.gameObject);
+        EffectGo();
 
-        if (collision.gameObject.CompareTag(Tag))
+        if (Succesce)
         {
-            EffectGo();
-
-            if (Succesce)
+            Sender(true);
+            Scount++;
+            if (Scount >= 3)
             {
-                Sender(true);
-                Scount++;
-                if (Scount >= 3)
-                {
-                    Clear(consoleCheck);
-                }
+                Clear(consoleCheck);
             }
-
-            else
+        }
+        else
+        {
+            Sender(false);
+            Fcount++;
+            if (Fcount >= 2)
             {
-                Sender(false);
-                Fcount++;
-                if (Fcount >= 2)
-                {
-                    Clear(consoleCheck);
-                }
+                Clear(consoleCheck);
             }
-
         }
     }
+
     private void EffectGo()
     {
-        // boom.Play();
-
+        // 파티클 활성화 및 하위 파티클 실행
         if (Particle != null)
         {
             Particle.SetActive(true);
+            var particleSystems = Particle.GetComponentsInChildren<ParticleSystem>();
+            foreach (var ps in particleSystems)
+            {
+                ps.Play();
+            }
         }
 
+        // 렌더러 색상 변경
         foreach (var renderer in render)
         {
             if (renderer != null)
             {
                 var mat = renderer.material;
-
-                if (mat.name.Contains("HUD_Screen_01"))
+                if (mat.HasProperty("_BaseColor"))
                 {
-                    if (mat.HasProperty("_BaseColor"))
-                    {
-                        mat.SetColor("_BaseColor", Color.black);
-                    }
-                    else if (mat.HasProperty("_Color"))
-                    {
-                        mat.SetColor("_Color", Color.black);
-                    }
-                    else
-                    {
-                        Debug.LogError("HUD_Screen_01 does not support _BaseColor or _Color");
-                    }
+                    mat.SetColor("_BaseColor", Color.black);
                 }
-                else if (mat.name.Contains("HUD_Screen_02"))
+                else if (mat.HasProperty("_Color"))
                 {
-                    if (mat.HasProperty("_EmissionColor"))
-                    {
-                        mat.SetColor("_EmissionColor", Color.black);
-                    }
-                    else if (mat.HasProperty("_Color"))
-                    {
-                        mat.SetColor("_Color", Color.black);
-                    }
-                    else
-                    {
-                        Debug.LogError("HUD_Screen_02 does not support _EmissionColor or _Color");
-                    }
+                    mat.SetColor("_Color", Color.black);
                 }
-                else
+                else if (mat.HasProperty("_EmissionColor"))
                 {
-                    Debug.LogError($"Unknown material: {mat.name}");
+                    mat.SetColor("_EmissionColor", Color.black);
                 }
             }
         }
     }
-   
-    public void Clear(UnityEvent<bool> signal) => signal.RemoveAllListeners();
 
-    public void Sender(bool state) => consoleCheck?.Invoke(state);
+    public void Clear(UnityEvent<bool> signal)
+    {
+        signal.RemoveAllListeners();
+    }
+
+    public void Sender(bool state)
+    {
+        consoleCheck?.Invoke(state);
+    }
 
     public void Receiver(bool state) { }
 }
