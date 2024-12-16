@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    //public SceneFader fader;
+    public SceneFader fader;
     [SerializeField] private string loadToScene = "SceneName";
 
    

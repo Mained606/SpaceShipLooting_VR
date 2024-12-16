@@ -529,6 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a1a420fc587cd449e780b85240ca01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 585223394}
   loadToScene: ProtoScene1
 --- !u!4 &128779146
 Transform:
@@ -659,6 +660,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
+--- !u!114 &585223394 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3152837621364014442, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
+  m_PrefabInstance: {fileID: 585223393}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de44c7ebe04f8846971c1bab6ab6544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &653036314
 GameObject:
   m_ObjectHideFlags: 0

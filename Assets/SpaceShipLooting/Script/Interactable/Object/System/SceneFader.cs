@@ -86,9 +86,9 @@ using UnityEngine.SceneManagement;
             while (t < 1f)
             {
                 t += Time.deltaTime;
-                float a = curve.Evaluate(t);
+                //float a = curve.Evaluate(t);
              //   image.color = new Color(0f, 0f, 0f, a);
-                yield return 0f;
+                yield return null;
             }
 
             //다음씬 로드

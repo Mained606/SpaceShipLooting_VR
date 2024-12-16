@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerStatsData playerStatsData;
     public PlayerStatsData PlayerStatsData => playerStatsData;
 
+    public SceneFader fader;
+    [SerializeField] private string loadToScene = "ProtoScene2";
+    public Collider col;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,4 +23,13 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            fader.FadeTo(loadToScene);
+        }
+    }
+
+
 }
