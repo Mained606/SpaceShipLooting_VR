@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Pool;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
+using UnityEngine.UI;
+using UnityEditor.ShaderGraph;
 
 public class Pistol : XRGrabInteractableOutline
 {
@@ -14,12 +17,19 @@ public class Pistol : XRGrabInteractableOutline
     // 연결 수정 필요
     [SerializeField] private float fireRate = 0.5f;
     private bool isFiring = false;
+
     [SerializeField] private int maxAmmo;
     [SerializeField] private int ammocount;
+
+    [SerializeField] Canvas ammoCanvas;
+    [SerializeField] TextMeshProUGUI ammoText;
 
     private IObjectPool<Bullet> pool; // 총알 객체 풀
 
     [SerializeField] private Animator animator;
+
+    private Coroutine hideAmmoUICoroutine; // 코루틴 참조
+    [SerializeField] private float ammoUIDisplayTime = 3f; // UI 숨기기 대기 시간
     #endregion
 
     protected override void Awake()
@@ -34,21 +44,28 @@ public class Pistol : XRGrabInteractableOutline
         bulletSpeed = GameManager.Instance.PlayerStatsData.pistolBulletSpeed;
         maxAmmo = GameManager.Instance.PlayerStatsData.maxAmmo;
         ammocount = maxAmmo;
+
+        UpdateAmmoUI();
     }
 
     protected override void OnActivated(ActivateEventArgs args)
     {
         base.OnActivated(args);
-        if (maxAmmo > 0 && !isFiring)
+        if (ammocount > 0 && !isFiring)
         {
             StartCoroutine(Fire(args));
         }
-        else if (maxAmmo == 0 && !isFiring)
+        else if (ammocount == 0 && !isFiring)
         {
-            Debug.Log("총알이 부족합니다. 테스트용 자동 리로드 실행");
-
-            //테스트용으로 추가. 총알이 없으면 자동 리로드
-            Reload();
+            if(maxAmmo > 0)
+            {
+                Debug.Log("리로드 실행");
+                Reload();
+            }
+            else
+            {
+                Debug.Log("총알이 부족합니다.");
+            }
         }
     }
 
@@ -57,6 +74,8 @@ public class Pistol : XRGrabInteractableOutline
     {
         isFiring = true;
         animator.SetTrigger("Shoot");
+        ammoCanvas.gameObject.SetActive(true);
+
 
         // 객체 풀에서 총알 가져오기
         Bullet bullet = pool.Get();
@@ -75,12 +94,16 @@ public class Pistol : XRGrabInteractableOutline
         muzzleEffect.gameObject.SetActive(true);
         muzzleEffect.Play();
 
+        ammocount--;
         maxAmmo--;
 
+        UpdateAmmoUI();
 
-        if (maxAmmo <= 0)
+
+        if (ammocount <= 0)
         {
             animator.SetBool("HaveAmmo", false);
+            ammoText.color = Color.red;
         }
 
         yield return new WaitForSeconds(fireRate);
@@ -98,7 +121,9 @@ public class Pistol : XRGrabInteractableOutline
     private void Reload()
     {
         animator.SetBool("HaveAmmo", true);
-        maxAmmo = ammocount;
+        ammocount = maxAmmo;
+
+        UpdateAmmoUI();
     }
 
     // 객체 풀에서 총알을 생성하는 메서드
@@ -139,5 +164,28 @@ public class Pistol : XRGrabInteractableOutline
     private void OnDestroyBullet(Bullet bullet)
     {
         Destroy(bullet.gameObject);
+    }
+
+    private void UpdateAmmoUI()
+    {
+        ammoText.text = ammocount.ToString();
+        ammoCanvas.gameObject.SetActive(true);
+        ammoText.color = Color.white;
+
+        // 기존 코루틴이 실행 중이면 중지
+        if (hideAmmoUICoroutine != null)
+        {
+            StopCoroutine(hideAmmoUICoroutine);
+        }
+
+        // 새 코루틴 시작
+        hideAmmoUICoroutine = StartCoroutine(HideAmmoCanvasAfterDelay());
+    }
+
+    // 일정 시간 후 UI 숨기기
+    private IEnumerator HideAmmoCanvasAfterDelay()
+    {
+        yield return new WaitForSeconds(ammoUIDisplayTime);
+        ammoCanvas.gameObject.SetActive(false);
     }
 }

@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +19,8 @@ public class Health : MonoBehaviour
             OnInvincibilityChanged?.Invoke(isInvincible); // 무적 상태 변경 이벤트 호출
         }
     }
+
+    [SerializeField] GameObject damageUi;
 
     // 이벤트
     public UnityEvent<bool> OnInvincibilityChanged { get; private set; } = new UnityEvent<bool>();
@@ -42,6 +44,12 @@ public class Health : MonoBehaviour
         {
             Debug.Log($"[Health] {gameObject.name}가 {previousHealth - CurrentHealth}의 피해를 입었습니다. 남은 체력: {CurrentHealth}");
             OnDamaged?.Invoke(previousHealth - CurrentHealth); // 데미지 이벤트 호출
+        }
+
+        // 데미지 UI
+        if(damageUi != null)
+        {
+            StartCoroutine(DamageUI());
         }
 
         if (CurrentHealth <= 0 && !isDead)
@@ -92,5 +100,14 @@ public class Health : MonoBehaviour
 
         Debug.Log($"[Health] {gameObject.name}이(가) 사망했습니다.");
         OnDie?.Invoke(); // 죽음 이벤트 호출
+    }
+
+    //데미지 Ui
+    private IEnumerator DamageUI()
+    {
+        damageUi.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        damageUi.SetActive(false);
+
     }
 }
