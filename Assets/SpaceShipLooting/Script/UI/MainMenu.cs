@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame(Button button)
     {
-        Debug.Log("Start Game");
+        
     }
 
     public void Option(Button button)
