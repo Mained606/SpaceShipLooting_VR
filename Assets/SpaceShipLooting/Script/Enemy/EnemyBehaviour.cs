@@ -5,18 +5,41 @@ using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
     public EnemyData enemyData;
+    private EnemyPatrol patrolBehavior;
+    private EnemyChase chaseBehaviour;
 
     private NavMeshAgent agent;
     private Health health;
+    private float maxHealth;
     private Collider _collider;
-    private Transform target;
-    public Transform Target { get; }
-    private Damageable targetDamageable;
-    private Animator animator;
-    private EnemyPatrol patrol;
-    private SpawnType spawnType;
+    [HideInInspector] public Transform target;
 
-    public EnemyState currentState;
+    [HideInInspector] public Vector3 spawnPosition;
+    private Transform[] wayPoints;
+
+    private Vector3 dir;
+
+    private float lookAroundTimer = 0f;
+    [SerializeField] private bool isLookAround = false;
+    public bool IsLookAround { get; set; }
+
+    [SerializeField] private float patrolSpeed = 1f;
+    private Vector3 destination;
+    public Vector3 Destination { get; set; }
+
+    [SerializeField] private bool isInterActEvent = false;
+    [SerializeField] private InterActEventData interActEventData;
+
+    int currentCount = 0;
+
+    [HideInInspector] public Transform Target { get; }
+    [HideInInspector] public Damageable targetDamageable;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public SpawnType spawnType;
+
+    private bool isInfinite;
+
+    [HideInInspector] public EnemyState currentState;
     private float attackTimer;
     private float chaseTimer;
     private float encounterTimer = 0f;
@@ -27,6 +50,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Transform eyePoint;
     private Transform targetHead;
     private Vector3 directionToPlayer = Vector3.zero;
+    public Vector3 DirectionToPlayer { get; }
     public LayerMask obstacleLayer;
 
     private float distance;
@@ -34,17 +58,23 @@ public class EnemyBehaviour : MonoBehaviour
     private bool isPlayerRunning;
 
     private bool isEncounter = false;
+    public bool IsEncounter { get; set; } 
+    public bool isAssassiable = true;
 
     private bool isDeath = false;
     private bool hasItem = false;
 
+
+
     private void Start()
     {
+        PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
+        GasOpen.GasGasGas.AddListener(EventOn);
+
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
         _collider = GetComponent<Collider>();
         animator = GetComponent<Animator>();
-        patrol = GetComponent<EnemyPatrol>();
         target = GameObject.FindWithTag("Player").transform;
         if (target.GetComponent<Damageable>() != null)
         {
@@ -52,17 +82,22 @@ public class EnemyBehaviour : MonoBehaviour
         }
         targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
         fanPerception = GetComponentInChildren<FanShapePerception>();
-        spawnType = GetComponent<EnemyPatrol>().spawnType;
 
-        currentState = EnemyState.E_Idle;
+        enemyData.currentState = EnemyState.E_Idle;
         agent.speed = enemyData.moveSpeed;
         eyePoint = transform.GetChild(0);
         health.CurrentHealth = enemyData.health;
+        maxHealth = health.CurrentHealth;
+        spawnPosition = transform.position;
+        isInfinite = enemyData.infinitePatrolMode;
 
         if (enemyData.item != null)
         {
             hasItem = true;
         }
+
+        SetPatrolBehavior();
+        SetChaseBehavior();
     }
 
     private void Update()
@@ -78,18 +113,35 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         distance = Vector2.Distance(new Vector2(eyePoint.position.x, eyePoint.position.z), new Vector2(targetHead.position.x, targetHead.position.z));
-        switch (currentState)
+        switch (enemyData.currentState)
         {
             case EnemyState.E_Idle:
-                //CheckForTarget();
-                SetState(EnemyState.E_Patrol);
+                enemyData.SetState(EnemyState.E_Patrol);
                 break;
             case EnemyState.E_Patrol:
-                //patrol.Patrol();
                 CheckForTarget();
+                PreemptiveStrike();
+                if (isInterActEvent)
+                {
+                    InvastigateTarget(interActEventData);
+                }
+                else
+                {
+                    if (isLookAround)
+                    {
+                        LookAround();
+                    }
+                    else
+                    {
+                        agent.enabled = true;
+                        animator.SetBool("IsLookAround", false);
+                        isLookAround = patrolBehavior.Patrol(agent);
+                    }
+                }
                 break;
             case EnemyState.E_Chase:
-                ChaseTarget();
+                isAssassiable = false;
+                chaseBehaviour.Chase(agent);
                 break;
             case EnemyState.E_BusterCall:
                 BusterCall();
@@ -106,11 +158,47 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public void SetState(EnemyState newState)
+    private void SetPatrolBehavior()
     {
-        if (newState == currentState) return;
+        switch (spawnType)
+        {
+            case SpawnType.RandomPatrol:
+                patrolBehavior = new RandomPatrol();
+                patrolBehavior.Initialize(this);
+                break;
+            case SpawnType.WayPointPatrol:
+                patrolBehavior = new WayPointPatrol();
+                patrolBehavior.Initialize(this);
+                break;
+            case SpawnType.Normal:
+                patrolBehavior = new NonePatrol();
+                patrolBehavior.Initialize(this);
+                break;
+        }
+    }
 
-        currentState = newState;
+    private void SetChaseBehavior()
+    {
+        switch (enemyData.enemyChaseType)
+        {
+            case ChaseType.Aggressive:
+                chaseBehaviour = new AggressiveChase();
+                chaseBehaviour.Initialize(this);
+                break;
+            case ChaseType.Defensive:
+                //chaseBehaviour = new DefensiveChase();
+                chaseBehaviour.Initialize(this);
+                break;
+            case ChaseType.Runaway:
+                chaseBehaviour = new Runaway();
+                chaseBehaviour.Initialize(this);
+                break;
+        }
+    }
+
+    private void EventOn(bool isEventOn)
+    {
+        isInterActEvent = isEventOn;
     }
 
     private void PlayerStealthCheck(bool isStealth)
@@ -126,6 +214,134 @@ public class EnemyBehaviour : MonoBehaviour
         Debug.Log("Player Running");
     }
 
+    Vector3 preClossTarget = Vector3.zero;
+    private void InvastigateTarget(InterActEventData interActEventData)
+    {
+        // 1. 예외 처리: 유효하지 않은 데이터
+        if (interActEventData.interActPosition == null || interActEventData.interActPosition.Count == 0)
+        {
+            if (interActEventData.interActType == InterActType.BusterCall)
+            {
+                agent.enabled = true;
+                enemyData.SetState(EnemyState.E_BusterCall);
+                return;
+            }
+            Debug.LogWarning("interActEventData가 없거나 포지션 리스트가 없습니다.");
+            return;
+        }
+
+        // 2. 에이전트 활성화
+        if (!agent.enabled) agent.enabled = true;
+
+        // 3. 기존 목표지점 도달 여부 확인
+        if (preClossTarget != Vector3.zero)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+            {
+                // 목표에 도달한 경우
+                Debug.Log("이벤트목표 도착");
+                animator.SetBool("IsLookAround", true);
+                agent.enabled = false;
+                preClossTarget = Vector3.zero;
+                if (interActEventData.interActType == InterActType.Dispatch)
+                {
+                    isInterActEvent = false;
+                    isLookAround = true;
+                }
+            }
+            else
+            {
+                // 목표지점으로 계속 이동
+                agent.enabled = true;
+                isLookAround = false;
+                animator.SetBool("IsLookAround", false);
+                animator.SetBool("IsPatrol", true);
+                agent.SetDestination(preClossTarget);
+                return;
+            }
+        }
+        else
+        {
+            // 4. 가장 가까운 위치 계산 및 설정
+            Vector3 closestPosition = Vector3.zero;
+            float closestDistance = float.MaxValue;
+
+            foreach (Transform position in interActEventData.interActPosition)
+            {
+                float distance = Vector3.Distance(agent.transform.position, position.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPosition = position.position;
+                }
+            }
+
+            Debug.LogWarning("이벤트 근거리 : " + closestPosition);
+
+            // 5. 새로운 목표지점 설정
+            preClossTarget = closestPosition;
+            agent.SetDestination(closestPosition);
+        }
+    }
+
+    public void SetSpawnType(SpawnType spawnerType, Transform[] gob)
+    {
+        spawnType = spawnerType;
+        if (gob != null && gob.Length > 0)
+        {
+            wayPoints = gob;
+        }
+        else
+        {
+            //Debug.Log("no wayPoints");
+        }
+        Debug.Log($"SpawnType : {spawnType}");
+    }
+
+    void LookAround()
+    {
+        if (isInfinite)
+        {
+            agent.enabled = true;
+            animator.SetBool("IsLookAround", false);
+            agent.speed = patrolSpeed;
+            isLookAround = false;
+            if (spawnType == SpawnType.WayPointPatrol)
+            {
+                agent.SetDestination(wayPoints[currentCount].position);
+                currentCount++;
+                if (currentCount >= wayPoints.Length)
+                {
+                    currentCount = 0;
+                }
+            }
+        }
+        else
+        {
+            lookAroundTimer += Time.deltaTime;
+            agent.enabled = false;
+            animator.SetBool("IsLookAround", true);
+            if (lookAroundTimer > 4f)
+            {
+                lookAroundTimer = 0f;
+                agent.enabled = true;
+                animator.SetBool("IsLookAround", false);
+                agent.speed = patrolSpeed;
+                isLookAround = false;
+                if (spawnType == SpawnType.WayPointPatrol)
+                {
+                    agent.SetDestination(wayPoints[currentCount].position);
+                    currentCount++;
+                    if (currentCount >= wayPoints.Length)
+                    {
+                        currentCount = 0;
+                    }
+                }
+            }
+        }
+    }
+
     private void CheckForTarget()   // 타겟 감지, 서칭 함수
     {
         bool isInTrigger = fanPerception.IsInRange;
@@ -135,7 +351,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (isPlayerRunning == true)   // Player Running Check
             {
                 Debug.Log("Player Running Perception");
-                SetState(EnemyState.E_Chase);
+                enemyData.SetState(EnemyState.E_Chase);
             }
         }
 
@@ -157,75 +373,38 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     isPlayerVisible = true;
                     Debug.Log("플레이어가 보입니다");
-                    SetState(EnemyState.E_Chase);
+                    enemyData.SetState(EnemyState.E_Chase);
                 }
             }
             else  // Ray에 아무것도 감지 안 됨
             {
                 isPlayerVisible = true;
                 Debug.Log("플레이어가 보입니다");
-                SetState(EnemyState.E_Chase);
+                enemyData.SetState(EnemyState.E_Chase);
             }
         }
         else if (isInTrigger == true && distance <= enemyData.stealthPerceptionRange)  // 스텔스 인지 범위까지 가까이 도달
         {
-            SetState(EnemyState.E_Chase);
+            enemyData.SetState(EnemyState.E_Chase);
         }
     }
 
-    private void FirstEncounter()
+    private void PreemptiveStrike()
     {
-        encounterTimer += Time.deltaTime;
-        enemyData.targetEncounterUI.SetActive(true);
-        animator.SetBool("IsPatrol", false);
-        agent.enabled = false;
-        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
-        if(encounterTimer >= enemyData.chaseInterval)
+        if(health.CurrentHealth < maxHealth)
         {
-            isEncounter = true;
-            enemyData.targetEncounterUI.SetActive(false);
-            return;
+            enemyData.SetState(EnemyState.E_Chase);
         }
-    }
-
-    private void ChaseTarget()  // ChaseTime동안 타겟 추격
-    {
-        if (!isEncounter)
-        {
-            FirstEncounter();
-        }
-        else
-        {
-            if (distance <= enemyData.attackRange)
-            {
-                Debug.Log("플레이어 잡힙(즉사)");
-                targetDamageable.InflictDamage(100f);
-            }
-            chaseTimer += Time.deltaTime;
-            animator.SetBool("IsAttack", false);
-            animator.SetBool("IsChase", true);
-            agent.enabled = true;
-            agent.speed = enemyData.moveSpeed;
-            agent.SetDestination(target.position);
-            if (chaseTimer >= enemyData.chaseInterval)
-            {
-                chaseTimer = 0f;
-                animator.SetBool("IsChase", false);
-                SetState(EnemyState.E_Attack);
-            }
-        }
-       
     }
 
     public void BusterCall()
     {
-        isEncounter = true;
+        chaseBehaviour.isEncounter = true;
         animator.SetBool("IsChase", true);
         agent.SetDestination(target.position);
         if (distance <= 10f)    // 수치 변수로 바꿀 필요 있음
         {
-            SetState(EnemyState.E_Chase);
+            enemyData.SetState(EnemyState.E_Chase);
         }
     }
 
@@ -238,7 +417,7 @@ public class EnemyBehaviour : MonoBehaviour
         if(attackTimer >= enemyData.attackInterval)
         {
             attackTimer = 0f;
-            SetState(EnemyState.E_Chase);
+            enemyData.SetState(EnemyState.E_Chase);
         }
     }
 
@@ -252,7 +431,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (isDeath)
             return;
 
-        SetState(EnemyState.E_Death);
+        enemyData.SetState(EnemyState.E_Death);
         isDeath = true;
         _collider.enabled = false;
         if (hasItem)
@@ -271,6 +450,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         PlayerStateManager.Instance.OnStealthStateChanged.RemoveListener(PlayerStealthCheck);
+        GasOpen.GasGasGas.RemoveListener(EventOn);
     }
 
     private void OnDrawGizmosSelected()
@@ -282,7 +462,7 @@ public class EnemyBehaviour : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, enemyData.runPerceptionRange);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
+        Gizmos.DrawWireSphere(transform.position, enemyData.deadZone);
 
         if (isPlayerVisible)
         {
@@ -296,6 +476,21 @@ public class EnemyBehaviour : MonoBehaviour
         if (target != null && eyePoint != null)
         {
             Gizmos.DrawLine(eyePoint.position, targetHead.position);
+        }
+
+        if (spawnType == SpawnType.RandomPatrol)
+        {
+            Gizmos.color = Color.green;
+
+            if (enemyData.enemyPatrolType == PatrolType.Circle)
+            {
+                Gizmos.DrawWireSphere(spawnPosition, enemyData.circlePatrolRange);
+            }
+            else if (enemyData.enemyPatrolType == PatrolType.Rectangle)
+            {
+                Vector3 size = new Vector3(enemyData.rectanglePatrolRange.x, 0f, enemyData.rectanglePatrolRange.y);
+                Gizmos.DrawWireCube(spawnPosition, size);
+            }
         }
     }
 }

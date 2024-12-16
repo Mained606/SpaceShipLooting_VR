@@ -1,26 +1,26 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NonePatrol : IEnemyPatrol
+public class NonePatrol : EnemyPatrol
 {
     private Vector3 spawnPosition;
     private Vector3 currentPosition;
     private float distance;
     private Animator animator;
-    public void Initialize(EnemyPatrol _enemyPatrol)
+    public override void Initialize(EnemyBehaviour _enemy)
     {
-        if (_enemyPatrol == null)
+        if (_enemy == null)
         {
             Debug.Log("EnemyPatrol이 null");
             return;
         }
 
-        spawnPosition = _enemyPatrol.spawnPosition;
-        currentPosition = _enemyPatrol.transform.position;
-        animator = _enemyPatrol.animator;
+        spawnPosition = _enemy.spawnPosition;
+        currentPosition = _enemy.transform.position;
+        animator = _enemy.animator;
     }
 
-    public bool Patrol(NavMeshAgent agent)
+    public override bool Patrol(NavMeshAgent agent)
     {
         if (agent == null)
         {

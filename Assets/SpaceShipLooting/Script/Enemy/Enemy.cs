@@ -37,7 +37,6 @@ public class Enemy : MonoBehaviour
     public LayerMask obstacleLayer;
 
     // patrol (move)
-    EnemyPatrol enemyPatrol;
 
     // chase
     private bool isTargeting = false;
@@ -81,7 +80,7 @@ public class Enemy : MonoBehaviour
         targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
         agent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
-        enemyPatrol = GetComponent<EnemyPatrol>();
+
         health = GetComponent<Health>();
         if(target.GetComponent<Damageable>() != null)
         {
@@ -89,7 +88,7 @@ public class Enemy : MonoBehaviour
         }
         destructable = GetComponent<Destructable>();
         fanPerception = GetComponentInChildren<FanShapePerception>();
-        spawnType = GetComponent<EnemyPatrol>().spawnType;
+
 
         animator = GetComponent<Animator>();
         eyePoint = transform.GetChild(0);

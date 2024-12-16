@@ -1,26 +1,26 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WayPointPatrol : IEnemyPatrol
+public class WayPointPatrol : EnemyPatrol
 {
     bool isLookAround;
     Animator animator;
 
-    public void Initialize(EnemyPatrol _enemyPatrol)
+    public override void Initialize(EnemyBehaviour _enemy)
     {
-        if (_enemyPatrol == null)
+        if (_enemy == null)
         {
             Debug.Log("EnemyPatrol이 null");
             return;
         }
         else
         {
-            isLookAround = _enemyPatrol.IsLookAround;
-            animator = _enemyPatrol.animator;
+            isLookAround = _enemy.IsLookAround;
+            animator = _enemy.animator;
         }
     }
 
-    public bool Patrol(NavMeshAgent agent)
+    public override bool Patrol(NavMeshAgent agent)
     {
         if (!isLookAround && agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
         {

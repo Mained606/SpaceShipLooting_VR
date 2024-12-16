@@ -13,7 +13,7 @@ public class SpawnerType : MonoBehaviour
     [SerializeField] Transform[] wayPoints;
     SpawnType currentSpawnerType;
     public SpawnType CurrentSpawnerType { get; private set; }
-    EnemyPatrol[] currentEnemies;
+    EnemyBehaviour[] currentEnemies;
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class SpawnerType : MonoBehaviour
 
         if(transform.childCount > 0)
         {
-            currentEnemies = new EnemyPatrol[transform.childCount];
+            currentEnemies = new EnemyBehaviour[transform.childCount];
             wayPoints = new Transform[transform.GetChild(0).childCount];
             for(int j = 0; j < transform.GetChild(0).childCount; j++)
             {
@@ -46,7 +46,7 @@ public class SpawnerType : MonoBehaviour
                 for(int i =1; i < transform.childCount; i++)
                 {
                    
-                    currentEnemies[i] = transform.GetChild(i).GetComponent<EnemyPatrol>();
+                    currentEnemies[i] = transform.GetChild(i).GetComponent<EnemyBehaviour>();
                     Debug.Log(currentEnemies[i] + " , " + currentSpawnerType.ToString() + " , " + wayPoints.Length);
 
                     currentEnemies[i].SetSpawnType(currentSpawnerType, wayPoints);
@@ -57,7 +57,7 @@ public class SpawnerType : MonoBehaviour
             {
                 for(int i =1; i < transform.childCount; i++)
                 {
-                    currentEnemies[i] = transform.GetChild(i).GetComponent<EnemyPatrol>();
+                    currentEnemies[i] = transform.GetChild(i).GetComponent<EnemyBehaviour>();
                     currentEnemies[i].SetSpawnType(currentSpawnerType, wayPoints);
                 }
             }

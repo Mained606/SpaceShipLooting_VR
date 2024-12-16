@@ -606,7 +606,6 @@ GameObject:
   - component: {fileID: 1015045880895670810}
   - component: {fileID: 8779589835357226778}
   - component: {fileID: 6766281728557922974}
-  - component: {fileID: 4868039550649581201}
   - component: {fileID: 90132922164887574}
   - component: {fileID: 9047431028334896643}
   - component: {fileID: 4414703808725024375}
@@ -674,8 +673,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData:
+    enemyChaseType: 0
+    currentState: 0
     health: 40
-    enemyType: 0
     moveSpeed: 3
     runPerceptionRange: 15
     stealthPerceptionRange: 3
@@ -685,34 +685,25 @@ MonoBehaviour:
     chaseInterval: 1.5
     targetEncounterUI: {fileID: 4400336873118763607}
     item: {fileID: 0}
-  currentState: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 2048
---- !u!114 &4868039550649581201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2423562165321403203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8ac2b1a5bb6a7944aa77f0fdcda0426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  spawnType: 0
-  patrolShape: 1
+    infinitePatrolMode: 0
+  patrolType: 0
+  target: {fileID: 0}
   circlePatrolRange: 10
-  rectanglePatrolRange: {x: 5, y: 13}
-  enemyHeadPosition: {fileID: 7942287108683056868}
+  rectanglePatrolRange: {x: 5, y: 10}
+  spawnPosition: {x: 0, y: 0, z: 0}
+  isLookAround: 0
   patrolSpeed: 1
   isInterActEvent: 0
   interActEventData:
     interActType: 0
-    interActPosition:
-    - {fileID: 0}
+    interActPosition: []
+  targetDamageable: {fileID: 0}
+  animator: {fileID: 0}
+  spawnType: 0
+  currentState: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!195 &90132922164887574
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -748,6 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  isInvincible: 0
 --- !u!114 &4414703808725024375
 MonoBehaviour:
   m_ObjectHideFlags: 0

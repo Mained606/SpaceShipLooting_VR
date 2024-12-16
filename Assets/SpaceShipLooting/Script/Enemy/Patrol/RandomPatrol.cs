@@ -2,11 +2,10 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using static EnemyPatrol;
 
-public class RandomPatrol : IEnemyPatrol
+public class RandomPatrol : EnemyPatrol
 {
-    PatrolType patrolShape;
+    PatrolType patrolType;
     Animator animator;
     
     Vector3 destination;
@@ -18,10 +17,10 @@ public class RandomPatrol : IEnemyPatrol
     bool isLookAround;
     bool isEnter;
 
-    public void Initialize(EnemyPatrol _enemyPatrol)
+    public override void Initialize(EnemyBehaviour _enemy)
     {
 
-        if(_enemyPatrol == null)
+        if(_enemy == null)
         {
             Debug.Log("EnemyPatrol이 null");
             return;
@@ -29,19 +28,19 @@ public class RandomPatrol : IEnemyPatrol
         else
         {
 
-            patrolShape = _enemyPatrol.patrolShape;
-            destination = _enemyPatrol.Destination;
-            isLookAround = _enemyPatrol.IsLookAround;
-            nextMovePoint = _enemyPatrol.transform.position;
-            spawnPosition = _enemyPatrol.transform.position;
-            circlePatrolRange = _enemyPatrol.CirclePatrolRange;
-            rectanglePatrolRange = _enemyPatrol.RectanglePatrolRange;
-            animator = _enemyPatrol.animator;
+            patrolType = _enemy.enemyData.enemyPatrolType;
+            destination = _enemy.Destination;
+            isLookAround = _enemy.IsLookAround;
+            nextMovePoint = _enemy.transform.position;
+            spawnPosition = _enemy.transform.position;
+            circlePatrolRange = _enemy.enemyData.circlePatrolRange;
+            rectanglePatrolRange = _enemy.enemyData.rectanglePatrolRange;
+            animator = _enemy.animator;
             isEnter = false;
         }
     }
 
-    public bool Patrol(NavMeshAgent agent)
+    public override bool Patrol(NavMeshAgent agent)
     {
         if(agent == null)
         {
@@ -52,7 +51,7 @@ public class RandomPatrol : IEnemyPatrol
         bool isVaildPoint = false;
         while (!isVaildPoint)
         {
-            destination = patrolShape == PatrolType.Circle
+            destination = patrolType == PatrolType.Circle
                 ? CalculateCircleMovePoint()
                 : CalculateRectangleMovePoint();
             agent.enabled = true;
