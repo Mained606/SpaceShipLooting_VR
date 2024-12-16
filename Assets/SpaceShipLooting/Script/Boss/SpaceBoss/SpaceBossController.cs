@@ -292,21 +292,43 @@ public class SpaceBossController : BossController
 
     public void FireLaser(Vector3 targetPosition)
     {
-        // 레이저 발사 로직
-
         // 1. 레이저 VFX 생성
         GameObject laserGo = Instantiate(laserPrefab, laserFirePoint.position, Quaternion.identity);
-        laserGo.transform.LookAt(targetPosition);
 
-        // 2. 레이저의 이동 및 도달 처리
-        Rigidbody rb = laserGo.GetComponent<Rigidbody>();
-        if (rb != null)
+        // 2. 정확한 목표 위치 계산
+        Vector3 adjustedTargetPosition = targetPosition;
+
+        // Adjust the height to aim at the player's approximate center
+        if (Target != null)
         {
-            rb.linearVelocity = laserFirePoint.forward * LaserSpeed;
+            adjustedTargetPosition = Target.position; // 기본 위치
+            adjustedTargetPosition.y += 1.5f; // 타겟 중심을 향하도록 높이 조정
         }
 
-        // 3. 레이저 발사 소리 재생
+        // 3. 목표 방향 계산
+        Vector3 dir = (adjustedTargetPosition - laserFirePoint.position).normalized;
 
+        // 4. 레이저 회전 설정
+        laserGo.transform.rotation = Quaternion.LookRotation(dir);
+
+        // Debugging: Draw the laser path in the editor
+        Debug.DrawRay(laserFirePoint.position, dir * 10f, Color.red, 2f);
+
+        // 5. 레이저 이동을 위한 코루틴 실행
+        StartCoroutine(MoveLaser(laserGo, dir));
+    }
+
+    private IEnumerator MoveLaser(GameObject laserGo, Vector3 direction)
+    {
+        while (laserGo != null) // 레이저가 존재하는 동안
+        {
+            // 레이저를 Translate로 이동
+            laserGo.transform.Translate(direction * laserSpeed * Time.deltaTime, Space.World);
+
+            // 일정 시간이 지나면 삭제
+            // Destroy(laserGo, 5f); // 5초 후 삭제
+            yield return null;
+        }
     }
 
     public void AdjustEyePosition(bool isUp)

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 
 public class BossLaser : MonoBehaviour
@@ -24,29 +25,29 @@ public class BossLaser : MonoBehaviour
         healEffect.gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("레이저 충돌" + collision.gameObject.name);
-        Debug.Log("레이저 충돌 태그" + collision.gameObject.tag);
+        Debug.Log("레이저 충돌" + other.gameObject.name);
+        Debug.Log("레이저 충돌 태그" + other.gameObject.tag);
         Debug.Log("레이저 충돌 태그 비교" + boss.LaserDamage);
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            Damageable damageable = collision.gameObject.GetComponent<Damageable>();
+            Damageable damageable = other.gameObject.GetComponent<Damageable>();
             if (damageable != null)
             {
                 damageable.InflictDamage(boss.LaserDamage);
             }
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Core"))
+        else if (other.gameObject.CompareTag("Core"))
         {
-            Health health = collision.gameObject.GetComponent<Health>();
+            Health health = other.gameObject.GetComponent<Health>();
             if (health != null)
             {
                 health.Heal(boss.LaserHealAmount);
             }
-            healEffect = collision.gameObject.transform.Find("HealEffect").GetComponent<ParticleSystem>();
+            healEffect = other.gameObject.transform.Find("HealEffect").GetComponent<ParticleSystem>();
             if (healEffect != null)
             {
                 StartCoroutine(CoreHeal());
@@ -54,14 +55,14 @@ public class BossLaser : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Shield"))
+        else if (other.gameObject.CompareTag("Shield") || other.gameObject.CompareTag("Weapons"))
         {
-
+            
         }
 
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 5f);
         }
     }
 }

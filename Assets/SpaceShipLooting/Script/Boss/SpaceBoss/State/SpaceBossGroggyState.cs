@@ -15,10 +15,6 @@ public class SpaceBossGroggyState : State<BossController>
         {
             Debug.LogError("SpaceBossController를 초기화할 수 없습니다.");
         }
-        else
-        {
-            groggyDuration = boss.GroggyDuration;
-        }
 
         health = boss.GetComponent<Health>();
     }
@@ -26,6 +22,8 @@ public class SpaceBossGroggyState : State<BossController>
     public override void OnEnter()
     {
         Debug.Log("보스 그로기 상태 진입");
+        groggyDuration = boss.GroggyDuration;
+        
         timer = 0f; // 타이머 초기화
 
         if (boss == null) return;
