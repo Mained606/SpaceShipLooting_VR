@@ -8,6 +8,8 @@ public class SpaceBossCoreExplosionState : State<BossController>
 {
     private SpaceBossController boss;
     private Dictionary<GameObject, Coroutine> activeCoreCoroutines = new Dictionary<GameObject, Coroutine>();
+    private GameObject explosionPrefab;
+
     public override void OnInitialized()
     {
         // context를 SpaceBossController로 캐스팅
@@ -24,6 +26,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
 
         boss.canvas.gameObject.SetActive(true);
         boss.textbox.text = "Core Explosion...";
+        explosionPrefab = boss.explosionPrefab;
 
         ActivateRandomCoreAttack();
     }
@@ -91,7 +94,8 @@ public class SpaceBossCoreExplosionState : State<BossController>
     {
         Debug.Log(core.gameObject.name + "폭발 대기");
         var vfx_Electricity = core.gameObject.transform.Find("vfx_Electricity").GetComponent<ParticleSystem>();
-        var vfx_Explosion = core.gameObject.transform.Find("vfx_Explosion").GetComponent<ParticleSystem>();
+
+        // var vfx_Explosion = core.gameObject.transform.Find("vfx_Explosion").GetComponent<ParticleSystem>();
 
         vfx_Electricity.gameObject.SetActive(true);
         vfx_Electricity.Play();
@@ -102,33 +106,43 @@ public class SpaceBossCoreExplosionState : State<BossController>
 
         yield return new WaitForSeconds(0.2f);
 
-        vfx_Explosion.gameObject.SetActive(true);
-        vfx_Explosion.Play();
-
-        if (IsWireActive(core))
+        if (explosionPrefab != null)
         {
-            Vector3 position = core.transform.position;
+            GameObject explosion = Object.Instantiate(explosionPrefab, core.transform.position, Quaternion.identity);
+            explosion.SetActive(true);
 
-            Collider[] hitColliders = Physics.OverlapSphere(position, boss.ExplosionRadius);
-            foreach (var collider in hitColliders)
+            if (IsWireActive(core))
             {
-                if (collider.gameObject.CompareTag("Player"))
+                Vector3 position = core.transform.position;
+                Collider[] hitColliders = Physics.OverlapSphere(position, boss.ExplosionRadius);
+                foreach (var collider in hitColliders)
                 {
-                    Damageable damageable = collider.GetComponent<Damageable>();
-                    if (damageable != null)
+                    if (collider.gameObject.CompareTag("Player"))
                     {
-                        damageable.InflictDamage(boss.ExplosionDamage);
-                        Debug.Log($"범위 공격이 {collider.gameObject.name}에 {boss.ExplosionDamage}의 데미지를 주었습니다.");
+                        Damageable damageable = collider.GetComponent<Damageable>();
+                        if (damageable != null)
+                        {
+                            damageable.InflictDamage(boss.ExplosionDamage);
+                            Debug.Log($"범위 공격이 {collider.gameObject.name}에 {boss.ExplosionDamage}의 데미지를 주었습니다.");
+                        }
                     }
                 }
             }
+
+            yield return new WaitForSeconds(0.8f);
+
+            Object.Destroy(explosion);
+        }
+        else
+        {
+            Debug.LogWarning("폭발 프리팹이 설정되지 않았습니다.");
         }
 
-        Debug.Log(core.gameObject.name + "폭발 종료");
-        yield return new WaitForSeconds(1f);
+        // Debug.Log(core.gameObject.name + "폭발 종료");
+        // yield return new WaitForSeconds(1f);
 
-        vfx_Explosion.Stop();
-        vfx_Explosion.gameObject.SetActive(false);
+        // vfx_Explosion.Stop();
+        // vfx_Explosion.gameObject.SetActive(false);
 
         ActivateWire(core, false);
         activeCoreCoroutines.Remove(core);

@@ -22,7 +22,8 @@ public class SpaceBossController : BossController
     [SerializeField] public ParticleSystem empEffect;
     [SerializeField] public ParticleSystem vfx_Implosion;
 
-
+    [SerializeField] public GameObject explosionPrefab;
+    
     private Health health;
 
     // 모든 코어 파괴 여부
@@ -353,7 +354,7 @@ public class SpaceBossController : BossController
 
         Debug.Log("눈 이동 완료");
     }
-    // 코어 폭발 시작 함수
+    // 보스 코루틴 시작 함수
     public Coroutine StartSkillCoroutine(IEnumerator coroutine)
     {
         return StartCoroutine(coroutine);
