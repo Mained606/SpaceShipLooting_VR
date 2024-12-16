@@ -24,6 +24,11 @@ public class SpaceBossCoreExplosionState : State<BossController>
     {
         Debug.Log("보스 코어 폭발 상태 진입");
 
+        if (boss == null) return;
+
+        boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
+
+
         boss.canvas.gameObject.SetActive(true);
         boss.textbox.text = "Core Explosion...";
         explosionPrefab = boss.explosionPrefab;

@@ -29,6 +29,11 @@ public class SpaceBossEMPAttackState : State<BossController>
     public override void OnEnter()
     {
         Debug.Log("보스 EMP 공격 상태 진입");
+
+        if (boss == null) return;
+
+        boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
+
         hasTriggeredEMP = false;
 
         boss.canvas.gameObject.SetActive(true);

@@ -23,6 +23,11 @@ public class SpaceBossDefenceState : State<BossController>
     public override void OnEnter()
     {
         Debug.Log("보스 디펜스 상태 진입");
+
+        if (boss == null) return;
+
+        boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
+
         timer = 0f; // 타이머 초기화
 
         if (boss == null) return;

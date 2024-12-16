@@ -21,6 +21,9 @@ public class SpaceBossEyeLaserState : State<BossController>
         Debug.Log("보스 레이저 공격 상태 진입");
         if (boss == null) return;
 
+        boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
+
+
         boss.canvas.gameObject.SetActive(true);
         boss.textbox.text = "Laser State...";
 
@@ -34,41 +37,37 @@ public class SpaceBossEyeLaserState : State<BossController>
 
     private IEnumerator LaserAttackSequence()
     {
-        // 1. 플레이어를 따라다니는 3초
+        // 1. 플레이어를 따라다니며 추적하는 단계 (3초)
         float trackingDuration = boss.TrackingDuration;
         float trackingTime = 0f;
 
         while (trackingTime < trackingDuration)
         {
             trackingTime += Time.deltaTime;
+
             if (boss.Target != null)
             {
-                // 눈알을 플레이어의 현재 위치로 회전
+                // 눈이 플레이어의 현재 위치를 계속 추적
                 boss.AdjustEyePosition(true, boss.Target.position);
             }
-            yield return null;
+
+            yield return null; // 매 프레임 대기
         }
 
-        // 2. 공격 위치 고정 및 에너지 모으기
-        Vector3 fixedAttackPosition = boss.EyeTransform.position; // 공격 위치 고정
+        // 2. 레이저 공격 준비 단계
+        boss.textbox.text = "Laser Charging...";
+        boss.AdjustEyePosition(true, boss.Target.position); // 마지막 추적 위치로 눈 고정
+        yield return new WaitForSeconds(boss.LaserChargeDuration); // 레이저 충전 시간
 
-        // boss.SetChargeEffect(true); // 에너지 모으는 이펙트 활성화
+        // 3. 레이저 발사
+        boss.textbox.text = "Laser Attack!";
+        if (boss.Target != null)
+        {
+            boss.FireLaser(boss.Target.position); // 플레이어의 최종 위치를 목표로 레이저 발사
+        }
 
-        yield return new WaitForSeconds(boss.LaserChargeDuration); // 3초간 에너지 모으기
-        boss.textbox.text = "Laser Charge...";
-
-
-        // boss.SetChargeEffect(false); // 에너지 모으는 이펙트 비활성화
-
-        // 3. 고정된 위치에 레이저 발사
-        boss.textbox.text = "Laser Attack...";
-        boss.FireLaser(fixedAttackPosition);
-
+        // 4. 레이저 쿨다운 후 디펜스 상태로 전환
         yield return new WaitForSeconds(2f);
-
-        // yield return new WaitForSeconds(boss.LaserCooldown); // 쿨다운
-
-        // 디펜스 상태로 전환
         boss.SpaceBossDefenceState();
     }
 

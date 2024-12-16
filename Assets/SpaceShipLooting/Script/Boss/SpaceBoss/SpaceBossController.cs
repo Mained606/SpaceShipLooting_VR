@@ -90,6 +90,8 @@ public class SpaceBossController : BossController
     private List<System.Action> attackPatterns;
     private List<System.Action> remainingAttackPatterns;
 
+    private List<Coroutine> activeCoroutines = new List<Coroutine>();
+
     // 이벤트
     public UnityEvent OnCoreRecovered { get; private set; } = new UnityEvent();
     public UnityEvent OnAllCoresDestroyed { get; private set; } = new UnityEvent();
@@ -302,7 +304,7 @@ public class SpaceBossController : BossController
         if (Target != null)
         {
             adjustedTargetPosition = Target.position; // 기본 위치
-            adjustedTargetPosition.y += 1.5f; // 타겟 중심을 향하도록 높이 조정
+            adjustedTargetPosition.y += 1.2f; // 타겟 중심을 향하도록 높이 조정
         }
 
         // 3. 목표 방향 계산
@@ -325,8 +327,6 @@ public class SpaceBossController : BossController
             // 레이저를 Translate로 이동
             laserGo.transform.Translate(direction * laserSpeed * Time.deltaTime, Space.World);
 
-            // 일정 시간이 지나면 삭제
-            // Destroy(laserGo, 5f); // 5초 후 삭제
             yield return null;
         }
     }
@@ -379,7 +379,20 @@ public class SpaceBossController : BossController
     // 보스 코루틴 시작 함수
     public Coroutine StartSkillCoroutine(IEnumerator coroutine)
     {
-        return StartCoroutine(coroutine);
+        Coroutine startedCoroutine = StartCoroutine(coroutine);
+        activeCoroutines.Add(startedCoroutine);
+        return startedCoroutine;
+    }
+
+    // 보스 코루틴 종료 함수
+    public void StopAllSkillCoroutines()
+    {
+        foreach (var coroutine in activeCoroutines)
+        {
+            if (coroutine != null)
+                StopCoroutine(coroutine);
+        }
+        activeCoroutines.Clear();
     }
 
     // 보스 상태 변환 함수들

@@ -22,14 +22,16 @@ public class SpaceBossGroggyState : State<BossController>
     public override void OnEnter()
     {
         Debug.Log("보스 그로기 상태 진입");
-        groggyDuration = boss.GroggyDuration;
-        
-        timer = 0f; // 타이머 초기화
 
         if (boss == null) return;
+
         health = boss.GetComponent<Health>();
 
-        // 그로기 상태 초기화 효과 실행
+        boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
+
+        groggyDuration = boss.GroggyDuration;
+        timer = 0f;
+
         TriggerGroggyStartEffects();
     }
 
