@@ -10,6 +10,7 @@ public class ValveMove : XRSimpleInteractableOutline, ISignal
 
     protected override void  Start()
     {
+        base.Awake();
         // Animator를 현재 오브젝트 또는 부모에서 검색
         anim = GetComponent<Animator>() ?? GetComponentInParent<Animator>();
     }

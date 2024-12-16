@@ -7,6 +7,7 @@ public class FirstDoorOpen :XRSimpleInteractableOutline
 
     protected override void Start()
     {
+        base.Awake();
         // Animator 가져오기
         anim = GetComponentInParent<Animator>();
         if (anim == null)

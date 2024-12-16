@@ -7,7 +7,7 @@ public class smallroom_DoorOepen : XRSimpleInteractableOutline
 
    protected override void Start()
     {
-
+        base.Awake();
         anim = GetComponent<Animator>();
         if (anim == null )
         {
@@ -25,7 +25,7 @@ public class smallroom_DoorOepen : XRSimpleInteractableOutline
         // 그래도 Animator가 없으면 경고
         if (anim == null)
         {
-            Debug.LogError("Animator component is missing on this object or its hierarchy!");
+            Debug.LogError("애니가 없잖아");
         }
     }
 
