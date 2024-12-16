@@ -7,6 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
     public EnemyData enemyData;
     private EnemyPatrol patrolBehavior;
     private EnemyChase chaseBehaviour;
+    private float assassiableDist = 3f;
 
     private NavMeshAgent agent;
     private Health health;
@@ -41,7 +42,6 @@ public class EnemyBehaviour : MonoBehaviour
     [HideInInspector] public EnemyState currentState;
     private float attackTimer;
     private float chaseTimer;
-    private float encounterTimer = 0f;
 
     private FanShapePerception fanPerception;
     //private bool isInTrigger = false;
@@ -56,9 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
     private bool isPlayerInStealthMode;
     private bool isPlayerRunning;
 
-    private bool isEncounter = false;
-    public bool IsEncounter { get; set; } 
-    [HideInInspector] public bool isAssassiable = true;
+    [HideInInspector] public bool isAssassiable = false;
 
     private bool isDeath = false;
     private bool hasItem = false;
@@ -193,6 +191,14 @@ public class EnemyBehaviour : MonoBehaviour
                 chaseBehaviour = new Runaway();
                 chaseBehaviour.Initialize(this);
                 break;
+        }
+    }
+
+    private void SetAssassiable()
+    {
+        if(distance <= assassiableDist)
+        {
+            isAssassiable = true;
         }
     }
 
