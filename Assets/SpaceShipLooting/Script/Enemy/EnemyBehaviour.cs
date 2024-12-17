@@ -7,6 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
     public EnemyData enemyData;
     private EnemyPatrol patrolBehavior;
     private EnemyChase chaseBehaviour;
+    private EnemyInteract interactBehavior;
     [SerializeField] private float assassiableDist = 3f;
 
     private NavMeshAgent agent;
@@ -28,9 +29,10 @@ public class EnemyBehaviour : MonoBehaviour
     public Vector3 Destination { get; set; }
 
     [SerializeField] private bool isInterActEvent = false;
-    [SerializeField] private InterActEventData interActEventData;
+    [SerializeField] public InterActEventData interActEventData;
 
     int currentCount = 0;
+    int falseCount = 0;
 
     [HideInInspector] public Transform Target { get; }
     [HideInInspector] public Damageable targetDamageable;
@@ -68,7 +70,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         PlayerStateManager.Instance.OnStealthStateChanged.AddListener(PlayerStealthCheck);
         PlayerStateManager.Instance.OnRunningStateChanged.AddListener(PlayerRunningCheck);
+        Floor1Console.consoleFalse.AddListener(ConsoleFalse);
         GasOpen.GasGasGas.AddListener(GasEventOn);
+
 
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
@@ -124,6 +128,7 @@ public class EnemyBehaviour : MonoBehaviour
                 PreemptiveStrike();
                 if (isInterActEvent)
                 {
+                    isLookAround = false;
                     InvastigateTarget(interActEventData);
                 }
                 else
@@ -197,6 +202,15 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    private void SetInteractBehavior()
+    {
+        switch (enemyData.enemyInteractType)
+        {
+            case InterActType.PipeExpolde:
+                break;
+        }
+    }
+
     private void SetAssassiable()
     {
         if(distance <= assassiableDist && isInTrigger == false)
@@ -215,6 +229,27 @@ public class EnemyBehaviour : MonoBehaviour
         {
             isInterActEvent = isEventOn;
         }
+    }
+
+    private void ConsoleFalse(bool isEventOn)
+    {
+        if (falseCount == 0)
+        {
+            falseCount++;
+            if (interActEventData.interActType == InterActType.Dispatch)
+            {
+                isInterActEvent = isEventOn;
+            }
+        }
+        else if (falseCount == 1)
+        {
+            falseCount = 0;
+            if(interActEventData.interActType == InterActType.BusterCall)
+            {
+                isInterActEvent = isEventOn;
+            }
+        }
+
     }
 
     private void PlayerStealthCheck(bool isStealth)
