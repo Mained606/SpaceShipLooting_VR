@@ -366,6 +366,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor3
       objectReference: {fileID: 0}
+    - target: {fileID: 2586380576188699082, guid: 3f5e534fe0f11594aaabc0819b8326e7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.57
+      objectReference: {fileID: 0}
     - target: {fileID: 4550949340187156827, guid: 3f5e534fe0f11594aaabc0819b8326e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -405,6 +409,14 @@ PrefabInstance:
     - target: {fileID: 4550949340187156827, guid: 3f5e534fe0f11594aaabc0819b8326e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910565565488260913, guid: 3f5e534fe0f11594aaabc0819b8326e7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5235241997650156579, guid: 3f5e534fe0f11594aaabc0819b8326e7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
