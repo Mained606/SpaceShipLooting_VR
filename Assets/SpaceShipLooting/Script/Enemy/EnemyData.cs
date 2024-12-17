@@ -22,6 +22,9 @@ public class EnemyData
     public ChaseType enemyChaseType;
     public float deadZone = 1.5f;
 
+    [Header("이벤트 설정")]
+    public InterActType enemyInteractType;
+
     [Header("기타 설정")]
     public float attackInterval = 1.5f;
     public float chaseInterval = 1.5f;
