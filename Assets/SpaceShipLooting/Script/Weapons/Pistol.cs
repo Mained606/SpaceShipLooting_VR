@@ -3,8 +3,6 @@ using System.Collections;
 using UnityEngine.Pool;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
-using UnityEngine.UI;
-using UnityEditor.ShaderGraph;
 
 public class Pistol : XRGrabInteractableOutline
 {
@@ -18,7 +16,6 @@ public class Pistol : XRGrabInteractableOutline
     [SerializeField] private float fireRate = 0.5f;
     private bool isFiring = false;
 
-    [SerializeField] private int maxAmmo;
     [SerializeField] private int ammocount;
 
     [SerializeField] Canvas ammoCanvas;
@@ -42,8 +39,7 @@ public class Pistol : XRGrabInteractableOutline
     {
         base.Start();
         bulletSpeed = GameManager.Instance.PlayerStatsData.pistolBulletSpeed;
-        maxAmmo = GameManager.Instance.PlayerStatsData.maxAmmo;
-        ammocount = maxAmmo;
+        ammocount = GameManager.Instance.PlayerStatsData.maxAmmo;
 
         UpdateAmmoUI();
     }
@@ -55,17 +51,11 @@ public class Pistol : XRGrabInteractableOutline
         {
             StartCoroutine(Fire(args));
         }
+
         else if (ammocount == 0 && !isFiring)
         {
-            if(maxAmmo > 0)
-            {
-                Debug.Log("리로드 실행");
-                Reload();
-            }
-            else
-            {
-                Debug.Log("총알이 부족합니다.");
-            }
+            Debug.Log("리로드 실행");
+            Reload();
         }
     }
 
@@ -95,7 +85,7 @@ public class Pistol : XRGrabInteractableOutline
         muzzleEffect.Play();
 
         ammocount--;
-        maxAmmo--;
+        GameManager.Instance.PlayerStatsData.UseAmmo(1);
 
         UpdateAmmoUI();
 
@@ -117,13 +107,23 @@ public class Pistol : XRGrabInteractableOutline
         // Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
     }
 
-    // 재장전 방식 추후 구현 필요
+    // 재장전
     private void Reload()
     {
-        animator.SetBool("HaveAmmo", true);
-        ammocount = maxAmmo;
-
-        UpdateAmmoUI();
+        if(GameManager.Instance.PlayerStatsData.maxAmmo > 0)
+        {
+            ammocount += 7;
+            GameManager.Instance.PlayerStatsData.UseAmmo(7);
+        
+            animator.SetBool("HaveAmmo", true);
+            ammoText.color = Color.white;
+            UpdateAmmoUI();
+            Debug.Log($"재장전 완료: 탄창 {ammocount} / 보유 총알 {GameManager.Instance.PlayerStatsData.maxAmmo}");
+        }
+        else
+        {
+            Debug.Log("총알이 부족합니다");
+        }
     }
 
     // 객체 풀에서 총알을 생성하는 메서드
@@ -168,8 +168,12 @@ public class Pistol : XRGrabInteractableOutline
 
     private void UpdateAmmoUI()
     {
+        if (!ammoCanvas.gameObject.activeSelf) // 이미 활성화되어 있지 않은 경우에만 실행
+        {
+            ammoCanvas.gameObject.SetActive(true);
+        }
+
         ammoText.text = ammocount.ToString();
-        ammoCanvas.gameObject.SetActive(true);
         ammoText.color = Color.white;
 
         // 기존 코루틴이 실행 중이면 중지

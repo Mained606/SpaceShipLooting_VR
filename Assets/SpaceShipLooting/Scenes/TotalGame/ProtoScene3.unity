@@ -622,6 +622,10 @@ PrefabInstance:
       propertyPath: m_StartingSelectedInteractable
       value: 
       objectReference: {fileID: 1302808841}
+    - target: {fileID: 8140234793415768236, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

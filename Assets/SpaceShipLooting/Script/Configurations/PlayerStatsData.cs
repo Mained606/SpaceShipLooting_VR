@@ -21,5 +21,15 @@ public class PlayerStatsData
     [Header("Player State Settings")]
     public bool enableStealthMode = false; // 스텔스 모드 활성화 여부
     public bool enableRunningMode = false; // 러닝 모드 활성화 여부
+
+    public void AddAmmo(int amount)
+    {
+        maxAmmo += amount;
+    }
+
+    public void UseAmmo(int amount)
+    {
+        maxAmmo -= amount;
+    }
     
 }

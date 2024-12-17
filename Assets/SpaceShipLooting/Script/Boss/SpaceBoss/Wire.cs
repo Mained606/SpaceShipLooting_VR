@@ -5,6 +5,9 @@ public class Wire : MonoBehaviour
     private SpaceBossCoreExplosionState explosionState; // 현재 상태를 참조하는 변수
     private Animator animator;
     private bool isInitialized = false;
+
+    [SerializeField] GameObject ammoBoxPrefab;
+
     // 상태를 초기화하는 메서드
     public void Initialize(SpaceBossCoreExplosionState state)
     {
@@ -49,6 +52,8 @@ public class Wire : MonoBehaviour
 
             // 와이어를 비활성화
             gameObject.SetActive(false);
+
+            Instantiate(ammoBoxPrefab, transform.position, Quaternion.identity);
         }
     }
 }
