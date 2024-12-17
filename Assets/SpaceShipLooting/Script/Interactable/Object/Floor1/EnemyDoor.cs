@@ -1,45 +1,65 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyDoor : MonoBehaviour
 {
     private Animator anim; // Animator 컴포넌트
-    private HashSet<Collider> enemiesInTrigger = new HashSet<Collider>(); // 트리거 안에 있는 Enemy를 저장
-    [SerializeField] private Collider triggerCollider;
 
+    [Header("Colliders")]
+    [SerializeField] private Collider collider1; // 첫 번째 트리거 콜라이더
+    [SerializeField] private Collider collider2; // 두 번째 트리거 콜라이더
+
+    private bool isProcessing = false; // 문 동작 중복 방지 플래그
 
     private void Start()
     {
-        // Animator 컴포넌트 할당
         anim = GetComponent<Animator>();
         if (anim == null)
         {
             Debug.LogError("Animator component is missing on this object.");
         }
+
+        // collider1만 처음에 활성화
+        collider1.enabled = true;
+        collider2.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // "Enemy" 태그를 가진 오브젝트만 처리
-        if (other == triggerCollider && other.CompareTag("Enemy"))
+        // Enemy 태그 확인
+        if (other.CompareTag("Enemy"))
         {
-            enemiesInTrigger.Add(other); // Enemy 추가
-            anim.SetTrigger("Open"); // 문 열림 애니메이션 실행
+            if (!isProcessing) // 중복 실행 방지
+            {
+                StartCoroutine(ProcessDoorLogic());
+            }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private IEnumerator ProcessDoorLogic()
     {
-        // "Enemy" 태그를 가진 오브젝트가 나갈 때
-        if (other.CompareTag("Enemy"))
-        {
-            enemiesInTrigger.Remove(other); // 트리거에서 제거
+        isProcessing = true; // 동작 시작
 
-            // 트리거 안에 남은 Enemy가 없으면 문 닫기
-            if (enemiesInTrigger.Count == 0)
-            {
-                anim.SetTrigger("Close");
-            }
+        // 문 열기
+        anim.SetTrigger("Open");
+        yield return new WaitForSeconds(3f); // 3초 대기
+
+        // 문 닫기
+        anim.SetTrigger("Close");
+        yield return new WaitForSeconds(0.5f); // 문 닫히는 시간 고려
+
+        // 콜라이더 스위칭
+        if (collider1.enabled)
+        {
+            collider1.enabled = false;
+            collider2.enabled = true;
         }
+        else if (collider2.enabled)
+        {
+            collider2.enabled = false;
+            collider1.enabled = true;
+        }
+
+        isProcessing = false; // 동작 완료
     }
 }
