@@ -5,6 +5,8 @@ using UnityEngine.Events;
 public class Floor1Console : MonoBehaviour, ISignal
 {
     public static UnityEvent<bool> consoleCheck = new UnityEvent<bool>();
+    public static UnityEvent<bool> consoleFalse = new UnityEvent<bool>();
+
     private int Scount = 0;
     private int Fcount = 0;
 
@@ -35,7 +37,7 @@ public class Floor1Console : MonoBehaviour, ISignal
 
         if (Succesce)
         {
-            Sender(true);
+            Sender(true); // Success 체크된 경우, consoleCheck 호출
             Scount++;
             if (Scount >= 3)
             {
@@ -44,11 +46,11 @@ public class Floor1Console : MonoBehaviour, ISignal
         }
         else
         {
-            Sender(false);
+            Sender(false); // Success 체크되지 않은 경우, consoleFalse 호출
             Fcount++;
             if (Fcount >= 2)
             {
-                Clear(consoleCheck);
+                Clear(consoleFalse);
             }
         }
     }
@@ -95,7 +97,14 @@ public class Floor1Console : MonoBehaviour, ISignal
 
     public void Sender(bool state)
     {
-        consoleCheck?.Invoke(state);
+        if (Succesce)
+        {
+            consoleCheck?.Invoke(state); // Success가 true일 때 consoleCheck 호출
+        }
+        else
+        {
+            consoleFalse?.Invoke(state); // Success가 false일 때 consoleFalse 호출
+        }
     }
 
     public void Receiver(bool state) { }
