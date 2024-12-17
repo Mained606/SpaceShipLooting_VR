@@ -233,12 +233,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void ConsoleFalse(bool isEventOn)
     {
+        Debug.Log("ConsoleFalse");
         if (falseCount == 0)
         {
             falseCount++;
             if (interActEventData.interActType == InterActType.Dispatch)
             {
-                isInterActEvent = isEventOn;
+                Debug.Log("Dispatch");
+                isInterActEvent = !isEventOn;
             }
         }
         else if (falseCount == 1)
@@ -246,7 +248,8 @@ public class EnemyBehaviour : MonoBehaviour
             falseCount = 0;
             if(interActEventData.interActType == InterActType.BusterCall)
             {
-                isInterActEvent = isEventOn;
+                Debug.Log("BusterCall");
+                isInterActEvent = !isEventOn;
             }
         }
 
@@ -503,6 +506,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         PlayerStateManager.Instance.OnStealthStateChanged.RemoveListener(PlayerStealthCheck);
         PlayerStateManager.Instance.OnStealthStateChanged.RemoveListener(PlayerRunningCheck);
+        Floor1Console.consoleFalse.RemoveListener(ConsoleFalse);
         GasOpen.GasGasGas.RemoveListener(GasEventOn);
     }
 
