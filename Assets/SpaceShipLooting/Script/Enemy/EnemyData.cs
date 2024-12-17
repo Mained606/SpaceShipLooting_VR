@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyData
 {
     [Header("기본 설정")]
-    public float health;
+    public float health = 40f;
     public float moveSpeed = 3f;
     public float attackDamage = 10f;
     public GameObject item;
@@ -13,19 +13,19 @@ public class EnemyData
     public PatrolType enemyPatrolType;
     public float patrolSpeed = 1f;
     public float circlePatrolRange = 10f;
-    public Vector2 rectanglePatrolRange = new Vector2(5f, 5f);
+    public Vector2 rectanglePatrolRange = new Vector2(5f, 10f);
     public float runPerceptionRange = 15f;
     public float stealthPerceptionRange = 3f;
     public bool infinitePatrolMode;
 
     [Header("추격 설정")]
     public ChaseType enemyChaseType;
-    public float deadZone;
+    public float deadZone = 1.5f;
 
     [Header("기타 설정")]
-    public float attackInterval;
-    public float chaseInterval;
-    public GameObject targetEncounterUI;
+    public float attackInterval = 1.5f;
+    public float chaseInterval = 1.5f;
+    [HideInInspector] public GameObject targetEncounterUI;
 
     [HideInInspector] public EnemyState currentState;
 

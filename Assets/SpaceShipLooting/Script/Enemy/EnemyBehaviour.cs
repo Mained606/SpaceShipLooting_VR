@@ -7,7 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
     public EnemyData enemyData;
     private EnemyPatrol patrolBehavior;
     private EnemyChase chaseBehaviour;
-    private float assassiableDist = 3f;
+    [SerializeField] private float assassiableDist = 3f;
 
     private NavMeshAgent agent;
     private Health health;
@@ -56,7 +56,8 @@ public class EnemyBehaviour : MonoBehaviour
     private bool isPlayerInStealthMode;
     private bool isPlayerRunning;
 
-    [HideInInspector] public bool isAssassiable = false;
+    private bool isInTrigger = false;
+    public bool isAssassiable = false;
 
     private bool isDeath = false;
     private bool hasItem = false;
@@ -111,6 +112,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         distance = Vector2.Distance(new Vector2(eyePoint.position.x, eyePoint.position.z), new Vector2(targetHead.position.x, targetHead.position.z));
+        SetAssassiable();
+
         switch (enemyData.currentState)
         {
             case EnemyState.E_Idle:
@@ -196,9 +199,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void SetAssassiable()
     {
-        if(distance <= assassiableDist)
+        if(distance <= assassiableDist && isInTrigger == false)
         {
             isAssassiable = true;
+        }
+        else
+        {
+            isAssassiable = false;
         }
     }
 
@@ -231,6 +238,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (interActEventData.interActType == InterActType.BusterCall)
             {
+                Debug.Log("BusterCall");
                 agent.enabled = true;
                 enemyData.SetState(EnemyState.E_BusterCall);
                 return;
@@ -353,7 +361,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void CheckForTarget()   // 타겟 감지, 서칭 함수
     {
-        bool isInTrigger = fanPerception.IsInRange;
+        isInTrigger = fanPerception.IsInRange;
 
         if (distance <= enemyData.runPerceptionRange)
         {
@@ -364,7 +372,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
 
-        if (isInTrigger == true && distance > enemyData.stealthPerceptionRange)   // 움직임 감지 범위 안엔 있지만 장애물 뒤에 숨은 경우
+        if (isInTrigger == true && distance > enemyData.stealthPerceptionRange)   // 움직임 범위 안에 도달
         {
             Ray ray = new Ray(eyePoint.position, directionToPlayer);
             if (Physics.Raycast(ray, out RaycastHit hit, distance, obstacleLayer))
@@ -372,7 +380,7 @@ public class EnemyBehaviour : MonoBehaviour
                 int hitLayer = hit.collider.gameObject.layer;   // Obstacle
 
                 Debug.Log("레이가 맞은 오브젝트의 레이어: " + hitLayer);
-                if (hitLayer == 11)
+                if (hitLayer == 11)                     // 움직임 감지 범위 안엔 있지만 장애물 뒤에 숨은 경우
                 {
                     isPlayerVisible = false;
                     Debug.Log("플레이어가 장애물 뒤에 있습니다.");
@@ -400,7 +408,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void PreemptiveStrike()
     {
-        if(health.CurrentHealth < maxHealth)
+        if(health.CurrentHealth < maxHealth && isAssassiable == false)
         {
             enemyData.SetState(EnemyState.E_Chase);
         }

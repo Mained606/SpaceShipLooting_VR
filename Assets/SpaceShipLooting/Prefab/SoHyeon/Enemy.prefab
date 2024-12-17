@@ -626,7 +626,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2423562165321403203}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.3, y: 0, z: -11.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData:
-    health: 40
+    health: 100
     moveSpeed: 3
     attackDamage: 10
     item: {fileID: 0}
@@ -681,8 +681,8 @@ MonoBehaviour:
     patrolSpeed: 1
     circlePatrolRange: 10
     rectanglePatrolRange: {x: 5, y: 5}
-    runPerceptionRange: 15
-    stealthPerceptionRange: 3
+    runPerceptionRange: 0
+    stealthPerceptionRange: 0
     infinitePatrolMode: 0
     enemyChaseType: 0
     deadZone: 0
@@ -690,12 +690,14 @@ MonoBehaviour:
     chaseInterval: 1.5
     targetEncounterUI: {fileID: 4400336873118763607}
     currentState: 0
+  assassiableDist: 3
   target: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
   isInterActEvent: 0
   interActEventData:
-    interActType: 0
-    interActPosition: []
+    interActType: 2
+    interActPosition:
+    - {fileID: 0}
   targetDamageable: {fileID: 0}
   animator: {fileID: 0}
   spawnType: 0
@@ -703,7 +705,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 2048
-  isAssassiable: 1
+  isAssassiable: 0
 --- !u!195 &90132922164887574
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -740,6 +742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   isInvincible: 0
+  damageUi: {fileID: 0}
 --- !u!114 &4414703808725024375
 MonoBehaviour:
   m_ObjectHideFlags: 0

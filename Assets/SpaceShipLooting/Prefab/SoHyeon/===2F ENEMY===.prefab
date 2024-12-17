@@ -245,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 2162628409488302206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.13000011, y: 0, z: 30.19}
+  m_LocalPosition: {x: -1.54, y: 0, z: 30.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -266,7 +266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5568404020475732463
 Transform:
   m_ObjectHideFlags: 0
@@ -721,12 +721,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
-      propertyPath: enemyData.runPerceptionRange
+      propertyPath: isAssassiable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.runPerceptionRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: interActEventData.interActType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.stealthPerceptionRange
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -798,6 +810,26 @@ PrefabInstance:
       propertyPath: interActEventData.interActPosition.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: isAssassiable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.runPerceptionRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: interActEventData.interActType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.stealthPerceptionRange
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -867,6 +899,26 @@ PrefabInstance:
     - target: {fileID: 4868039550649581201, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActPosition.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: isAssassiable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.runPerceptionRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: interActEventData.interActType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.stealthPerceptionRange
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -939,9 +991,49 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7416394284861006076}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: isAssassiable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.item
       value: 
-      objectReference: {fileID: 223501651472808355, guid: 2d6635946ee9b83429f518ab1465e567, type: 3}
+      objectReference: {fileID: 5937236750047260190, guid: dc99ac0843b5c654299e367e48f3dabe, type: 3}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.deadZone
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.enemyPatrolType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.runPerceptionRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: interActEventData.interActType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.rectanglePatrolRange.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.stealthPerceptionRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: interActEventData.interActPosition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: 'interActEventData.interActPosition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7416394284861006076}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
