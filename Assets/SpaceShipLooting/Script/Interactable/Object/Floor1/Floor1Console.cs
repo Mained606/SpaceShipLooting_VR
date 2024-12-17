@@ -38,6 +38,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         if (Succesce)
         {
             Sender(true); // Success 체크된 경우, consoleCheck 호출
+            Debug.Log("트루 발사");
             Scount++;
             if (Scount >= 3)
             {
@@ -47,6 +48,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         else
         {
             Sender(false); // Success 체크되지 않은 경우, consoleFalse 호출
+            Debug.Log("페일 발사");
             Fcount++;
             if (Fcount >= 2)
             {
