@@ -15,7 +15,7 @@ public class WayPointPatrol : EnemyPatrol
         }
         else
         {
-            isLookAround = _enemy.IsLookAround;
+            isLookAround = _enemy.enemyData.isLookAround;
             animator = _enemy.animator;
         }
     }

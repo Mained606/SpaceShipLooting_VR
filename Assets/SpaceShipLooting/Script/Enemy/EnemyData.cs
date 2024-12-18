@@ -23,14 +23,17 @@ public class EnemyData
     public float deadZone = 1.5f;
 
     [Header("이벤트 설정")]
-    public InterActType enemyInteractType;
+    public InteractEventData enemyInteractData;
 
     [Header("기타 설정")]
     public float attackInterval = 1.5f;
     public float chaseInterval = 1.5f;
     [HideInInspector] public GameObject targetEncounterUI;
 
+    [Header("디버그용")]
     [HideInInspector] public EnemyState currentState;
+    public bool isLookAround = false;
+    public bool isInteracting = false;
 
     public void SetState(EnemyState newState)
     {

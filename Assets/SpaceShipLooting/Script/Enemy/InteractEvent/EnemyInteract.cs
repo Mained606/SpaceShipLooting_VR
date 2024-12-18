@@ -3,9 +3,10 @@ using UnityEngine.AI;
 
 public abstract class EnemyInteract
 {
-    protected InterActEventData interactData;
+    protected InteractEventData interactData;
     protected Vector3 destination = Vector3.zero;
     protected Animator animator;
+    protected EnemyData enemyData;
     public virtual void Initialize(EnemyBehaviour _enemy)
     {
         if(_enemy == null)
@@ -15,8 +16,14 @@ public abstract class EnemyInteract
         }
         else
         {
-            interactData = _enemy.interActEventData;
+            interactData = _enemy.enemyData.enemyInteractData;
             animator = _enemy.animator;
+            enemyData = _enemy.enemyData;
+            if(_enemy.enemyData.enemyInteractData.interactPosition != null)
+            {
+                destination = _enemy.enemyData.enemyInteractData.interactPosition.position;
+            }
+            Debug.Log($"destination : {destination}");
         }
     }
 
