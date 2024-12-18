@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,7 +25,7 @@ public class Position1Transform : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            MovePlayerToSpawnPoint();
+            StartCoroutine(MovePlayerToSpawnPoint());
         }
         else
         {
@@ -32,10 +33,12 @@ public class Position1Transform : MonoBehaviour
         }
     }
 
-    private void MovePlayerToSpawnPoint()
+   IEnumerator MovePlayerToSpawnPoint()
     {
+        yield return new WaitForSeconds(2f);
+
         player.transform.position = transform.position;
         player.transform.rotation = transform.rotation;
-        Debug.Log("Player moved to spawn point.");
+       
     }
 }
