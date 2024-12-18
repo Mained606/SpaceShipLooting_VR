@@ -14,7 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Health health;
     private float maxHealth;
     private Collider _collider;
-    [HideInInspector] public Transform target;
+    public Transform target;
 
     [HideInInspector] public Vector3 spawnPosition;
     private Transform[] wayPoints;
@@ -22,8 +22,6 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 dir;
 
     private float lookAroundTimer = 0f;
-    //private bool isLookAround = false;
-    //public bool IsLookAround { get; set; }
 
     private Vector3 destination;
     public Vector3 Destination { get; set; }
@@ -61,7 +59,7 @@ public class EnemyBehaviour : MonoBehaviour
     private bool isDeath = false;
     private bool hasItem = false;
 
-
+    private Vector3 dropItemOffset = new Vector3(0f, 1f, 0f);
 
     private void Start()
     {
@@ -75,7 +73,7 @@ public class EnemyBehaviour : MonoBehaviour
         health = GetComponent<Health>();
         _collider = GetComponent<Collider>();
         animator = GetComponent<Animator>();
-        target = GameObject.FindWithTag("Player").transform;
+        target = PlayerStateManager.PlayerTransform;
         if (target.GetComponent<Damageable>() != null)
         {
             targetDamageable = target.GetComponent<Damageable>();
@@ -439,7 +437,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void DropItem()
     {
-        Instantiate(enemyData.item, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+        Instantiate(enemyData.item, agent.transform.position, Quaternion.identity);
         Debug.Log("Item dropped!");
     }
 

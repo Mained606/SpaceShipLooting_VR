@@ -725,6 +725,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.item
+      value: 
+      objectReference: {fileID: 1660451641657656974, guid: 2db93f4709b10684eb3e468bbd2a0165, type: 3}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.health
       value: 100
       objectReference: {fileID: 0}
@@ -738,6 +742,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.stealthPerceptionRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.enemyInteractData.interactType
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -815,6 +823,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.item
+      value: 
+      objectReference: {fileID: 1660451641657656974, guid: 2db93f4709b10684eb3e468bbd2a0165, type: 3}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.health
       value: 100
       objectReference: {fileID: 0}
@@ -828,6 +840,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.stealthPerceptionRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.enemyInteractData.interactType
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -905,6 +921,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.item
+      value: 
+      objectReference: {fileID: 1660451641657656974, guid: 2db93f4709b10684eb3e468bbd2a0165, type: 3}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.health
       value: 100
       objectReference: {fileID: 0}
@@ -918,6 +938,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.stealthPerceptionRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.enemyInteractData.interactType
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1026,6 +1050,10 @@ PrefabInstance:
       propertyPath: enemyData.stealthPerceptionRange
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.enemyInteractData.interactPosition
+      value: 
+      objectReference: {fileID: 7416394284861006076}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActPosition.Array.size
       value: 1
