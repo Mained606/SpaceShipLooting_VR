@@ -29,6 +29,7 @@ public class PlayerStateManager : MonoBehaviour
     // // Running State 변경을 알리는 UnityEvent
     [HideInInspector] public UnityEvent<bool> OnRunningStateChanged = new UnityEvent<bool>();
 
+    public static Transform PlayerTransform;
     // 싱글톤 초기화
     private void Awake()
     {
@@ -41,6 +42,8 @@ public class PlayerStateManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        PlayerTransform = this.transform;
     }
     
     private void Start()
