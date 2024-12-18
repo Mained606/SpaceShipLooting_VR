@@ -10,16 +10,17 @@ using UnityEngine.SceneManagement;
     public class SceneFader : MonoBehaviour
     {
         #region Variable
+
         // Fader 이미지
-    //    public Image image;
+        public Image image;
         public AnimationCurve curve;
         #endregion
 
         private void Start()
         {
             // 초기화: 시작시 화면을 검정색으로 시작
-         //   image.color = new Color(0f, 0f, 0f, 1f);
-            //  FromFade();
+            image.color = new Color(0f, 0f, 0f, 1f);
+             FromFade();
         }
 
         public void FromFade(float delayTime = 0f)
@@ -44,7 +45,7 @@ using UnityEngine.SceneManagement;
             {
                 t -= Time.deltaTime;
                 float a = curve.Evaluate(t);
-              //  image.color = new Color(0f, 0f, 0f, a); // (r ,g ,b 는 검은색)
+                image.color = new Color(0f, 0f, 0f, a); // (r ,g ,b 는 검은색)
 
                 yield return 0f;
             }
@@ -69,7 +70,7 @@ using UnityEngine.SceneManagement;
             {
                 t += Time.deltaTime;
                 float a = curve.Evaluate(t);
-            //    image.color = new Color(0f, 0f, 0f, a);
+                image.color = new Color(0f, 0f, 0f, a);
                 yield return 0f;
             }
 
@@ -80,14 +81,14 @@ using UnityEngine.SceneManagement;
 
         IEnumerator FadeOut(string sceneName)
         {
-            //1초동안 image a 0-> 1
+            // 1초동안 image a 0-> 1
             float t = 0f;
 
             while (t < 1f)
             {
                 t += Time.deltaTime;
-                //float a = curve.Evaluate(t);
-             //   image.color = new Color(0f, 0f, 0f, a);
+                float a = curve.Evaluate(t);
+                image.color = new Color(0f, 0f, 0f, a);
                 yield return null;
             }
 
