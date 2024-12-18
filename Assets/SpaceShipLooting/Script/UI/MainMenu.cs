@@ -24,8 +24,8 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Option Game");
     }
 
-    public void QuitGame(Button button)
+    public void LoadGame(Button button)
     {
-        Debug.Log("Quit Game");
+        Debug.Log("Load Game");
     }
 }
