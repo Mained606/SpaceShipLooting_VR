@@ -23,8 +23,7 @@ public class TextManagerJsonData
         
         
         var arr_String_DataTable = JsonConvert.DeserializeObject<String_Table[]>(String_Table);
- 
- 
+  
         /* foreach(var data in arrSkull_DataTable)
         {
             Debug.LogFormat("{0} ",data.skull_index);
