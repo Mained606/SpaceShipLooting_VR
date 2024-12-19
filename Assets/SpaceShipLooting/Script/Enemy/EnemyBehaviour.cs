@@ -19,12 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
     [HideInInspector] public Vector3 spawnPosition;
     private Transform[] wayPoints;
 
-    private Vector3 dir;
-
     private float lookAroundTimer = 0f;
-
-    private Vector3 destination;
-    public Vector3 Destination { get; set; }
 
     int currentCount = 0;
     int falseCount = 0;
@@ -38,10 +33,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     [HideInInspector] public EnemyState currentState;
     private float attackTimer;
-    private float chaseTimer;
 
     private FanShapePerception fanPerception;
-    //private bool isInTrigger = false;
     private bool isPlayerVisible = false;
     private Transform eyePoint;
     private Transform targetHead;
@@ -58,8 +51,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool isDeath = false;
     private bool hasItem = false;
-
-    private Vector3 dropItemOffset = new Vector3(0f, 1f, 0f);
 
     private void Start()
     {
@@ -125,7 +116,6 @@ public class EnemyBehaviour : MonoBehaviour
                 if (enemyData.isInteracting)
                 {
                     enemyData.isLookAround = false;
-                    //InvastigateTarget(interActEventData);
                     interactBehavior.Interacting(agent);
                 }
                 else

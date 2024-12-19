@@ -29,7 +29,6 @@ public class RandomPatrol : EnemyPatrol
         {
 
             patrolType = _enemy.enemyData.enemyPatrolType;
-            destination = _enemy.Destination;
             isLookAround = _enemy.enemyData.isLookAround;
             nextMovePoint = _enemy.transform.position;
             spawnPosition = _enemy.transform.position;
