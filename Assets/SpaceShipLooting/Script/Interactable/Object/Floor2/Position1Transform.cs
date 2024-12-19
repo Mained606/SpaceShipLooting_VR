@@ -2,9 +2,34 @@ using UnityEngine;
 
 public class Position1Transform : MonoBehaviour
 {
+    public SceneFader fader;
     private Transform player;
+
     private void Start()
     {
+        if (fader == null)
+        {
+            GameObject gameManager = GameObject.Find("GameManager");
+            if (gameManager != null)
+            {
+                Transform faderTransform = gameManager.transform.Find("SceneFader");
+                if (faderTransform != null)
+                {
+                    fader = faderTransform.GetComponent<SceneFader>();
+                    Debug.Log("SceneFader successfully assigned in Start().");
+                }
+                else
+                {
+                    Debug.LogError("SceneFader not found as a child of GameManager.");
+                }
+            }
+            else
+            {
+                Debug.LogError("GameManager not found in the scene.");
+            }
+        }
+
+        fader.FromFade(2f);
         // 씬 로드 이벤트에 메서드 등록
         player = PlayerStateManager.PlayerTransform;
         if(player != null)

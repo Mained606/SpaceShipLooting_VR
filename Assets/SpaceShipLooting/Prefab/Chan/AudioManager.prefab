@@ -41,8 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2615656767528198134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd22b0c0be1606b46a3c16794daabf4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 748f924567bd5f5438d420ea288566ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sounds: []
-  audioMixer: {fileID: 24100000, guid: 41097b4d281e61840aadc7a74b5e3552, type: 2}
+  audioMixer: {fileID: 0}

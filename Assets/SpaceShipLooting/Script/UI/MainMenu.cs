@@ -7,16 +7,15 @@ public class MainMenu : MonoBehaviour
     public SceneFader fader;
     [SerializeField] private string loadToScene = "SceneName";
 
-   
 
     private void Start()
     {
-        
     }
 
     public void StartGame(Button button)
     {
-        SceneManager.LoadScene(loadToScene);
+
+        fader.FadeTo(loadToScene);
     }
 
     public void Option(Button button)

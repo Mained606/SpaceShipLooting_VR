@@ -9,6 +9,7 @@ public class Floor1Door : XRSimpleInteractableOutline
     {
         // Animator 가져오기
         anim = GetComponentInParent<Animator>();
+        col = GetComponent<Collider>();
         if (anim == null)
         {
             anim = GetComponentInParent<Animator>();
