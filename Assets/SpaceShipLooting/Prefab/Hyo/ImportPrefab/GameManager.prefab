@@ -49,12 +49,12 @@ MonoBehaviour:
   playerStatsData:
     walkingSpeed: 2.5
     runningSpeed: 5
-    stealthSpeed: 0.5
-    bulletDamage: 10
+    stealthSpeed: 2
+    bulletDamage: 30
     bulletlifeTime: 5
     pistolBulletSpeed: 70
     maxAmmo: 7
-    knifeDamage: 60
+    knifeDamage: 40
     enableStealthMode: 0
     enableRunningMode: 0
   fader: {fileID: 7659553024972004796}
