@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +7,11 @@ public class SpaceBossCoreExplosionState : State<BossController>
 {
     private SpaceBossController boss;
     private Dictionary<GameObject, Coroutine> activeCoreCoroutines = new Dictionary<GameObject, Coroutine>();
+    private Dictionary<GameObject, GameObject> activeExplosions = new Dictionary<GameObject, GameObject>();
     private GameObject explosionPrefab;
 
     public override void OnInitialized()
     {
-        // context를 SpaceBossController로 캐스팅
         boss = context as SpaceBossController;
         if (boss == null)
         {
@@ -27,8 +26,6 @@ public class SpaceBossCoreExplosionState : State<BossController>
         if (boss == null) return;
 
         boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
-
-
         boss.canvas.gameObject.SetActive(true);
         boss.textbox.text = "Core Explosion...";
         explosionPrefab = boss.explosionPrefab;
@@ -48,7 +45,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
     {
         Debug.Log("보스 코어 폭발 상태 종료");
         StopAllCoreCoroutines();
-
+        ClearAllExplosions();
         boss.canvas.gameObject.SetActive(false);
     }
 
@@ -97,10 +94,14 @@ public class SpaceBossCoreExplosionState : State<BossController>
 
     private IEnumerator PerformAreaAttack(GameObject core)
     {
-        Debug.Log(core.gameObject.name + "폭발 대기");
-        var vfx_Electricity = core.gameObject.transform.Find("vfx_Electricity").GetComponent<ParticleSystem>();
+        Debug.Log(core.gameObject.name + " 폭발 대기");
 
-        // var vfx_Explosion = core.gameObject.transform.Find("vfx_Explosion").GetComponent<ParticleSystem>();
+        var vfx_Electricity = core.transform.Find("vfx_Electricity")?.GetComponent<ParticleSystem>();
+        if (vfx_Electricity == null)
+        {
+            Debug.LogError("vfx_Electricity 파티클을 찾을 수 없습니다.");
+            yield break;
+        }
 
         vfx_Electricity.gameObject.SetActive(true);
         vfx_Electricity.Play();
@@ -115,6 +116,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
         {
             GameObject explosion = Object.Instantiate(explosionPrefab, core.transform.position, Quaternion.identity);
             explosion.SetActive(true);
+            activeExplosions[core] = explosion; // 폭발 객체 저장
 
             if (IsWireActive(core))
             {
@@ -136,27 +138,52 @@ public class SpaceBossCoreExplosionState : State<BossController>
 
             yield return new WaitForSeconds(0.8f);
 
-            Object.Destroy(explosion);
+            if (activeExplosions.ContainsKey(core))
+            {
+                Object.Destroy(activeExplosions[core]);
+                activeExplosions.Remove(core); // 폭발 객체 삭제
+            }
         }
         else
         {
             Debug.LogWarning("폭발 프리팹이 설정되지 않았습니다.");
         }
 
-        // Debug.Log(core.gameObject.name + "폭발 종료");
-        // yield return new WaitForSeconds(1f);
-
-        // vfx_Explosion.Stop();
-        // vfx_Explosion.gameObject.SetActive(false);
-
         ActivateWire(core, false);
         activeCoreCoroutines.Remove(core);
     }
 
-    private bool IsWireActive(GameObject core)
+    public void OnWireTriggerEnter(GameObject wire)
     {
-        var wire = core.transform.Find("Wire");
-        return wire != null && wire.gameObject.activeSelf;
+        if (wire == null || wire.transform.parent == null)
+        {
+            Debug.LogWarning("Wire or its parent is null.");
+            return;
+        }
+
+        var core = wire.transform.parent.gameObject;
+        if (activeCoreCoroutines.TryGetValue(core, out var coroutine))
+        {
+            boss.StopCoroutine(coroutine);
+            activeCoreCoroutines.Remove(core);
+        }
+
+        ActivateWire(core, false);
+
+        var vfx_Electricity = core.transform.Find("vfx_Electricity")?.GetComponent<ParticleSystem>();
+        if (vfx_Electricity != null)
+        {
+            vfx_Electricity.Stop();
+            vfx_Electricity.gameObject.SetActive(false);
+        }
+
+        if (activeExplosions.ContainsKey(core))
+        {
+            Object.Destroy(activeExplosions[core]);
+            activeExplosions.Remove(core); // 폭발 객체 삭제
+        }
+
+        Debug.Log($"{core.name}의 폭발이 취소되었습니다.");
     }
 
     private void StopAllCoreCoroutines()
@@ -168,15 +195,18 @@ public class SpaceBossCoreExplosionState : State<BossController>
         activeCoreCoroutines.Clear();
     }
 
-    public void OnWireTriggerEnter(GameObject wire)
+    private void ClearAllExplosions()
     {
-        var core = wire.transform.parent.gameObject;
-        if (activeCoreCoroutines.TryGetValue(core, out var coroutine))
+        foreach (var explosion in activeExplosions.Values)
         {
-            boss.StopCoroutine(coroutine);
-            activeCoreCoroutines.Remove(core);
-            ActivateWire(core, false);
-            Debug.Log($"{core.name}의 폭발이 취소되었습니다.");
+            Object.Destroy(explosion);
         }
+        activeExplosions.Clear();
+    }
+
+    private bool IsWireActive(GameObject core)
+    {
+        var wire = core.transform.Find("Wire");
+        return wire != null && wire.gameObject.activeSelf;
     }
 }
