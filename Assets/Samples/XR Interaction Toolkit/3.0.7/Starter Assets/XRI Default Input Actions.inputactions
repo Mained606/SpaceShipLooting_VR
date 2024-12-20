@@ -452,15 +452,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "ToggleMenu",
-                    "type": "Button",
-                    "id": "41b3a13b-3ff5-4cd7-8fa6-d6c802ff5536",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -870,17 +861,6 @@
                     "action": "Thumbstick",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1713658b-f96e-4fa0-a7d0-e0fd8a97268c",
-                    "path": "<XRController>{LeftHand}/{Menu}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1000,6 +980,15 @@
                     "name": "NightVision Button",
                     "type": "Button",
                     "id": "c1c853c1-dacb-4f8c-8d8a-0eed1c1667c1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MenuToggle",
+                    "type": "Button",
+                    "id": "693c27d1-0780-4d36-b1b3-0fba9e3c5902",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1301,6 +1290,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "NightVision Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60e853d4-3d03-4d84-b9a0-010dc011beb1",
+                    "path": "<XRController>{LeftHand}/{MenuButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
