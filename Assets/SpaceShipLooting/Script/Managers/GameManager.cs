@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerStatsData playerStatsData;
     public PlayerStatsData PlayerStatsData => playerStatsData;
 
+    [SerializeField] private int defaultAmmoCount = 7;
+
     #region Singleton
     private void Awake()
     {
@@ -57,6 +59,9 @@ public class GameManager : MonoBehaviour
         PlayerStatsData loadedData = SaveLoad.LoadData();
         if (loadedData != null) {
             playerStatsData = loadedData;
+
+             // 총알 수를 기본값으로 설정
+            playerStatsData.maxAmmo = defaultAmmoCount;
         }
     }
 }
