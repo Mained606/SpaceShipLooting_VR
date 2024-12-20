@@ -26,6 +26,16 @@ public class BossEye : MonoBehaviour
         // 코어 파괴 및 레이저 상태 이벤트 구독
         SubscribeToBossEvents();
     }
+
+    private void Update()
+    {
+        // 모든 코어가 파괴되면 눈은 항상 플레이어를 바라봄
+        if (allCoresDestroyed || onlaserState)
+        {
+            this.transform.LookAt(bossController.Target.position);
+        }
+    }
+
     private void SubscribeToBossEvents()
     {
         bossController.OnAllCoresDestroyed.AddListener(OnAllCoresDestroyed);
@@ -52,7 +62,7 @@ public class BossEye : MonoBehaviour
     {
         Debug.Log($"Trigger 충돌 태그: {other.tag}");
         // Weapons 태그이거나 Bullet 태그가 아니라면 리턴
-        if (!(other.CompareTag("Blade") || other.CompareTag("Bullet"))) return;
+        if (!(other.CompareTag("Weapons") || other.CompareTag("Bullet"))) return;
 
         TakeDamage();
     }

@@ -43,9 +43,12 @@ public class SpaceBossDefenceState : State<BossController>
         }
 
         SetCoreShield(true);
-
         SetCoresVulnerable(true); // 코어 무적 설정
-        SetEntityInvincible(true); // 본체 무적 설정
+
+        if (!boss.AllCoresDestroyed)
+        {
+            SetEntityInvincible(true); // 본체 무적 설정
+        }
 
     }
 

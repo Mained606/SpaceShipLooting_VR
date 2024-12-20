@@ -105,6 +105,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
 
         vfx_Electricity.gameObject.SetActive(true);
         vfx_Electricity.Play();
+        
         yield return new WaitForSeconds(boss.ExplosionDelay);
 
         vfx_Electricity.Stop();
@@ -157,7 +158,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
     {
         if (wire == null || wire.transform.parent == null)
         {
-            Debug.LogWarning("Wire or its parent is null.");
+            Debug.LogWarning("와이어의 부모가 없습니다.");
             return;
         }
 

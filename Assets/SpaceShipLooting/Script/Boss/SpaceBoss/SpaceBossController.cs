@@ -24,7 +24,7 @@ public class SpaceBossController : BossController
 
     [SerializeField] public GameObject explosionPrefab;
     
-    private Health health;
+    [SerializeField] private Health health;
 
     // 모든 코어 파괴 여부
     private bool allCoresDestroyed = false;
@@ -100,13 +100,6 @@ public class SpaceBossController : BossController
 
     protected void Awake()
     {
-        health = GetComponent<Health>();
-        if (health == null)
-        {
-            Debug.LogError("Health 컴포넌트를 찾을 수 없습니다!");
-            return;
-        }
-
         health.IsInvincible = true; // 초기 무적 상태 설정
 
         InitializeTarget();
