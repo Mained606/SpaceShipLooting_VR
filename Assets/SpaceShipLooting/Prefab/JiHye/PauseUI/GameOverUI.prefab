@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2545008212229444370}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -390,7 +390,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2545008212229444370}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -415,7 +415,6 @@ GameObject:
   - component: {fileID: 4617588306029360233}
   - component: {fileID: 3793526697533893061}
   - component: {fileID: 5999950712315424415}
-  - component: {fileID: 2545008212229444370}
   m_Layer: 5
   m_Name: GameOverUI
   m_TagString: Untagged
@@ -432,7 +431,7 @@ RectTransform:
   m_GameObject: {fileID: 4891063323047764218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 389247460279569149}
@@ -528,33 +527,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &2545008212229444370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4891063323047764218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3b6752cd2532f5428ce790c7ae67efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameMenu: {fileID: 4891063323047764218}
-  showButton:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Show Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 15789800-21af-43de-a80b-165b0b36f4a5
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 71106601250685021, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  head: {fileID: 0}
-  distance: 1.5
 --- !u!1 &6597705796214227663
 GameObject:
   m_ObjectHideFlags: 0

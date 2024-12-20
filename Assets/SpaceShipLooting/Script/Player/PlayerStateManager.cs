@@ -31,6 +31,8 @@ public class PlayerStateManager : MonoBehaviour
 
     public static Transform PlayerTransform;
 
+    [SerializeField] private GameObject gameOverUI;
+
     // 싱글톤 초기화
     private void Awake()
     {
@@ -45,11 +47,16 @@ public class PlayerStateManager : MonoBehaviour
         }
 
         PlayerTransform = this.transform;
+
     }
     
     private void Start()
     {
-        
+        // Destructable 이벤트 구독
+        Destructable destructable = GetComponent<Destructable>();
+        if (destructable != null) {
+            destructable.OnPlayerDestroyed.AddListener(HandlePlayerDeath);
+        }
 
         // PlayerStatsConfig 설정
         if (GameManager.Instance.PlayerStatsData == null)
@@ -107,7 +114,23 @@ public class PlayerStateManager : MonoBehaviour
             playerInputHandler.OnStealthToggle.RemoveListener(ToggleStealthMode);
             playerInputHandler.OnRunningToggle.RemoveListener(ToggleRunningMode);
         }
+
+        Destructable destructable = GetComponent<Destructable>();
+        if (destructable != null) 
+        {
+            destructable.OnObjectDestroyed.RemoveListener(HandlePlayerDeath);
+        }
     }
+
+    private void HandlePlayerDeath(GameObject player) 
+    {
+        if (player.CompareTag("Player")) 
+        {
+            Debug.Log("[PlayerStateManager] 플레이어가 사망했습니다.");
+            ShowGameOverUI();
+        }
+    }
+
 
     private void Update()
     {
@@ -154,5 +177,16 @@ public class PlayerStateManager : MonoBehaviour
         SwitchState(IsRunningMode ? new PlayerRunningState() : new PlayerIdleState());
     }
 
+    private void ShowGameOverUI() 
+    {
+        if (gameOverUI != null) 
+        {
+            gameOverUI.SetActive(true); // 게임오버 UI 활성화
+        } 
+        else 
+        {
+            Debug.LogError("GameOver UI가 설정되지 않았습니다!");
+        }
+    }
     
 }

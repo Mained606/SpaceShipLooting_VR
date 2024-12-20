@@ -7,6 +7,7 @@ public class Destructable : MonoBehaviour
 
     // 오브젝트가 파괴되었을 때 발생하는 이벤트
     public UnityEvent<GameObject> OnObjectDestroyed { get; private set; } = new UnityEvent<GameObject>();
+    public UnityEvent<GameObject> OnPlayerDestroyed { get; private set; } = new UnityEvent<GameObject>();
 
     private void Start()
     {
@@ -42,8 +43,8 @@ public class Destructable : MonoBehaviour
     private void HandleDeath()
     {
         // 파괴 로직
-        OnObjectDestroyed?.Invoke(gameObject);
-        Debug.Log($"[Destructable] {gameObject.name}이(가) 파괴되었습니다.");
+        // OnObjectDestroyed?.Invoke(gameObject);
+        // Debug.Log($"[Destructable] {gameObject.name}이(가) 파괴되었습니다.");
 
         if (gameObject.CompareTag("Enemy"))
         {
@@ -51,7 +52,7 @@ public class Destructable : MonoBehaviour
         }
         else if (gameObject.CompareTag("Player"))
         {
-            Debug.Log("[Destructable] 플레이어가 사망했습니다.");
+            OnPlayerDestroyed?.Invoke(gameObject);
         }
         else if (gameObject.CompareTag("Core"))
         {

@@ -4,6 +4,8 @@ using UnityEngine;
 // 추후 개선 필요
 public class PlayerStatsData
 {
+    // public GameObject player;
+
     [Header("Scene Settings")]
     public int lastClearedScene = 0; // 마지막 클리어된 씬 번호
     
@@ -24,6 +26,11 @@ public class PlayerStatsData
     [Header("Player State Settings")]
     public bool enableStealthMode = false; // 스텔스 모드 활성화 여부
     public bool enableRunningMode = false; // 러닝 모드 활성화 여부
+
+    // public void SetPlayerTransform(GameObject gameObject)
+    // {
+    //     player = gameObject;
+    // } 
 
     public void AddAmmo(int amount)
     {
