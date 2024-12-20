@@ -1480,6 +1480,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!20 &773264142 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6583822679166932322, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+  m_PrefabInstance: {fileID: 1419136569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &931171698
 Transform:
   m_ObjectHideFlags: 0
@@ -3037,6 +3042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 1869893185652292132, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5816497197205530388, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: fader
       value: 
@@ -3045,6 +3054,18 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 1419136570}
+    - target: {fileID: 6959814011240902370, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 773264142}
+    - target: {fileID: 6959814011240902370, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959814011240902370, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.196
@@ -4185,6 +4206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 714529398414283191, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2525154603413652083, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4224,6 +4249,18 @@ PrefabInstance:
     - target: {fileID: 2525154603413652083, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141814268615545420, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 773264142}
+    - target: {fileID: 6141814268615545420, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141814268615545420, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
