@@ -84,7 +84,7 @@ using UnityEngine.SceneManagement;
             // 1초동안 image a 0-> 1
             float t = 0f;
 
-            while (t < 3f)
+            while (t < 1f)
             {
                 t += Time.deltaTime;
                 float a = curve.Evaluate(t);

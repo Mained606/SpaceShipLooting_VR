@@ -17,6 +17,9 @@ public class AudioManager : MonoBehaviour
     [Header("Interact Sounds")]
     public Sound[] InteractSounds;
 
+    [Header("Interact Sounds")]
+    public Sound[] BossSounds;
+
     private string bgmSound = ""; // 현재 플레이 되는 배경음 이름
     public string BgmSound
     {
