@@ -140,8 +140,18 @@ public class EnemyBehaviour : MonoBehaviour
                 BusterCall();
                 break;
             case EnemyState.E_Attack:
-                animator.SetBool("IsAttack", true);
-                AttackingWait();
+                CheckForTargetOnChase();
+                if (isPlayerVisible)
+                {
+                    Debug.LogError("E_Attack에서 isPlayerVisible true");
+                    animator.SetBool("IsAttack", true);
+                    AttackingWait();
+                }
+                else
+                {
+                    Debug.LogError("E_Attack에서 isPlayerVisible false");
+                    enemyData.SetState(EnemyState.E_Chase);
+                }
                 break;
             case EnemyState.E_Death:
                 agent.enabled = false;
@@ -214,7 +224,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void SetAssassiable()
     {
-        if(distance <= assassiableDist && isInTrigger == false)
+        if(distance <= assassiableDist && enemyData.currentState == EnemyState.E_Patrol)
         {
             isAssassiable = true;
         }
@@ -373,6 +383,36 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    private void CheckForTargetOnChase()
+    {
+        Ray ray = new Ray(eyePoint.position, directionToPlayer);
+        if (Physics.Raycast(ray, out RaycastHit hit, distance, obstacleLayer))
+        {
+            int hitLayer = hit.collider.gameObject.layer;   // Obstacle
+
+            Debug.Log("레이가 맞은 오브젝트의 레이어: " + hitLayer);
+            if (hitLayer == 11)                     // 움직임 감지 범위 안엔 있지만 장애물 뒤에 숨은 경우
+            {
+                isPlayerVisible = false;
+                Debug.Log("총을 쏠 수 없음");
+                enemyData.SetState(EnemyState.E_Chase);
+
+            }
+            else
+            {
+                isPlayerVisible = true;
+                Debug.Log("총을 쏠 수 있음");
+                enemyData.SetState(EnemyState.E_Attack);
+            }
+        }
+        else  // Ray에 아무것도 감지 안 됨
+        {
+            isPlayerVisible = true;
+            Debug.Log("플레이어가 보입니다");
+            enemyData.SetState(EnemyState.E_Attack);
+        }
+    }
+
     private void PreemptiveStrike()
     {
         if(health.CurrentHealth < maxHealth && isAssassiable == false)
@@ -386,15 +426,13 @@ public class EnemyBehaviour : MonoBehaviour
         chaseBehaviour.isEncounter = true;
         animator.SetBool("IsChase", true);
         agent.SetDestination(target.position);
-        if (distance <= 10f)    // 수치 변수로 바꿀 필요 있음
-        {
-            enemyData.SetState(EnemyState.E_Chase);
-        }
+        CheckForTargetOnChase();
     }
 
     private void AttackingWait()    // AttackTime 기다리는 용도
     {
         attackTimer += Time.deltaTime;
+        Debug.Log("Waiting");
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
         agent.enabled = false;
@@ -402,6 +440,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             attackTimer = 0f;
             enemyData.SetState(EnemyState.E_Chase);
+           
         }
     }
 

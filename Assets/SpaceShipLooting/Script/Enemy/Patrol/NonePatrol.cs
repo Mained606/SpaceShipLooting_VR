@@ -36,11 +36,9 @@ public class NonePatrol : EnemyPatrol
         currentPosition = agent.transform.position;
         if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
         {
-            Debug.Log("도착판정");
             distance = Vector3.Distance(currentPosition, spawnPosition);
             if (distance > agent.remainingDistance + 2f)
             {
-                Debug.Log("안쪽 조건문");
                 agent.SetDestination(spawnPosition);
             }
         }

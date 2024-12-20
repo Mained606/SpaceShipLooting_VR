@@ -31,7 +31,7 @@ public class EnemyData
     [HideInInspector] public GameObject targetEncounterUI;
 
     [Header("디버그용")]
-    [HideInInspector] public EnemyState currentState;
+    public EnemyState currentState;
     public bool isLookAround = false;
     public bool isInteracting = false;
 
