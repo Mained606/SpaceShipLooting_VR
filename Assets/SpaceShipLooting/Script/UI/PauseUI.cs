@@ -4,23 +4,13 @@ using UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning;
 
 public class PauseUI : MonoBehaviour
 {
-    //public static PauseUI Instance { get; private set; }
+
     public GameObject gameMenu;
     public InputActionProperty showButton;
 
     //머리 따라가게
-    //public Transform head;
+    public Transform head;
     [SerializeField] private float distance = 1.5f;
-
-    /*private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else
-        {
-            Debug.Log("wdf");
-            Destroy(gameObject);
-        }
-    }*/
 
     private void Update()
     {
@@ -37,8 +27,8 @@ public class PauseUI : MonoBehaviour
         //show 설정
         if (gameMenu.activeSelf)
         {
-            /*gameMenu.transform.position = head.position + new Vector3(head.forward.x, 0f, head.forward.z).normalized * distance;
-            gameMenu.transform.LookAt(new Vector3(head.position.x, gameMenu.transform.position.y, head.position.z));*/
+            gameMenu.transform.position = head.position + new Vector3(head.forward.x, 0f, head.forward.z).normalized * distance;
+            gameMenu.transform.LookAt(new Vector3(head.position.x, gameMenu.transform.position.y, head.position.z));
             gameMenu.transform.forward *= -1;
         }
     }
