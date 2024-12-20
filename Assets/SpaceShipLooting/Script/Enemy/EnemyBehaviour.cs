@@ -84,6 +84,10 @@ public class EnemyBehaviour : MonoBehaviour
         {
             hasItem = true;
         }
+        if(enemyData.audioManager == null)
+        {
+            Debug.LogWarning("Enemy audioManager Missing");
+        }
 
         SetPatrolBehavior();
         SetChaseBehavior();

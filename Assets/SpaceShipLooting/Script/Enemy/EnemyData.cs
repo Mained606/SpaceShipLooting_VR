@@ -28,6 +28,7 @@ public class EnemyData
     [Header("기타 설정")]
     public float attackInterval = 1.5f;
     public float chaseInterval = 1.5f;
+    public AudioManager audioManager;
     [HideInInspector] public GameObject targetEncounterUI;
 
     [Header("디버그용")]

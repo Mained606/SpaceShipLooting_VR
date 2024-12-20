@@ -691,6 +691,7 @@ MonoBehaviour:
       interactPosition: {fileID: 0}
     attackInterval: 1.5
     chaseInterval: 1.5
+    audioManager: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
     targetEncounterUI: {fileID: 4400336873118763607}
     currentState: 0
     isLookAround: 0
