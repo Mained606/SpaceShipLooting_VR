@@ -7,19 +7,20 @@ public class MainMenu : MonoBehaviour
     public SceneFader fader;
     [SerializeField] private string loadToScene = "SceneName";
 
-    public void StartGame(Button button)
+    public void StartGame()
     {
+        Debug.Log("bibibig");
         AudioManager.Instance.Play("Button");
         fader.FadeTo(loadToScene);
     }
 
-    public void Option(Button button)
+    public void Option()
     {
         AudioManager.Instance.Play("Button");
         Debug.Log("Option Game");
     }
 
-    public void LoadGame(Button button) 
+    public void LoadGame() 
     {
         AudioManager.Instance.Play("Button");
         // 마지막 씬 정보 불러오기
