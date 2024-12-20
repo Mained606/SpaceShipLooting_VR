@@ -3001,6 +3001,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 5816497197205530388, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: fader
+      value: 
+      objectReference: {fileID: 615727804}
+    - target: {fileID: 6632037215069339776, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: gameOverUI
+      value: 
+      objectReference: {fileID: 1419136570}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.196
@@ -3046,6 +3054,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+--- !u!1 &1419136570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5327765309397185482, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+  m_PrefabInstance: {fileID: 1419136569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1439707313
 GameObject:
   m_ObjectHideFlags: 0
