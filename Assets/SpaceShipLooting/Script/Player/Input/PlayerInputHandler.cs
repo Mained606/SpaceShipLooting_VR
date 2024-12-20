@@ -11,19 +11,22 @@ public class PlayerInputHandler : MonoBehaviour
     public InputActionProperty stealthButton;
     public InputActionProperty runningButton;
     public InputActionProperty NightVisionButton;
+    public InputActionProperty menuButton;
 
     // 스텔스 모드 토글 이벤트 (UnityEvent를 통해 외부 구독 가능)
     [HideInInspector] public UnityEvent OnStealthToggle = new UnityEvent();
     [HideInInspector] public UnityEvent OnRunningToggle = new UnityEvent();
     [HideInInspector] public UnityEvent OnNightVisionToggle = new UnityEvent();
+    [HideInInspector] public UnityEvent OnMenuButtonToggle = new UnityEvent();
+
 
 
     private void Update()
     {
-        // 스텔스 모드 입력받기
         HandleStealthInput();
         HandleRunningInput();
         HandleNightVisionInput();
+        HandleMenuButtonInput();
     }
 
     private void HandleStealthInput()
@@ -49,6 +52,15 @@ public class PlayerInputHandler : MonoBehaviour
         {
             // 스텔스 토글 이벤트 호출
             OnNightVisionToggle?.Invoke();
+        }
+    }
+
+    private void HandleMenuButtonInput()
+    {
+        if (menuButton.action.WasPressedThisFrame())
+        {
+            // 스텔스 토글 이벤트 호출
+            OnMenuButtonToggle?.Invoke();
         }
     }
 }
