@@ -131,10 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 714529398414283191, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2525154603413652083, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -174,14 +170,6 @@ PrefabInstance:
     - target: {fileID: 2525154603413652083, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
-      propertyPath: playerStatsData.knifeDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
-      propertyPath: playerStatsData.bulletDamage
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -540,17 +528,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1487828013621536316, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
-      propertyPath: maxHealth
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1869893185652292132, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1869893185652292132, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -590,10 +570,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8140234793415768236, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -670,22 +646,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2336337186949699942, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: laserDamage
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336337186949699942, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: empAttackDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336337186949699942, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: explosionDamage
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2826956836996657633, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
-      propertyPath: maxHealth
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 5029456240049642524, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
       propertyPath: m_LocalPosition.x
       value: 50.58996
