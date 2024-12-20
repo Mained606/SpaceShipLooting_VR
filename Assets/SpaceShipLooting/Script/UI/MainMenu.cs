@@ -9,16 +9,19 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame(Button button)
     {
+        AudioManager.Instance.Play("Button");
         fader.FadeTo(loadToScene);
     }
 
     public void Option(Button button)
     {
+        AudioManager.Instance.Play("Button");
         Debug.Log("Option Game");
     }
 
     public void LoadGame(Button button) 
     {
+        AudioManager.Instance.Play("Button");
         // 마지막 씬 정보 불러오기
         int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
 

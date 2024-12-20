@@ -17252,7 +17252,7 @@ GameObject:
   - component: {fileID: 194118662204882311}
   - component: {fileID: 2841988434157206272}
   - component: {fileID: 1280214286753681326}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Floor1_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41145,11 +41145,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 4c66d33674b19490a84d460e3d492166, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 4c66d33674b19490a84d460e3d492166, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 4c66d33674b19490a84d460e3d492166, type: 3}
       propertyPath: m_Name
@@ -41157,11 +41157,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 4c66d33674b19490a84d460e3d492166, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 185314, guid: 4c66d33674b19490a84d460e3d492166, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 4c66d33674b19490a84d460e3d492166, type: 3}
       propertyPath: m_LocalPosition.x
@@ -41291,11 +41291,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 5d1b756973d9b43979538efa15d96725, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 5d1b756973d9b43979538efa15d96725, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 5d1b756973d9b43979538efa15d96725, type: 3}
       propertyPath: m_Name
@@ -41303,11 +41303,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 5d1b756973d9b43979538efa15d96725, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 177142, guid: 5d1b756973d9b43979538efa15d96725, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 5d1b756973d9b43979538efa15d96725, type: 3}
       propertyPath: m_LocalPosition.x
