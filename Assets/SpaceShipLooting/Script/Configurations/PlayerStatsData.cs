@@ -4,6 +4,9 @@ using UnityEngine;
 // 추후 개선 필요
 public class PlayerStatsData
 {
+    [Header("Scene Settings")]
+    public int lastClearedScene = 0; // 마지막 클리어된 씬 번호
+    
     [Header("Speed Settings")]
     public float walkingSpeed = 2.5f;   // 플레이어 기본 이동 속도
     public float runningSpeed = 5f;     // 플레이어 달리기 속도

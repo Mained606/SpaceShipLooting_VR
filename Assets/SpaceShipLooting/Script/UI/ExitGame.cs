@@ -7,10 +7,12 @@ public class ExitGame : MonoBehaviour
     {
 #if UNITY_EDITOR
         // 에디터에서 실행 중일 경우 에디터를 중지
+        SaveLoad.DeleteFile();
         UnityEditor.EditorApplication.isPlaying = false;
         Debug.Log("Editor Quit");
 #else
         // 빌드된 애플리케이션에서는 게임 종료
+        SaveLoad.DeleteFile();
         Application.Quit();
 #endif
     }

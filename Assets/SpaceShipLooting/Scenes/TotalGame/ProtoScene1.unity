@@ -1000,6 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c1a9603bedb6547954fcd8f1b63547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 0}
 --- !u!4 &1322546022
 Transform:
   m_ObjectHideFlags: 0

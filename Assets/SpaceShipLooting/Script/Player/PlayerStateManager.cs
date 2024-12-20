@@ -30,6 +30,7 @@ public class PlayerStateManager : MonoBehaviour
     [HideInInspector] public UnityEvent<bool> OnRunningStateChanged = new UnityEvent<bool>();
 
     public static Transform PlayerTransform;
+
     // 싱글톤 초기화
     private void Awake()
     {
@@ -152,4 +153,6 @@ public class PlayerStateManager : MonoBehaviour
 
         SwitchState(IsRunningMode ? new PlayerRunningState() : new PlayerIdleState());
     }
+
+    
 }
