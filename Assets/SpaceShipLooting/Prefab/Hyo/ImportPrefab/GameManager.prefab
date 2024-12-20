@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2525154603413652083
 Transform:
   m_ObjectHideFlags: 0
@@ -52,13 +52,14 @@ MonoBehaviour:
     walkingSpeed: 2.5
     runningSpeed: 5
     stealthSpeed: 2
-    bulletDamage: 30
+    bulletDamage: 2
     bulletlifeTime: 5
     pistolBulletSpeed: 70
     maxAmmo: 7
-    knifeDamage: 40
+    knifeDamage: 5
     enableStealthMode: 0
     enableRunningMode: 0
+  defaultAmmoCount: 7
 --- !u!114 &751802817230653391
 MonoBehaviour:
   m_ObjectHideFlags: 0
