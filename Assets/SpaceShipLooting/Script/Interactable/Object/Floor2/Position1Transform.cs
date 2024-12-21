@@ -32,7 +32,7 @@ public class Position1Transform : MonoBehaviour
         fader.FromFade(1f);
         // 씬 로드 이벤트에 메서드 등록
         player = PlayerStateManager.PlayerTransform;
-        if(player != null)
+        if (player != null)
         {
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;

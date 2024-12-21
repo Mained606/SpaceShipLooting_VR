@@ -8,9 +8,9 @@ public class ValveMove : XRSimpleInteractableOutline, ISignal
 
     public static UnityEvent<bool> OnValve { get; } = new UnityEvent<bool>();
 
-    protected override void  Start()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         // Animator를 현재 오브젝트 또는 부모에서 검색
         anim = GetComponent<Animator>() ?? GetComponentInParent<Animator>();
     }
@@ -29,7 +29,7 @@ public class ValveMove : XRSimpleInteractableOutline, ISignal
     public void Sender(bool state) => OnValve?.Invoke(state);
 
     public void Receiver(bool state) { }
-    
+
     public void Clear(UnityEvent<bool> signal) => OnValve.RemoveAllListeners();
 
 }

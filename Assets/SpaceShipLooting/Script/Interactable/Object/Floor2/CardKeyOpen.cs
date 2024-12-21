@@ -10,7 +10,7 @@ public class IntercomInteraction : MonoBehaviour
         anim = GetComponentInParent<Animator>();
         if (anim == null)
         {
-          anim=GetComponentInParent<Animator>();
+            anim = GetComponentInParent<Animator>();
         }
     }
 

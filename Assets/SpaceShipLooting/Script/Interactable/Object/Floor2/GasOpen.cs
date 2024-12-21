@@ -11,15 +11,15 @@ public class GasOpen : MonoBehaviour, ISignal
     private void Start()
     {
         // ParticleSystem 가져오기
-     particle = GetComponent<ParticleSystem>();
-     particle.Stop(); // 초기 상태에서 정지
+        particle = GetComponent<ParticleSystem>();
+        particle.Stop(); // 초기 상태에서 정지
 
-     ValveMove.OnValve.AddListener(Receiver);
+        ValveMove.OnValve.AddListener(Receiver);
     }
 
     public void Sender(bool state)
     {
-     GasGasGas?.Invoke(state);
+        GasGasGas?.Invoke(state);
     }
 
     public void Receiver(bool state)

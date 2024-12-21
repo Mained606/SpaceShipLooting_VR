@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class FirstDoorOpen :XRSimpleInteractableOutline,ISignal
+public class FirstDoorOpen : XRSimpleInteractableOutline, ISignal
 {
     private Animator anim;
     private int trueCount = 0; // 신호를 받은 횟수
@@ -10,7 +10,7 @@ public class FirstDoorOpen :XRSimpleInteractableOutline,ISignal
 
     protected override void Start()
     {
-        base.Awake();
+        base.Start();
         // Animator 가져오기
         anim = GetComponentInParent<Animator>();
         if (anim == null)
@@ -25,14 +25,14 @@ public class FirstDoorOpen :XRSimpleInteractableOutline,ISignal
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        if(isCan)
+        if (isCan)
         {
             base.OnSelectEntered(args);
             anim.SetTrigger("Open");
         }
     }
     public void Sender(bool state) { }
-   
+
     public void Receiver(bool state)
     {
         if (state)
@@ -47,5 +47,5 @@ public class FirstDoorOpen :XRSimpleInteractableOutline,ISignal
         }
     }
     public void Clear(UnityEvent<bool> signal) => signal.RemoveAllListeners();
-   
+
 }

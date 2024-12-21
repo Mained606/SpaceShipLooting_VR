@@ -12,7 +12,7 @@ public class KeyPadUI : MonoBehaviour, ISignal
     [SerializeField] private TMP_Text displayText; // 입력값을 보여줄 TextMeshProUGUI
     [SerializeField] private Transform keyPad; // 키패드 부모 오브젝트
     [SerializeField] private GameObject canvas;
-    
+
 
     private Button[] keyPads; // 키패드 버튼 배열
 
@@ -88,9 +88,9 @@ public class KeyPadUI : MonoBehaviour, ISignal
         // 실패 횟수가 3번이면 실패 신호 발행
         if (failCount >= 3)
         {
-          Sender(false);
-          failCount = 0; // 실패 횟수 초기화
-          
+            Sender(false);
+            failCount = 0; // 실패 횟수 초기화
+
         }
 
         displayText.fontSize = originalFontSize; // 폰트 크기를 원래대로 복원
@@ -108,14 +108,14 @@ public class KeyPadUI : MonoBehaviour, ISignal
 
     public void Sender(bool state)
     {
-      codeCheck?.Invoke(state);
+        codeCheck?.Invoke(state);
     }
 
     public void Receiver(bool state) { }
-   
+
     public void Clear(UnityEvent<bool> signal)
     {
-     signal.RemoveAllListeners();
+        signal.RemoveAllListeners();
     }
-   
+
 }

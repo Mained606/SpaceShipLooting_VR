@@ -4,9 +4,9 @@ public class EasyOpen : XRSimpleInteractableOutline
 {
     private Animator anim;
 
-    void Start()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         anim = GetComponent<Animator>();
         if (anim == null)
         {
@@ -14,11 +14,5 @@ public class EasyOpen : XRSimpleInteractableOutline
         }
         // Animator를 자식에서 먼저 가져옴
         anim = GetComponentInChildren<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

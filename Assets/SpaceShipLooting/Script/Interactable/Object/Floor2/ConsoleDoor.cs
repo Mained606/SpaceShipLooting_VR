@@ -10,15 +10,15 @@ public class ConsoleDoor : XRSimpleInteractableOutline, ISignal
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        base.Awake();
+        base.Start();
         // Animator 가져오기
         anim = GetComponentInParent<Animator>();
         Floor1Console.consoleFalse.AddListener(Receiver);
     }
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-            base.OnSelectEntered(args);
-            anim.SetTrigger("Open");
+        base.OnSelectEntered(args);
+        anim.SetTrigger("Open");
     }
 
     public void Sender(bool state) { }

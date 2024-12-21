@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class smallroom_DoorOepen : XRSimpleInteractableOutline 
+public class smallroom_DoorOepen : XRSimpleInteractableOutline
 {
     private Animator anim;
 
-   protected override void Start()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         anim = GetComponent<Animator>();
-        if (anim == null )
+        if (anim == null)
         {
-             anim = GetComponentInChildren<Animator>();
+            anim = GetComponentInChildren<Animator>();
         }
         // Animator를 자식에서 먼저 가져옴
         anim = GetComponentInChildren<Animator>();

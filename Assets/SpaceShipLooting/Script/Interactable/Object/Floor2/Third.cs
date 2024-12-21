@@ -16,7 +16,7 @@ public class Third : MonoBehaviour, ISignal
             anim = GetComponentInParent<Animator>();
         }
 
-        KeyPadUI.codeCheck.AddListener(Receiver);  
+        KeyPadUI.codeCheck.AddListener(Receiver);
     }
 
     public void Clear(UnityEvent<bool> signal)
