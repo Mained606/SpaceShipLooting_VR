@@ -12,6 +12,7 @@ public class Sound
 
     public bool loop;                       // 반복 재생 여부 
                                             //  public bool PlayOnAwake = false;
+    public bool BGM;                        // bgm 분류 체크 
     [HideInInspector]
     public AudioSource source;              // 음원을 재생할 오디오소스 
 }

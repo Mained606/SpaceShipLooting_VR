@@ -22,6 +22,7 @@ public class Trigger1 : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            Debug.Log("에너미가 밟았다");
             StartCoroutine(Open());
           
         }

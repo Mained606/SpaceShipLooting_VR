@@ -60,7 +60,7 @@ public class AudioManager : MonoBehaviour
             sound.source.pitch = sound.pitch;
             sound.source.loop = sound.loop;
 
-            if (sound.loop)
+            if (sound.BGM)
             {
                 sound.source.outputAudioMixerGroup = audioMixerGroups[1]; // bgm
             }
