@@ -10,7 +10,6 @@ public class Floor1Console : MonoBehaviour, ISignal
     private int Scount = 0;
     private int Fcount = 0;
 
-    [SerializeField] private string Tag;
     private MeshRenderer[] render;
     private GameObject Particle;
 
@@ -30,10 +29,12 @@ public class Floor1Console : MonoBehaviour, ISignal
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (nono.Contains(collision.gameObject) || !collision.gameObject.CompareTag(Tag)) return; // 중복 처리 방지 및 태그 확인
+        if (nono.Contains(collision.gameObject) || !collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Blade")) return; // 중복 처리 방지 및 태그 확인
 
         nono.Add(collision.gameObject);
-        EffectGo();
+
+        // Succesce 값에 따라 색상을 변경하고 로직 처리
+        EffectGo(Succesce);
 
         if (Succesce)
         {
@@ -57,7 +58,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         }
     }
 
-    private void EffectGo()
+    private void EffectGo(bool isSuccess)
     {
         // 파티클 활성화 및 하위 파티클 실행
         if (Particle != null)
@@ -71,6 +72,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         }
 
         // 렌더러 색상 변경
+        Color targetColor = isSuccess ? Color.black : Color.red; // 성공 여부에 따라 색상 결정
         foreach (var renderer in render)
         {
             if (renderer != null)
@@ -78,15 +80,15 @@ public class Floor1Console : MonoBehaviour, ISignal
                 var mat = renderer.material;
                 if (mat.HasProperty("_BaseColor"))
                 {
-                    mat.SetColor("_BaseColor", Color.black);
+                    mat.SetColor("_BaseColor", targetColor);
                 }
                 else if (mat.HasProperty("_Color"))
                 {
-                    mat.SetColor("_Color", Color.black);
+                    mat.SetColor("_Color", targetColor);
                 }
                 else if (mat.HasProperty("_EmissionColor"))
                 {
-                    mat.SetColor("_EmissionColor", Color.black);
+                    mat.SetColor("_EmissionColor", targetColor);
                 }
             }
         }
