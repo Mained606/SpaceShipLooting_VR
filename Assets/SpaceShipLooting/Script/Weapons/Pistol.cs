@@ -39,7 +39,7 @@ public class Pistol : XRGrabInteractableOutline
     {
         base.Start();
         bulletSpeed = GameManager.Instance.PlayerStatsData.pistolBulletSpeed;
-        ammocount = GameManager.Instance.PlayerStatsData.maxAmmo;
+        // ammocount = GameManager.Instance.PlayerStatsData.maxAmmo;
 
         UpdateAmmoUI();
     }
@@ -85,7 +85,7 @@ public class Pistol : XRGrabInteractableOutline
         muzzleEffect.Play();
 
         ammocount--;
-        GameManager.Instance.PlayerStatsData.UseAmmo(1);
+        // GameManager.Instance.PlayerStatsData.UseAmmo(1);
 
         UpdateAmmoUI();
 
@@ -110,11 +110,12 @@ public class Pistol : XRGrabInteractableOutline
     // 재장전
     private void Reload()
     {
-        if(GameManager.Instance.PlayerStatsData.maxAmmo > 0)
+
+        if (GameManager.Instance.PlayerStatsData.maxAmmo > 0)
         {
             ammocount += 7;
             GameManager.Instance.PlayerStatsData.UseAmmo(7);
-        
+
             animator.SetBool("HaveAmmo", true);
             ammoText.color = Color.white;
             UpdateAmmoUI();
@@ -122,6 +123,7 @@ public class Pistol : XRGrabInteractableOutline
         }
         else
         {
+            UpdateAmmoUI();
             Debug.Log("총알이 부족합니다");
         }
     }
@@ -173,7 +175,7 @@ public class Pistol : XRGrabInteractableOutline
             ammoCanvas.gameObject.SetActive(true);
         }
 
-        ammoText.text = ammocount.ToString();
+        ammoText.text = ammocount.ToString() + " / " + GameManager.Instance.PlayerStatsData.maxAmmo.ToString();
         ammoText.color = Color.white;
 
         // 기존 코루틴이 실행 중이면 중지

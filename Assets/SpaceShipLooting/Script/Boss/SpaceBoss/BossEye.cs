@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class BossEye : MonoBehaviour
 {
     private SpaceBossController bossController;
+    private Animator animator;
 
     // 데미지를 받을 때 발생하는 이벤트
     public UnityEvent onDamageReceived { get; private set; } = new UnityEvent();
@@ -20,6 +21,13 @@ public class BossEye : MonoBehaviour
         if (bossController == null)
         {
             Debug.Log("SpaceBossController를 찾을 수 없습니다.");
+            return;
+        }
+
+        animator = GetComponentInChildren<Animator>();
+        if (animator == null)
+        {
+            Debug.Log("animator 찾을 수 없습니다.");
             return;
         }
 
@@ -72,6 +80,8 @@ public class BossEye : MonoBehaviour
     {
         // 레이저 패턴이 아니고 모든 코어가 파괴된 상태가 아니라면 리턴
         // if (!onlaserState && !allCoresDestroyed) return;
+
+        animator.SetTrigger("damage");
 
         damageCount++;
         Debug.Log($"[BossEye] 데미지 횟수: {damageCount}/{maxDamageCount}");
