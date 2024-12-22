@@ -7,6 +7,8 @@ public class SpaceBossGroggyState : State<BossController>
     private float timer;
     private Health health;
 
+    private GameObject groggyEffect;
+
     public override void OnInitialized()
     {
         // context를 SpaceBossController로 캐스팅
@@ -17,6 +19,7 @@ public class SpaceBossGroggyState : State<BossController>
         }
 
         health = boss.GetComponent<Health>();
+        groggyEffect = boss.groggyEffect;
     }
 
     public override void OnEnter()
@@ -64,6 +67,7 @@ public class SpaceBossGroggyState : State<BossController>
 
         health.IsInvincible = false;
         boss.bossShield.SetActive(false);
+        groggyEffect.SetActive(true);
 
         // 추가적인 파티클, 사운드 처리 가능
     }
@@ -74,6 +78,7 @@ public class SpaceBossGroggyState : State<BossController>
         Debug.Log("그로기 상태 효과 종료");
         health.IsInvincible = true;
         boss.bossShield.SetActive(true);
+        groggyEffect.SetActive(false);
         // 추가적인 파티클, 사운드 처리 가능
     }
 }

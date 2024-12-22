@@ -23,7 +23,9 @@ public class SpaceBossController : BossController
     [SerializeField] public ParticleSystem vfx_Implosion;
 
     [SerializeField] public GameObject explosionPrefab;
-    
+
+    [SerializeField] public GameObject groggyEffect;
+
     [SerializeField] private Health health;
 
     // 모든 코어 파괴 여부
