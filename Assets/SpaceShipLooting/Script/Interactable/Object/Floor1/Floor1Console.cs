@@ -10,10 +10,11 @@ public class Floor1Console : MonoBehaviour, ISignal
     private int Scount = 0;
     private int Fcount = 0;
 
+    [Header("Object Settings")]
+    [SerializeField] private List<string> Tags; // 여러 태그를 받을 리스트
     private MeshRenderer[] render;
     private GameObject Particle;
 
-    [Header("Object Settings")]
     [SerializeField] private bool Succesce; // Inspector에서 체크 여부 설정
     private HashSet<GameObject> nono = new HashSet<GameObject>(); // 중복 사격 방지
 
@@ -29,12 +30,13 @@ public class Floor1Console : MonoBehaviour, ISignal
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (nono.Contains(collision.gameObject) || !collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Blade")) return; // 중복 처리 방지 및 태그 확인
+        // 충돌한 오브젝트가 이미 처리되었거나, 지정된 태그에 포함되지 않으면 return
+        if (nono.Contains(collision.gameObject) || !Tags.Contains(collision.gameObject.tag)) return;
 
         nono.Add(collision.gameObject);
 
         // Succesce 값에 따라 색상을 변경하고 로직 처리
-        EffectGo(Succesce);
+        EffectGo();
 
         if (Succesce)
         {
@@ -58,7 +60,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         }
     }
 
-    private void EffectGo(bool isSuccess)
+    private void EffectGo()
     {
         // 파티클 활성화 및 하위 파티클 실행
         if (Particle != null)
@@ -72,7 +74,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         }
 
         // 렌더러 색상 변경
-        Color targetColor = isSuccess ? Color.black : Color.red; // 성공 여부에 따라 색상 결정
+        Color targetColor = Succesce ? Color.black : Color.red; // 성공 여부에 따라 색상 결정
         foreach (var renderer in render)
         {
             if (renderer != null)

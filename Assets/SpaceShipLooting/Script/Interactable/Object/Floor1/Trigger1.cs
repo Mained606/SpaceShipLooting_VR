@@ -34,6 +34,7 @@ public class Trigger1 : MonoBehaviour
         Door.SetTrigger("Open");
         yield return new WaitForSeconds(3f); // 3초 대기
         Door.SetTrigger("Close");
+        yield return new WaitForSeconds(4f); // 3초 대기
         Trigger2.SetActive(true); // 반대쪽 트리거 활성화
         this.gameObject.SetActive(false); // 현재 트리거 비활성화
     }
