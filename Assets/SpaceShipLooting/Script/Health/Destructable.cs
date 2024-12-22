@@ -8,6 +8,8 @@ public class Destructable : MonoBehaviour
     // 오브젝트가 파괴되었을 때 발생하는 이벤트
     public UnityEvent<GameObject> OnObjectDestroyed { get; private set; } = new UnityEvent<GameObject>();
     public UnityEvent<GameObject> OnPlayerDestroyed { get; private set; } = new UnityEvent<GameObject>();
+    public UnityEvent<GameObject> OnBossDestroyed { get; private set; } = new UnityEvent<GameObject>();
+
 
     private void Start()
     {
@@ -60,6 +62,11 @@ public class Destructable : MonoBehaviour
             coreController.SetDestroyed(true);
             OnObjectDestroyed?.Invoke(gameObject);
             return;
+        }
+        else if (gameObject.CompareTag("Boss"))
+        {
+            Debug.Log("보스 죽음 신호 발생");
+            OnBossDestroyed?.Invoke(gameObject);
         }
         else
         {

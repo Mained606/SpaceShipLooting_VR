@@ -256,7 +256,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 1
-    BGM: 0
+    BGM: 1
     source: {fileID: 0}
   - name: BossDamage_
     clip: {fileID: 8300000, guid: a0f3eecb6b68171438a2d18c7545030b, type: 3}
@@ -282,7 +282,7 @@ MonoBehaviour:
   - name: BossEmpCharging
     clip: {fileID: 8300000, guid: 3b3e8a10e4eba7740afb2ca8cd99cae5, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 0.4
     loop: 0
     BGM: 0
     source: {fileID: 0}
@@ -295,7 +295,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BossLazer_
     clip: {fileID: 8300000, guid: 1508d609ae5bf6644b8e63f3586fc461, type: 3}
-    volume: 1
+    volume: 0.6
     pitch: 1
     loop: 0
     BGM: 0
@@ -309,15 +309,15 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BossLazerWait
     clip: {fileID: 8300000, guid: 2e3546f278c497a4496bcf111d0186bf, type: 3}
-    volume: 1
+    volume: 0.6
     pitch: 1
     loop: 0
     BGM: 0
     source: {fileID: 0}
   - name: BossLine
-    clip: {fileID: 8300000, guid: bf746e18260bc0545821780314ede10f, type: 3}
-    volume: 1
-    pitch: 1
+    clip: {fileID: 8300000, guid: 84398a2097f710143981da56d2e88a68, type: 3}
+    volume: 0.6
+    pitch: 0.8
     loop: 0
     BGM: 0
     source: {fileID: 0}
@@ -350,8 +350,8 @@ MonoBehaviour:
     BGM: 0
     source: {fileID: 0}
   - name: Shield
-    clip: {fileID: 8300000, guid: 84398a2097f710143981da56d2e88a68, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: bf746e18260bc0545821780314ede10f, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
     BGM: 0

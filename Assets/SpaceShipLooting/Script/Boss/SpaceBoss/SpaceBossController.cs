@@ -126,7 +126,14 @@ public class SpaceBossController : BossController
             OnLaserStateStarted.AddListener(bossEye.OnLaserStateStarted);
             OnLaserStateEnded.AddListener(bossEye.OnLaserStateEnded);
         }
+
+        Destructable destructable = GetComponent<Destructable>();
+        if (destructable != null)
+        {
+            destructable.OnBossDestroyed.AddListener(HandleBossDeath);
+        }
     }
+
 
     // FSM 스테이트 등록
     private void RegisterStates()
@@ -211,6 +218,31 @@ public class SpaceBossController : BossController
         return Vector3.Distance(transform.position, target.position) <= searchRange;
     }
 
+    //보스 죽음시 이펙트 및 씬 전환 연결
+    private void HandleBossDeath(GameObject arg0)
+    {
+        Debug.Log("보스 죽음 함수 시작!");
+
+        AudioManager.Instance.StopBgm();
+
+        //SFX
+
+        //VFX
+
+        //씬 연결
+
+        // GameManager의 자식 오브젝트로부터 SceneFader를 찾기
+        SceneFader sceneFader = GameManager.Instance.GetComponentInChildren<SceneFader>();
+        if (sceneFader != null)
+        {
+            sceneFader.FadeTo("EndScene"); // 원하는 씬 이름으로 교체
+        }
+        else
+        {
+            Debug.Log("SceneFader를 찾을 수 없습니다!");
+        }
+    }
+
     // 코어가 파괴되었을 때 리스트에서 제거 해주는 함수
     public void RemoveCore(GameObject core)
     {
@@ -222,6 +254,7 @@ public class SpaceBossController : BossController
         UpdateCoreState(); // 코어 상태 갱신
     }
 
+    // 코어 회복
     public void RecoverCore(GameObject core)
     {
         // 이미 리스트에 있는 경우 중복 추가 방지
@@ -287,6 +320,7 @@ public class SpaceBossController : BossController
         }
     }
 
+    // 레이저 (프로젝타일) 발사
     public void FireLaser(Vector3 targetPosition)
     {
         // 1. 레이저 VFX 생성

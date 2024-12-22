@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SpaceShipLooting/Scenes/TotalGame/ProtoScene3.unity
     guid: 063b77bd7a5fa8745a47a97974f5667d
+  - enabled: 1
+    path: Assets/SpaceShipLooting/Scenes/TotalGame/EndScene.unity
+    guid: 48ebef295160c85468e67dd96404050b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 89f753febe3e62346b8d331371f93a2a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
