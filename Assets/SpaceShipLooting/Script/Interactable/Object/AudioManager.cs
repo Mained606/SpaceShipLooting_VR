@@ -47,6 +47,7 @@ public class AudioManager : MonoBehaviour
         InitializeSounds(PlayerSounds, audioMixerGroups);
         InitializeSounds(EnemySounds, audioMixerGroups);
         InitializeSounds(InteractSounds, audioMixerGroups);
+        InitializeSounds(BossSounds, audioMixerGroups);
     }
 
     private void InitializeSounds(Sound[] sounds, AudioMixerGroup[] audioMixerGroups)
@@ -122,7 +123,8 @@ public class AudioManager : MonoBehaviour
         Sound sound = null;
         sound = FindSoundInArray(PlayerSounds, name) ??
                 FindSoundInArray(EnemySounds, name) ??
-                FindSoundInArray(InteractSounds, name);
+                FindSoundInArray(InteractSounds, name) ??
+                FindSoundInArray(BossSounds, name);
         return sound;
     }
 
