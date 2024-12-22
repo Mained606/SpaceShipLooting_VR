@@ -57,12 +57,16 @@ public class SpaceBossEyeLaserState : State<BossController>
         // 2. 레이저 공격 준비 단계
         boss.textbox.text = "Laser Charging...";
         boss.AdjustEyePosition(true, boss.Target.position); // 마지막 추적 위치로 눈 고정
+
+        AudioManager.Instance.Play("BossLazerWait");
+
         yield return new WaitForSeconds(boss.LaserChargeDuration); // 레이저 충전 시간
 
         // 3. 레이저 발사
         boss.textbox.text = "Laser Attack!";
         if (boss.Target != null)
         {
+            AudioManager.Instance.Play("BossLazer_");
             boss.FireLaser(boss.Target.position); // 플레이어의 최종 위치를 목표로 레이저 발사
         }
 

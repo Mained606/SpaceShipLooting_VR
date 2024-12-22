@@ -32,14 +32,17 @@ public class SpaceBossDefenceState : State<BossController>
 
         if (boss == null) return;
 
+
         // 디펜스 상태 초기화 로직
         if (!boss.AllCoresDestroyed)
         {
             boss.bossShield.SetActive(true);
+            AudioManager.Instance.Play("Shield");
         }
         else
         {
             boss.bossShield.SetActive(false);
+            AudioManager.Instance.Stop("Shield");
         }
 
         SetCoreShield(true);
@@ -73,6 +76,7 @@ public class SpaceBossDefenceState : State<BossController>
         // 디펜스 상태 종료 시 코어를 다시 취약 상태로 설정
         SetCoreShield(false);
         SetCoresVulnerable(false);
+        AudioManager.Instance.Stop("Shield");
     }
 
     // 코어의 무적 상태를 설정하는 메서드
@@ -106,6 +110,7 @@ public class SpaceBossDefenceState : State<BossController>
             {
                 if (!coreController.IsDestroyed())
                 {
+                    AudioManager.Instance.Play("Shield");
                     core.SetActive(true);
                     coreController.SetShieldEffect(isShield);
                 }

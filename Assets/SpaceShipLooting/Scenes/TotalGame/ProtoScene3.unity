@@ -132,36 +132,40 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: PlayerSounds.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: BossSounds.Array.data[1].loop
+      propertyPath: BossSounds.Array.data[1].BGM
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: BossSounds.Array.data[1].name
-      value: Boss1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: PlayerSounds.Array.data[6].clip
+      propertyPath: BossSounds.Array.data[10].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 5b7dd09cbbb31be4ab745072f6eb4ae4, type: 3}
+      objectReference: {fileID: 8300000, guid: 84398a2097f710143981da56d2e88a68, type: 3}
     - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: PlayerSounds.Array.data[6].loop
-      value: 1
+      propertyPath: BossSounds.Array.data[15].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: bf746e18260bc0545821780314ede10f, type: 3}
+    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
+      propertyPath: BossSounds.Array.data[5].pitch
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: PlayerSounds.Array.data[6].name
-      value: BossBGM
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: PlayerSounds.Array.data[6].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: PlayerSounds.Array.data[6].volume
+      propertyPath: BossSounds.Array.data[10].pitch
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
+      propertyPath: BossSounds.Array.data[7].volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
+      propertyPath: BossSounds.Array.data[9].volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
+      propertyPath: BossSounds.Array.data[10].volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
+      propertyPath: BossSounds.Array.data[15].volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7916631410547507249, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
       propertyPath: m_LocalPosition.x
@@ -222,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 714529398414283191, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2525154603413652083, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_LocalPosition.x
@@ -627,7 +631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869893185652292132, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7090500261467230657, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -747,6 +751,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2336337186949699942, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
+      propertyPath: trackingDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336337186949699942, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
+      propertyPath: empAttackDuration
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5029456240049642524, guid: a1fa09fb14f220f47a70d8c46e068a53, type: 3}
       propertyPath: m_LocalPosition.x
       value: 50.58996
