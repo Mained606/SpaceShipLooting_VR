@@ -39,16 +39,16 @@ public class PlayerStealthState : IPlayerState
         if (characterController == null)
         {
             characterController = manager.GetComponent<CharacterController>();
-            if(characterController == null)
+            if (characterController == null)
             {
                 Debug.Log("캐릭터 컨트롤러 Null");
             }
         }
 
-        if(cameraOffset == null)
+        if (cameraOffset == null)
         {
             cameraOffset = manager.transform.Find(cameraOffsetName);
-            if(cameraOffset == null)
+            if (cameraOffset == null)
             {
                 Debug.Log("카메라 오프셋 Null");
             }

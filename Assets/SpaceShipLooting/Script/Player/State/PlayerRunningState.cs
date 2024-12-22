@@ -8,17 +8,17 @@ public class PlayerRunningState : IPlayerState
     {
         Debug.Log("Entering Runing State");
         manager.MoveProvider.moveSpeed = Speed;
+        AudioManager.Instance.Play("PlayerRun");
     }
 
     public void UpdateState(PlayerStateManager manager)
     {
-        // 스텔스 모드 활성화 시 바로 스텔스 상태로 전환
         if (manager.IsStealthMode)
         {
             manager.SwitchState(new PlayerStealthState());
         }
 
-        if (!manager.IsRunningMode)
+        if (!manager.IsRunningMode || manager.MoveInput.magnitude <= 0.1f)
         {
             manager.SwitchState(new PlayerIdleState());
         }
@@ -26,6 +26,7 @@ public class PlayerRunningState : IPlayerState
 
     public void ExitState(PlayerStateManager manager)
     {
+        AudioManager.Instance.Stop("PlayerRun");
         manager.IsRunningMode = false;
         Debug.Log("Exiting Runing State");
     }

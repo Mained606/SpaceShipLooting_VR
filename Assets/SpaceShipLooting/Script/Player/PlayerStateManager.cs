@@ -8,7 +8,7 @@ public class PlayerStateManager : MonoBehaviour
 {
     // 싱글톤 부분은 추후 제거 필요
     public static PlayerStateManager Instance { get; private set; }
-    
+
     // 왼쪽 컨트롤러 조이스틱 값 받아오기 (New Input System 사용)
     public Vector2 MoveInput => moveProvider.leftHandMoveInput.ReadValue();
     // 스텔스 모드 활성화 여부 (true: 스텔스 모드, false: 일반 모드)
@@ -49,12 +49,13 @@ public class PlayerStateManager : MonoBehaviour
         PlayerTransform = this.transform;
 
     }
-    
+
     private void Start()
     {
         // Destructable 이벤트 구독
         Destructable destructable = GetComponent<Destructable>();
-        if (destructable != null) {
+        if (destructable != null)
+        {
             destructable.OnPlayerDestroyed.AddListener(HandlePlayerDeath);
         }
 
@@ -77,7 +78,7 @@ public class PlayerStateManager : MonoBehaviour
 
         // PlayerInputHandler 컴포넌트 참조 및 이벤트 연결
         playerInputHandler = GetComponent<PlayerInputHandler>();
-        if(playerInputHandler)
+        if (playerInputHandler)
         {
             // playerInputHandler의 OnStealthToggle에 ToggleStealthMode 메서드 연결
             playerInputHandler.OnStealthToggle.AddListener(ToggleStealthMode);
@@ -116,15 +117,15 @@ public class PlayerStateManager : MonoBehaviour
         }
 
         Destructable destructable = GetComponent<Destructable>();
-        if (destructable != null) 
+        if (destructable != null)
         {
             destructable.OnObjectDestroyed.RemoveListener(HandlePlayerDeath);
         }
     }
 
-    private void HandlePlayerDeath(GameObject player) 
+    private void HandlePlayerDeath(GameObject player)
     {
-        if (player.CompareTag("Player")) 
+        if (player.CompareTag("Player"))
         {
             Debug.Log("[PlayerStateManager] 플레이어가 사망했습니다.");
             ShowGameOverUI();
@@ -141,7 +142,7 @@ public class PlayerStateManager : MonoBehaviour
     // 상태 전환 메서드 (외부 사용 필요)
     public void SwitchState(IPlayerState newState)
     {
-        if(newState == currentState) return;
+        if (newState == currentState) return;
 
         // 현재 상태 종료
         currentState.ExitState(this);
@@ -157,7 +158,7 @@ public class PlayerStateManager : MonoBehaviour
         GameManager.Instance.PlayerStatsData.enableStealthMode = !GameManager.Instance.PlayerStatsData.enableStealthMode;
         // // 현재 스텔스 상태를 반대로 변경
         IsStealthMode = !IsStealthMode;
-        
+
         // // 외부에 스텔스 상태 변경 알림 (구독된 이벤트 호출) - 몬스터 Ai에 리스너 추가 필요
         OnStealthStateChanged?.Invoke(IsStealthMode);
 
@@ -171,22 +172,22 @@ public class PlayerStateManager : MonoBehaviour
         GameManager.Instance.PlayerStatsData.enableRunningMode = !GameManager.Instance.PlayerStatsData.enableRunningMode;
 
         IsRunningMode = !IsRunningMode;
-        
+
         OnRunningStateChanged?.Invoke(IsRunningMode);
 
         SwitchState(IsRunningMode ? new PlayerRunningState() : new PlayerIdleState());
     }
 
-    private void ShowGameOverUI() 
+    private void ShowGameOverUI()
     {
-        if (gameOverUI != null) 
+        if (gameOverUI != null)
         {
             gameOverUI.SetActive(true); // 게임오버 UI 활성화
-        } 
-        else 
+        }
+        else
         {
             Debug.LogError("GameOver UI가 설정되지 않았습니다!");
         }
     }
-    
+
 }

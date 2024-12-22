@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -46,8 +47,14 @@ public class Health : MonoBehaviour
             OnDamaged?.Invoke(previousHealth - CurrentHealth); // 데미지 이벤트 호출
         }
 
+        // Sfx
+        if (gameObject.CompareTag("Player"))
+        {
+            AudioManager.Instance.Play("PlayerDamage");
+        }
+
         // 데미지 UI
-        if(damageUi != null)
+        if (damageUi != null)
         {
             StartCoroutine(DamageUI());
         }

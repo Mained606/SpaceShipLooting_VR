@@ -8,6 +8,7 @@ public class PlayerWalkingState : IPlayerState
     {
         Debug.Log("Entering Walking State");
         manager.MoveProvider.moveSpeed = Speed;
+        AudioManager.Instance.Play("PlayerWalking");
     }
 
     public void UpdateState(PlayerStateManager manager)
@@ -17,7 +18,7 @@ public class PlayerWalkingState : IPlayerState
         {
             manager.SwitchState(new PlayerStealthState());
         }
-        
+
         if (manager.IsRunningMode)
         {
             manager.SwitchState(new PlayerRunningState());
@@ -32,5 +33,7 @@ public class PlayerWalkingState : IPlayerState
     public void ExitState(PlayerStateManager manager)
     {
         Debug.Log("Exiting Walking State");
+        AudioManager.Instance.Stop("PlayerWalking");
+
     }
 }

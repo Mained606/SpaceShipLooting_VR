@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2525154603413652083
 Transform:
   m_ObjectHideFlags: 0
@@ -56,6 +56,7 @@ MonoBehaviour:
     bulletlifeTime: 5
     pistolBulletSpeed: 70
     maxAmmo: 7
+    currentAmmo: 0
     knifeDamage: 5
     enableStealthMode: 0
     enableRunningMode: 0
@@ -83,6 +84,14 @@ PrefabInstance:
     - target: {fileID: 1026269307696014272, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
       propertyPath: m_Name
       value: SceneFader
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490982233280574106, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490982233280574106, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3057183247299172547, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
       propertyPath: m_LocalPosition.x
