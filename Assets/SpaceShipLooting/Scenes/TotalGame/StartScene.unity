@@ -449,6 +449,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4733110537125011022, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+      propertyPath: fader
+      value: 
+      objectReference: {fileID: 615727804}
     - target: {fileID: 6678383903670034676, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -792,6 +796,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!20 &859961929 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2485746393016487925, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+  m_PrefabInstance: {fileID: 96477821}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &931171698
 Transform:
   m_ObjectHideFlags: 0
@@ -3278,7 +3287,7 @@ PrefabInstance:
     - target: {fileID: 6141814268615545420, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 859961929}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
