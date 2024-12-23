@@ -75,14 +75,14 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PlayerRun
     clip: {fileID: 8300000, guid: 5f85d2277455d8e4884cc3bd58e6da95, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
     loop: 1
     BGM: 0
     source: {fileID: 0}
   - name: PlayerWalking
     clip: {fileID: 8300000, guid: 9b2ec321ef802b148a5762eebbee0f4d, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 0.6
     loop: 1
     BGM: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Boss1
     clip: {fileID: 8300000, guid: 5b7dd09cbbb31be4ab745072f6eb4ae4, type: 3}
-    volume: 1
+    volume: 0.8
     pitch: 1
     loop: 1
     BGM: 1
