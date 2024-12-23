@@ -517,22 +517,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor2
       objectReference: {fileID: 0}
-    - target: {fileID: 1510088905343246485, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1851517503610570657, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2160367689843045706, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3169222395393452895, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3431908866558723247, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -572,34 +556,6 @@ PrefabInstance:
     - target: {fileID: 3431908866558723247, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5108836983992922470, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312918187058523283, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248652759466481134, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6525290595659300115, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7474889551122485110, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8069016112768284345, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015470275255309759, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

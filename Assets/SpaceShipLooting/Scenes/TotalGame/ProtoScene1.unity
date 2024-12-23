@@ -545,42 +545,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 530270148420370849, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1238958447463369906, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: Tags.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1238958447463369906, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[0]'
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 1238958447463369906, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[1]'
-      value: Blade
-      objectReference: {fileID: 0}
-    - target: {fileID: 1425134514668541168, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 23800000, guid: 0a3edb6259550294891d90fe12aba64f, type: 2}
-    - target: {fileID: 1932548093554368900, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2785002498413335175, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: Tags.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2785002498413335175, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[0]'
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 2785002498413335175, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[1]'
-      value: Blade
-      objectReference: {fileID: 0}
     - target: {fileID: 2988659432202709674, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -621,101 +585,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4490135845860614132, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: Tags.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4490135845860614132, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[0]'
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 4490135845860614132, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[1]'
-      value: Blade
-      objectReference: {fileID: 0}
-    - target: {fileID: 4633389429730660839, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: Tags.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4633389429730660839, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[0]'
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 4633389429730660839, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[1]'
-      value: Blade
-      objectReference: {fileID: 0}
-    - target: {fileID: 5376150740218214185, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: Tags.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5376150740218214185, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[0]'
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 5376150740218214185, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[1]'
-      value: Blade
-      objectReference: {fileID: 0}
-    - target: {fileID: 5379330693366554014, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5379330693373156030, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_Intensity
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 5806919382178761128, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
       propertyPath: m_Name
       value: Floor1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6141849754954604236, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 20.698
-      objectReference: {fileID: 0}
-    - target: {fileID: 6433030610483407770, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: e8a8c51dd9a354242ab092ec84c402d1, type: 2}
-    - target: {fileID: 6643677166946106877, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: Tags.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6643677166946106877, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[0]'
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 6643677166946106877, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[1]'
-      value: Blade
-      objectReference: {fileID: 0}
-    - target: {fileID: 6661350603826827624, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: Tags.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6661350603826827624, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[0]'
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 6661350603826827624, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: 'Tags.Array.data[1]'
-      value: Blade
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677569710663497950, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782378740327037344, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782378740337770112, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782378740337770112, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      propertyPath: m_Intensity
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
