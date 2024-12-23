@@ -2293,6 +2293,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1410500894176503204, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -72
+      objectReference: {fileID: 0}
     - target: {fileID: 1869893185652292132, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -2399,6 +2403,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7423390136025976325, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
       propertyPath: m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7937735855597201168, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
+      propertyPath: m_text
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7937735855597201168, guid: 13670b0a2af74da40a4bedc0895c56d6, type: 3}
