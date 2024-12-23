@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DialogueTrigger1 : MonoBehaviour
+public class DialogueTrigger3 : MonoBehaviour
 {
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -10,7 +10,7 @@ public class DialogueTrigger1 : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        JsonTextManager.instance.OnDialogue("stage1-3");
+        JsonTextManager.instance.OnDialogue("stage1-5");
         this.gameObject.SetActive(false);
     }
 

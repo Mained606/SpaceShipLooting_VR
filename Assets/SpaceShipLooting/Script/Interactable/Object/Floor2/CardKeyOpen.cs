@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class IntercomInteraction : MonoBehaviour
@@ -21,6 +22,14 @@ public class IntercomInteraction : MonoBehaviour
         {
             Debug.Log("Card tapped on intercom. Triggering animation...");
             anim.SetTrigger("Open");
+            StartCoroutine(FindGo());
         }
     }
+
+    IEnumerator FindGo()
+    {
+        yield return new WaitForSeconds(3f);
+        JsonTextManager.instance.OnDialogue("stage2-7");
+    }
+
 }

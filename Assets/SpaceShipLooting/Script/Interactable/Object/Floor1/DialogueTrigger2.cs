@@ -1,17 +1,18 @@
 using UnityEngine;
 
-public class ShitDown : MonoBehaviour
+public class DialogueTrigger2 : MonoBehaviour
 {
-    private Collider col;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        col = GetComponent<Collider>();
+        
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        JsonTextManager.instance.OnDialogue("stage1-9");
+        JsonTextManager.instance.OnDialogue("stage1-4");
         this.gameObject.SetActive(false);
     }
+
+
 }
