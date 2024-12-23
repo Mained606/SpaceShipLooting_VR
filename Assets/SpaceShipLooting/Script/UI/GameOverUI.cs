@@ -19,7 +19,7 @@ public class GameOverUI : MonoBehaviour
         if (lastScene > 0 && lastScene < SceneManager.sceneCountInBuildSettings) 
         {
             Health health = GetComponentInParent<Health>();
-            health.maxHealth = 10f;
+            health.CurrentHealth = 10f;
             fader.FadeTo(lastScene); // 마지막 저장된 씬으로 이동
         } 
         else 
