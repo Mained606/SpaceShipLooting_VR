@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6027585791874996563, guid: d07665c52a4936249807a4d413f3c4fd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7440678034720245842, guid: d07665c52a4936249807a4d413f3c4fd, type: 3}
       propertyPath: m_Name
       value: KeyPadUI

@@ -1,10 +1,10 @@
 # ninja log v5
-16	1983	7563012031170875	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	15be233cdc742122
-11	2038	7563012031878985	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	b3916d45bcb442aa
-34	2039	7563012032188159	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	f9b722b0dd7fdfbf
-48	2144	7563012033352412	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f6cd98abe2d853a9
-22	2155	7563012033472086	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	4094d4e4e6af785d
-0	2241	7563012034405754	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	de5240f01157bbac
-28	2391	7563012035945233	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	5a8caa88220f5b9
-6	2522	7563012037241963	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	b4e8934ba646f2e0
-2523	2886	7563012040704191	D:/Project/SpaceShipLooting/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/665z24y6/obj/arm64-v8a/libgame.so	7389ad0a8115cf1d
+29	2207	7566243065045689	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	15be233cdc742122
+59	2368	7566243066389539	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	f9b722b0dd7fdfbf
+8	2369	7566243066476745	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	b3916d45bcb442aa
+21	2463	7566243067665405	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	4094d4e4e6af785d
+51	2593	7566243068953022	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f6cd98abe2d853a9
+14	2703	7566243070110996	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	de5240f01157bbac
+40	2979	7566243072794417	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	5a8caa88220f5b9
+1	3142	7566243074528610	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	b4e8934ba646f2e0
+3142	3318	7566243076346674	D:/Project/SpaceShipLooting/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/665z24y6/obj/arm64-v8a/libgame.so	7389ad0a8115cf1d
