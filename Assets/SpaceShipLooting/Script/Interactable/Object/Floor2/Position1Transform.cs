@@ -36,6 +36,7 @@ public class Position1Transform : MonoBehaviour
         {
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
+            JsonTextManager.instance.OnDialogue("stage1-1");
         }
     }
 }
