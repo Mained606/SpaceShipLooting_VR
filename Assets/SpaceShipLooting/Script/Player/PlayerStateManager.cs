@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
@@ -52,6 +53,11 @@ public class PlayerStateManager : MonoBehaviour
 
     private void Start()
     {
+        GameOverEvent gameOverEvent = GetComponentInChildren<GameOverEvent>();
+        if (gameOverEvent != null)
+        {
+            gameOverEvent.PlayerDataInit.AddListener(PlayerDataInit);
+        }
         // Destructable 이벤트 구독
         Destructable destructable = GetComponent<Destructable>();
         if (destructable != null)
@@ -106,6 +112,32 @@ public class PlayerStateManager : MonoBehaviour
         currentState.EnterState(this);
     }
 
+    // 재도전시 플레이어 데이터 초기화
+    private void PlayerDataInit()
+    {
+        StartCoroutine(PlayerDataReset());
+    }
+    private IEnumerator PlayerDataReset()
+    {
+        yield return new WaitForSeconds(2f);
+        Debug.Log("플레이어 초기화 스타트");
+        Health health = GetComponentInChildren<Health>();
+        health.isDead = false;
+        health.CurrentHealth = health.maxHealth;
+        GameManager.Instance.PlayerStatsData.currentAmmo = 0;
+        GameManager.Instance.PlayerStatsData.maxAmmo = 7;
+        Pistol pistol = Object.FindFirstObjectByType<Pistol>();
+        if (pistol != null)
+        {
+            pistol.ResetAmmo();
+        }
+        else
+        {
+            Debug.LogWarning("Pistol 오브젝트를 찾을 수 없습니다.");
+        }
+        Debug.Log("플레이어 초기화 종료");
+    }
+
     // 플레이어 입력 핸들러에서 이벤트 리스너 제거 함수 (메모리 누수 방지)
     private void OnDestroy()
     {
@@ -120,6 +152,12 @@ public class PlayerStateManager : MonoBehaviour
         if (destructable != null)
         {
             destructable.OnObjectDestroyed.RemoveListener(HandlePlayerDeath);
+        }
+
+        GameOverEvent gameOverEvent = GetComponentInChildren<GameOverEvent>();
+        if (gameOverEvent != null)
+        {
+            gameOverEvent.PlayerDataInit.AddListener(PlayerDataInit);
         }
     }
 

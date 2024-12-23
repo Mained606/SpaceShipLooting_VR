@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 151749356014442722, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.66
+      value: -0.166
       objectReference: {fileID: 0}
     - target: {fileID: 151749356014442722, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_LocalRotation.w
@@ -449,11 +449,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 694640579033400244, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4733110537125011022, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+    - target: {fileID: 1068931425708927641, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: fader
       value: 
       objectReference: {fileID: 615727804}

@@ -226,4 +226,10 @@ public class Pistol : XRGrabInteractableOutline
         GameManager.Instance.PlayerStatsData.currentAmmo = ammocount;
         base.OnDestroy();
     }
+
+    public void ResetAmmo()
+    {
+        ammocount = 0;
+    }
+
 }
