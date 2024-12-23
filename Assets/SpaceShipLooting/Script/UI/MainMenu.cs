@@ -6,34 +6,55 @@ public class MainMenu : MonoBehaviour
 {
     public SceneFader fader;
     [SerializeField] private string loadToScene = "SceneName";
+    private bool flag = false;
 
     public void StartGame()
     {
-        Debug.Log("bibibig");
-        AudioManager.Instance.Play("Button");
-        fader.FadeTo(loadToScene);
+        if (!flag)
+        {
+            flag = true;
+            Debug.Log("Starting game...");
+            AudioManager.Instance.Play("Button");
+            fader.FadeTo(loadToScene);
+            Invoke(nameof(ResetFlag), 1.5f);
+        }
     }
 
     public void Option()
     {
-        AudioManager.Instance.Play("Button");
-        Debug.Log("Option Game");
+        if (!flag)
+        {
+            flag = true;
+            AudioManager.Instance.Play("Button");
+            Debug.Log("Option Game");
+            Invoke(nameof(ResetFlag), 0.5f);
+        }
     }
 
-    public void LoadGame() 
+    public void LoadGame()
     {
-        AudioManager.Instance.Play("Button");
-        // 마지막 씬 정보 불러오기
-        int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
+        if (!flag)
+        {
+            flag = true;
+            AudioManager.Instance.Play("Button");
 
-        if (lastScene > 0 && lastScene < SceneManager.sceneCountInBuildSettings) 
-        {
-            fader.FadeTo(lastScene); // 마지막 저장된 씬으로 이동
-        } 
-        else 
-        {
-            Debug.LogWarning("저장된 데이터가 없습니다.");
-            // fader.FadeTo(1); // 기본적으로 1번 씬으로 이동
+            int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
+            if (lastScene > 0 && lastScene < SceneManager.sceneCountInBuildSettings)
+            {
+                fader.FadeTo(lastScene);
+                Invoke(nameof(ResetFlag), 1.5f);
+            }
+            else
+            {
+                Debug.LogWarning("No saved data found.");
+                Invoke(nameof(ResetFlag), 0.5f); 
+            }
         }
+    }
+
+    // 플래그 리셋
+    private void ResetFlag()
+    {
+        flag = false;
     }
 }

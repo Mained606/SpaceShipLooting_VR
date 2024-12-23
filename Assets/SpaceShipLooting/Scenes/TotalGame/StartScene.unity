@@ -449,6 +449,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 694640579033400244, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4733110537125011022, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: fader
       value: 

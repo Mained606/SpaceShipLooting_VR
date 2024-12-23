@@ -28,9 +28,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         LoadClearedSceneData();
         // 씬 전환 이벤트 등록
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDestroy()
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerStatsData.lastClearedScene = SceneManager.GetActiveScene().buildIndex;
         SaveLoad.SaveData(playerStatsData);
+        Debug.Log(PlayerStatsData.ToString());
     }
 
     // 저장된 씬 데이터를 불러오기
@@ -66,4 +68,5 @@ public class GameManager : MonoBehaviour
             playerStatsData.maxAmmo = defaultAmmoCount;
         }
     }
+    
 }

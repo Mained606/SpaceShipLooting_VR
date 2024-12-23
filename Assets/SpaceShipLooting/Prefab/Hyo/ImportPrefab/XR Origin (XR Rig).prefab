@@ -9679,6 +9679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  isDead: 0
   isInvincible: 0
   damageUi: {fileID: 5073698693156952188}
 --- !u!114 &2100191744551575657
@@ -13245,7 +13246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6061549047104197609, guid: b9bb99c36dc5dfa41bdd2eeea4b4b235, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.58
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6061549047104197609, guid: b9bb99c36dc5dfa41bdd2eeea4b4b235, type: 3}
       propertyPath: m_LocalRotation.w

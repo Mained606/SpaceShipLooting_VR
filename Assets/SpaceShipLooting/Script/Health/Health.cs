@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,7 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] public float maxHealth = 100f;    // 최대 체력
     public float CurrentHealth { get; set; }    // 현재 체력
 
-    private bool isDead = false;                       //죽음 체크
+    public bool isDead = false;                       //죽음 체크
     [SerializeField] private bool isInvincible;                           // 무적 상태
     public bool IsInvincible
     {

@@ -43,4 +43,25 @@ public class PlayerStatsData
         maxAmmo -= amount;
     }
 
+        // ToString override
+    public override string ToString()
+    {
+        return $"Scene Settings:\n" +
+               $"  Last Cleared Scene: {lastClearedScene}\n" +
+               $"Speed Settings:\n" +
+               $"  Walking Speed: {walkingSpeed}\n" +
+               $"  Running Speed: {runningSpeed}\n" +
+               $"  Stealth Speed: {stealthSpeed}\n" +
+               $"Pistol Settings:\n" +
+               $"  Bullet Damage: {bulletDamage}\n" +
+               $"  Bullet Lifetime: {bulletlifeTime}\n" +
+               $"  Pistol Bullet Speed: {pistolBulletSpeed}\n" +
+               $"  Max Ammo: {maxAmmo}\n" +
+               $"  Current Ammo: {currentAmmo}\n" +
+               $"Knife Settings:\n" +
+               $"  Knife Damage: {knifeDamage}\n" +
+               $"Player State Settings:\n" +
+               $"  Enable Stealth Mode: {enableStealthMode}\n" +
+               $"  Enable Running Mode: {enableRunningMode}";
+    }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,10 +6,12 @@ public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private SceneFader fader;
     [SerializeField] private string loadToScene = "SceneName";
+    private Health health;
 
     private void OnEnable()
     {
         Time.timeScale = 0;
+        health = GetComponentInParent<Health>();
     }
 
     public void ReTry()
@@ -18,9 +21,8 @@ public class GameOverUI : MonoBehaviour
 
         if (lastScene > 0 && lastScene < SceneManager.sceneCountInBuildSettings) 
         {
-            Health health = GetComponentInParent<Health>();
-            health.CurrentHealth = 10f;
             fader.FadeTo(lastScene); // 마지막 저장된 씬으로 이동
+            ResetIsDaed();
         } 
         else 
         {
@@ -36,6 +38,16 @@ public class GameOverUI : MonoBehaviour
         // fader.FadeTo(loadToScene);
         // gameObject.SetActive(false);
         Application.Quit();
+    }
+
+    private IEnumerator ResetIsDaed()
+    {
+        yield return new WaitForSeconds(2f);
+        
+        health.isDead = false;
+        health.CurrentHealth = health.maxHealth;
+        GameManager.Instance.PlayerStatsData.currentAmmo = 0;
+        GameManager.Instance.PlayerStatsData.maxAmmo = 7;
     }
 
 }
