@@ -84,10 +84,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             hasItem = true;
         }
-        if(enemyData.audioManager == null)
-        {
-            Debug.LogWarning("Enemy audioManager Missing");
-        }
 
         SetPatrolBehavior();
         SetChaseBehavior();
@@ -450,6 +446,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Attack()   // 애니메이션 프레임에 적용하는 함수
     {
+        AudioManager.Instance.Play("EnemyShot");
         targetDamageable.InflictDamage(enemyData.attackDamage);
     }
 
@@ -461,6 +458,7 @@ public class EnemyBehaviour : MonoBehaviour
         enemyData.SetState(EnemyState.E_Death);
         isDeath = true;
         _collider.enabled = false;
+        AudioManager.Instance.Play("EnemyKill");
         if (hasItem)
         {
             DropItem();
@@ -471,6 +469,10 @@ public class EnemyBehaviour : MonoBehaviour
     private void DropItem()
     {
         Instantiate(enemyData.item, agent.transform.position, Quaternion.identity);
+        if (enemyData.item.ToString() == "Card_Key")
+        {
+            AudioManager.Instance.Play("KeyCard");
+        }
         Debug.Log("Item dropped!");
     }
 

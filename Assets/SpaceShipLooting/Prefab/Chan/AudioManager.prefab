@@ -116,8 +116,8 @@ MonoBehaviour:
     loop: 0
     BGM: 0
     source: {fileID: 0}
-  - name: KeyCard
-    clip: {fileID: 8300000, guid: 8c0ec469cc31b6f48b5adbc6a92e6e68, type: 3}
+  - name: EnemyShot
+    clip: {fileID: 8300000, guid: 4666a6c1ea076304da37871c7229224b, type: 3}
     volume: 1
     pitch: 1
     loop: 0

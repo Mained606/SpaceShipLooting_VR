@@ -60,8 +60,10 @@ public class RandomPatrol : EnemyPatrol
                 isVaildPoint = true;
                 animator.SetBool("IsPatrol", true);
                 agent.SetDestination(destination);
+                AudioManager.Instance.Play("EnemyWalk");
                 if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
                 {
+                    AudioManager.Instance.Stop("EnemyWalk");
                     isLookAround = true;
                     agent.enabled = false;
                     isEnter = false;

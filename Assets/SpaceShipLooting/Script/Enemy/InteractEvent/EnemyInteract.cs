@@ -23,7 +23,6 @@ public abstract class EnemyInteract
             {
                 destination = _enemy.enemyData.enemyInteractData.interactPosition.position;
             }
-            Debug.Log($"destination : {destination}");
         }
     }
 

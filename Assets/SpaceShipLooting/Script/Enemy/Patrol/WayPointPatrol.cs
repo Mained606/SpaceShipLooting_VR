@@ -26,11 +26,13 @@ public class WayPointPatrol : EnemyPatrol
         {
             isLookAround = true;
             agent.enabled = false;
+            AudioManager.Instance.Stop("EnemyWalk");
         }
         else
         {
             animator.SetBool("IsPatrol", true);
             isLookAround = false;
+            AudioManager.Instance.Play("EnemyWalk");
         }
         return isLookAround;
     }

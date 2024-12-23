@@ -18,10 +18,14 @@ public class AggressiveChase : EnemyChase
         {
             if (distance <= enemyData.deadZone)
             {
-                Debug.Log("플레이어 잡힙(즉사)");
-                targetDamageable.InflictDamage(100f);
+                if (!isPlayerDeath)
+                {
+                    targetDamageable.InflictDamage(100f);
+                    isPlayerDeath = true;
+                }
             }
             chaseTimer += Time.deltaTime;
+            AudioManager.Instance.Play("EnemyWalk");
             animator.SetBool("IsAttack", false);
             animator.SetBool("IsChase", true);
             agent.enabled = true;
@@ -30,6 +34,7 @@ public class AggressiveChase : EnemyChase
             if (chaseTimer >= enemyData.chaseInterval)
             {
                 chaseTimer = 0f;
+                AudioManager.Instance.Stop("EnemyWalk");
                 animator.SetBool("IsChase", false);
                 enemyData.SetState(EnemyState.E_Attack);
             }
