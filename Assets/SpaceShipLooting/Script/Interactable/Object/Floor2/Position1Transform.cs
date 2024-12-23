@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Position1Transform : MonoBehaviour
@@ -36,6 +37,11 @@ public class Position1Transform : MonoBehaviour
         {
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
+            StartCoroutine(Dialogue());
+        }
+        IEnumerator Dialogue()
+        {
+            yield return new WaitForSeconds(2f);
             JsonTextManager.instance.OnDialogue("stage1-1");
         }
     }

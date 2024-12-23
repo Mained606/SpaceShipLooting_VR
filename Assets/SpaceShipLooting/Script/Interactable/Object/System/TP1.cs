@@ -33,6 +33,7 @@ public class TP1 : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+
      fader.FadeTo(loadToScene);
     }
 }

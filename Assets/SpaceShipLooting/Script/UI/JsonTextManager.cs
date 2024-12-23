@@ -42,7 +42,7 @@ public class JsonTextManager : MonoBehaviour
         foreach (var playDesc in stringDesc)
         {
             text.text = playDesc;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }
 
         text.text = "";

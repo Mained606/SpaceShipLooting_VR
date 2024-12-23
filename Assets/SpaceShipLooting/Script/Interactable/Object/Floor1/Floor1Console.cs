@@ -51,6 +51,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         else
         {
             Sender(false); // Success 체크되지 않은 경우, consoleFalse 호출
+            JsonTextManager.instance.OnDialogue("stage1-6");
             Debug.Log("페일 발사");
             Fcount++;
             if (Fcount >= 2)
