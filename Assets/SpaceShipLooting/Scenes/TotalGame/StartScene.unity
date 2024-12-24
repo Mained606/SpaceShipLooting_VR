@@ -1255,22 +1255,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2615656767528198134, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: InteractSounds.Array.data[1].name
-      value: Consoleldle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: InteractSounds.Array.data[3].pitch
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635006621951471336, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
-      propertyPath: InteractSounds.Array.data[15].pitch
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7916631410547507249, guid: e47ed4e840af7ac449bee5158c9fef82, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

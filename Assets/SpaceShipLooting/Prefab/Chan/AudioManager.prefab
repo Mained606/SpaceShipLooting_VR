@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7916631410547507249
 Transform:
   m_ObjectHideFlags: 0
@@ -96,14 +96,7 @@ MonoBehaviour:
     loop: 0
     BGM: 0
     source: {fileID: 0}
-  - name: Consolldle
-    clip: {fileID: 8300000, guid: 4c57c83aa37714f4a97da5daae64fb50, type: 3}
-    volume: 0.47
-    pitch: 1
-    loop: 1
-    BGM: 0
-    source: {fileID: 0}
-  - name: F1Correct
+  - name: Consoleldle
     clip: {fileID: 8300000, guid: f2324636fe7c0ea4fbe980cf05209fa0, type: 3}
     volume: 1
     pitch: 1
@@ -120,7 +113,7 @@ MonoBehaviour:
   - name: Teleport
     clip: {fileID: 8300000, guid: 426a0c9bc95f1dc43a4db557179e246f, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 0.5
     loop: 0
     BGM: 0
     source: {fileID: 0}
@@ -204,7 +197,7 @@ MonoBehaviour:
   - name: DoorOpen__
     clip: {fileID: 8300000, guid: 6ba2c10954781cb4684bb831cce53c62, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 0.5
     loop: 0
     BGM: 0
     source: {fileID: 0}

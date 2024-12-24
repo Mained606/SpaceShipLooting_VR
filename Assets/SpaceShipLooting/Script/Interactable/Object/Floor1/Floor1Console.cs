@@ -7,6 +7,8 @@ public class Floor1Console : MonoBehaviour, ISignal
     public static UnityEvent<bool> consoleCheck = new UnityEvent<bool>();
     public static UnityEvent<bool> consoleFalse = new UnityEvent<bool>();
 
+    public AudioSource zizik;
+
     private int Scount = 0;
     private int Fcount = 0;
 
@@ -76,7 +78,7 @@ public class Floor1Console : MonoBehaviour, ISignal
             {
                 ps.Play();
             }
-            AudioManager.Instance.Play("Consolldle");
+            zizik.Play(1);
         }
 
         // 렌더러 색상 변경
