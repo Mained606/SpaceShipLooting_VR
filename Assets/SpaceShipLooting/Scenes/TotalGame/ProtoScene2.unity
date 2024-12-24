@@ -825,6 +825,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 479101711804159371, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.91
+      objectReference: {fileID: 0}
     - target: {fileID: 1123110382944533464, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       propertyPath: m_Name
       value: Floor2
@@ -1128,6 +1132,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7511150927005542816, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
+    - {fileID: 479101711803857323, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6674959937186759733, guid: e59f525f2d94ffb41be9f0e96d32d02a, type: 3}
       insertIndex: -1
