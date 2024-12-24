@@ -730,7 +730,7 @@ PrefabInstance:
       objectReference: {fileID: 1660451641657656974, guid: 2db93f4709b10684eb3e468bbd2a0165, type: 3}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.health
-      value: 100
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.deadZone
@@ -738,7 +738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.runPerceptionRange
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: interActEventData.interActType
@@ -746,7 +746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.stealthPerceptionRange
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.enemyInteractData.interactType
@@ -832,11 +832,15 @@ PrefabInstance:
       objectReference: {fileID: 1660451641657656974, guid: 2db93f4709b10684eb3e468bbd2a0165, type: 3}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.health
-      value: 100
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.deadZone
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.attackDamage
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.runPerceptionRange
@@ -934,11 +938,15 @@ PrefabInstance:
       objectReference: {fileID: 1660451641657656974, guid: 2db93f4709b10684eb3e468bbd2a0165, type: 3}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.health
-      value: 100
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.deadZone
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.attackDamage
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.runPerceptionRange
@@ -1036,11 +1044,15 @@ PrefabInstance:
       objectReference: {fileID: 5937236750047260190, guid: dc99ac0843b5c654299e367e48f3dabe, type: 3}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.health
-      value: 100
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.deadZone
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
+      propertyPath: enemyData.attackDamage
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6766281728557922974, guid: dae9846ddfdb7b348b0fbbef5757bfcd, type: 3}
       propertyPath: enemyData.enemyPatrolType

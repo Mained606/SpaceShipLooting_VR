@@ -143,13 +143,11 @@ public class EnemyBehaviour : MonoBehaviour
                 CheckForTargetOnChase();
                 if (isPlayerVisible)
                 {
-                    Debug.LogError("E_Attack에서 isPlayerVisible true");
                     animator.SetBool("IsAttack", true);
                     AttackingWait();
                 }
                 else
                 {
-                    Debug.LogError("E_Attack에서 isPlayerVisible false");
                     enemyData.SetState(EnemyState.E_Chase);
                 }
                 break;
@@ -244,13 +242,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void ConsoleFalse(bool isEventOn)
     {
-        Debug.Log("ConsoleFalse");
         if (falseCount == 0)
         {
             falseCount++;
             if (enemyData.enemyInteractData.interactType == InteractType.Dispatch)
             {
-                Debug.Log("Dispatch");
                 enemyData.isInteracting = !isEventOn;
             }
         }
@@ -259,7 +255,6 @@ public class EnemyBehaviour : MonoBehaviour
             falseCount = 0;
             if(enemyData.enemyInteractData.interactType == InteractType.BusterCall)
             {
-                Debug.Log("BusterCall");
                 enemyData.isInteracting = !isEventOn;
             }
         }
@@ -290,7 +285,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             //Debug.Log("no wayPoints");
         }
-        Debug.Log($"SpawnType : {spawnType}");
     }
 
     void LookAround()
@@ -344,7 +338,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (isPlayerRunning == true)   // Player Running Check
             {
-                Debug.Log("Player Running Perception");
                 enemyData.SetState(EnemyState.E_Chase);
             }
         }
@@ -356,7 +349,6 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 int hitLayer = hit.collider.gameObject.layer;   // Obstacle
 
-                Debug.Log("레이가 맞은 오브젝트의 레이어: " + hitLayer);
                 if (hitLayer == 11)                     // 움직임 감지 범위 안엔 있지만 장애물 뒤에 숨은 경우
                 {
                     isPlayerVisible = false;
@@ -390,7 +382,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             int hitLayer = hit.collider.gameObject.layer;   // Obstacle
 
-            Debug.Log("레이가 맞은 오브젝트의 레이어: " + hitLayer);
             if (hitLayer == 11)                     // 움직임 감지 범위 안엔 있지만 장애물 뒤에 숨은 경우
             {
                 isPlayerVisible = false;
@@ -433,7 +424,6 @@ public class EnemyBehaviour : MonoBehaviour
     private void AttackingWait()    // AttackTime 기다리는 용도
     {
         attackTimer += Time.deltaTime;
-        Debug.Log("Waiting");
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
         agent.enabled = false;
