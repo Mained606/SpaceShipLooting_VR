@@ -453,22 +453,6 @@ PrefabInstance:
       propertyPath: fader
       value: 
       objectReference: {fileID: 615727804}
-    - target: {fileID: 5242753369873694864, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: ec394eadc180eb84aacbcf794a8ec711, type: 2}
-    - target: {fileID: 5242753369873694864, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -3990275206627509845, guid: ec394eadc180eb84aacbcf794a8ec711, type: 2}
-    - target: {fileID: 5242753369873694864, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6262505320661640929, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6678383903670034676, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)

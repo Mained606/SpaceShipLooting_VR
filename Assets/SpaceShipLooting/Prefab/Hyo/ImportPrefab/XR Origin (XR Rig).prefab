@@ -8510,8 +8510,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD30C\uB780\uACF0\uC774 \uAC00\uBC29\uC5D0\uC11C \uCDA4\uC744\uCD98\uB2E4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8d459ace1efe4c4489789a29da367d9d, type: 2}
-  m_sharedMaterial: {fileID: -8768552487236083702, guid: 8d459ace1efe4c4489789a29da367d9d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ec394eadc180eb84aacbcf794a8ec711, type: 2}
+  m_sharedMaterial: {fileID: -3990275206627509845, guid: ec394eadc180eb84aacbcf794a8ec711, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12257,6 +12257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Device Simulator
       objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12331,6 +12335,14 @@ PrefabInstance:
       propertyPath: m_LocomotionVignetteProviders.Array.data[1].m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8429981633443581383, guid: 6c8af5c8012f01440af6cb2bc3eb987c, type: 3}
+      propertyPath: m_LocomotionVignetteProviders.Array.data[0].m_LocomotionProvider
+      value: 
+      objectReference: {fileID: 2576843875638034915}
+    - target: {fileID: 8429981633443581383, guid: 6c8af5c8012f01440af6cb2bc3eb987c, type: 3}
+      propertyPath: m_LocomotionVignetteProviders.Array.data[1].m_LocomotionProvider
+      value: 
+      objectReference: {fileID: 6462235403536343251}
     - target: {fileID: 8429981633443581383, guid: 6c8af5c8012f01440af6cb2bc3eb987c, type: 3}
       propertyPath: m_LocomotionVignetteProviders.Array.data[0].m_OverrideDefaultParameters
       value: 0
