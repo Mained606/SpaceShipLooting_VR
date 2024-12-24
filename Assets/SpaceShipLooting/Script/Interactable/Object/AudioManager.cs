@@ -68,9 +68,7 @@ public class AudioManager : MonoBehaviour
         InitailizeAudioSource();
         InitailizeMusicSource();
         _UsedClip = new List<AudioClipInfo>();
-        Invoke(nameof(PlayMainMusic), 1f);
     }
-
     private void Update()
     {
         PlayingCheck();
@@ -106,16 +104,16 @@ public class AudioManager : MonoBehaviour
             // 기본 사운드 설정
             audioSource.playOnAwake = false;         // 자동 재생 비활성화
             audioSource.loop = false;                // 반복 재생 활성화
-            audioSource.volume = 0.8f;              // 기본 볼륨 설정
+            audioSource.volume = 1f;              // 기본 볼륨 설정
             audioSource.pitch = 1f;                 // 기본 음높이 설정
-            audioSource.spatialBlend = 1f;          // 3D 사운드로 설정 (0 = 2D, 1 = 3D)
-            audioSource.dopplerLevel = 1f;          // 도플러 효과 기본값
-            audioSource.spread = 0f;                // 소리의 확산 각도 (0: 집중, 360: 전방위)
+            //audioSource.spatialBlend = 1f;          // 3D 사운드로 설정 (0 = 2D, 1 = 3D)
+            //audioSource.dopplerLevel = 1f;          // 도플러 효과 기본값
+           // audioSource.spread = 0f;                // 소리의 확산 각도 (0: 집중, 360: 전방위)
 
             // Rolloff 설정 (Logarithmic Rolloff 권장)
-            audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+            // audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
             audioSource.minDistance = 1f;           // 최대 음량이 들리는 최소 거리
-            audioSource.maxDistance = 500f;         // 소리가 완전히 사라지는 최대 거리
+            audioSource.maxDistance = 20f;         // 소리가 완전히 사라지는 최대 거리
 
             // 출력 경로 설정 (Audio Mixer 연결)
             // Mixer는 사전에 Unity Editor에서 설정된 Audio Mixer Group이어야 함
@@ -242,7 +240,7 @@ public class AudioManager : MonoBehaviour
         {
             if (_AudioClip[i].name == name)
             {
-                PlayClip(_AudioClip[i], 1f);
+                //PlayClip(_AudioClip[i], 1f);
                 AudioClipInfo newUsed = new AudioClipInfo
                 {
                     audioSource = GetAvailableSource(),
@@ -251,7 +249,7 @@ public class AudioManager : MonoBehaviour
                 };
                 newUsed.audioSource.clip = _AudioClip[i];
                 newUsed.audioSource.pitch = 1f;  // 재생 속도 설정
-                newUsed.audioSource.priority = 100;
+                newUsed.audioSource.priority = 128;
                 newUsed.audioSource.loop = loop ? true : false;
                 newUsed.audioSource.Play();  // 오디오 소스 재생
                 _UsedClip.Add(newUsed);  // 재생 중인 클립 목록에 추가
