@@ -22,6 +22,7 @@ public class IntercomInteraction : MonoBehaviour
         {
             Debug.Log("Card tapped on intercom. Triggering animation...");
             anim.SetTrigger("Open");
+            AudioManager.Instance.Play("DoorOpen_");
             StartCoroutine(FindGo());
         }
     }

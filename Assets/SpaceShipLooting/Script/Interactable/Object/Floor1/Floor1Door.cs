@@ -19,6 +19,7 @@ public class Floor1Door : XRSimpleInteractableOutline
     {
         base.OnSelectEntered(args);
         anim.SetTrigger("Open");
+        AudioManager.Instance.Play("DoorOpen_");
         col.enabled = false;
     }
 

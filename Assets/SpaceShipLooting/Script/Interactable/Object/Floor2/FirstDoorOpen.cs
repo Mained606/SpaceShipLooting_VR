@@ -29,6 +29,7 @@ public class FirstDoorOpen : XRSimpleInteractableOutline, ISignal
         {
             base.OnSelectEntered(args);
             anim.SetTrigger("Open");
+            AudioManager.Instance.Play("DoorOpen_");
         }
     }
     public void Sender(bool state) { }

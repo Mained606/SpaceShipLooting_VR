@@ -34,5 +34,6 @@ public class smallroom_DoorOepen : XRSimpleInteractableOutline
         base.OnSelectEntered(args);
 
         anim.SetTrigger("Open");
+        AudioManager.Instance.Play("DoorOpen_");
     }
 }

@@ -29,6 +29,7 @@ public class Third : MonoBehaviour, ISignal
         if (state == true)
         {
             anim.SetTrigger("Open");
+            AudioManager.Instance.Play("DoorOpen_");
         }
     }
 

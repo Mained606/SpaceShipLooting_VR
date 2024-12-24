@@ -19,6 +19,7 @@ public class ConsoleDoor : XRSimpleInteractableOutline, ISignal
     {
         base.OnSelectEntered(args);
         anim.SetTrigger("Open");
+        AudioManager.Instance.Play("DoorOpen_");
     }
 
     public void Sender(bool state) { }
@@ -32,6 +33,7 @@ public class ConsoleDoor : XRSimpleInteractableOutline, ISignal
             if (falseCount >= 2)
             {
                 anim.SetTrigger("Close");
+                AudioManager.Instance.Play("DoorOpen_");
                 Debug.Log("문 닫힘");
             }
         }
