@@ -64,6 +64,10 @@ public class EnemyData
         {
             audioSource.pitch = 1.5f;
         }
+        else if(audioSource.clip == EnemyShot)
+        {
+            audioSource.pitch = 2f;
+        }
         else
         {
             audioSource.pitch = 1.0f;

@@ -12,6 +12,7 @@ public abstract class EnemyChase
     protected Transform target;
     protected float distance = 0f;
     protected bool isPlayerDeath = false;
+    private bool isSoundPlay = false;
 
     public virtual void Initialize(EnemyBehaviour _enemy)
     {
@@ -31,8 +32,11 @@ public abstract class EnemyChase
 
     public virtual void FirstEncounter(NavMeshAgent agent)
     {
-
-        enemyData.SoundPlay(enemyData.EnemyFirstEncounter);
+        if (!isSoundPlay)
+        {
+            enemyData.SoundPlay(enemyData.EnemyFirstEncounter);
+            isSoundPlay = true;
+        }
         encounterTimer += Time.deltaTime;
         enemyData.targetEncounterUI.SetActive(true);
         animator.SetBool("IsPatrol", false);

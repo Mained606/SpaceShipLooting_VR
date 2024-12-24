@@ -25,7 +25,6 @@ public class AggressiveChase : EnemyChase
                 }
             }
             chaseTimer += Time.deltaTime;
-            AudioManager.Instance.Play("EnemyWalk");
             enemyData.SoundPlay(enemyData.EnemyChase);
             animator.SetBool("IsAttack", false);
             animator.SetBool("IsChase", true);
