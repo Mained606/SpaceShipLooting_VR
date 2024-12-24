@@ -37,6 +37,6 @@ public class GameOverUI : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit();
+        fader.FadeTo(1);
     }
 }
