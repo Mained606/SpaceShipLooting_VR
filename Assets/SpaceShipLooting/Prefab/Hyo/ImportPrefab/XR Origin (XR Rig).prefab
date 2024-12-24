@@ -8508,7 +8508,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD30C\uB780\uACF0\uC774 \uAC00\uBC29\uC5D0\uC11C \uCDA4\uC744\uCD98\uB2E4"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec394eadc180eb84aacbcf794a8ec711, type: 2}
   m_sharedMaterial: {fileID: -3990275206627509845, guid: ec394eadc180eb84aacbcf794a8ec711, type: 2}
@@ -9928,8 +9928,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nightVisionCanvas: {fileID: 8310810721659305453}
-  leftPanel: {fileID: 0}
-  rightPanel: {fileID: 0}
+  leftPanel: {fileID: 221023507189704603}
+  rightPanel: {fileID: 2677691948837518756}
 --- !u!1 &6763052716743929020
 GameObject:
   m_ObjectHideFlags: 0
