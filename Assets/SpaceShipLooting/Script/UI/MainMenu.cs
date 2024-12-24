@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
     public SceneFader fader;
     [SerializeField] private string loadToScene = "SceneName";
     private bool flag = false;
+    private Button button;
 
     private void Start()
     {
@@ -31,6 +32,14 @@ public class MainMenu : MonoBehaviour
                 Debug.LogError("GameManager not found in the scene.");
             }
         }
+        button = GetComponent<Button>();
+
+        int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
+        if(lastScene == 1)
+        {
+            button.interactable = false;
+        }
+
     }
 
     public void StartGame()
@@ -68,11 +77,6 @@ public class MainMenu : MonoBehaviour
             {
                 fader.FadeTo(lastScene);
                 Invoke(nameof(ResetFlag), 1.5f);
-            }
-            else
-            {
-                Debug.LogWarning("No saved data found.");
-                Invoke(nameof(ResetFlag), 0.5f); 
             }
         }
     }
