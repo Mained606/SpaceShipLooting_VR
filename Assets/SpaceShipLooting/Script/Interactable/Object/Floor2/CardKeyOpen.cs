@@ -14,7 +14,7 @@ public class IntercomInteraction : MonoBehaviour
             anim = GetComponentInParent<Animator>();
         }
     }
-
+   
     private void OnTriggerEnter(Collider other)
     {
         // 충돌한 오브젝트의 이름 확인

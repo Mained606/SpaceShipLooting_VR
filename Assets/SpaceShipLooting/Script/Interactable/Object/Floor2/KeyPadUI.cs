@@ -33,7 +33,7 @@ public class KeyPadUI : MonoBehaviour, ISignal
             Debug.LogError("No TextMeshProUGUI found in children.");
         }
     }
-
+   
     public void OnButtonPressed(int number)
     {
         if (currentInput.Length >= 4) return; // 4자리 입력 제한
