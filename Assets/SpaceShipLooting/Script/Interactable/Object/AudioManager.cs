@@ -236,7 +236,7 @@ public class AudioManager : MonoBehaviour
 
     // play("ddd", false) play("fddff", true)
     // 인덱스로 클립 재생
-    public void Play(string name, bool loop)
+    public void Play(string name, bool loop= false)
     {
         for (int i = 0; i < _AudioClip.Length; i++)
         {

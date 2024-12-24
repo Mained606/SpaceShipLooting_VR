@@ -223,7 +223,7 @@ public class SpaceBossController : BossController
     {
         Debug.Log("보스 죽음 함수 시작!");
 
-        AudioManager.Instance.StopBgm();
+        //AudioManager.Instance.Stop("");
 
         //SFX
 
