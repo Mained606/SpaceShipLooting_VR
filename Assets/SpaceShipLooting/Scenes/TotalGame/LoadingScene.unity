@@ -182,10 +182,6 @@ PrefabInstance:
       propertyPath: fader
       value: 
       objectReference: {fileID: 615727804}
-    - target: {fileID: 6262505320661640929, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6678383903670034676, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -510,18 +506,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 859961929}
-    - target: {fileID: 1871251093138766793, guid: 97e533a45f51058458351fadd3b541f9, type: 3}
-      propertyPath: m_PlaneDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957151665056057798, guid: 97e533a45f51058458351fadd3b541f9, type: 3}
-      propertyPath: m_fontSize
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957151665056057798, guid: 97e533a45f51058458351fadd3b541f9, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 3484564376426293649, guid: 97e533a45f51058458351fadd3b541f9, type: 3}
       propertyPath: fader
       value: 
