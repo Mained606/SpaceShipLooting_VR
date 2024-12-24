@@ -1,20 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class FakeTrigger :XRSimpleInteractableOutline, ISignal
 {
-     private Collider col;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+   private int trueCount = 0; // 신호를 받은 횟수
+   private Collider col;
+
    protected  override void Start()
     {
       Floor1Console.consoleCheck.AddListener(Receiver);
-        col = GetComponent<Collider>();
-       
-    }
+      col = GetComponent<Collider>();
+   }
 
-    // Update is called once per frame
-   
     public void Clear(UnityEvent<bool> signal)
     {
         signal.RemoveAllListeners();
@@ -27,13 +26,14 @@ public class FakeTrigger :XRSimpleInteractableOutline, ISignal
 
     public void Receiver(bool state)
     {
-        this.gameObject.SetActive(false);
-       
+        if(state)
+        {
+            trueCount++;
+            if (trueCount >= 3)
+            {
+                this.gameObject.SetActive(false);
+            }
+        }
     }
-
-    public void Sender(bool state)
-    {
-
-    }
-
+    public void Sender(bool state) { }
 }

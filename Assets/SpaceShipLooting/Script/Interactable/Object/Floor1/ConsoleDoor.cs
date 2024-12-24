@@ -26,7 +26,7 @@ public class ConsoleDoor : XRSimpleInteractableOutline, ISignal
 
     public void Receiver(bool state)
     {
-        if (state)
+        if (!state)
         {
             falseCount++;
             if (falseCount >= 2)

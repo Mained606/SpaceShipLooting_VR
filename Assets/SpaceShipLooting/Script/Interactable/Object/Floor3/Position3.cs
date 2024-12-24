@@ -41,7 +41,7 @@ public class Position3 : MonoBehaviour
         }
         IEnumerator Dialogue()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             JsonTextManager.instance.OnDialogue("stage3-1");
         }
     }
