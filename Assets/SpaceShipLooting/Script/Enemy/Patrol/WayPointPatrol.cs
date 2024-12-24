@@ -17,6 +17,7 @@ public class WayPointPatrol : EnemyPatrol
         {
             isLookAround = _enemy.enemyData.isLookAround;
             animator = _enemy.animator;
+            enemyData = _enemy.enemyData;
         }
     }
 
@@ -26,13 +27,13 @@ public class WayPointPatrol : EnemyPatrol
         {
             isLookAround = true;
             agent.enabled = false;
-            AudioManager.Instance.Stop("EnemyWalk");
+            enemyData.SoundStop();
         }
         else
         {
             animator.SetBool("IsPatrol", true);
             isLookAround = false;
-            AudioManager.Instance.Play("EnemyWalk");
+            enemyData.SoundPlay(enemyData.EnemyWalk);
         }
         return isLookAround;
     }

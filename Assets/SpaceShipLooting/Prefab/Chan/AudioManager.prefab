@@ -87,42 +87,7 @@ MonoBehaviour:
     loop: 1
     BGM: 0
     source: {fileID: 0}
-  EnemySounds:
-  - name: EnemyFirstEncounter
-    clip: {fileID: 8300000, guid: de408733e3a7cf041945f6dc4558004d, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    BGM: 0
-    source: {fileID: 0}
-  - name: EnemyKill
-    clip: {fileID: 8300000, guid: 5430e2d41fffbb24c8dd4318daa80c7b, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    BGM: 0
-    source: {fileID: 0}
-  - name: EnemyWalk
-    clip: {fileID: 8300000, guid: d807bf6fa6a53334185fb86585320666, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    BGM: 0
-    source: {fileID: 0}
-  - name: KeyCard
-    clip: {fileID: 8300000, guid: 8c0ec469cc31b6f48b5adbc6a92e6e68, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    BGM: 0
-    source: {fileID: 0}
-  - name: EnemyShot
-    clip: {fileID: 8300000, guid: 4666a6c1ea076304da37871c7229224b, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    BGM: 0
-    source: {fileID: 0}
+  EnemySounds: []
   InteractSounds:
   - name: ConsoleBreak
     clip: {fileID: 8300000, guid: f7e467b87d1ff11419ef7e89217b54c4, type: 3}

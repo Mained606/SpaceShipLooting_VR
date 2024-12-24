@@ -35,6 +35,7 @@ public class RandomPatrol : EnemyPatrol
             circlePatrolRange = _enemy.enemyData.circlePatrolRange;
             rectanglePatrolRange = _enemy.enemyData.rectanglePatrolRange;
             animator = _enemy.animator;
+            enemyData = _enemy.enemyData;
             isEnter = false;
         }
     }
@@ -60,10 +61,10 @@ public class RandomPatrol : EnemyPatrol
                 isVaildPoint = true;
                 animator.SetBool("IsPatrol", true);
                 agent.SetDestination(destination);
-                AudioManager.Instance.Play("EnemyWalk");
+                enemyData.SoundPlay(enemyData.EnemyWalk);
                 if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
                 {
-                    AudioManager.Instance.Stop("EnemyWalk");
+                    enemyData.SoundStop();
                     isLookAround = true;
                     agent.enabled = false;
                     isEnter = false;

@@ -426,6 +426,7 @@ public class EnemyBehaviour : MonoBehaviour
         chaseBehaviour.isEncounter = true;
         animator.SetBool("IsChase", true);
         agent.SetDestination(target.position);
+        enemyData.SoundPlay(enemyData.EnemyWalk);   // chase 사운드 필요
         CheckForTargetOnChase();
     }
 
@@ -446,7 +447,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Attack()   // 애니메이션 프레임에 적용하는 함수
     {
-        AudioManager.Instance.Play("EnemyShot");
+        enemyData.SoundPlay(enemyData.EnemyShot);
         targetDamageable.InflictDamage(enemyData.attackDamage);
     }
 
@@ -458,7 +459,7 @@ public class EnemyBehaviour : MonoBehaviour
         enemyData.SetState(EnemyState.E_Death);
         isDeath = true;
         _collider.enabled = false;
-        AudioManager.Instance.Play("EnemyKill");
+        enemyData.SoundPlay(enemyData.EnemyKill);
         if (hasItem)
         {
             DropItem();
@@ -471,7 +472,7 @@ public class EnemyBehaviour : MonoBehaviour
         Instantiate(enemyData.item, agent.transform.position, Quaternion.identity);
         if (enemyData.item.ToString() == "Card_Key")
         {
-            AudioManager.Instance.Play("KeyCard");
+            enemyData.SoundPlay(enemyData.KeyCard);
         }
         Debug.Log("Item dropped!");
     }

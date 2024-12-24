@@ -31,6 +31,16 @@ public class EnemyData
     public AudioManager audioManager;
     [HideInInspector] public GameObject targetEncounterUI;
 
+    [Header("효과음")]
+    public AudioClip EnemyWalk;
+    public AudioClip EnemyFirstEncounter;
+    public AudioClip EnemyChase;
+    public AudioClip EnemyShot;
+    public AudioClip EnemyKill;
+    public AudioClip KeyCard;
+
+    public AudioSource audioSource;
+
     [Header("디버그용")]
     public EnemyState currentState;
     public bool isLookAround = false;
@@ -41,6 +51,35 @@ public class EnemyData
         if (newState == currentState) return;
 
         currentState = newState;
+    }
+
+    public void SoundPlay(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        if(audioSource.clip == EnemyWalk)
+        {
+            audioSource.pitch = 0.9f;
+        }
+        else if(audioSource.clip == EnemyChase)
+        {
+            audioSource.pitch = 1.5f;
+        }
+        else
+        {
+            audioSource.pitch = 1.0f;
+        }
+        if(audioSource.clip != null && !audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    public void SoundStop()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 }
 
