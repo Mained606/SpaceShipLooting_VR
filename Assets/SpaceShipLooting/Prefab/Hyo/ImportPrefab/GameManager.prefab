@@ -93,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1490982233280574106, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
       propertyPath: m_PlaneDistance
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3057183247299172547, guid: 98ff85d74d7681a44ba9f3d5c2e7fd6e, type: 3}
       propertyPath: m_LocalPosition.x

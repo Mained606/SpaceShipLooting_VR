@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/SpaceShipLooting/Scenes/TotalGame/LoadingScene.unity
+    guid: 8370ccd40f8580e4fad9c5a45db2146d
+  - enabled: 1
     path: Assets/SpaceShipLooting/Scenes/TotalGame/StartScene.unity
     guid: bfd3c871a80d6e7408d0839c77446327
   - enabled: 1

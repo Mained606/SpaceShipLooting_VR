@@ -8,6 +8,31 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string loadToScene = "SceneName";
     private bool flag = false;
 
+    private void Start()
+    {
+        if (fader == null)
+        {
+            GameObject gameManager = GameObject.Find("GameManager");
+            if (gameManager != null)
+            {
+                Transform faderTransform = gameManager.transform.Find("SceneFader");
+                if (faderTransform != null)
+                {
+                    fader = faderTransform.GetComponent<SceneFader>();
+                    Debug.Log("SceneFader successfully assigned in Start().");
+                }
+                else
+                {
+                    Debug.LogError("SceneFader not found as a child of GameManager.");
+                }
+            }
+            else
+            {
+                Debug.LogError("GameManager not found in the scene.");
+            }
+        }
+    }
+
     public void StartGame()
     {
         if (!flag)
