@@ -76,7 +76,7 @@ public class Floor1Console : MonoBehaviour, ISignal
             {
                 ps.Play();
             }
-            AudioManager.Instance.Play("ConsoleIdle");
+            AudioManager.Instance.Play("Consolldle");
         }
 
         // 렌더러 색상 변경

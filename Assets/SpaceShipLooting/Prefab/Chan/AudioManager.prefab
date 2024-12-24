@@ -98,7 +98,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Consolldle
     clip: {fileID: 8300000, guid: 4c57c83aa37714f4a97da5daae64fb50, type: 3}
-    volume: 1
+    volume: 0.47
     pitch: 1
     loop: 1
     BGM: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   - name: F1Siren
     clip: {fileID: 8300000, guid: 9c715978004259c4baf8a36a1f6998e9, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 0.5
     loop: 0
     BGM: 0
     source: {fileID: 0}
@@ -197,7 +197,7 @@ MonoBehaviour:
   - name: DoorOpen_
     clip: {fileID: 8300000, guid: 1cb59a425b2e63841b98987f6c377581, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 0.5
     loop: 0
     BGM: 0
     source: {fileID: 0}

@@ -41,6 +41,7 @@ public class FirstDoorOpen : XRSimpleInteractableOutline, ISignal
             trueCount++;
             if (trueCount >= 3)
             {
+                AudioManager.Instance.Play("F1Correct");
                 JsonTextManager.instance.OnDialogue("stage1-7");
                 isCan = true; // 상호작용 가능 상태로 변경
                 this.enabled = true; // XRSimpleInteractable 활성화
