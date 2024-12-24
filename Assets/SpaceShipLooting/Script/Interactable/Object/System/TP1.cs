@@ -33,7 +33,7 @@ public class TP1 : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-
+        AudioManager.Instance.Play("Teleport");
      fader.FadeTo(loadToScene);
     }
 }

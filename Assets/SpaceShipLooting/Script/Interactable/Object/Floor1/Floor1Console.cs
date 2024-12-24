@@ -71,10 +71,12 @@ public class Floor1Console : MonoBehaviour, ISignal
         {
             Particle.SetActive(true);
             var particleSystems = Particle.GetComponentsInChildren<ParticleSystem>();
+            AudioManager.Instance.Play("ConsoleBreak");
             foreach (var ps in particleSystems)
             {
                 ps.Play();
             }
+            AudioManager.Instance.PlayBgm("ConsoleIdle");
         }
 
         // 렌더러 색상 변경
