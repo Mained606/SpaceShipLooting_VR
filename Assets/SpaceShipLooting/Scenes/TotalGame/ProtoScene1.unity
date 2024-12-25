@@ -776,7 +776,7 @@ AudioSource:
   Priority: 112
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -1003,37 +1003,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1111109030
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1111109031}
-  m_Layer: 11
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1111109031
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111109030}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1786206265}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191077312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,9 +1504,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6580150782862519179, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1111109031}
     - targetCorrespondingSourceObject: {fileID: 1945756436620387020, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6486913}
@@ -1586,11 +1552,6 @@ Transform:
 --- !u!4 &1786206264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1945756436620387020, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
-  m_PrefabInstance: {fileID: 1786206258}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1786206265 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6580150782862519179, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
   m_PrefabInstance: {fileID: 1786206258}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

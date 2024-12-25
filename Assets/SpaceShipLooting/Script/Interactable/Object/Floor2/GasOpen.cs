@@ -7,6 +7,7 @@ public class GasOpen : MonoBehaviour, ISignal
     public static UnityEvent<bool> GasGasGas = new UnityEvent<bool>();
 
     private ParticleSystem particle;
+    public AudioSource girik;
 
     private void Start()
     {
@@ -25,6 +26,8 @@ public class GasOpen : MonoBehaviour, ISignal
     public void Receiver(bool state)
     {
         if (state) particle.Play();
+        girik.Play();
+        AudioManager.Instance.Play("Gas",true);
         Sender(true);
     }
 

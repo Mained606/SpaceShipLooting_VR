@@ -72,6 +72,7 @@ public class KeyPadUI : MonoBehaviour, ISignal
         {
             displayText.fontSize = originalFontSize * 0.6f;
             displayText.text = "SUCCESS!";
+            AudioManager.Instance.Play("Correct");
             yield return new WaitForSeconds(2f);
             Sender(true);
             Clear(codeCheck);
@@ -81,6 +82,7 @@ public class KeyPadUI : MonoBehaviour, ISignal
         else
         {
             displayText.text = "FAIL!";
+            AudioManager.Instance.Play("UnCorrect");
             failCount++; // 실패 횟수 증가
             yield return new WaitForSeconds(2f);
             canvas.SetActive(false);

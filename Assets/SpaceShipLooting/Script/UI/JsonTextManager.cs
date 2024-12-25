@@ -12,6 +12,16 @@ public class JsonTextManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        while (text == null)
+        {
+            var Dialogue = GameObject.Find("Dialogue"); // "Dialogue" 오브젝트 찾기
+            text = Dialogue.GetComponent<TMP_Text>();
+            if (text == null)
+            {
+                Debug.LogWarning("텍스트UI가 빠졌잖아..");
+            }
+        }
     }
 
     public void OnDialogue(string stringKey)

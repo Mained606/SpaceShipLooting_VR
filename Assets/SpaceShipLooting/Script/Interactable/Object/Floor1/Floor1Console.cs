@@ -6,7 +6,7 @@ public class Floor1Console : MonoBehaviour, ISignal
 {
     public static UnityEvent<bool> consoleCheck = new UnityEvent<bool>();
     public static UnityEvent<bool> consoleFalse = new UnityEvent<bool>();
-
+    private Collider col;
     public AudioSource zizik;
 
     private int Scount = 0;
@@ -23,6 +23,7 @@ public class Floor1Console : MonoBehaviour, ISignal
     void Start()
     {
         // Particle 오브젝트와 렌더러 배열 초기화
+        col = GetComponent<Collider>();
         Particle = transform.Find("Particle")?.gameObject;
         render = new MeshRenderer[3];
         render[0] = transform.Find("Screen_A")?.GetComponent<MeshRenderer>();
@@ -36,7 +37,7 @@ public class Floor1Console : MonoBehaviour, ISignal
         if (nono.Contains(collision.gameObject) || !Tags.Contains(collision.gameObject.tag)) return;
 
         nono.Add(collision.gameObject);
-
+        col.enabled = false;
         // Succesce 값에 따라 색상을 변경하고 로직 처리
         EffectGo();
 
@@ -73,12 +74,16 @@ public class Floor1Console : MonoBehaviour, ISignal
         {
             Particle.SetActive(true);
             var particleSystems = Particle.GetComponentsInChildren<ParticleSystem>();
-            AudioManager.Instance.Play("ConsoleBreak");
+            AudioManager.Instance.Play("ConsoleBreak",false);
             foreach (var ps in particleSystems)
             {
                 ps.Play();
             }
-            zizik.Play();
+            if (zizik != null)
+            {
+                zizik.Play();
+            }
+          
         }
 
         // 렌더러 색상 변경
