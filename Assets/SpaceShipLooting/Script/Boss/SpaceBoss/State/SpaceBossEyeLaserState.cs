@@ -57,7 +57,8 @@ public class SpaceBossEyeLaserState : State<BossController>
         // boss.textbox.text = "Laser Charging...";
         boss.AdjustEyePosition(true, boss.Target.position); // 마지막 추적 위치로 눈 고정
 
-        AudioManager.Instance.Play("BossLazerWait", false, 0.8f, 0.9f);
+        AudioManager.Instance.Play("BossLazerWait", false, 0.7f, 0.9f);
+        //레이저 차지 VFX 추가
 
         yield return new WaitForSeconds(boss.LaserChargeDuration); // 레이저 충전 시간
 

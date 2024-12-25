@@ -71,7 +71,7 @@ public class SpaceBossEMPAttackState : State<BossController>
         hasTriggeredEMP = true;
 
         //보스 EMP 모으는 사운드 및 이펙트 재생
-        AudioManager.Instance.Play("BossEmpCharging", false, 0.6f);
+        AudioManager.Instance.Play("BossEmpCharging", false, 0.5f);
 
         vfx_Implosion.gameObject.SetActive(true);
         vfx_Implosion.Play();

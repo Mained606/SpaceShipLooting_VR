@@ -38,6 +38,9 @@ public class GameOverUI : MonoBehaviour
 
     public void Quit()
     {
+        gameOverEvent.PlayerDataInit?.Invoke();
         fader.FadeTo(1);
+        Time.timeScale = 1;
+        gameObject.SetActive(false);
     }
 }
