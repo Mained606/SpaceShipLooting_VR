@@ -74,7 +74,15 @@ public class EnemyBehaviour : MonoBehaviour
         {
             targetDamageable = target.GetComponent<Damageable>();
         }
-        targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
+        while (targetHead == null)
+        {
+            targetHead = GameObject.FindGameObjectWithTag("MainCamera").transform;
+            if (targetHead == null)
+            {
+                Debug.Log("타겟 헤드 널");
+            }
+            Debug.Log(targetHead.gameObject.name + "타겟헤드 0번 오브젝트 네임");
+        }
         
         enemyData.currentState = EnemyState.E_Idle;
         agent.speed = enemyData.moveSpeed;
