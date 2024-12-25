@@ -17,7 +17,7 @@ public class PipeExplosion : EnemyInteract
 
         if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
         {
-            AudioManager.Instance.Play("EnemyWalk");
+            enemyData.SoundPlay(enemyData.EnemyWalk);
             Quaternion targetRotation = Quaternion.LookRotation(modifyRotation);
             agent.transform.rotation = Quaternion.Lerp(agent.transform.rotation, targetRotation, Time.deltaTime * 2f);
             animator.SetBool("IsLookAround", true);
@@ -25,7 +25,7 @@ public class PipeExplosion : EnemyInteract
         }
         else
         {
-            AudioManager.Instance.Stop("EnemyWalk");
+            enemyData.SoundStop();
             agent.enabled = true;
             enemyData.isLookAround = false;
             animator.SetBool("IsLookAround", false);

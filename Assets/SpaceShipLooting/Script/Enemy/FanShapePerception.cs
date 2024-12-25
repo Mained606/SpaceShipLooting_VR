@@ -72,7 +72,7 @@ public class FanShapePerception : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("메터리얼이 없습니다. 메터리얼을 추가해주세요.");
+            //Debug.LogWarning("메터리얼이 없습니다. 메터리얼을 추가해주세요.");
             GetComponent<MeshRenderer>().enabled = false;
         }
 

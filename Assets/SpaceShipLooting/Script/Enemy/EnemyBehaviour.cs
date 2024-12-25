@@ -64,14 +64,18 @@ public class EnemyBehaviour : MonoBehaviour
         health = GetComponent<Health>();
         _collider = GetComponent<Collider>();
         animator = GetComponent<Animator>();
-        target = PlayerStateManager.PlayerTransform;
+        fanPerception = GetComponentInChildren<FanShapePerception>();
+
+        while (target == null)
+        {
+            target = PlayerStateManager.PlayerTransform;
+        }
         if (target.GetComponent<Damageable>() != null)
         {
             targetDamageable = target.GetComponent<Damageable>();
         }
         targetHead = GameObject.FindWithTag("Player").transform.GetChild(1);
-        fanPerception = GetComponentInChildren<FanShapePerception>();
-
+        
         enemyData.currentState = EnemyState.E_Idle;
         agent.speed = enemyData.moveSpeed;
         eyePoint = transform.GetChild(0);
