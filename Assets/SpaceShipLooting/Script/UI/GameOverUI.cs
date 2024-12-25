@@ -19,18 +19,19 @@ public class GameOverUI : MonoBehaviour
     {
         Debug.Log("플레이어 재시작 버튼 클릭");
 
-        // 마지막 씬 정보 불러오기
-        int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
+        // 현재 도전 중인 씬 가져오기
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (lastScene > 0 && lastScene < SceneManager.sceneCountInBuildSettings)
+        if (currentSceneIndex >= 0 && currentSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             gameOverEvent.PlayerDataInit?.Invoke();
-            fader.FadeTo(lastScene); // 마지막 저장된 씬으로 이동
+            fader.FadeTo(currentSceneIndex); // 현재 씬으로 이동
         }
         else
         {
-            Debug.LogWarning("저장된 데이터가 없습니다.");
+            Debug.LogWarning("현재 씬 정보를 가져올 수 없습니다.");
         }
+
         Time.timeScale = 1;
         gameObject.SetActive(false);
     }
