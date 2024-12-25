@@ -78,7 +78,7 @@ public class Floor1Console : MonoBehaviour, ISignal
             {
                 ps.Play();
             }
-            zizik.Play(1);
+            zizik.Play();
         }
 
         // 렌더러 색상 변경

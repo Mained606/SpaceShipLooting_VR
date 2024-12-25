@@ -490,6 +490,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1786206262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436047929 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5242753369873694864, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+  m_PrefabInstance: {fileID: 1472279654}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &537133759
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +661,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 476783057797169376, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 436047929}
     - target: {fileID: 714529398414283191, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -657,6 +672,10 @@ PrefabInstance:
     - target: {fileID: 714529398414283191, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 900183378101533942, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2525154603413652083, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_LocalPosition.x
@@ -744,7 +763,7 @@ AudioSource:
   m_GameObject: {fileID: 696085750}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4796314213935248401, guid: 41097b4d281e61840aadc7a74b5e3552, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4c57c83aa37714f4a97da5daae64fb50, type: 3}
   m_Resource: {fileID: 8300000, guid: 4c57c83aa37714f4a97da5daae64fb50, type: 3}
   m_PlayOnAwake: 0
@@ -757,7 +776,7 @@ AudioSource:
   Priority: 112
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -1412,6 +1431,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6262505320661640929, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6678383903670034676, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -1437,6 +1460,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FakeIntercom
       objectReference: {fileID: 0}
+    - target: {fileID: 1238958447463369906, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+      propertyPath: zizik
+      value: 
+      objectReference: {fileID: 696085752}
+    - target: {fileID: 2785002498413335175, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+      propertyPath: zizik
+      value: 
+      objectReference: {fileID: 696085752}
     - target: {fileID: 2988659432202709674, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1477,11 +1508,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4490135845860614132, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+      propertyPath: zizik
+      value: 
+      objectReference: {fileID: 696085752}
+    - target: {fileID: 4633389429730660839, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+      propertyPath: zizik
+      value: 
+      objectReference: {fileID: 696085752}
+    - target: {fileID: 5376150740218214185, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+      propertyPath: zizik
+      value: 
+      objectReference: {fileID: 696085752}
     - target: {fileID: 5806919382178761128, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
       propertyPath: m_Name
       value: Floor1
       objectReference: {fileID: 0}
     - target: {fileID: 6643677166946106877, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
+      propertyPath: zizik
+      value: 
+      objectReference: {fileID: 696085752}
+    - target: {fileID: 6661350603826827624, guid: b40dfb8ba3201924dab598edd1b89a3d, type: 3}
       propertyPath: zizik
       value: 
       objectReference: {fileID: 696085752}
