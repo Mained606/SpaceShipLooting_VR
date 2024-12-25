@@ -27,10 +27,12 @@ public class Blade : MonoBehaviour
     {
         if (!attackCoolTime) return;
 
+        if (other.gameObject.name == "LightSaber01") return;
+
         Debug.Log($"Triggered with: {other.gameObject.name}");
 
         // 소리 재생
-        AudioManager.Instance.Play("BeamSword");
+        AudioManager.Instance.Play("BeamSword", false, 1f, 0.7f);
 
         // 충돌 지점 가져오기
         Vector3 hitPoint = other.ClosestPointOnBounds(transform.position);

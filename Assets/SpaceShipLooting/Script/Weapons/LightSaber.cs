@@ -19,7 +19,6 @@ public class LightSaber : XRGrabInteractableOutline
         rb.isKinematic = true;
 
         blade.SetActive(false);
-
         base.OnSelectExiting(args);
 
     }
@@ -30,7 +29,16 @@ public class LightSaber : XRGrabInteractableOutline
         isActive = !isActive;
 
         //블레이드 셋 엑티브 SFX 추가 
-
+        if (isActive)
+        {
+            // 소드 On
+            AudioManager.Instance.Play("SwordOn", false, 1.4f, 0.7f);
+        }
+        else
+        {
+            // 소드 Off
+            AudioManager.Instance.Play("SwordOn", false, 3f, 0.7f);
+        }
 
         blade.SetActive(isActive);
     }

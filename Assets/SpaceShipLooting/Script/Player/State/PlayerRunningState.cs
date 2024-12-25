@@ -7,7 +7,7 @@ public class PlayerRunningState : IPlayerState
     public void EnterState(PlayerStateManager manager)
     {
         manager.MoveProvider.moveSpeed = Speed;
-        AudioManager.Instance.Play("PlayerRun");
+        AudioManager.Instance.Play("PlayerRun", true, 1f);
     }
 
     public void UpdateState(PlayerStateManager manager)

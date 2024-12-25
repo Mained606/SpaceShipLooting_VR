@@ -46,6 +46,7 @@ public class MainMenu : MonoBehaviour
         //참조
         audioManager = AudioManager.Instance;
 
+        AudioManager.Instance.PlayBGM(0, 0.35f);
     }
 
     public void StartGame()
@@ -54,7 +55,7 @@ public class MainMenu : MonoBehaviour
         {
             flag = true;
             Debug.Log("Starting game...");
-            AudioManager.Instance.Play("Button");
+            AudioManager.Instance.Play("Button", false);
             fader.FadeTo(loadToScene);
             Invoke(nameof(ResetFlag), 1.5f);
         }
@@ -65,7 +66,7 @@ public class MainMenu : MonoBehaviour
         if (!flag)
         {
             flag = true;
-            AudioManager.Instance.Play("Button");
+            AudioManager.Instance.Play("Button", false);
 
             ShowOptions();
 
@@ -79,7 +80,7 @@ public class MainMenu : MonoBehaviour
         {
             Debug.Log("Load game...");
             flag = true;
-            AudioManager.Instance.Play("Button");
+            AudioManager.Instance.Play("Button", false);
 
             int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
             if (lastScene > 0 && lastScene < SceneManager.sceneCountInBuildSettings)
@@ -99,7 +100,7 @@ public class MainMenu : MonoBehaviour
     //옵션 보이기
     private void ShowOptions()
     {
-        AudioManager.Instance.Play("Button");
+        AudioManager.Instance.Play("Button", false);
 
         mainMenuUI.SetActive(true);
         optionUI.SetActive(false);

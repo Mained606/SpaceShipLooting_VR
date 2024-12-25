@@ -49,7 +49,7 @@ public class Health : MonoBehaviour
         // Sfx
         if (gameObject.CompareTag("Player"))
         {
-            AudioManager.Instance.Play("PlayerDamage");
+            AudioManager.Instance.Play("PlayerDamage", false, 1f, 0.7f);
         }
 
         // 데미지 UI

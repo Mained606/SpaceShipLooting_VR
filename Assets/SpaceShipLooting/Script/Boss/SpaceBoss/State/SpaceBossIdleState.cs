@@ -30,7 +30,9 @@ public class SpaceBossIdleState : State<BossController>
         // 타겟이 범위 안으로 들어오면 무적 상태로 전환
         if (boss.IsTargetInRange())
         {
-            AudioManager.Instance.Play("Boss1");
+            //BossBgm 재생
+            AudioManager.Instance.StopBGM();
+            AudioManager.Instance.PlayBGM(1);
             boss.SpaceBossDefenceState();
         }
     }

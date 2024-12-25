@@ -16,7 +16,7 @@ public class NightVisionSystem : MonoBehaviour
     {
         playerInputHandler = GetComponentInParent<PlayerInputHandler>();
 
-        if(playerInputHandler)
+        if (playerInputHandler)
         {
             // playerInputHandler의 OnStealthToggle에 ToggleStealthMode 메서드 연결
             playerInputHandler.OnNightVisionToggle.AddListener(ToggleNightVision);
@@ -27,6 +27,15 @@ public class NightVisionSystem : MonoBehaviour
     private void ToggleNightVision()
     {
         isNightVisionActive = !isNightVisionActive;
+
+        if (isNightVisionActive)
+        {
+            AudioManager.Instance.Play("LightOn", false, 1f, 0.7f);
+        }
+        else
+        {
+            AudioManager.Instance.Play("LightOff", false, 1f, 0.7f);
+        }
 
         nightVisionCanvas.gameObject.SetActive(isNightVisionActive);
         leftPanel.gameObject.SetActive(isNightVisionActive);

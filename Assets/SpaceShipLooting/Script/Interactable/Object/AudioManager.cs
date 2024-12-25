@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 
 
@@ -49,6 +50,7 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -108,7 +110,7 @@ public class AudioManager : MonoBehaviour
             audioSource.pitch = 1f;                 // 기본 음높이 설정
             //audioSource.spatialBlend = 1f;          // 3D 사운드로 설정 (0 = 2D, 1 = 3D)
             //audioSource.dopplerLevel = 1f;          // 도플러 효과 기본값
-            // audioSource.spread = 0f;                // 소리의 확산 각도 (0: 집중, 360: 전방위)
+            //audioSource.spread = 0f;                // 소리의 확산 각도 (0: 집중, 360: 전방위)
 
             // Rolloff 설정 (Logarithmic Rolloff 권장)
             // audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
@@ -234,7 +236,7 @@ public class AudioManager : MonoBehaviour
 
     // play("ddd", false) play("fddff", true)
     // 인덱스로 클립 재생
-    public void Play(string name, bool loop = false)
+    public void Play(string name, bool loop = false, float pitch = 1f, float volume = 1f)
     {
         for (int i = 0; i < _AudioClip.Length; i++)
         {
@@ -248,18 +250,25 @@ public class AudioManager : MonoBehaviour
                     Position = Vector3.zero
                 };
                 newUsed.audioSource.clip = _AudioClip[i];
-                newUsed.audioSource.pitch = 1f;  // 재생 속도 설정
+                // newUsed.audioSource.pitch = 1f;  // 재생 속도 설정
+
+                // 2024-12-25 Hyo 코드 추가 ==================================
+                newUsed.audioSource.pitch = pitch;  // 재생 속도 설정
+                newUsed.audioSource.volume = volume; // 재생 볼륨 설정
+                //=======================================================
+
                 newUsed.audioSource.priority = 128;
                 newUsed.audioSource.loop = loop ? true : false;
                 newUsed.audioSource.Play();  // 오디오 소스 재생
                 _UsedClip.Add(newUsed);  // 재생 중인 클립 목록에 추가
                 return;
             }
-            else
-            {
-                // Debug.LogWarning("잘못된 클립 네임입니다.");
-            }
+            // else
+            // {
+            //     Debug.LogWarning("잘못된 클립 네임입니다.");
+            // }
         }
+        Debug.LogWarning($"잘못된 클립 네임입니다: {name}");
     }
 
     public void Stop(string name)
@@ -304,4 +313,30 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    // 2024-12-25 Hyo 코드 추가 =============================================
+    // BGM 인덱스로 재생하는 함수 AudioManager.Instance.PlayBGM(1, 1f));
+    // 종료시 AudioManager.Instance.StopBGM();
+    public void PlayBGM(int clipIndex, float volume = 1f)
+    {
+        if (clipIndex >= 0 && clipIndex < _MainMusicClip.Length)
+        {
+            // 선택된 클립 설정 및 재생
+            MainMusicSource.clip = _MainMusicClip[clipIndex];
+            MainMusicSource.volume = Mathf.Clamp(volume, 0f, 1f); // 볼륨 설정 (0~1 범위로 제한)
+            MainMusicSource.Play();
+            IsMainMusicPlay = true; // BGM 활성화 플래그 설정
+        }
+        else
+        {
+            Debug.LogWarning($"잘못된 BGM 인덱스입니다: {clipIndex}");
+        }
+    }
+
+    public void StopBGM()
+    {
+        IsMainMusicPlay = false; // BGM 활성화 플래그 비활성화
+        MainMusicSource.Stop();  // 즉시 재생 중지
+    }
+    // =====================================================================
 }

@@ -3,11 +3,13 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRPlayerSwordSocketInteractor : XRSocketInteractor
 {
     [Header("Auto Bind Settings")]
     [SerializeField] private string targetObjectName = "LightSaber01"; // 자동으로 찾을 오브젝트 이름
+    private bool isAutoBinding = false; // 자동 바인딩 중 여부 플래그
 
     protected override void Awake()
     {
@@ -25,7 +27,10 @@ public class XRPlayerSwordSocketInteractor : XRSocketInteractor
     private IEnumerator DelayedAutoBind()
     {
         yield return new WaitForSeconds(0.1f); // 약간의 딜레이 추가 (0.1초)
+        isAutoBinding = true; // 자동 바인딩 시작
         AutoBindStartingInteractable();
+        yield return new WaitForEndOfFrame(); // 한 프레임 대기 후 플래그 해제
+        isAutoBinding = false; // 자동 바인딩 종료
     }
 
     private void AutoBindStartingInteractable()
@@ -55,6 +60,27 @@ public class XRPlayerSwordSocketInteractor : XRSocketInteractor
             return base.CanSelect(interactable);
         }
         return false;
+    }
+
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntered(args);
+
+        // 자동 바인딩 중에는 사운드 재생을 막음
+        if (!isAutoBinding)
+        {
+            AudioManager.Instance.Play("SocketIn", false);
+        }
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+        // 자동 바인딩 중에는 사운드 재생을 막음
+        if (!isAutoBinding)
+        {
+            AudioManager.Instance.Play("SocketOut", false);
+        }
     }
 
     protected override void OnDestroy()
