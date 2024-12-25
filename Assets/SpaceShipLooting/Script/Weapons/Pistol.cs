@@ -62,9 +62,9 @@ public class Pistol : XRGrabInteractableOutline
     // 총 발사 메서드
     private IEnumerator Fire(ActivateEventArgs args)
     {
-        AudioManager.Instance.Play("GunShot");
 
         isFiring = true;
+        AudioManager.Instance.Play("GunShot");
         animator.SetTrigger("Shoot");
         ammoCanvas.gameObject.SetActive(true);
 

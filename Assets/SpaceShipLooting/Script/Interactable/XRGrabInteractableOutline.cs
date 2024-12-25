@@ -30,7 +30,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
 
     protected virtual void Start()
     {
-        if(outlineUse)
+        if (outlineUse)
         {
             // 오브젝트의 Renderer 컴포넌트 가져오기
             objectRenderer = GetComponent<Renderer>();
@@ -51,7 +51,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
     {
         base.OnHoverEntered(args);
 
-        if(!isGrabbed && outlineUse)
+        if (!isGrabbed && outlineUse)
         {
             // 호버 상태에서 아웃라인 머테리얼 추가
             if (objectRenderer != null && outlineMaterial != null)
@@ -71,7 +71,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
     {
         base.OnHoverExited(args);
 
-        if(!isGrabbed && outlineUse)
+        if (!isGrabbed && outlineUse)
         {
             // 호버 상태 해제 시 원래 머테리얼로 복구
             if (objectRenderer != null && originalMaterials != null)
@@ -98,8 +98,8 @@ public class XRGrabInteractableOutline : XRGrabInteractable
         // 오브젝트를 잡을 때 레이어를 GrabbedObject로 변경하여 손 레이와 충돌하지 않게 설정
         originalLayer = gameObject.layer; // 원래 레이어 저장
         gameObject.layer = LayerMask.NameToLayer("GrabbedObject");
-        
-        if(outlineUse)
+
+        if (outlineUse)
         {
             // 셀렉트시 원래 머테리얼로 복구
             if (objectRenderer != null && originalMaterials != null)
@@ -107,7 +107,7 @@ public class XRGrabInteractableOutline : XRGrabInteractable
                 objectRenderer.materials = originalMaterials;
             }
         }
-        
+
         base.OnSelectEntering(args);
     }
 

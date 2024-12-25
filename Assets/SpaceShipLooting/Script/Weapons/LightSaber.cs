@@ -5,18 +5,33 @@ public class LightSaber : XRGrabInteractableOutline
 {
     [SerializeField] private GameObject blade;
     [SerializeField] private bool isActive = false;
+    private Rigidbody rb;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.Log("라이트 세이버에 리지드 바디가 없습니다.");
+        }
+    }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.isKinematic = false;
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+        }
     }
 
     protected override void OnSelectExiting(SelectExitEventArgs args)
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
 
         blade.SetActive(false);
         base.OnSelectExiting(args);
