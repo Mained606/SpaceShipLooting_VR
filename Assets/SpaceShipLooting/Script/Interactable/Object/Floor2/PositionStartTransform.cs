@@ -17,7 +17,7 @@ public class PositionStartTransform : MonoBehaviour
                 if (faderTransform != null)
                 {
                     fader = faderTransform.GetComponent<SceneFader>();
-                    Debug.Log("SceneFader successfully assigned in Start().");
+                    // Debug.Log("SceneFader successfully assigned in Start().");
                 }
                 else
                 {

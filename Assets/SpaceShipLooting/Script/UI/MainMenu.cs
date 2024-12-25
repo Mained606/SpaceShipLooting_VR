@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
 
     public GameObject optionUI;
     public GameObject mainMenuUI;
+    public Button loadButton;
 
     //Audio
     public AudioMixer audioMixer;
@@ -33,26 +34,15 @@ public class MainMenu : MonoBehaviour
                 if (faderTransform != null)
                 {
                     fader = faderTransform.GetComponent<SceneFader>();
-                    Debug.Log("SceneFader successfully assigned in Start().");
                 }
-                else
-                {
-                    Debug.LogError("SceneFader not found as a child of GameManager.");
-                }
-            }
-            else
-            {
-                Debug.LogError("GameManager not found in the scene.");
             }
         }
-        button = GetComponent<Button>();
 
         int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
-        if(lastScene == 1)
+        if (lastScene == 1)
         {
-            button.interactable = false;
+            loadButton.interactable = false;
         }
-
         //참조
         audioManager = AudioManager.Instance;
 
@@ -87,6 +77,7 @@ public class MainMenu : MonoBehaviour
     {
         if (!flag)
         {
+            Debug.Log("Load game...");
             flag = true;
             AudioManager.Instance.Play("Button");
 

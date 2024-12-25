@@ -40,19 +40,10 @@ public class XRPlayerGunSocketInteractor : XRSocketInteractor
             {
                 // StartingSelectedInteractable에 자동 할당
                 startingSelectedInteractable = interactable;
-                Debug.Log($"{targetObjectName} 오브젝트가 StartingSelectedInteractable로 바인딩되었습니다.");
 
                 // 강제로 소켓에 바인딩되도록 설정 (명시적 캐스팅)
                 interactionManager.SelectEnter((IXRSelectInteractor)this, (IXRSelectInteractable)interactable);
             }
-            else
-            {
-                Debug.LogWarning($"'{targetObjectName}'에는 XRGrabInteractable 컴포넌트가 없습니다.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"'{targetObjectName}' 이름의 오브젝트를 찾을 수 없습니다.");
         }
     }
 
@@ -63,7 +54,6 @@ public class XRPlayerGunSocketInteractor : XRSocketInteractor
         {
             return base.CanSelect(interactable);
         }
-
         return false;
     }
 

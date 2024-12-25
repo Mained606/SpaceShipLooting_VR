@@ -5,13 +5,13 @@ using UnityEngine.Audio;
 
 
 
-    [System.Serializable]
-    public class AudioClipInfo
-    {
-        public AudioSource audioSource;
-        public AudioClip audioClip;
-        public Vector3 Position;
-    }
+[System.Serializable]
+public class AudioClipInfo
+{
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+    public Vector3 Position;
+}
 
 public class AudioManager : MonoBehaviour
 {
@@ -108,7 +108,7 @@ public class AudioManager : MonoBehaviour
             audioSource.pitch = 1f;                 // 기본 음높이 설정
             //audioSource.spatialBlend = 1f;          // 3D 사운드로 설정 (0 = 2D, 1 = 3D)
             //audioSource.dopplerLevel = 1f;          // 도플러 효과 기본값
-           // audioSource.spread = 0f;                // 소리의 확산 각도 (0: 집중, 360: 전방위)
+            // audioSource.spread = 0f;                // 소리의 확산 각도 (0: 집중, 360: 전방위)
 
             // Rolloff 설정 (Logarithmic Rolloff 권장)
             // audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
@@ -234,7 +234,7 @@ public class AudioManager : MonoBehaviour
 
     // play("ddd", false) play("fddff", true)
     // 인덱스로 클립 재생
-    public void Play(string name, bool loop= false)
+    public void Play(string name, bool loop = false)
     {
         for (int i = 0; i < _AudioClip.Length; i++)
         {
@@ -257,7 +257,7 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("잘못된 클립 네임입니다.");
+                // Debug.LogWarning("잘못된 클립 네임입니다.");
             }
         }
     }
@@ -266,7 +266,7 @@ public class AudioManager : MonoBehaviour
     {
         foreach (var item in _UsedClip)
         {
-            if (item.audioClip.name == name && item.audioSource.isPlaying )
+            if (item.audioClip.name == name && item.audioSource.isPlaying)
             {
                 item.audioSource.Stop();
             }

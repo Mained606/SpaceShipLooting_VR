@@ -6,7 +6,6 @@ public class PlayerIdleState : IPlayerState
 
     public void EnterState(PlayerStateManager manager)
     {
-        Debug.Log("Entering Idle State" + Speed);
         manager.MoveProvider.moveSpeed = Speed;
     }
     public void UpdateState(PlayerStateManager manager)

@@ -34,8 +34,6 @@ public class PlayerStealthState : IPlayerState
 
     public void EnterState(PlayerStateManager manager)
     {
-        Debug.Log("Entering Stealth State" + Speed);
-
         if (characterController == null)
         {
             characterController = manager.GetComponent<CharacterController>();

@@ -646,6 +646,7 @@ MonoBehaviour:
   loadToScene: ProtoScene1
   optionUI: {fileID: 2046818649}
   mainMenuUI: {fileID: 1580850260}
+  loadButton: {fileID: 1278505941}
   audioMixer: {fileID: 24100000, guid: 41097b4d281e61840aadc7a74b5e3552, type: 2}
   bgmSlider: {fileID: 707576910}
   sfxSlider: {fileID: 148260919}

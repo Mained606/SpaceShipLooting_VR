@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExitGame : MonoBehaviour 
+public class ExitGame : MonoBehaviour
 {
     // VR에서 오브젝트를 클릭했을 때 호출되는 메서드
     public void OnExitGame()
@@ -11,6 +11,7 @@ public class ExitGame : MonoBehaviour
         Debug.Log("Editor Quit");
 #else
         // 빌드된 애플리케이션에서는 게임 종료
+        SaveLoad.DeleteFile();
         Application.Quit();
 #endif
     }
