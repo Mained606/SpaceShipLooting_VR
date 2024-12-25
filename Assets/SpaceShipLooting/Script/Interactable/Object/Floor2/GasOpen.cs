@@ -27,7 +27,6 @@ public class GasOpen : MonoBehaviour, ISignal
     {
         if (state) particle.Play();
         girik.Play();
-        AudioManager.Instance.Play("Gas",true);
         Sender(true);
     }
 
