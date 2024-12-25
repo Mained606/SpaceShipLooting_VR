@@ -66,6 +66,7 @@ public class Destructable : MonoBehaviour
         else if (gameObject.CompareTag("Boss"))
         {
             Debug.Log("보스 죽음 신호 발생");
+            AudioManager.Instance.Play("BossDestroy", false, 1f, 0.8f);
             OnBossDestroyed?.Invoke(gameObject);
         }
         else

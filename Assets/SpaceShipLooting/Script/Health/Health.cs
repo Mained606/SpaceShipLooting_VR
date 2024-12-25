@@ -51,6 +51,10 @@ public class Health : MonoBehaviour
         {
             AudioManager.Instance.Play("PlayerDamage", false, 1f, 0.7f);
         }
+        if (gameObject.CompareTag("Boss") || gameObject.CompareTag("Core"))
+        {
+            AudioManager.Instance.Play("BossDamage", false);
+        }
 
         // 데미지 UI
         if (damageUi != null)

@@ -83,7 +83,7 @@ public class BossEye : MonoBehaviour
 
         animator.SetTrigger("damage");
 
-        AudioManager.Instance.Play("EyeDamage");
+        AudioManager.Instance.Play("EyeDamage", false);
 
         damageCount++;
         Debug.Log($"[BossEye] 데미지 횟수: {damageCount}/{maxDamageCount}");

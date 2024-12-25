@@ -29,6 +29,8 @@ public class BossLaser : MonoBehaviour
     {
         Debug.Log("레이저 충돌: " + other.gameObject.name);
         Debug.Log("레이저 충돌 태그: " + other.gameObject.tag);
+        // 레이저 닿았을 때 사운드 추가
+
 
         switch (other.gameObject.tag)
         {

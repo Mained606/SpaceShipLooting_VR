@@ -41,12 +41,15 @@ public class CoreController : MonoBehaviour
         if (isDestroyed)
         {
             // 코어가 파괴되면 모든 이펙트를 비활성화
+            // 코어 파괴시 사운드 추가
+            AudioManager.Instance.Play("BossCoreDestroy", false, 1f, 0.8f);
             shieldEffects.SetActive(false);
             lightEffects.SetActive(false);
         }
         else
         {
             // 코어가 부활하면 라이트와 실드 다시 켜기
+            AudioManager.Instance.Play("CoreReturn", false, 1f, 0.7f);
             lightEffects.SetActive(true);
             shieldEffects.SetActive(true);
         }

@@ -28,7 +28,7 @@ public class Wire : MonoBehaviour
                 Debug.LogWarning("Animator component not found on Wire object.");
             }
 
-            isInitialized = true; 
+            isInitialized = true;
         }
     }
 
@@ -36,10 +36,11 @@ public class Wire : MonoBehaviour
     {
         Debug.Log("" + collision.gameObject.name);
         // 플레이어의 무기 또는 총알과 충돌했을 때
-        if (collision.gameObject.CompareTag("Weapons") || collision.gameObject.CompareTag("Bullet")) 
+        if (collision.gameObject.CompareTag("Weapons") || collision.gameObject.CompareTag("Bullet"))
         {
             Debug.Log("와이어가 파괴되었습니다.");
-            
+            AudioManager.Instance.Play("BossLineDamage", false, 1f, 1.3f);
+
             // explosionState가 초기화되었는지 확인
             if (explosionState != null)
             {

@@ -37,7 +37,7 @@ public class SpaceBossDefenceState : State<BossController>
         if (!boss.AllCoresDestroyed)
         {
             boss.bossShield.SetActive(true);
-            AudioManager.Instance.Play("ShieldOn", false, 0.8f, 0.7f);
+            AudioManager.Instance.Play("ShieldOn", false, 0.8f, 0.3f);
         }
         else
         {
@@ -110,7 +110,7 @@ public class SpaceBossDefenceState : State<BossController>
             {
                 if (!coreController.IsDestroyed())
                 {
-                    AudioManager.Instance.Play("ShieldOn", false, 0.8f, 0.7f);
+                    AudioManager.Instance.Play("ShieldOn", false, 0.8f, 0.3f);
                     core.SetActive(true);
                     coreController.SetShieldEffect(isShield);
                 }

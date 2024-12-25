@@ -46,7 +46,7 @@ public class MainMenu : MonoBehaviour
         //참조
         audioManager = AudioManager.Instance;
 
-        AudioManager.Instance.PlayBGM(0, 0.35f);
+        AudioManager.Instance.PlayBGM(0, 0.2f);
     }
 
     public void StartGame()

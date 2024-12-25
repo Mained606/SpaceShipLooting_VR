@@ -65,6 +65,10 @@ public class SpaceBossGroggyState : State<BossController>
         // 그로기 상태 시작 효과 실행
         Debug.Log("그로기 상태 효과 시작");
 
+        // 그로기 SFX 추가
+
+
+
         health.IsInvincible = false;
         boss.bossShield.SetActive(false);
         groggyEffect.SetActive(true);
@@ -84,5 +88,7 @@ public class SpaceBossGroggyState : State<BossController>
 
         groggyEffect.SetActive(false);
         // 추가적인 파티클, 사운드 처리 가능
+
+
     }
 }

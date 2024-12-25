@@ -23,9 +23,8 @@ public class SpaceBossEyeLaserState : State<BossController>
 
         boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
 
-
-        boss.canvas.gameObject.SetActive(true);
-        boss.textbox.text = "Laser State...";
+        // boss.canvas.gameObject.SetActive(true);
+        // boss.textbox.text = "Laser State...";
 
         // 레이저 공격 시작 이벤트 실행
         boss.OnLaserStateStarted?.Invoke();
@@ -55,18 +54,18 @@ public class SpaceBossEyeLaserState : State<BossController>
         }
 
         // 2. 레이저 공격 준비 단계
-        boss.textbox.text = "Laser Charging...";
+        // boss.textbox.text = "Laser Charging...";
         boss.AdjustEyePosition(true, boss.Target.position); // 마지막 추적 위치로 눈 고정
 
-        AudioManager.Instance.Play("BossLazerWait");
+        AudioManager.Instance.Play("BossLazerWait", false, 0.8f, 0.9f);
 
         yield return new WaitForSeconds(boss.LaserChargeDuration); // 레이저 충전 시간
 
         // 3. 레이저 발사
-        boss.textbox.text = "Laser Attack!";
+        // boss.textbox.text = "Laser Attack!";
         if (boss.Target != null)
         {
-            AudioManager.Instance.Play("BossLazer_");
+            AudioManager.Instance.Play("BossLazerFire", false, 1f, 0.9f);
             boss.FireLaser(boss.Target.position); // 플레이어의 최종 위치를 목표로 레이저 발사
         }
 
@@ -84,7 +83,7 @@ public class SpaceBossEyeLaserState : State<BossController>
     {
         Debug.Log("보스 레이저 공격 상태 종료");
 
-        boss.canvas.gameObject.SetActive(false);
+        // boss.canvas.gameObject.SetActive(false);
 
         // 레이저 공격 종료 이벤트 실행
         boss.OnLaserStateEnded?.Invoke();

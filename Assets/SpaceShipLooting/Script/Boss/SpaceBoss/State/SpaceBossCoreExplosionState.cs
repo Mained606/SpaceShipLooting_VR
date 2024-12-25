@@ -26,8 +26,8 @@ public class SpaceBossCoreExplosionState : State<BossController>
         if (boss == null) return;
 
         boss.StopAllSkillCoroutines(); // 이전 상태의 모든 코루틴 종료
-        boss.canvas.gameObject.SetActive(true);
-        boss.textbox.text = "Core Explosion...";
+        // boss.canvas.gameObject.SetActive(true);
+        // boss.textbox.text = "Core Explosion...";
         explosionPrefab = boss.explosionPrefab;
 
         ActivateRandomCoreAttack();
@@ -46,7 +46,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
         Debug.Log("보스 코어 폭발 상태 종료");
         StopAllCoreCoroutines();
         ClearAllExplosions();
-        boss.canvas.gameObject.SetActive(false);
+        // boss.canvas.gameObject.SetActive(false);
     }
 
     private void ActivateRandomCoreAttack()
@@ -76,6 +76,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
         if (wire != null)
         {
             wire.gameObject.SetActive(isActive);
+            // 와이어 연결 SFX 추가
 
             if (isActive)
             {
@@ -84,6 +85,13 @@ public class SpaceBossCoreExplosionState : State<BossController>
                 {
                     wireScript.Initialize(this); // 현재 스테이트를 전달
                 }
+
+                // 사운드 재생
+                AudioManager.Instance.Play("BossLine", false);
+            }
+            else
+            {
+                AudioManager.Instance.Stop("BossLine");
             }
         }
         else
@@ -102,17 +110,14 @@ public class SpaceBossCoreExplosionState : State<BossController>
             Debug.LogError("vfx_Electricity 파티클을 찾을 수 없습니다.");
             yield break;
         }
-
-        AudioManager.Instance.Play("BossLine");
-
         vfx_Electricity.gameObject.SetActive(true);
         vfx_Electricity.Play();
 
         yield return new WaitForSeconds(boss.ExplosionDelay);
 
-        AudioManager.Instance.Stop("BossLine");
         vfx_Electricity.Stop();
         vfx_Electricity.gameObject.SetActive(false);
+        AudioManager.Instance.Stop("BossLine");
 
         yield return new WaitForSeconds(0.2f);
 
@@ -133,8 +138,6 @@ public class SpaceBossCoreExplosionState : State<BossController>
                         Damageable damageable = collider.GetComponent<Damageable>();
                         if (damageable != null)
                         {
-                            AudioManager.Instance.Play("CoreBoom");
-
                             damageable.InflictDamage(boss.ExplosionDamage);
                             Debug.Log($"범위 공격이 {collider.gameObject.name}에 {boss.ExplosionDamage}의 데미지를 주었습니다.");
                         }
@@ -143,7 +146,6 @@ public class SpaceBossCoreExplosionState : State<BossController>
             }
 
             yield return new WaitForSeconds(0.8f);
-            AudioManager.Instance.Stop("CoreBoom");
 
             if (activeExplosions.ContainsKey(core))
             {
@@ -180,9 +182,7 @@ public class SpaceBossCoreExplosionState : State<BossController>
         var vfx_Electricity = core.transform.Find("vfx_Electricity")?.GetComponent<ParticleSystem>();
         if (vfx_Electricity != null)
         {
-            AudioManager.Instance.Stop("CoreBoom");
             AudioManager.Instance.Stop("BossLine");
-            AudioManager.Instance.Play("BossLineDamage");
 
             vfx_Electricity.Stop();
             vfx_Electricity.gameObject.SetActive(false);
