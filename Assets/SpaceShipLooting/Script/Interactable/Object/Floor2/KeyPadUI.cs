@@ -36,6 +36,8 @@ public class KeyPadUI : MonoBehaviour, ISignal
    
     public void OnButtonPressed(int number)
     {
+        AudioManager.Instance.Play("Button",false,0.5f);
+
         if (currentInput.Length >= 4) return; // 4자리 입력 제한
 
         currentInput += number;

@@ -6,13 +6,13 @@ public class Intercom : XRSimpleInteractableOutline,ISignal
 {
     private GameObject canvasUI; // Keypad UI 오브젝트
     private Transform displayPosition; // UI가 나타날 위치
-    private Collider col;
+ //   private Collider col;
 
     protected override void Awake()
     {
         base.Awake();
 
-        col = GetComponent<Collider>();
+   //     col = GetComponent<Collider>();
 
         // KeyPadUI 동적 검색
         var keyPadUI = FindObjectOfType<KeyPadUI>(true)?.gameObject;// 비활성화된 오브젝트도 검색
@@ -31,14 +31,14 @@ public class Intercom : XRSimpleInteractableOutline,ISignal
                 Debug.LogError("DisplayPosition not found under KeyPadUI!");
             }
         }
-        KeyPadUI.codeCheck.AddListener(Receiver);
+      //  KeyPadUI.codeCheck.AddListener(Receiver);
     }
    
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
 
-        col.enabled = false;
+     //   col.enabled = false;
         // UI 활성화
         if (canvasUI != null && !canvasUI.activeSelf)
         {
@@ -50,7 +50,7 @@ public class Intercom : XRSimpleInteractableOutline,ISignal
 
     public void Receiver(bool state)
     {
-        col.enabled = true;
+    //    col.enabled = true;
     }
 
     public void Sender(bool state) { }

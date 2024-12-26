@@ -17,7 +17,7 @@ public class WarningLight : MonoBehaviour, ISignal
         if (!state)
         {
             Debug.Log("수신양호");
-            AudioManager.Instance.Play("F1Siren");
+            AudioManager.Instance.Play("F1Siren",false);
             red.SetTrigger("Open");
             red.SetTrigger("Close");
         }
