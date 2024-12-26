@@ -66,11 +66,13 @@ public class MainMenu : MonoBehaviour
         if (!flag)
         {
             flag = true;
-            AudioManager.Instance.Play("Button", false);
+            Debug.Log("옵션보이기");
+            //AudioManager.Instance.Play("Button", false);
 
             ShowOptions();
 
             Invoke(nameof(ResetFlag), 0.5f);
+            
         }
     }
 
@@ -100,10 +102,12 @@ public class MainMenu : MonoBehaviour
     //옵션 보이기
     private void ShowOptions()
     {
-        AudioManager.Instance.Play("Button", false);
+        //AudioManager.Instance.Play("Button", false);
+        Debug.Log("실행됨");
 
-        mainMenuUI.SetActive(true);
-        optionUI.SetActive(false);
+        //mainMenuUI.SetActive(true);
+        optionUI.SetActive(true);
+        Debug.Log("SetActive");
     }
 
     //옵션죽이기
