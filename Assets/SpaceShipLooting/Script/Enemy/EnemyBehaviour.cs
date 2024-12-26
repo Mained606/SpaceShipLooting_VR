@@ -490,11 +490,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void DropItem()
     {
         Instantiate(enemyData.item, agent.transform.position, Quaternion.identity);
-        JsonTextManager.instance.OnDialogue("stage2-8");
-        if (enemyData.item.ToString() == "Card_Key")
-        {
-            AudioManager.Instance.Play("KeyCard", false);
-        }
+
         Debug.Log("Item dropped!");
     }
 
