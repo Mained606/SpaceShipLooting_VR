@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    private bool isInit = false;
     public EnemyData enemyData;
     private EnemyPatrol patrolBehavior;
     private EnemyChase chaseBehaviour;
@@ -66,24 +67,13 @@ public class EnemyBehaviour : MonoBehaviour
         animator = GetComponent<Animator>();
         fanPerception = GetComponentInChildren<FanShapePerception>();
 
-        while (target == null)
-        {
-            target = PlayerStateManager.PlayerTransform;
-        }
+        target = PlayerStateManager.PlayerTransform;
         if (target.GetComponent<Damageable>() != null)
         {
             targetDamageable = target.GetComponent<Damageable>();
         }
-        while (targetHead == null)
-        {
-            targetHead = GameObject.FindGameObjectWithTag("MainCamera").transform;
-            if (targetHead == null)
-            {
-                Debug.Log("타겟 헤드 널");
-            }
-            Debug.Log(targetHead.gameObject.name + "타겟헤드 0번 오브젝트 네임");
-        }
-        
+        targetHead = Camera.main.transform;
+
         enemyData.currentState = EnemyState.E_Idle;
         agent.speed = enemyData.moveSpeed;
         eyePoint = transform.GetChild(0);
@@ -104,6 +94,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (!isInit)
+        {
+            InitializeCheck();
+            return;
+        }
         if (isDeath)
             return;
 
@@ -170,6 +165,29 @@ public class EnemyBehaviour : MonoBehaviour
                 
         }
     }
+
+    private void InitializeCheck()
+    {
+        isInit = true;
+        target = PlayerStateManager.PlayerTransform;
+        if (target == null)
+        {
+            isInit = false;
+        }
+
+        targetDamageable = target.GetComponent<Damageable>();
+        if (target.GetComponent<Damageable>() == null)
+        {
+            isInit = false;
+        }
+
+        targetHead = Camera.main.transform;
+        if (targetHead == null)
+        {
+            isInit = false;
+        }
+    }
+
 
     private void SetPatrolBehavior()
     {
