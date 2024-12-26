@@ -65,14 +65,12 @@ public class MainMenu : MonoBehaviour
     {
         if (!flag)
         {
-            flag = true;
-            Debug.Log("옵션보이기");
-            //AudioManager.Instance.Play("Button", false);
+            flag = true;       
+            AudioManager.Instance.Play("Button", false);
 
             ShowOptions();
 
-            Invoke(nameof(ResetFlag), 0.5f);
-            
+            Invoke(nameof(ResetFlag), 0.5f);            
         }
     }
 
@@ -102,12 +100,9 @@ public class MainMenu : MonoBehaviour
     //옵션 보이기
     private void ShowOptions()
     {
-        //AudioManager.Instance.Play("Button", false);
-        Debug.Log("실행됨");
-
-        //mainMenuUI.SetActive(true);
-        optionUI.SetActive(true);
-        Debug.Log("SetActive");
+        AudioManager.Instance.Play("Button", false);
+                
+        optionUI.SetActive(true);        
     }
 
     //옵션죽이기
@@ -115,8 +110,7 @@ public class MainMenu : MonoBehaviour
     {
         //옵션값 저장하기
         SaveOptions();
-
-        mainMenuUI.SetActive(true);
+               
         optionUI.SetActive(false);
     }
 
