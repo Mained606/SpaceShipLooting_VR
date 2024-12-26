@@ -27,7 +27,7 @@
                     "name": "Is Tracked",
                     "type": "Button",
                     "id": "6bb4e248-e42b-47c3-b66c-79566508ca74",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -461,6 +461,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle Cheat Button",
+                    "type": "Button",
+                    "id": "62329c37-1511-49e8-af21-4dc271e04e2d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -879,6 +888,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8bff68c0-5e14-4b94-9a0b-c18ba5f946c7",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Cheat Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

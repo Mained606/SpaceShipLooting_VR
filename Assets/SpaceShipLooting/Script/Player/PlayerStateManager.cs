@@ -34,6 +34,13 @@ public class PlayerStateManager : MonoBehaviour
 
     [SerializeField] private GameObject gameOverUI;
 
+    // 플레이어 치트 관련
+    private bool cheatMode = false;
+    private int previousAmmo;
+    private float previousBulletDamage;
+    private float previousSwordDamage;
+    private Health playerHealth;
+
     // 싱글톤 초기화
     private void Awake()
     {
@@ -89,9 +96,19 @@ public class PlayerStateManager : MonoBehaviour
             // playerInputHandler의 OnStealthToggle에 ToggleStealthMode 메서드 연결
             playerInputHandler.OnStealthToggle.AddListener(ToggleStealthMode);
             playerInputHandler.OnRunningToggle.AddListener(ToggleRunningMode);
+            playerInputHandler.OnCheatButtonToggle.AddListener(ToggleCheatButton);
             // 다른 기능 추가시 다른 이벤트 리스너 추가 가능...
         }
 
+        playerHealth = GetComponent<Health>();
+        {
+            if (playerHealth == null)
+            {
+                Debug.Log("DynamicMoveProvider를 찾을 수 없습니다!");
+                enabled = false; //만약 null이면 추가 오류를 방지하기 위해 스크립트 비활성화
+                return;
+            }
+        }
 
         // 시작시 상태 설정
         if (GameManager.Instance.PlayerStatsData.enableStealthMode)
@@ -110,6 +127,34 @@ public class PlayerStateManager : MonoBehaviour
         }
 
         currentState.EnterState(this);
+    }
+
+    // 치트 모드 추가
+    private void ToggleCheatButton()
+    {
+        cheatMode = !cheatMode;
+        if(cheatMode)
+        {
+            Debug.Log("치트 모드 온");
+            AudioManager.Instance.Play("Button", false);
+            previousAmmo = GameManager.Instance.PlayerStatsData.maxAmmo;
+            previousBulletDamage = GameManager.Instance.PlayerStatsData.bulletDamage;
+            previousSwordDamage = GameManager.Instance.PlayerStatsData.knifeDamage;
+            
+            playerHealth.IsInvincible = true;
+            GameManager.Instance.PlayerStatsData.maxAmmo = 999;
+            GameManager.Instance.PlayerStatsData.bulletDamage = 999f;
+            GameManager.Instance.PlayerStatsData.knifeDamage = 999f;
+        }
+        else
+        {
+            Debug.Log("치트 모드 오프");
+            AudioManager.Instance.Play("Button", false);
+            playerHealth.IsInvincible = false;
+            GameManager.Instance.PlayerStatsData.maxAmmo = previousAmmo;
+            GameManager.Instance.PlayerStatsData.bulletDamage = previousBulletDamage;
+            GameManager.Instance.PlayerStatsData.knifeDamage = previousSwordDamage;
+        }
     }
 
     // 재도전시 플레이어 데이터 초기화
