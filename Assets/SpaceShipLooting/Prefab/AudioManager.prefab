@@ -122,6 +122,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1cb59a425b2e63841b98987f6c377581, type: 3}
   - {fileID: 8300000, guid: 6ba2c10954781cb4684bb831cce53c62, type: 3}
   - {fileID: 8300000, guid: 43694d425d6fc97428f9cd62fb35610b, type: 3}
+  - {fileID: 8300000, guid: 5430e2d41fffbb24c8dd4318daa80c7b, type: 3}
+  - {fileID: 8300000, guid: 8c0ec469cc31b6f48b5adbc6a92e6e68, type: 3}
   _MainMusicClip:
   - {fileID: 8300000, guid: ee70da4caaca80640b10daaaa767927d, type: 3}
   - {fileID: 8300000, guid: 5b7dd09cbbb31be4ab745072f6eb4ae4, type: 3}
