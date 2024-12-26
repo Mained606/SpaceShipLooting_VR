@@ -298,6 +298,7 @@ public class Enemy : MonoBehaviour
     private void DropItem()
     {
         Instantiate(item, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+        JsonTextManager.instance.OnDialogue("stage2-8");
         Debug.Log("Item dropped!");
     }
 
