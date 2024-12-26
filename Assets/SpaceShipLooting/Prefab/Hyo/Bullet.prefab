@@ -149,5 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c467c4d787389c84fb1327ad81ea5c00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactEffectPrefab: {fileID: 3061015098213265699, guid: 462b97b3032f552458e8432a87b0406a, type: 3}
+  impactEffectPrefab: {fileID: 1494032754835015984, guid: d527bc7c9b63705488f88e2b3820726d, type: 3}
   effectLifetime: 2

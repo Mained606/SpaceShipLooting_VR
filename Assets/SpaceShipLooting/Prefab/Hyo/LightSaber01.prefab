@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3cfdff2b90c8c4fa53b531beacbea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactEffectPrefab: {fileID: 3061015098213265699, guid: 8dab52b39bb64d44da252b3dbf79fe59, type: 3}
+  impactEffectPrefab: {fileID: 7097114940421118953, guid: f9d31c71067f96743bcc035a31ddd923, type: 3}
   cooldownTime: 1
   effectLifetime: 2
 --- !u!54 &5334629835304233339
