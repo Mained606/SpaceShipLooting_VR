@@ -37,12 +37,12 @@ public class PositionStartTransform : MonoBehaviour
         {
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
-            StartCoroutine(Dial());
+        //    StartCoroutine(Dial());
         }
     }
-    IEnumerator Dial()
+   /* IEnumerator Dial()
     {
         yield return new WaitForSeconds(4f);
         JsonTextManager.instance.OnDialogue("stage1-0");
-    }
+    }*/
 }

@@ -42,7 +42,9 @@ public class Position1Transform : MonoBehaviour
         IEnumerator Dialogue()
         {
             yield return new WaitForSeconds(2f);
-            JsonTextManager.instance.OnDialogue("stage1-1");
+
+            JsonTextManager.instance.OnDialogue("stage1-0");
+
         }
     }
 }
