@@ -4,6 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ValveMove : XRSimpleInteractableOutline, ISignal
 {
+    private Collider col;
     private Animator anim;
  //   public AudioSource girik;
     public static UnityEvent<bool> OnValve { get; } = new UnityEvent<bool>();
@@ -22,6 +23,7 @@ public class ValveMove : XRSimpleInteractableOutline, ISignal
         if (anim != null)
         {
             anim.SetTrigger("Open");
+            col.enabled = false;
             AudioManager.Instance.Play("Valve", false);
         }
         Sender(true);
