@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3510e2ce6723554c986bc29e44e154c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedStringIndex: stage1-6
+  selectedStringIndex: stage1-9
 --- !u!114 &436047929 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5242753369873694864, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
@@ -1893,7 +1893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6678383903670034676, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
