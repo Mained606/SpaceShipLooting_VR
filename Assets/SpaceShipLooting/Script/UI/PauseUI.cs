@@ -10,6 +10,7 @@ public class PauseUI : MonoBehaviour
 
     public GameObject gameMenu;
     public InputActionProperty showButton;
+    
 
     //머리 따라가게
     /*public Transform head;
@@ -36,7 +37,7 @@ public class PauseUI : MonoBehaviour
 
     private void Update()
     {
-        if (showButton.action.WasPressedThisFrame())
+        if (showButton.action != null && showButton.action.WasPressedThisFrame())
         {
             Toggle();
         }
@@ -62,7 +63,7 @@ public class PauseUI : MonoBehaviour
         else
         {
             //옵션값 저장하기
-            SaveOptions();
+            //SaveOptions();
 
             //게임 재개
             Time.timeScale = 1f;

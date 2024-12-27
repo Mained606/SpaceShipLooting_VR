@@ -1369,6 +1369,18 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
+  cheatButton:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Cheat Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 17efe87c-2c80-4c3f-b1ac-d85b274d1967
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
   OnStealthToggle:
     m_PersistentCalls:
       m_Calls: []
@@ -1379,6 +1391,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnMenuButtonToggle:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCheatButtonToggle:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1487828013621536316
@@ -1394,6 +1409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  isDead: 0
   isInvincible: 0
   damageUi: {fileID: 3507414081679726246}
 --- !u!114 &5966200162628487788

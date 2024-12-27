@@ -64,12 +64,12 @@ public class MainMenu : MonoBehaviour
     public void Option()
     {
         if (!flag)
-        {
+        {            
             flag = true;       
             AudioManager.Instance.Play("Button", false);
 
             ShowOptions();
-
+            Debug.Log("Option");
             Invoke(nameof(ResetFlag), 0.5f);            
         }
     }

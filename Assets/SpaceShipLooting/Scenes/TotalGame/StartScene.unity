@@ -377,7 +377,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: Option
         m_Mode: 1
@@ -623,14 +623,14 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: SetSfxVolume
-        m_Mode: 0
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -980,7 +980,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: HideOptions
         m_Mode: 1
@@ -1538,14 +1538,14 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: SetBgmVolume
-        m_Mode: 0
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2967,7 +2967,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
@@ -3457,9 +3457,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fader: {fileID: 0}
-  loadToScene: SceneName
-  optionUI: {fileID: 89319848}
-  mainMenuUI: {fileID: 1439707313}
+  loadToScene: ProtoScene1
+  optionUI: {fileID: 2046818649}
+  mainMenuUI: {fileID: 1580850260}
   loadButton: {fileID: 1278505941}
   audioMixer: {fileID: 24100000, guid: 41097b4d281e61840aadc7a74b5e3552, type: 2}
   bgmSlider: {fileID: 707576910}
@@ -3562,7 +3562,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
