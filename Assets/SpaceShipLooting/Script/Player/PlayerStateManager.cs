@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 /// <summary>
 ///  스테이트 매니저
@@ -36,6 +37,7 @@ public class PlayerStateManager : MonoBehaviour
 
     // 플레이어 치트 관련
     private bool cheatMode = false;
+    public bool CheatMonde => cheatMode;
     private int previousAmmo;
     private float previousBulletDamage;
     private float previousSwordDamage;
@@ -97,6 +99,7 @@ public class PlayerStateManager : MonoBehaviour
             playerInputHandler.OnStealthToggle.AddListener(ToggleStealthMode);
             playerInputHandler.OnRunningToggle.AddListener(ToggleRunningMode);
             playerInputHandler.OnCheatButtonToggle.AddListener(ToggleCheatButton);
+            playerInputHandler.OnNextSceneButton.AddListener(ToggleNextSceneButton);
             // 다른 기능 추가시 다른 이벤트 리스너 추가 가능...
         }
 
@@ -129,6 +132,34 @@ public class PlayerStateManager : MonoBehaviour
         currentState.EnterState(this);
     }
 
+    private void ToggleNextSceneButton()
+    {
+        if(!cheatMode) return;
+
+        Debug.Log("넥스트 씬 이동");
+
+        SceneFader fader = GameManager.Instance.GetComponentInChildren<SceneFader>();
+        if (fader != null)
+        {
+            //현재 씬 번호
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            int nextSceneIndex;
+            if (currentSceneIndex == SceneManager.sceneCountInBuildSettings - 1)
+            {
+                // 만약 다음씬이 마지막 씬 이라면 1번 씬으로 이동
+                nextSceneIndex = 1;
+            }
+            else
+            {
+                // 다음 씬 인덱스
+                nextSceneIndex = currentSceneIndex + 1;
+            }
+
+            fader.FadeTo(nextSceneIndex);
+        }
+    }
+
     // 치트 모드 추가
     private void ToggleCheatButton()
     {
@@ -149,7 +180,6 @@ public class PlayerStateManager : MonoBehaviour
         else
         {
             Debug.Log("치트 모드 오프");
-            AudioManager.Instance.Play("Button", false);
             playerHealth.IsInvincible = false;
             GameManager.Instance.PlayerStatsData.maxAmmo = previousAmmo;
             GameManager.Instance.PlayerStatsData.bulletDamage = previousBulletDamage;

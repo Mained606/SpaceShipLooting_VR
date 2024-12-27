@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,6 +14,10 @@ public class PlayerInputHandler : MonoBehaviour
     public InputActionProperty NightVisionButton;
     public InputActionProperty menuButton;
     public InputActionProperty cheatButton;
+    // public InputActionProperty nextSceneButton;
+
+    private bool[] nextScene = new bool[3];
+
 
     // 스텔스 모드 토글 이벤트 (UnityEvent를 통해 외부 구독 가능)
     [HideInInspector] public UnityEvent OnStealthToggle = new UnityEvent();
@@ -20,6 +25,8 @@ public class PlayerInputHandler : MonoBehaviour
     [HideInInspector] public UnityEvent OnNightVisionToggle = new UnityEvent();
     [HideInInspector] public UnityEvent OnMenuButtonToggle = new UnityEvent();
     [HideInInspector] public UnityEvent OnCheatButtonToggle = new UnityEvent();
+    [HideInInspector] public UnityEvent OnNextSceneButton = new UnityEvent();
+    
 
     private void Update()
     {
@@ -28,6 +35,22 @@ public class PlayerInputHandler : MonoBehaviour
         HandleNightVisionInput();
         HandleMenuButtonInput();
         HandleCheatButtonInput();
+        HandleCheatSceneChangeInput();
+    }
+
+    private void HandleCheatSceneChangeInput()
+    {
+        if(PlayerStateManager.Instance.CheatMonde)
+        {
+            for (int i = 0; i < nextScene.Length; i++)
+            {
+                // Debug.Log("키"+ i.ToString() + nextScene[i]);
+                if(nextScene[i] == false) return;
+            }
+            
+
+            OnNextSceneButton?.Invoke();
+        }
     }
 
     private void HandleCheatButtonInput()
@@ -35,6 +58,11 @@ public class PlayerInputHandler : MonoBehaviour
         if(cheatButton.action.WasPressedThisFrame())
         {
             OnCheatButtonToggle?.Invoke();
+            // nextScene[0] = true;
+        }
+        else
+        {
+            // nextScene[0] = false;
         }
     }
 
@@ -45,6 +73,12 @@ public class PlayerInputHandler : MonoBehaviour
         {
             // 스텔스 토글 이벤트 호출
             OnStealthToggle?.Invoke();
+            nextScene[0] = true;
+
+        }
+        if (stealthButton.action.WasReleasedThisFrame())
+        {
+            nextScene[0] = false;
         }
     }
     private void HandleRunningInput()
@@ -52,6 +86,12 @@ public class PlayerInputHandler : MonoBehaviour
         if(runningButton.action.WasPressedThisFrame())
         {
             OnRunningToggle?.Invoke();
+            nextScene[1] = true;
+
+        }
+        if(runningButton.action.WasReleasedThisFrame())
+        {
+            nextScene[1] = false;
         }
     }
 
@@ -61,6 +101,12 @@ public class PlayerInputHandler : MonoBehaviour
         {
             // 스텔스 토글 이벤트 호출
             OnNightVisionToggle?.Invoke();
+            nextScene[2] = true;
+
+        }
+        if(NightVisionButton.action.WasReleasedThisFrame())
+        {
+            nextScene[2] = false;
         }
     }
 
@@ -68,7 +114,6 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (menuButton.action.WasPressedThisFrame())
         {
-            // 스텔스 토글 이벤트 호출
             OnMenuButtonToggle?.Invoke();
         }
     }
