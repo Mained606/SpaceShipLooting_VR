@@ -34,8 +34,13 @@ public class ConsoleDoor : XRSimpleInteractableOutline, ISignal
             {
                 anim.SetTrigger("Close");
                 AudioManager.Instance.Play("DoorOpen_");
+                AudioManager.Instance.Play("F1Siren",true,0.5f,0.7f);
                 Debug.Log("문 닫힘");
             }
         }
+    }
+    private void OnDisable()
+    {
+        AudioManager.Instance.Stop("F1Siren");
     }
 }
