@@ -125,6 +125,17 @@ public class MainMenu : MonoBehaviour
     {
         audioMixer.SetFloat("SfxVolume", value);
     }
+    //AudioMix Bgm -40~0
+    public void SetBgmVolume()
+    {
+        audioMixer.SetFloat("BgmVolume", bgmSlider.value);
+    }
+
+    //AudioMix Sfx -40~0
+    public void SetSfxVolume()
+    {
+        audioMixer.SetFloat("SfxVolume", sfxSlider.value);
+    }
 
     //옵션값 저장하기
     private void SaveOptions()

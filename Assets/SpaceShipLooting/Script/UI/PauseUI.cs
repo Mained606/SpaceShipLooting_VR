@@ -10,11 +10,10 @@ public class PauseUI : MonoBehaviour
 
     public GameObject gameMenu;
     public InputActionProperty showButton;
-    
 
-    //머리 따라가게
-    /*public Transform head;
-    [SerializeField] private float distance = 1.5f;*/
+    [SerializeField] private SceneFader fader;
+
+   
 
     //Audio
     private AudioManager audioManager;
@@ -22,6 +21,8 @@ public class PauseUI : MonoBehaviour
     public AudioMixer audioMixer;
     public Slider bgmSlider;
     public Slider sfxSlider;
+
+    public GameObject vinetting;
 
     //게임 멈추게 하는거
     private bool isPaused = false;
@@ -37,8 +38,9 @@ public class PauseUI : MonoBehaviour
 
     private void Update()
     {
-        if (showButton.action != null && showButton.action.WasPressedThisFrame())
+        if (showButton.action.WasPressedThisFrame())
         {
+            
             Toggle();
         }
     }
@@ -46,17 +48,14 @@ public class PauseUI : MonoBehaviour
     //껐다 켰다
     void Toggle()
     {
+        Debug.Log("dd");
         isPaused = !isPaused;
         gameMenu.SetActive(isPaused);
 
         //show 설정
         if (isPaused)
         {
-            /*//머리따라서
-            gameMenu.transform.position = head.position + new Vector3(head.forward.x, 0f, head.forward.z).normalized * distance;
-            gameMenu.transform.LookAt(new Vector3(head.position.x, gameMenu.transform.position.y, head.position.z));
-            gameMenu.transform.forward *= -1;*/
-
+            
             //게임 멈춤
             Time.timeScale = 0f;
         }
@@ -80,6 +79,18 @@ public class PauseUI : MonoBehaviour
     public void SetSfxVolume(float value)
     {
         audioMixer.SetFloat("SfxVolume", value);
+    }
+
+    //AudioMix Bgm -40~0
+    public void SetBgmVolume()
+    {
+        audioMixer.SetFloat("BgmVolume", bgmSlider.value);
+    }
+
+    //AudioMix Sfx -40~0
+    public void SetSfxVolume()
+    {
+        audioMixer.SetFloat("SfxVolume", sfxSlider.value);
     }
 
     //옵션값 저장하기
@@ -106,16 +117,16 @@ public class PauseUI : MonoBehaviour
     //나가기
     public void Quit()
     {
-        Time.timeScale = 1f;
 
-#if UNITY_EDITOR
-        // 에디터에서 실행 중일 경우 에디터를 중지
-        UnityEditor.EditorApplication.isPlaying = false;
-        Debug.Log("Editor Quit");
-#else
-        // 빌드된 애플리케이션에서는 게임 종료
-        Application.Quit();
-#endif
+        fader.FadeTo(1);
+        Time.timeScale = 1;
+        gameMenu.SetActive(false);
     }
+
+    public void VinettingToggle()
+    {
+        vinetting.SetActive(!vinetting.activeSelf);
+    }
+
 }
 

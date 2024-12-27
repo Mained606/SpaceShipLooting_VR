@@ -620,7 +620,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1713401116}
   m_HandleRect: {fileID: 394370063}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -80
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 1
@@ -630,7 +630,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: SetSfxVolume
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 678784671}
   m_HandleRect: {fileID: 582479156}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -80
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 1
@@ -1545,7 +1545,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1422232329}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: SetBgmVolume
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
