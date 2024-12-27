@@ -78,7 +78,7 @@ public class KeyPadUI : MonoBehaviour, ISignal
             yield return new WaitForSeconds(2f);
             Sender(true);
             Clear(codeCheck);
-            yield return new WaitForSeconds(2f);
+         //   yield return new WaitForSeconds(2f);
             canvas.SetActive(false);
         }
         else

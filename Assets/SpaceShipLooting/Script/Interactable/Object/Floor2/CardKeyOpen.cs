@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class IntercomInteraction : MonoBehaviour
 {
+    private Collider col;
     private Animator anim;
 
     private void Start()
@@ -24,7 +25,8 @@ public class IntercomInteraction : MonoBehaviour
             anim.SetTrigger("Open");
             AudioManager.Instance.Play("Correct");
             AudioManager.Instance.Play("DoorOpen_");
-            
+            col.enabled = false;
+
             StartCoroutine(FindGo());
         }
     }
