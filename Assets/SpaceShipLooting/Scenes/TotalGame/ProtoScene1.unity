@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 213343216}
   - component: {fileID: 213343215}
   - component: {fileID: 213343214}
-  - component: {fileID: 213343213}
+  - component: {fileID: 213343218}
   m_Layer: 0
   m_Name: DialogueTrigger1
   m_TagString: Untagged
@@ -139,18 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &213343213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213343212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77e8c74c168aaa8438fbe4e1a41ad7ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &213343214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -240,6 +228,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 215901497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &213343218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213343212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3510e2ce6723554c986bc29e44e154c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedStringIndex: stage1-3
 --- !u!1 &215901496
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,9 +396,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 274649574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b665b7ccefe9774f9100cd8e88ed1de, type: 3}
+  m_Script: {fileID: 11500000, guid: d3510e2ce6723554c986bc29e44e154c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedStringIndex: stage1-6
 --- !u!114 &436047929 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5242753369873694864, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
@@ -421,7 +423,7 @@ GameObject:
   - component: {fileID: 506731491}
   - component: {fileID: 506731490}
   - component: {fileID: 506731489}
-  - component: {fileID: 506731488}
+  - component: {fileID: 506731492}
   m_Layer: 0
   m_Name: DialogueTrigger5
   m_TagString: Untagged
@@ -444,18 +446,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 215901497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &506731488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506731486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 625cdc935b284ea4c8ecdaaf204c7114, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &506731489
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -530,6 +520,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506731486}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &506731492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506731486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3510e2ce6723554c986bc29e44e154c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedStringIndex: stage1-1
 --- !u!1 &558694068
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +545,7 @@ GameObject:
   - component: {fileID: 558694072}
   - component: {fileID: 558694071}
   - component: {fileID: 558694070}
-  - component: {fileID: 558694069}
+  - component: {fileID: 558694074}
   m_Layer: 0
   m_Name: DialogueTrigger2
   m_TagString: Untagged
@@ -550,18 +553,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &558694069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558694068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fbc9f75d84eea344b0710d35aaf626d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &558694070
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -651,6 +642,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 215901497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &558694074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558694068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3510e2ce6723554c986bc29e44e154c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedStringIndex: stage1-4
 --- !u!1001 &612037053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1116,9 +1120,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1191077312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec3fbb9e7dc11f14da0763403b966d9d, type: 3}
+  m_Script: {fileID: 11500000, guid: d3510e2ce6723554c986bc29e44e154c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedStringIndex: stage1-5
 --- !u!1001 &1212470392
 PrefabInstance:
   m_ObjectHideFlags: 0
