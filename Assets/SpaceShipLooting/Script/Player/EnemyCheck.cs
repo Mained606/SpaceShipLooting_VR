@@ -32,6 +32,7 @@ public class EnemyCheck : MonoBehaviour
         else
         {
             StopHeartBeatSound(); // 소리 멈춤
+            PlayFastHeartBeatSound();
         }
     }
 
