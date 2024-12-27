@@ -23,7 +23,7 @@ public class PlayerStealthState : IPlayerState
     private Vector3 beforeLeftPanelSize;
     private Vector3 beforeRightPanelSize;
 
-    // 소켓
+    // // 소켓
     private Transform sockets;
     private Transform vest;
     private Vector3 beforeSockets;
@@ -115,8 +115,8 @@ public class PlayerStealthState : IPlayerState
         beforeSockets.y = sockets.localPosition.y;
         beforeVest.y = vest.localPosition.y;
 
-        sockets.localPosition = new Vector3(0f, beforeSockets.y / 4, sockets.localPosition.z);
-        vest.localPosition = new Vector3(0f, beforeVest.y / 4, vest.localPosition.z);
+        sockets.localPosition = new Vector3(sockets.localPosition.x, beforeSockets.y / 4, sockets.localPosition.z);
+        vest.localPosition = new Vector3(vest.localPosition.x, beforeVest.y / 4, vest.localPosition.z);
     }
 
     // 일어난 포지션
@@ -129,7 +129,7 @@ public class PlayerStealthState : IPlayerState
         leftNightVisionPanel.localPosition = new Vector3(leftNightVisionPanel.localPosition.x, beforeLeftPanelSize.y, leftNightVisionPanel.localPosition.z);
         rightNightVisionPanel.localPosition = new Vector3(rightNightVisionPanel.localPosition.x, beforeRightPanelSize.y, rightNightVisionPanel.localPosition.z);
 
-        sockets.localPosition = new Vector3(0f, beforeSockets.y, sockets.localPosition.z);
-        vest.localPosition = new Vector3(0f, beforeVest.y, vest.localPosition.z);
+        sockets.localPosition = new Vector3(sockets.localPosition.x, beforeSockets.y, sockets.localPosition.z);
+        vest.localPosition = new Vector3(vest.localPosition.x, beforeVest.y, vest.localPosition.z);
     }
 }
