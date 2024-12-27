@@ -1,5 +1,8 @@
+using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning;
 
 public class PauseUI : MonoBehaviour
@@ -9,10 +12,27 @@ public class PauseUI : MonoBehaviour
     public InputActionProperty showButton;
 
     //머리 따라가게
-    public Transform head;
-    [SerializeField] private float distance = 1.5f;
+    /*public Transform head;
+    [SerializeField] private float distance = 1.5f;*/
 
+    //Audio
+    private AudioManager audioManager;
+
+    public AudioMixer audioMixer;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+
+    //게임 멈추게 하는거
     private bool isPaused = false;
+
+
+    private void Start()
+    {
+        //참조
+        audioManager = AudioManager.Instance;
+
+        AudioManager.Instance.PlayBGM(0, 0.2f);
+    }
 
     private void Update()
     {
@@ -22,6 +42,7 @@ public class PauseUI : MonoBehaviour
         }
     }
 
+    //껐다 켰다
     void Toggle()
     {
         isPaused = !isPaused;
@@ -30,19 +51,55 @@ public class PauseUI : MonoBehaviour
         //show 설정
         if (isPaused)
         {
-            //머리따라서
+            /*//머리따라서
             gameMenu.transform.position = head.position + new Vector3(head.forward.x, 0f, head.forward.z).normalized * distance;
             gameMenu.transform.LookAt(new Vector3(head.position.x, gameMenu.transform.position.y, head.position.z));
-            gameMenu.transform.forward *= -1;
+            gameMenu.transform.forward *= -1;*/
 
             //게임 멈춤
             Time.timeScale = 0f;
         }
         else
         {
+            //옵션값 저장하기
+            SaveOptions();
+
             //게임 재개
             Time.timeScale = 1f;
         }
+    }
+
+    //AudioMix Bgm -40~0
+    public void SetBgmVolume(float value)
+    {
+        audioMixer.SetFloat("BgmVolume", value);
+    }
+
+    //AudioMix Sfx -40~0
+    public void SetSfxVolume(float value)
+    {
+        audioMixer.SetFloat("SfxVolume", value);
+    }
+
+    //옵션값 저장하기
+    private void SaveOptions()
+    {
+        PlayerPrefs.SetFloat("BgmVolume", bgmSlider.value);
+        PlayerPrefs.SetFloat("SfxVolume", sfxSlider.value);
+    }
+
+    //옵션값 로드하기
+    private void LoadOptions()
+    {
+        //배경음 볼륨 가져오기
+        float bgmVolume = PlayerPrefs.GetFloat("BgmVolume", 0);
+        SetBgmVolume(bgmVolume);        //사운드 볼륨 조절
+        bgmSlider.value = bgmVolume;    //UI셋팅
+
+        //효과음 볼륨 가져오기
+        float sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 0);
+        SetBgmVolume(sfxVolume);        //사운드 볼륨 조절
+        sfxSlider.value = sfxVolume;    //UI셋팅
     }
 
     //나가기
