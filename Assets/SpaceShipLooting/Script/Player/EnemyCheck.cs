@@ -16,6 +16,7 @@ public class EnemyCheck : MonoBehaviour
 
         // 범위 안에 Enemy 태그를 가진 적이 있는지 확인
         Transform closestEnemy = FindClosestEnemy(collidersInRange);
+        
         if (closestEnemy != null)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.position);
@@ -29,32 +30,35 @@ public class EnemyCheck : MonoBehaviour
                 PlayHeartBeatSound(); // 일반 심장 소리 재생
             }
         }
+        
         else
         {
             StopHeartBeatSound(); // 소리 멈춤
-            PlayFastHeartBeatSound();
+            StopFastHeartBeatSound();
         }
     }
 
     private Transform FindClosestEnemy(Collider[] colliders)
     {
-        Transform closest = null;
+        Transform closest;
         float closestDistance = Mathf.Infinity;
 
         foreach (Collider collider in colliders)
         {
             if (collider.CompareTag(enemyTag)) // Enemy 태그 확인
             {
+                Debug.Log("감지");
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
                     closest = collider.transform;
+                    return closest;
                 }
             }
         }
 
-        return closest;
+        return null;
     }
 
     private void PlayHeartBeatSound()
