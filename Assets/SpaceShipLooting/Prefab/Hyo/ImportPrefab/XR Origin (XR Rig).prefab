@@ -9766,6 +9766,8 @@ MonoBehaviour:
   isDead: 0
   isInvincible: 0
   damageUi: {fileID: 5073698693156952188}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  colorChangeDuration: 0.2
 --- !u!114 &2100191744551575657
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,6 +21,10 @@ public class Health : MonoBehaviour
     }
 
     [SerializeField] GameObject damageUi;
+    [SerializeField] private Color hitColor = Color.red; // 피격 시 빨간색
+    [SerializeField] private float colorChangeDuration = 0.2f; // 색상 변경 지속 시간
+    private Renderer[] objectRenderers; // 자식 오브젝트의 모든 Renderer
+    private Color[] originalColors; // 각 Renderer의 원래 색상 저장
 
     // 이벤트
     public UnityEvent<bool> OnInvincibilityChanged { get; private set; } = new UnityEvent<bool>();
@@ -30,6 +34,15 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         CurrentHealth = maxHealth; // 초기 체력을 최대 체력으로 설정
+        // 자식 오브젝트의 모든 Renderer 가져오기
+        objectRenderers = GetComponentsInChildren<Renderer>();
+
+        // 각 Renderer의 원래 색상 저장
+        originalColors = new Color[objectRenderers.Length];
+        for (int i = 0; i < objectRenderers.Length; i++)
+        {
+            originalColors[i] = objectRenderers[i].material.color;
+        }
     }
 
     // 데미지를 받는 메서드
@@ -44,6 +57,22 @@ public class Health : MonoBehaviour
         {
             Debug.Log($"[Health] {gameObject.name}가 {previousHealth - CurrentHealth}의 피해를 입었습니다. 남은 체력: {CurrentHealth}");
             OnDamaged?.Invoke(previousHealth - CurrentHealth); // 데미지 이벤트 호출
+
+            // 태그에 따라 다른 코루틴 실행
+            if (gameObject.CompareTag("Core") || gameObject.CompareTag("Enemy"))
+            {
+                if (objectRenderers != null && objectRenderers.Length > 0)
+                {
+                    StartCoroutine(ChangeColorsTemporarily(hitColor, colorChangeDuration));
+                }
+            }
+            else if (gameObject.CompareTag("Boss"))
+            {
+                if (objectRenderers != null && objectRenderers.Length > 0)
+                {
+                    StartCoroutine(ChangeColorsTemporarilyBoss(hitColor, colorChangeDuration));
+                }
+            }
         }
 
         // Sfx
@@ -118,6 +147,61 @@ public class Health : MonoBehaviour
         damageUi.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         damageUi.SetActive(false);
+    }
 
+    // 색상 변경 효과 (자식 오브젝트 포함)
+    private IEnumerator ChangeColorsTemporarily(Color newColor, float duration)
+    {
+        // 모든 자식 오브젝트의 색상을 변경
+        foreach (var renderer in objectRenderers)
+        {
+            renderer.material.color = newColor;
+        }
+
+        // 지정된 시간 대기
+        yield return new WaitForSeconds(duration);
+
+        // 모든 자식 오브젝트의 색상을 원래 색상으로 복원
+        for (int i = 0; i < objectRenderers.Length; i++)
+        {
+            objectRenderers[i].material.color = originalColors[i];
+        }
+    }
+
+
+    private IEnumerator ChangeColorsTemporarilyBoss(Color newColor, float duration)
+    {
+        foreach (var renderer in objectRenderers)
+        {
+            // 태그가 "Core"인 경우 무시
+            if (renderer.gameObject.CompareTag("Core"))
+            {
+                continue;
+            }
+
+            foreach (var material in renderer.materials)
+            {
+                // 기존 색상을 저장
+                material.EnableKeyword("_EMISSION");
+                material.SetColor("_EmissionColor", newColor * 2f); // 발광 색상 설정
+            }
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        // 원래 색상으로 복원
+        for (int i = 0; i < objectRenderers.Length; i++)
+        {
+            // 태그가 "Core"인 경우 무시
+            if (objectRenderers[i].gameObject.CompareTag("Core"))
+            {
+                continue;
+            }
+
+            foreach (var material in objectRenderers[i].materials)
+            {
+                material.SetColor("_EmissionColor", Color.black); // 발광 끔
+            }
+        }
     }
 }

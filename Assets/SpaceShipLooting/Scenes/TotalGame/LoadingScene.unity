@@ -171,10 +171,6 @@ PrefabInstance:
       propertyPath: fader
       value: 
       objectReference: {fileID: 615727804}
-    - target: {fileID: 6262505320661640929, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6678383903670034676, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
