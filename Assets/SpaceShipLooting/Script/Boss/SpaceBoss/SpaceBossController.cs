@@ -25,6 +25,8 @@ public class SpaceBossController : BossController
     [SerializeField] public GameObject explosionPrefab;
 
     [SerializeField] public GameObject groggyEffect;
+    [SerializeField] public GameObject laserChargingEffect;
+
 
     [SerializeField] private Health health;
 

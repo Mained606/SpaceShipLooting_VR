@@ -59,8 +59,11 @@ public class SpaceBossEyeLaserState : State<BossController>
 
         AudioManager.Instance.Play("BossLazerWait", false, 0.7f, 0.9f);
         //레이저 차지 VFX 추가
+        boss.laserChargingEffect.SetActive(true);
 
         yield return new WaitForSeconds(boss.LaserChargeDuration); // 레이저 충전 시간
+
+        boss.laserChargingEffect.SetActive(false);
 
         // 3. 레이저 발사
         // boss.textbox.text = "Laser Attack!";

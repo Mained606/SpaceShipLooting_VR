@@ -44,6 +44,25 @@ public class Pistol : XRGrabInteractableOutline
         UpdateAmmoUI();
     }
 
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntering(args);
+
+        // 상호작용한 Interactor의 GameObject 가져오기
+        GameObject interactorObject = args.interactorObject.transform.gameObject;
+
+        // Interactor 오브젝트의 태그가 "Player"인지 확인
+        if (interactorObject.CompareTag("LeftHand") || interactorObject.CompareTag("RightHand"))
+        {
+            Debug.Log($"{interactorObject.name} 플레이어가 그랩함");
+            AudioManager.Instance.Play("SocketOut", false);
+        }
+        else
+        {
+            Debug.Log($"{interactorObject.name} 태그가 플레이어가 아님");
+        }
+    }
+
     protected override void OnActivated(ActivateEventArgs args)
     {
         base.OnActivated(args);
