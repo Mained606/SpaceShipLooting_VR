@@ -13,7 +13,7 @@ public class PauseUI : MonoBehaviour
 
     [SerializeField] private SceneFader fader;
 
-   
+
 
     //Audio
     private AudioManager audioManager;
@@ -31,16 +31,16 @@ public class PauseUI : MonoBehaviour
     private void Start()
     {
         //참조
-        audioManager = AudioManager.Instance;
+        // audioManager = AudioManager.Instance;
 
-        AudioManager.Instance.PlayBGM(0, 0.2f);
+        // AudioManager.Instance.PlayBGM(0, 0.2f);
     }
 
     private void Update()
     {
         if (showButton.action.WasPressedThisFrame())
         {
-            
+
             Toggle();
         }
     }
@@ -55,7 +55,7 @@ public class PauseUI : MonoBehaviour
         //show 설정
         if (isPaused)
         {
-            
+
             //게임 멈춤
             Time.timeScale = 0f;
         }

@@ -47,6 +47,7 @@ public class MainMenu : MonoBehaviour
         audioManager = AudioManager.Instance;
 
         AudioManager.Instance.PlayBGM(0, 0.2f);
+
     }
 
     public void StartGame()
@@ -56,6 +57,10 @@ public class MainMenu : MonoBehaviour
             flag = true;
             Debug.Log("Starting game...");
             AudioManager.Instance.Play("Button", false);
+            // 로드하지 않고 스타트 할 경우 세이브 데이터 초기화
+            SaveLoad.DeleteFile();
+            // 치트 킨 상태로 세이브 됐을 때 치트 해제 상태로 진입하도록 설정
+            GameManager.Instance.PlayerStatsData.ResetStatData();
             fader.FadeTo(loadToScene);
             Invoke(nameof(ResetFlag), 1.5f);
         }
@@ -64,13 +69,13 @@ public class MainMenu : MonoBehaviour
     public void Option()
     {
         if (!flag)
-        {            
-            flag = true;       
+        {
+            flag = true;
             AudioManager.Instance.Play("Button", false);
 
             ShowOptions();
             Debug.Log("Option");
-            Invoke(nameof(ResetFlag), 0.5f);            
+            Invoke(nameof(ResetFlag), 0.5f);
         }
     }
 
@@ -85,6 +90,8 @@ public class MainMenu : MonoBehaviour
             int lastScene = GameManager.Instance.PlayerStatsData.lastClearedScene;
             if (lastScene > 0 && lastScene < SceneManager.sceneCountInBuildSettings)
             {
+                // 치트 킨 상태로 세이브 됐을 때 치트 해제 상태로 진입하도록 설정
+                GameManager.Instance.PlayerStatsData.ResetStatData();
                 fader.FadeTo(lastScene);
                 Invoke(nameof(ResetFlag), 1.5f);
             }
@@ -101,8 +108,8 @@ public class MainMenu : MonoBehaviour
     private void ShowOptions()
     {
         AudioManager.Instance.Play("Button", false);
-                
-        optionUI.SetActive(true);        
+
+        optionUI.SetActive(true);
     }
 
     //옵션죽이기
@@ -110,7 +117,7 @@ public class MainMenu : MonoBehaviour
     {
         //옵션값 저장하기
         SaveOptions();
-               
+
         optionUI.SetActive(false);
     }
 

@@ -53,11 +53,14 @@ public class GameManager : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-            // 저장된 씬 데이터가 null이 아니고, 현재 씬 인덱스가 이전 씬 인덱스보다 작으면 저장하지 않음
+        // 저장된 씬 데이터가 null이 아니고, 현재 씬 인덱스가 이전 씬 인덱스보다 작으면 씬 데이터는 저장하지 않음
         if (playerStatsData.lastClearedScene >= currentSceneIndex)
         {
-            Debug.Log($"현재 씬({currentSceneIndex})의 클리어 데이터가 이미 저장된 데이터({playerStatsData.lastClearedScene})보다 작거나 같습니다. 저장하지 않습니다.");
-            return;
+            Debug.Log($"현재 씬({currentSceneIndex})의 클리어 데이터가 이미 저장된 데이터({playerStatsData.lastClearedScene})보다 작거나 같습니다. 씬 데이터는 저장하지 않습니다.");
+        }
+        else
+        {
+            PlayerStatsData.lastClearedScene = currentSceneIndex;
         }
 
         // 엔딩씬에 들어오면 세이브 초기화
@@ -67,7 +70,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        PlayerStatsData.lastClearedScene = SceneManager.GetActiveScene().buildIndex;
         SaveLoad.SaveData(playerStatsData);
         Debug.Log(PlayerStatsData.ToString());
     }
@@ -84,5 +86,5 @@ public class GameManager : MonoBehaviour
             playerStatsData.maxAmmo = defaultAmmoCount;
         }
     }
-    
+
 }

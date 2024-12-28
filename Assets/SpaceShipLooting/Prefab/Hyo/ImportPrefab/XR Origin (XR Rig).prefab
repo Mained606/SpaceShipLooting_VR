@@ -9762,7 +9762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79d8343e1331654bb05f50eeca28b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 15
   isDead: 0
   isInvincible: 0
   damageUi: {fileID: 5073698693156952188}

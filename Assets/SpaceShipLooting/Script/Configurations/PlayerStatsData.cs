@@ -12,27 +12,30 @@ public class PlayerStatsData
     [Header("Speed Settings")]
     public float walkingSpeed = 2.5f;   // 플레이어 기본 이동 속도
     public float runningSpeed = 5f;     // 플레이어 달리기 속도
-    public float stealthSpeed = 0.5f;   // 플레이어 앉기 이동 속도
+    public float stealthSpeed = 2f;   // 플레이어 앉기 이동 속도
 
     [Header("Pistol Settings")]
-    public float bulletDamage = 10f;  // 플레이어 총기 공격력
+    public float bulletDamage = 2;  // 플레이어 총기 공격력
     public float bulletlifeTime = 5f;   // 플레이어 총알 수명
-    public float pistolBulletSpeed = 60f;   //탄환 스피드
+    public float pistolBulletSpeed = 70;   //탄환 스피드
     public int maxAmmo = 7; // 총 보유 총알
     public int currentAmmo = 0; // 현재 장전된 탄창
 
     [Header("Knife Settings")]
-    public float knifeDamage = 30f;     // 칼 데미지
+    public float knifeDamage = 5;     // 칼 데미지
 
     [Header("Player State Settings")]
     public bool enableStealthMode = false; // 스텔스 모드 활성화 여부
     public bool enableRunningMode = false; // 러닝 모드 활성화 여부
 
-    // public void SetPlayerTransform(GameObject gameObject)
-    // {
-    //     player = gameObject;
-    // } 
 
+    public void ResetStatData()
+    {
+        bulletDamage = 2f;
+        maxAmmo = 7;
+        knifeDamage = 5;
+        currentAmmo = 0;
+    }
     public void AddAmmo(int amount)
     {
         maxAmmo += amount;
@@ -43,7 +46,7 @@ public class PlayerStatsData
         maxAmmo -= amount;
     }
 
-        // ToString override
+    // ToString override
     public override string ToString()
     {
         return $"Scene Settings:\n" +

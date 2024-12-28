@@ -41,7 +41,17 @@ public class Health : MonoBehaviour
         originalColors = new Color[objectRenderers.Length];
         for (int i = 0; i < objectRenderers.Length; i++)
         {
-            originalColors[i] = objectRenderers[i].material.color;
+            var material = objectRenderers[i].material;
+
+            // _Color 속성이 있는 경우에만 처리
+            if (material.HasProperty("_Color"))
+            {
+                originalColors[i] = material.color;
+            }
+            else
+            {
+                originalColors[i] = Color.white; // 기본 색상 설정
+            }
         }
     }
 

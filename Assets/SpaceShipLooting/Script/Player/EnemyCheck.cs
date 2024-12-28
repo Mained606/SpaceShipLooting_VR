@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyCheck : MonoBehaviour
 {
-    [SerializeField] private float detectionRadius = 15f; // 일반 탐지 반경
+    [SerializeField] private float detectionRadius = 10f; // 일반 탐지 반경
     [SerializeField] private float detectionCloseRadius = 5f; // 가까운 탐지 반경
     public string enemyTag = "Enemy"; // 적 태그
 
@@ -16,7 +16,7 @@ public class EnemyCheck : MonoBehaviour
 
         // 범위 안에 Enemy 태그를 가진 적이 있는지 확인
         Transform closestEnemy = FindClosestEnemy(collidersInRange);
-        
+
         if (closestEnemy != null)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.position);
@@ -30,7 +30,7 @@ public class EnemyCheck : MonoBehaviour
                 PlayHeartBeatSound(); // 일반 심장 소리 재생
             }
         }
-        
+
         else
         {
             StopHeartBeatSound(); // 소리 멈춤
@@ -40,24 +40,28 @@ public class EnemyCheck : MonoBehaviour
 
     private Transform FindClosestEnemy(Collider[] colliders)
     {
-        Transform closest;
+        Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag(enemyTag)) // Enemy 태그 확인
+            if (collider.CompareTag(enemyTag))
             {
-                Debug.Log("감지");
+                Vector3 directionToEnemy = (collider.transform.position - transform.position).normalized;
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
-                if (distance < closestDistance)
+
+                // 장애물 체크
+                if (!Physics.Raycast(transform.position, directionToEnemy, distance, LayerMask.GetMask("Obstacle")))
                 {
-                    closestDistance = distance;
-                    closest = collider.transform;
-                    return closest;
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEnemy = collider.transform;
+                        return closestEnemy;
+                    }
                 }
             }
         }
-
         return null;
     }
 
