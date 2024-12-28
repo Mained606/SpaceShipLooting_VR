@@ -40,6 +40,15 @@ public class BossLaser : MonoBehaviour
                 {
                     damageable.InflictDamage(boss.LaserDamage);
                 }
+                else if (damageable == null)
+                {
+                    damageable = other.gameObject.GetComponentInParent<Damageable>();
+                    if (damageable != null)
+                    {
+                        damageable.InflictDamage(boss.LaserDamage);
+                    }
+                }
+
                 Destroy(gameObject); // 레이저 삭제
                 break;
 
