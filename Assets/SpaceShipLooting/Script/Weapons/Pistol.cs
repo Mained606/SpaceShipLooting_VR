@@ -56,6 +56,8 @@ public class Pistol : XRGrabInteractableOutline
         {
             Debug.Log($"{interactorObject.name} 플레이어가 그랩함");
             AudioManager.Instance.Play("SocketOut", false);
+            UpdateAmmoUI();
+
         }
         else
         {

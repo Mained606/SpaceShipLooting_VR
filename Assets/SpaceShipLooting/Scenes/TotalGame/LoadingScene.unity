@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 151749356014442722, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.196
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 151749356014442722, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_LocalPosition.y
@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 151749356014442722, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 151749356014442722, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_LocalRotation.w
@@ -171,6 +171,22 @@ PrefabInstance:
       propertyPath: fader
       value: 
       objectReference: {fileID: 615727804}
+    - target: {fileID: 3523996687643325780, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217512772956890104, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+      propertyPath: m_ClearDepth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217512772956890104, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+      propertyPath: m_RenderShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217512772956890104, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6678383903670034676, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -206,9 +222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de44c7ebe04f8846971c1bab6ab6544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!20 &859961929 stripped
+--- !u!20 &646115548 stripped
 Camera:
-  m_CorrespondingSourceObject: {fileID: 2485746393016487925, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7291676153105736686, guid: bafb4143a9f3a4a4ab44c47b2babf821, type: 3}
   m_PrefabInstance: {fileID: 96477821}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1169889507
@@ -509,7 +525,7 @@ PrefabInstance:
     - target: {fileID: 1871251093138766793, guid: 97e533a45f51058458351fadd3b541f9, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 859961929}
+      objectReference: {fileID: 646115548}
     - target: {fileID: 3484564376426293649, guid: 97e533a45f51058458351fadd3b541f9, type: 3}
       propertyPath: fader
       value: 
@@ -658,7 +674,7 @@ PrefabInstance:
     - target: {fileID: 6141814268615545420, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 859961929}
+      objectReference: {fileID: 646115548}
     - target: {fileID: 9113884531704897760, guid: 9636c9ebdd4d81140b10676bd73ade79, type: 3}
       propertyPath: playerHealth
       value: 
