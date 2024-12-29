@@ -10649,7 +10649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 1
@@ -10660,12 +10660,12 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 1
   m_Dithering: 1
-  m_ClearDepth: 1
+  m_ClearDepth: 0
   m_AllowXRRendering: 1
   m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
@@ -12750,7 +12750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1802946402084750917, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_UiScaleMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802946402084750917, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -12814,7 +12814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2640247617975372595, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -289
+      value: -700
       objectReference: {fileID: 0}
     - target: {fileID: 3401281865939862248, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_Camera
@@ -12826,7 +12826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3401281865939862248, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3401281865939862248, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_PlaneDistance
@@ -12922,7 +12922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6249168062014853867, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -289
+      value: -700
       objectReference: {fileID: 0}
     - target: {fileID: 7763405701349464950, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -13034,7 +13034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230615814325000743, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 100
+      value: 350
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1997960088804361782, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
