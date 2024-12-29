@@ -58,9 +58,14 @@ public class MainMenu : MonoBehaviour
             Debug.Log("Starting game...");
             AudioManager.Instance.Play("Button", false);
             // 로드하지 않고 스타트 할 경우 세이브 데이터 초기화
-            SaveLoad.DeleteFile();
             // 치트 킨 상태로 세이브 됐을 때 치트 해제 상태로 진입하도록 설정
+            SaveLoad.DeleteFile();
             GameManager.Instance.PlayerStatsData.ResetStatData();
+            Pistol pistol = FindFirstObjectByType<Pistol>();
+            if (pistol != null)
+            {
+                pistol.ResetAmmo();
+            }
             fader.FadeTo(loadToScene);
             Invoke(nameof(ResetFlag), 1.5f);
         }

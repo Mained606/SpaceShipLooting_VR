@@ -12750,7 +12750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1802946402084750917, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_UiScaleMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1802946402084750917, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -12814,7 +12814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2640247617975372595, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -700
+      value: -265
       objectReference: {fileID: 0}
     - target: {fileID: 3401281865939862248, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_Camera
@@ -12898,7 +12898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5304872094010582670, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5341103410448866866, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -12922,7 +12922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6249168062014853867, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -700
+      value: -265
       objectReference: {fileID: 0}
     - target: {fileID: 7763405701349464950, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -13034,7 +13034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230615814325000743, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 350
+      value: 110
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1997960088804361782, guid: 099df69482f8b934182ef0f7dcbffacb, type: 3}
