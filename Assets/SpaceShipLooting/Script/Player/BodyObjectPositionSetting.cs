@@ -32,7 +32,7 @@ public class BodyObjectPositionSetting : MonoBehaviour
         if (Mathf.Abs(nightVisions.localPosition.x - vrCamera.localPosition.x) > 0f ||
         Mathf.Abs(nightVisions.localPosition.z - vrCamera.position.z) > 0f)
         {
-            nightVisions.localPosition = new Vector3(vrCamera.localPosition.x, vrCamera.localPosition.y, vrCamera.localPosition.z + nightVisionsOffsetZ);
+            nightVisions.localPosition = new Vector3(vrCamera.localPosition.x, nightVisions.localPosition.y, vrCamera.localPosition.z + nightVisionsOffsetZ);
         }
     }
 }

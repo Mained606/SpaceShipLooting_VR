@@ -9,6 +9,8 @@ public class PlayerStealthState : IPlayerState
 
     private Transform sockets;
     private Transform vest;
+    private Transform nightVisions;
+
     private string cameraOffsetName = "Camera Offset";
 
     // 플레이어
@@ -23,6 +25,9 @@ public class PlayerStealthState : IPlayerState
     private float beforeVestY;
     private float afterSocketsY;
     private float afterVestY;
+    private float beforeNightVisionsY;
+    private float afterNightVisionsY;
+
 
 
     // 속도
@@ -56,6 +61,10 @@ public class PlayerStealthState : IPlayerState
         if (vest == null)
         {
             vest = manager.transform.Find("Vest").GetComponent<Transform>();
+        }
+        if (nightVisions == null)
+        {
+            nightVisions = manager.transform.Find("NightVisons").GetComponent<Transform>();
         }
 
         SetSittingPosition();
@@ -92,6 +101,7 @@ public class PlayerStealthState : IPlayerState
         beforePlayerHeight = characterController.height;
         beforeSocketsY = sockets.localPosition.y;
         beforeVestY = vest.localPosition.y;
+        beforeNightVisionsY = nightVisions.localPosition.y;
 
         // 포지션 초기화
         afterColliderCenterY = beforeColliderCenterY / 2f;
@@ -99,6 +109,7 @@ public class PlayerStealthState : IPlayerState
         afterPlayerHeight = beforePlayerHeight / 2f;
         afterSocketsY = beforeSocketsY / 4f;
         afterVestY = beforeVestY / 4f;
+        afterNightVisionsY = beforeNightVisionsY / 4f;
 
         // 포지션 셋팅
         cameraOffset.transform.localPosition = new Vector3(cameraOffset.localPosition.x, afterCameraY, cameraOffset.localPosition.z);
@@ -106,6 +117,7 @@ public class PlayerStealthState : IPlayerState
         characterController.center = new Vector3(characterController.center.x, afterColliderCenterY, characterController.center.z);
         sockets.transform.localPosition = new Vector3(sockets.localPosition.x, afterSocketsY, sockets.localPosition.z);
         vest.transform.localPosition = new Vector3(vest.localPosition.x, afterVestY, vest.localPosition.z);
+        nightVisions.transform.localPosition = new Vector3(nightVisions.localPosition.x, afterNightVisionsY, nightVisions.localPosition.z);
     }
 
     // 일어난 포지션
@@ -116,5 +128,7 @@ public class PlayerStealthState : IPlayerState
         characterController.center = new Vector3(characterController.center.x, beforeColliderCenterY, characterController.center.z);
         sockets.transform.localPosition = new Vector3(sockets.localPosition.x, beforeSocketsY, sockets.localPosition.z);
         vest.transform.localPosition = new Vector3(vest.localPosition.x, beforeVestY, vest.localPosition.z);
+        nightVisions.transform.localPosition = new Vector3(nightVisions.localPosition.x, beforeNightVisionsY, nightVisions.localPosition.z);
+
     }
 }
