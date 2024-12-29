@@ -60,6 +60,14 @@ public class Destructable : MonoBehaviour
         {
             CoreController coreController = gameObject.GetComponent<CoreController>();
             coreController.SetDestroyed(true);
+
+            // SpaceBossController에서 관련 작업 중단 호출
+            var boss = FindFirstObjectByType<SpaceBossController>();
+            if (boss != null)
+            {
+                boss.NotifyCoreDestroyed(this.gameObject); // 새 메서드 호출
+            }
+
             OnObjectDestroyed?.Invoke(gameObject);
             return;
         }

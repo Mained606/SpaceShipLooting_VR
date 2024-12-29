@@ -425,6 +425,14 @@ public class SpaceBossController : BossController
         }
         activeCoroutines.Clear();
     }
+    public void NotifyCoreDestroyed(GameObject core)
+    {
+        // 현재 상태가 SpaceBossCoreExplosionState인지 확인
+        if (stateMachine.CurrentState is SpaceBossCoreExplosionState coreExplosionState)
+        {
+            coreExplosionState.OnCoreDestroyed(core); // 상태 메서드 호출
+        }
+    }
 
     // 보스 상태 변환 함수들
     public void SpaceBossIdle() { ChangeState<SpaceBossIdleState>(); }

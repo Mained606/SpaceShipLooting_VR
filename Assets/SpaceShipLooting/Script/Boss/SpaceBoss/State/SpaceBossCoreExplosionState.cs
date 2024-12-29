@@ -197,6 +197,38 @@ public class SpaceBossCoreExplosionState : State<BossController>
         Debug.Log($"{core.name}의 폭발이 취소되었습니다.");
     }
 
+    public void OnCoreDestroyed(GameObject core)
+    {
+        Debug.Log($"{core.name} 파괴로 인해 관련 작업 정지");
+
+        // 코어와 관련된 코루틴 중지
+        if (activeCoreCoroutines.TryGetValue(core, out var coroutine))
+        {
+            boss.StopCoroutine(coroutine);
+            activeCoreCoroutines.Remove(core);
+        }
+
+        // 와이어 비활성화
+        ActivateWire(core, false);
+
+        // 전기 이펙트 비활성화
+        var vfx_Electricity = core.transform.Find("vfx_Electricity")?.GetComponent<ParticleSystem>();
+        if (vfx_Electricity != null)
+        {
+            vfx_Electricity.Stop();
+            vfx_Electricity.gameObject.SetActive(false);
+        }
+
+        // 폭발 객체 제거
+        if (activeExplosions.ContainsKey(core))
+        {
+            Object.Destroy(activeExplosions[core]);
+            activeExplosions.Remove(core);
+        }
+
+        Debug.Log($"{core.name}와 관련된 모든 작업 정지 완료");
+    }
+
     private void StopAllCoreCoroutines()
     {
         foreach (var coroutine in activeCoreCoroutines.Values)
