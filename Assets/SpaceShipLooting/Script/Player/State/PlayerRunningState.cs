@@ -26,7 +26,6 @@ public class PlayerRunningState : IPlayerState
     public void ExitState(PlayerStateManager manager)
     {
         AudioManager.Instance.Stop("PlayerRun");
-        manager.IsRunningMode = false;
         Debug.Log("Exiting Runing State");
     }
 }

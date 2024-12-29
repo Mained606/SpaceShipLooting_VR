@@ -88,8 +88,6 @@ public class PlayerStealthState : IPlayerState
     public void ExitState(PlayerStateManager manager)
     {
         SetStandingPosition();
-
-        manager.IsStealthMode = false;
         Debug.Log("Exiting Stealth State");
     }
 

@@ -101,6 +101,8 @@ public class PlayerStateManager : MonoBehaviour
             playerInputHandler.OnCheatButtonToggle.AddListener(ToggleCheatButton);
             playerInputHandler.OnNextSceneButton.AddListener(ToggleNextSceneButton);
             // 다른 기능 추가시 다른 이벤트 리스너 추가 가능...
+            OnStealthStateChanged.AddListener(UpdateStealthModeData);
+            OnRunningStateChanged.AddListener(UpdateRunningModeData);
         }
 
         playerHealth = GetComponent<Health>();
@@ -134,7 +136,7 @@ public class PlayerStateManager : MonoBehaviour
 
     private void ToggleNextSceneButton()
     {
-        if(!cheatMode) return;
+        if (!cheatMode) return;
 
         Debug.Log("넥스트 씬 이동");
 
@@ -164,14 +166,14 @@ public class PlayerStateManager : MonoBehaviour
     private void ToggleCheatButton()
     {
         cheatMode = !cheatMode;
-        if(cheatMode)
+        if (cheatMode)
         {
             Debug.Log("치트 모드 온");
             AudioManager.Instance.Play("Button", false);
             previousAmmo = GameManager.Instance.PlayerStatsData.maxAmmo;
             previousBulletDamage = GameManager.Instance.PlayerStatsData.bulletDamage;
             previousSwordDamage = GameManager.Instance.PlayerStatsData.knifeDamage;
-            
+
             playerHealth.IsInvincible = true;
             GameManager.Instance.PlayerStatsData.maxAmmo = 999;
             GameManager.Instance.PlayerStatsData.bulletDamage = 999f;
@@ -232,8 +234,11 @@ public class PlayerStateManager : MonoBehaviour
         GameOverEvent gameOverEvent = GetComponentInChildren<GameOverEvent>();
         if (gameOverEvent != null)
         {
-            gameOverEvent.PlayerDataInit.AddListener(PlayerDataInit);
+            gameOverEvent.PlayerDataInit.RemoveListener(PlayerDataInit);
         }
+
+        OnStealthStateChanged.RemoveListener(UpdateStealthModeData);
+        OnRunningStateChanged.RemoveListener(UpdateRunningModeData);
     }
 
     private void HandlePlayerDeath(GameObject player)
@@ -263,31 +268,79 @@ public class PlayerStateManager : MonoBehaviour
         currentState = newState;
         // 새로운 상태로 진입
         currentState.EnterState(this);
+
+        // 이벤트 호출: 상태 변화 알림
+        TriggerStateChangeEvent();
+    }
+
+    // 상태 변화 이벤트 호출
+    private void TriggerStateChangeEvent()
+    {
+        // 현재 상태에 따라 이벤트 호출
+        if (currentState is PlayerStealthState)
+        {
+            OnStealthStateChanged?.Invoke(true);
+            OnRunningStateChanged?.Invoke(false);
+        }
+        else if (currentState is PlayerRunningState)
+        {
+            OnStealthStateChanged?.Invoke(false);
+            OnRunningStateChanged?.Invoke(true);
+        }
+        else if (currentState is PlayerIdleState)
+        {
+            OnStealthStateChanged?.Invoke(false);
+            OnRunningStateChanged?.Invoke(false);
+        }
+    }
+
+    // 스텔스 모드 데이터 업데이트
+    private void UpdateStealthModeData(bool isStealth)
+    {
+        GameManager.Instance.PlayerStatsData.enableStealthMode = isStealth;
+    }
+
+    // 달리기 모드 데이터 업데이트
+    private void UpdateRunningModeData(bool isRunning)
+    {
+        GameManager.Instance.PlayerStatsData.enableRunningMode = isRunning;
     }
 
     // 스텔스 모드 토글
     private void ToggleStealthMode()
     {
-        GameManager.Instance.PlayerStatsData.enableStealthMode = !GameManager.Instance.PlayerStatsData.enableStealthMode;
-        // // 현재 스텔스 상태를 반대로 변경
+        // 런닝 모드가 활성화되어 있을 경우 먼저 끔
+        if (IsRunningMode)
+        {
+            IsRunningMode = false;
+            OnRunningStateChanged?.Invoke(false);
+            GameManager.Instance.PlayerStatsData.enableRunningMode = false;
+        }
+
+        // 스텔스 모드 전환
         IsStealthMode = !IsStealthMode;
-
-        // // 외부에 스텔스 상태 변경 알림 (구독된 이벤트 호출) - 몬스터 Ai에 리스너 추가 필요
         OnStealthStateChanged?.Invoke(IsStealthMode);
+        GameManager.Instance.PlayerStatsData.enableStealthMode = IsStealthMode;
 
-        // // 스텔스 모드 상태에 따라 상태 전환
+        // 상태 전환
         SwitchState(IsStealthMode ? new PlayerStealthState() : new PlayerIdleState());
-        // // 스텔스 모드 변경 사항 로그 출력 (디버그용)
-        // // Debug.Log($"Stealth Mode: {IsStealthMode}");
     }
     private void ToggleRunningMode()
     {
-        GameManager.Instance.PlayerStatsData.enableRunningMode = !GameManager.Instance.PlayerStatsData.enableRunningMode;
+        // 스텔스 모드가 활성화되어 있을 경우 먼저 끔
+        if (IsStealthMode)
+        {
+            IsStealthMode = false;
+            OnStealthStateChanged?.Invoke(false);
+            GameManager.Instance.PlayerStatsData.enableStealthMode = false;
+        }
 
+        // 런닝 모드 전환
         IsRunningMode = !IsRunningMode;
-
         OnRunningStateChanged?.Invoke(IsRunningMode);
+        GameManager.Instance.PlayerStatsData.enableRunningMode = IsRunningMode;
 
+        // 상태 전환
         SwitchState(IsRunningMode ? new PlayerRunningState() : new PlayerIdleState());
     }
 
