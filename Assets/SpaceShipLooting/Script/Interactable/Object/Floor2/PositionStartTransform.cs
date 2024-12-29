@@ -10,7 +10,8 @@ public class PositionStartTransform : MonoBehaviour
 
     private GameObject leftController;
     private GameObject rightController;
-    private GameObject locomotion;
+    private GameObject move;
+    private PlayerInputHandler playerInputHandler;
 
     private void Start()
     {
@@ -68,15 +69,25 @@ public class PositionStartTransform : MonoBehaviour
         }
 
         // DynamicMoveProvider가 붙은 오브젝트 검색
-        var dynamicMoveProvider = FindObjectOfType<DynamicMoveProvider>();
+        var dynamicMoveProvider = FindObjectOfType<DynamicMoveProvider>(true);
         if (dynamicMoveProvider != null)
         {
-            locomotion = dynamicMoveProvider.gameObject;
+            move = dynamicMoveProvider.gameObject;
             Debug.Log("DynamicMoveProvider 오브젝트 찾음.");
         }
         else
         {
             Debug.LogError("DynamicMoveProvider 오브젝트를 찾을 수 없습니다.");
+        }
+        // PlayerInputHandler 스크립트를 검색
+        playerInputHandler = FindObjectOfType<PlayerInputHandler>();
+        if (playerInputHandler != null)
+        {
+            Debug.Log("PlayerInputHandler 스크립트 찾음.");
+        }
+        else
+        {
+            Debug.LogError("PlayerInputHandler 스크립트를 찾을 수 없습니다.");
         }
     }
 
@@ -102,13 +113,18 @@ public class PositionStartTransform : MonoBehaviour
             Debug.LogError("Right Controller not found.");
         }
 
-        if (locomotion != null)
+        if (move != null)
         {
-            locomotion.SetActive(true);
+            move.SetActive(true);
         }
         else
         {
             Debug.LogError("Locomotion object not found.");
+        }
+        if (playerInputHandler != null)
+        {
+            playerInputHandler.enabled = true;
+            Debug.Log("PlayerInputHandler 비활성화됨.");
         }
     }
 }

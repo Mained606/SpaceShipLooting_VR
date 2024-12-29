@@ -10,6 +10,7 @@ public class Position2Transform : MonoBehaviour
     private GameObject leftController;
     private GameObject rightController;
     private GameObject locomotion;
+    private PlayerInputHandler playerInputHandler;
 
     private void Start()
     {
@@ -78,6 +79,16 @@ public class Position2Transform : MonoBehaviour
         {
             Debug.LogError("DynamicMoveProvider 오브젝트를 찾을 수 없습니다.");
         }
+        // PlayerInputHandler 스크립트를 검색
+        playerInputHandler = FindObjectOfType<PlayerInputHandler>();
+        if (playerInputHandler != null)
+        {
+            Debug.Log("PlayerInputHandler 스크립트 찾음.");
+        }
+        else
+        {
+            Debug.LogError("PlayerInputHandler 스크립트를 찾을 수 없습니다.");
+        }
     }
 
     private IEnumerator EnableObjectsWithDelay(float delay)
@@ -109,6 +120,11 @@ public class Position2Transform : MonoBehaviour
         else
         {
             Debug.LogError("Locomotion object not found.");
+        }
+        if (playerInputHandler != null)
+        {
+            playerInputHandler.enabled = true;
+            Debug.Log("PlayerInputHandler 비활성화됨.");
         }
     }
     IEnumerator Dialogue()
