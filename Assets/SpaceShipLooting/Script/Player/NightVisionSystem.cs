@@ -5,8 +5,7 @@ public class NightVisionSystem : MonoBehaviour
 {
     [Header("Night Vision Settings")]
     [SerializeField] private Canvas nightVisionCanvas; // 노이즈/스캔라인 오버레이
-    [SerializeField] private Canvas leftPanel;
-    [SerializeField] private Canvas rightPanel;
+    [SerializeField] private GameObject nightVisions;
 
     private bool isNightVisionActive = false; // 야간 투시경 활성화 상태
 
@@ -38,7 +37,6 @@ public class NightVisionSystem : MonoBehaviour
         }
 
         nightVisionCanvas.gameObject.SetActive(isNightVisionActive);
-        leftPanel.gameObject.SetActive(isNightVisionActive);
-        rightPanel.gameObject.SetActive(isNightVisionActive);
+        nightVisions.SetActive(isNightVisionActive);
     }
 }
