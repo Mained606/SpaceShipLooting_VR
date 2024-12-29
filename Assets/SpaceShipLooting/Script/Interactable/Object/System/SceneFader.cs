@@ -2,95 +2,137 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
+public class SceneFader : MonoBehaviour
+{
+    #region Variable
 
+    // Fader 이미지
+    public Image image;
+    public AnimationCurve curve;
 
-    public class SceneFader : MonoBehaviour
+    private GameObject leftController;
+    private GameObject rightController;
+    private GameObject move;
+
+    #endregion
+
+    private void Start()
     {
-        #region Variable
+        FindControllers();
 
-        // Fader 이미지
-        public Image image;
-        public AnimationCurve curve;
-        #endregion
+        // 초기화: 시작시 화면을 검정색으로 시작
+        image.color = new Color(0f, 0f, 0f, 1f);
+        FromFade();
+    }
 
-        private void Start()
+    private void FindControllers()
+    {
+        // 전체 게임 오브젝트에서 컨트롤러 검색
+        var allObjects = FindObjectsOfType<Transform>(true);
+
+        foreach (var obj in allObjects)
         {
-            // 초기화: 시작시 화면을 검정색으로 시작
-            image.color = new Color(0f, 0f, 0f, 1f);
-             FromFade();
-        }
-
-        public void FromFade(float delayTime = 0f)
-        {
-            // 씬 시작시 페이드 인 효과 
-            StartCoroutine(FadeIn(delayTime));
-        }
-
-        IEnumerator FadeIn(float delayTime)
-        {
-            if (delayTime > 0f)
+            if (obj.name == "Left Controller")
             {
-                yield return new WaitForSeconds(delayTime);
-
+                leftController = obj.gameObject;
+                Debug.Log("왼쪽 컨트롤러 찾음.");
             }
-
-            // 1초 동안 이미지의 알파값이 a 1->0으로
-
-            float t = 1;
-
-            while (t > 0)
+            else if (obj.name == "Right Controller")
             {
-                t -= Time.deltaTime;
-                float a = curve.Evaluate(t);
-                image.color = new Color(0f, 0f, 0f, a); // (r ,g ,b 는 검은색)
-
-                yield return 0f;
+                rightController = obj.gameObject;
+                Debug.Log("오른쪽 컨트롤러 찾음.");
             }
         }
 
-        public void FadeTo(string sceneName)
+        // DynamicMoveProvider가 붙은 오브젝트 검색
+        var dynamicMoveProvider = FindObjectOfType<DynamicMoveProvider>();
+        if (dynamicMoveProvider != null)
         {
-            StartCoroutine(FadeOut(sceneName));
+            move = dynamicMoveProvider.gameObject;
+            Debug.Log("DynamicMoveProvider 오브젝트 찾음.");
         }
-
-        public void FadeTo(int sceneNumber)
+        else
         {
-            StartCoroutine(FadeOut(sceneNumber));
-        }
-
-        IEnumerator FadeOut(int sceneNumber)
-        {
-            //1초동안 image a 0-> 1
-            float t = 0f;
-
-            while (t < 1f)
-            {
-                t += Time.deltaTime;
-                float a = curve.Evaluate(t);
-                image.color = new Color(0f, 0f, 0f, a);
-                yield return 0f;
-            }
-
-            //다음씬 로드
-            SceneManager.LoadScene(sceneNumber);
-        }
-
-
-        IEnumerator FadeOut(string sceneName)
-        {
-            // 1초동안 image a 0-> 1
-            float t = 0f;
-
-            while (t < 1f)
-            {
-                t += Time.deltaTime;
-                float a = curve.Evaluate(t);
-                image.color = new Color(0f, 0f, 0f, a);
-                yield return null;
-            }
-
-            //다음씬 로드
-            SceneManager.LoadScene(sceneName);
+            Debug.LogError("DynamicMoveProvider 오브젝트를 찾을 수 없습니다.");
         }
     }
+
+    public void FromFade(float delayTime = 0f)
+    {
+        // 씬 시작시 페이드 인 효과
+        StartCoroutine(FadeIn(delayTime));
+    }
+
+    IEnumerator FadeIn(float delayTime)
+    {
+        if (delayTime > 0f)
+        {
+            yield return new WaitForSeconds(delayTime);
+        }
+
+        float t = 1;
+
+        while (t > 0)
+        {
+            t -= Time.deltaTime;
+            float a = curve.Evaluate(t);
+            image.color = new Color(0f, 0f, 0f, a); // 알파 값 변경
+            yield return null;
+        }
+    }
+
+    public void FadeTo(string sceneName)
+    {
+        StartCoroutine(FadeOut(sceneName));
+    }
+
+    public void FadeTo(int sceneNumber)
+    {
+        StartCoroutine(FadeOut(sceneNumber));
+    }
+
+    IEnumerator FadeOut(int sceneNumber)
+    {
+        // 페이드 아웃 시작 시 컨트롤러 및 로코모션 비활성화
+        leftController?.SetActive(false);
+        rightController?.SetActive(false);
+        move?.SetActive(false);
+
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            float a = curve.Evaluate(t);
+            image.color = new Color(0f, 0f, 0f, a); // 알파 값 변경
+            yield return null;
+        }
+
+        // 다음 씬 로드
+        SceneManager.LoadScene(sceneNumber);
+    }
+
+    IEnumerator FadeOut(string sceneName)
+    {
+        // 페이드 아웃 시작 시 컨트롤러 및 로코모션 비활성화
+        leftController?.SetActive(false);
+        rightController?.SetActive(false);
+        move?.SetActive(false);
+
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            float a = curve.Evaluate(t);
+            image.color = new Color(0f, 0f, 0f, a); // 알파 값 변경
+            yield return null;
+        }
+
+        // 다음 씬 로드
+        SceneManager.LoadScene(sceneName);
+    }
+}
