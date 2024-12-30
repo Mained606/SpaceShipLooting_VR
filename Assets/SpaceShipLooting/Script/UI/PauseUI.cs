@@ -67,7 +67,7 @@ public class PauseUI : MonoBehaviour
             //게임 재개
             Time.timeScale = 1f;
         }
-    }
+    }   
 
     //AudioMix Bgm -40~0
     public void SetBgmVolume(float value)
@@ -117,8 +117,13 @@ public class PauseUI : MonoBehaviour
     //나가기
     public void Quit()
     {
-
         fader.FadeTo(1);
+        Time.timeScale = 1;
+        gameMenu.SetActive(false);
+    }
+
+    public void ResumeGame()
+    {
         Time.timeScale = 1;
         gameMenu.SetActive(false);
     }
