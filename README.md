@@ -10,7 +10,8 @@
   - Unity 2022.3 (URP)
   - Meta Quest
   - Visual Studio 2022
-  **시연 영상**: https://youtu.be/NVzRJA02070
+
+- **시연 영상**: https://youtu.be/NVzRJA02070
 
 ## 🛠 주요 기술 스택
 
